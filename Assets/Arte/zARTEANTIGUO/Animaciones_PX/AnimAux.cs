@@ -45,7 +45,11 @@ public class AnimAux : MonoBehaviour
     }
     public void ParticulasCorrer(GameObject particulas)
     {
-        Instantiate(particulas, suelo.position, Quaternion.Euler(0, 0, 90));
+        if(GetComponentInParent<ControllerPersonaje>().grounded == true)
+        {
+            Instantiate(particulas, suelo.position, Quaternion.Euler(0, 0, 90));
+        }
+        
     }
     // Update is called once per frame
     void Update()
