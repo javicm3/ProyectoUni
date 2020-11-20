@@ -22,6 +22,7 @@ public class ControllerPersonaje : MonoBehaviour
     public float speed;
     public float fuerzaAtraccionLoop = 2000f;
     public float fuerzaCambioSentido = 30f;
+    public float fuerzaCambioSentidoAire = 120f;
     public float fuerzaSaltoMax = 11;
     public float fuerzaSaltoMin = 4;
     public bool saltoDobleHecho = false;
@@ -193,8 +194,9 @@ public class ControllerPersonaje : MonoBehaviour
         {
             MoverPersonaje();
         }
-        MovimientoPared();
         GirarPersonaje();
+        MovimientoPared();
+
 
 
 
@@ -376,10 +378,21 @@ public class ControllerPersonaje : MonoBehaviour
                     ultimoEnemigoDetectado = enemigoSeleccionado;
                     if (ultimoEnemigoDetectado != null)
                     {
-                        if (haciendoChispazo == false) destinoChispazo = ultimoEnemigoDetectado.transform.parent.GetChild(0).transform.position;
-                        ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
-                        //if (haciendoChispazo == false) 
-                        haciendoChispazo = true;
+                        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position, Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) * 1.3f, capasEnemigos);
+                        if (hit.collider != null)
+                        {
+                            print(hit.collider.name);
+                            if (hit.collider.tag == "Enemigo")
+                            {
+                                if (Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) < distanciaChispazo)
+                                {
+                                    if (haciendoChispazo == false) destinoChispazo = ultimoEnemigoDetectado.transform.parent.GetChild(0).transform.position;
+                                    ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
+                                    //if (haciendoChispazo == false) 
+                                    haciendoChispazo = true;
+                                }
+                            }
+                        }
                     }
 
                 }
@@ -630,7 +643,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                 rb.AddForce(new Vector2(1, 0) * 30 * Time.deltaTime);
                 tocandoderecha = true;
-                if (!grounded) pegadoPared = true;
+                if ((!grounded) && (!looping)) pegadoPared = true;
                 dashBloqueado = false;
                 ultimaParedPosicion = new Vector2(this.transform.position.x + 2, this.transform.position.y);
             }
@@ -661,7 +674,7 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 rb.AddForce(new Vector2(-1, 0) * 30 * Time.deltaTime);
                 tocandoizquierda = true;
-                if (!grounded) pegadoPared = true;
+                if ((!grounded) && (!looping)) pegadoPared = true;
 
                 dashBloqueado = false;
                 ultimaParedPosicion = new Vector2(this.transform.position.x - 2, this.transform.position.y);
@@ -701,14 +714,14 @@ public class ControllerPersonaje : MonoBehaviour
     }
     void MovimientoPared()
     {
-        if ((!grounded) && (tiempomaxTrasTocarsuelo < 0))
+        //if ((!grounded) && (tiempomaxTrasTocarsuelo < 0))
+        //{
+        if (subiendoUnavez)
         {
-            if (subiendoUnavez)
-            {
 
-                StartCoroutine(SubirBorde());
-            }
+            StartCoroutine(SubirBorde());
         }
+        //}
 
         if (pegadoPared == true)
         {
@@ -728,7 +741,7 @@ public class ControllerPersonaje : MonoBehaviour
                 tieneGravedad = false;
                 //}
                 constantegravedad = 1;
-
+                print("    constantegravedad = 1;");
                 maxTiempoPared -= Time.deltaTime;
 
 
@@ -1011,18 +1024,18 @@ public class ControllerPersonaje : MonoBehaviour
                     {
                         if (tengoMaxspeed)
                         {
-                            print("cambioaire");
-                            if (saltoDobleReciente)
-                            {
-                                Vector2 direccion = new Vector2(1, 0) * coefDeceleracion * pInput.inputHorizontal;
-                                this.rb.AddForce(direccion * fuerzaCambioSentido * 2.8f * Time.deltaTime);
-                            }
-                            else
+                            //print("cambioaire");
+                            //if (saltoDobleReciente)
+                            //{
+                            //    Vector2 direccion = new Vector2(1, 0) * coefDeceleracion * pInput.inputHorizontal;
+                            //    this.rb.AddForce(direccion * fuerzaCambioSentido * 2.8f * Time.deltaTime);
+                            //}
+                            //else
                             {
 
 
                                 Vector2 direccion = new Vector2(1, 0) * coefDeceleracion * pInput.inputHorizontal;
-                                this.rb.AddForce(direccion * fuerzaCambioSentido * 1.6f * Time.deltaTime);
+                                this.rb.AddForce(direccion * fuerzaCambioSentidoAire * 1.2f * Time.deltaTime);
                             }
                             //if (pInput.ultimoInputHorizontal == 1)
                             //    {
@@ -1040,18 +1053,18 @@ public class ControllerPersonaje : MonoBehaviour
                         }
                         else
                         {
-                            print("cambio2air");
-                            if (saltoDobleReciente)
-                            {
-                                Vector2 direccion = new Vector2(1, 0) * coefDeceleracion * pInput.inputHorizontal;
-                                this.rb.AddForce(direccion * fuerzaCambioSentido * 2f * Time.deltaTime);
-                            }
-                            else
+                            //print("cambio2air");
+                            //if (saltoDobleReciente)
+                            //{
+                            //    Vector2 direccion = new Vector2(1, 0) * coefDeceleracion * pInput.inputHorizontal;
+                            //    this.rb.AddForce(direccion * fuerzaCambioSentido * 2f * Time.deltaTime);
+                            //}
+                            //else
                             {
 
 
                                 Vector2 direccion = new Vector2(1, 0) * coefDeceleracion * pInput.inputHorizontal;
-                                this.rb.AddForce(direccion * fuerzaCambioSentido * 0.8f * Time.deltaTime);
+                                this.rb.AddForce(direccion * fuerzaCambioSentidoAire * 0.8f * Time.deltaTime);
                             }
                             //if (pInput.ultimoInputHorizontal == 1)
                             //{
@@ -1224,10 +1237,11 @@ public class ControllerPersonaje : MonoBehaviour
         if (grounded)
         {
             constantegravedad = 1;
+            print("    constantegravedad = 1;");
             //rb.AddForce(new Vector2(0.0f, -9.81f * rb.mass), ForceMode2D.Force);
             rb.AddForce(-normal * 100 * Time.deltaTime);
             //}
-            Collider2D[] hit = Physics2D.OverlapCircleAll(this.gameObject.transform.position, 1.1f);
+            Collider2D[] hit = Physics2D.OverlapCircleAll(this.gameObject.transform.position, 1.3f);
             foreach (Collider2D col in hit)
             {
 
@@ -1263,54 +1277,68 @@ public class ControllerPersonaje : MonoBehaviour
         {
 
             looping = false;
-            if (constantegravedad > 300) constantegravedad = 300;
+            if (constantegravedad > 350) constantegravedad = 350;
             //rb.AddForce(new Vector2(0, -100f * Time.deltaTime));
             if (rb.velocity.y < -10)
             {
                 rb.AddForce(new Vector2(0, -600f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (90 * Time.deltaTime);
+                constantegravedad *= (170f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //if (rb.velocity.y < -40) rb.velocity = new Vector2(rb.velocity.x, -40);
+            }
+            else if (rb.velocity.y < -7.5f)
+            {
+                rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
+                /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
+                constantegravedad *= (160f * Time.deltaTime);
+                rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
             }
             else if (rb.velocity.y < -5f)
             {
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (85f * Time.deltaTime);
+                constantegravedad *= (150f * Time.deltaTime);
+                rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+            }
+            else if (rb.velocity.y < -3f)
+            {
+                rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
+                /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
+                constantegravedad *= (145f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
             }
             else if (rb.velocity.y < 0f)
             {
-                rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
+                rb.AddForce(new Vector2(0, -500f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (80f * Time.deltaTime);
+                constantegravedad *= (160f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
             }
             else if (rb.velocity.y <= 6f)
             {
-                if (ultimaNormal.y > 0)
-                {
-                    rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
-                    /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                    constantegravedad *= (75f * Time.deltaTime);
-                    rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
-                }
+                //if (ultimaNormal.y > 0)
+                //{
+                rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
+                /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
+                constantegravedad *= (75f * Time.deltaTime);
+                rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+                //}
 
             }
             else if (rb.velocity.y <= 15f)
             {
-                if (ultimaNormal.y > 0)
-                {
-                    rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
-                    /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                    constantegravedad *= (70f * Time.deltaTime);
-                    rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
-                }
+                //if (ultimaNormal.y > 0)
+                //{
+                rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
+                /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
+                constantegravedad *= (75f * Time.deltaTime);
+                rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+                //}
 
             }
 
-            rb.AddForce(new Vector2(0.0f, -250) * Time.deltaTime);
+            rb.AddForce(new Vector2(0.0f, -350) * Time.deltaTime);
 
 
 
@@ -1408,11 +1436,13 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                     constantegravedad = 1;
+                    print("    constantegravedad = 1;");
                     estoyDasheando = true;
                     auxdash = tiempoDasheo;
+                    dashEnCaida = false;
                     animCC.SetBool("cayendo", dashEnCaida);
                     animCC.SetTrigger("Dash");
-                    dashEnCaida = false;
+
                     dashCaidaBloqueado = true;
                     auxCdDash = cooldownDash;
                 }
@@ -1431,6 +1461,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                     rb.velocity = new Vector2(rb.velocity.x, 0);
                     constantegravedad = 1;
+                    print("    constantegravedad = 1;");
                     AnularGravedad();
                 }
                 if (grounded)
@@ -1586,16 +1617,16 @@ public class ControllerPersonaje : MonoBehaviour
                 {
                     pulsadoEspacio = true;
                     saltoIniciado = true;
-                    if ((tiempomaxTrasTocarsuelo >= 0) && (rb.velocity.y < 0))
-                    {
-                        lastJumpPared = false;
-                        rb.velocity = new Vector2(rb.velocity.x, 0);
-                        print("postsaltodoblemin");
-                        animCC.SetTrigger("Salto");
-                        rb.AddForce(new Vector2(0, 1) * fuerzaSaltoMin, ForceMode2D.Impulse);
-                        pulsadoEspacio = true;
-                        saltoIniciado = false;
-                    }
+                    //if ((tiempomaxTrasTocarsuelo >= 0) && (rb.velocity.y < 0))
+                    //{
+                    //    lastJumpPared = false;
+                    //    rb.velocity = new Vector2(rb.velocity.x, 0);
+                    //    print("postsaltodoblemin");
+                    //    animCC.SetTrigger("Salto");
+                    //    rb.AddForce(new Vector2(0, 1) * fuerzaSaltoMin, ForceMode2D.Impulse);
+                    //    pulsadoEspacio = true;
+                    //    saltoIniciado = false;
+                    //}
                 }
                 else
                 {
@@ -1606,7 +1637,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                             print("saltodoble");
-                            constantegravedad = 1;
+
                             saltoDobleHecho = true;
                             dashEnCaida = false;
                             estoyDasheando = false;
@@ -1614,12 +1645,15 @@ public class ControllerPersonaje : MonoBehaviour
                             //rb.velocity = new Vector2(rb.velocity.x, 0);
                             if (cambioSentidoReciente)
                             {
+                                constantegravedad = 1;
                                 rb.velocity = new Vector2(-rb.velocity.x * 0.4f, fuerzaSaltoDoble);
                             }
                             else
                             {
+                                constantegravedad = 1;
                                 rb.velocity = new Vector2(rb.velocity.x, fuerzaSaltoDoble);
                             }
+                            print("    constantegravedad = 1;");
                             saltoDobleReciente = true;
                             StopCoroutine(SaltoDobleReciente(tiempoTrasCambioSentido));
                             StartCoroutine(SaltoDobleReciente(tiempoTrasCambioSentido));
@@ -1702,136 +1736,139 @@ public class ControllerPersonaje : MonoBehaviour
             }
 
         }
-
-        if (Input.GetKey(KeyCode.Space))
+        if (!pegadoPared)
         {
-
-
-            if ((pulsadoEspacio) && (saltoInmediato == false))
+            if (Input.GetKey(KeyCode.Space))
             {
 
 
-                tiempoPulsadoEspacio += Time.deltaTime;
-
-
-                if (tiempoPulsadoEspacio <= tiempoSaltoCompleto)
+                if ((pulsadoEspacio) && (saltoInmediato == false))
                 {
-                    if (lastJumpPared == false)
+
+
+                    tiempoPulsadoEspacio += Time.deltaTime;
+
+
+                    if (tiempoPulsadoEspacio <= tiempoSaltoCompleto)
                     {
-                        if (!grounded)
+                        if (lastJumpPared == false)
                         {
-                            if (ultimaNormal.y < 0)
+                            if (!grounded)
                             {
-                                if (rb.velocity.y < 4)
+                                if (ultimaNormal.y < 0)
                                 {
-
-                                    if (pInput.inputHorizontal == 0)
+                                    if (rb.velocity.y < 4)
                                     {
-                                        rb.velocity = new Vector2(rb.velocity.x, -4);
-                                    }
-                                    else
-                                    {
-                                        rb.velocity = new Vector2(rb.velocity.x, -3.75f);
-                                    }
 
-                                    /*rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * Time.deltaTime);*/
+                                        if (pInput.inputHorizontal == 0)
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, -4);
+                                        }
+                                        else
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, -3.75f);
+                                        }
+
+                                        /*rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * Time.deltaTime);*/
+                                    }
+                                    else if (rb.velocity.y < 7)
+                                    {
+
+                                        if (pInput.inputHorizontal == 0)
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, -7.5f);
+                                        }
+                                        else
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, -5.5f);
+                                        }
+                                        //rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * 0.5f * Time.deltaTime);
+                                    }
+                                    else if (rb.velocity.y > 7)
+                                    {
+
+                                        if (pInput.inputHorizontal == 0)
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, -7f);
+                                        }
+                                        else
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, -7f);
+                                        }
+                                        //rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * 0.5f * Time.deltaTime);
+                                    }
                                 }
-                                else if (rb.velocity.y < 7)
+                                else
                                 {
 
-                                    if (pInput.inputHorizontal == 0)
-                                    {
-                                        rb.velocity = new Vector2(rb.velocity.x, -7.5f);
-                                    }
-                                    else
-                                    {
-                                        rb.velocity = new Vector2(rb.velocity.x, -5.5f);
-                                    }
-                                    //rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * 0.5f * Time.deltaTime);
-                                }
-                                else if (rb.velocity.y > 7)
-                                {
 
-                                    if (pInput.inputHorizontal == 0)
+                                    if (rb.velocity.y < 4)
                                     {
-                                        rb.velocity = new Vector2(rb.velocity.x, -7f);
+
+                                        if (pInput.inputHorizontal == 0)
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, 10);
+                                        }
+                                        else
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, 9.5f);
+                                        }
+
+                                        /*rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * Time.deltaTime);*/
                                     }
-                                    else
+                                    else if (rb.velocity.y < 9f)
                                     {
-                                        rb.velocity = new Vector2(rb.velocity.x, -7f);
+
+                                        if (pInput.inputHorizontal == 0)
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, 9f);
+                                        }
+                                        else
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, 8.5f);
+                                        }
+                                        //rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * 0.5f * Time.deltaTime);
                                     }
-                                    //rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * 0.5f * Time.deltaTime);
+                                    else if (rb.velocity.y > 8.75f)
+                                    {
+
+                                        if (pInput.inputHorizontal == 0)
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, 9f);
+                                        }
+                                        else
+                                        {
+                                            rb.velocity = new Vector2(rb.velocity.x, 8.75f);
+                                        }
+                                        //rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * 0.5f * Time.deltaTime);
+                                    }
                                 }
                             }
                             else
                             {
 
-
-                                if (rb.velocity.y < 4)
-                                {
-
-                                    if (pInput.inputHorizontal == 0)
-                                    {
-                                        rb.velocity = new Vector2(rb.velocity.x, 5);
-                                    }
-                                    else
-                                    {
-                                        rb.velocity = new Vector2(rb.velocity.x, 4.75f);
-                                    }
-
-                                    /*rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * Time.deltaTime);*/
-                                }
-                                else if (rb.velocity.y < 7)
-                                {
-
-                                    if (pInput.inputHorizontal == 0)
-                                    {
-                                        rb.velocity = new Vector2(rb.velocity.x, 7.5f);
-                                    }
-                                    else
-                                    {
-                                        rb.velocity = new Vector2(rb.velocity.x, 7f);
-                                    }
-                                    //rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * 0.5f * Time.deltaTime);
-                                }
-                                else if (rb.velocity.y > 7)
-                                {
-
-                                    if (pInput.inputHorizontal == 0)
-                                    {
-                                        rb.velocity = new Vector2(rb.velocity.x, 7f);
-                                    }
-                                    else
-                                    {
-                                        rb.velocity = new Vector2(rb.velocity.x, 7f);
-                                    }
-                                    //rb.AddForce(new Vector2(0, 1).normalized * fuerzaSaltoMax * 0.5f * Time.deltaTime);
-                                }
+                                //rb.AddForce(ultimaNormal.normalized * fuerzaSaltoMax);
                             }
                         }
-                        else
-                        {
 
-                            //rb.AddForce(ultimaNormal.normalized * fuerzaSaltoMax);
-                        }
+
                     }
+                    else
+                    {
+
+                        //if ((rb.velocity.y< 0))
+                        //{
+
+                        //    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+                        //}
 
 
+                    }
                 }
-                else
-                {
 
-                    //if ((rb.velocity.y< 0))
-                    //{
-
-                    //    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-                    //}
-
-
-                }
             }
-
         }
+
         if (Input.GetKeyUp(KeyCode.Space))
         {
             auxpresalto = tiempoPreSalto;
@@ -1964,14 +2001,29 @@ public class ControllerPersonaje : MonoBehaviour
         }
         if (normal != null)
         {
-            if (normal.y < 0.25 && normal.y > -0.25)
+            if (pInput.personajeInvertido == true)
             {
-                invertirValores = true;
+                if (normal.y < -0.2)
+                {
+                    invertirValores = true;
+                }
+                else
+                {
+                    invertirValores = false;
+                }
             }
             else
             {
-                invertirValores = false;
+                if (normal.y > 0.2)
+                {
+                    invertirValores = true;
+                }
+                else
+                {
+                    invertirValores = false;
+                }
             }
+
         }
         if (invertirValores)
         {
@@ -2038,7 +2090,7 @@ public class ControllerPersonaje : MonoBehaviour
                 {
                     //print(normal + "n1" + normal2 + "n2" + normal3 + "n3");
                     //print("Hola");
-                    grounded = false;
+                    if (!looping) grounded = false;
                 }
             }
         }
@@ -2061,17 +2113,17 @@ public class ControllerPersonaje : MonoBehaviour
 
             //if (ultimaNormal.x != 0)
             //{
-            if (Mathf.Abs(normal.x) > 0.2f)
-            {
-                rb.freezeRotation = false;
-            }
-            else
-            {
-                rb.freezeRotation = true;
-            }
+            //if (Mathf.Abs(normal.x) > 0.2f)
+            //{
+            //    rb.freezeRotation = false;
+            //}
+            //else
+            //{
+            //    rb.freezeRotation = true;
+            //}
 
-
-            this.transform.up = Vector3.Lerp(this.transform.up, ultimaNormal, Time.deltaTime * 180);
+            transform.up = Vector3.Slerp(transform.up, ultimaNormal, Time.deltaTime * 180);
+            //this.transform.up = Vector3.Lerp(this.transform.up, ultimaNormal, Time.deltaTime * 180);
             //}
             //else
             //{
@@ -2082,104 +2134,111 @@ public class ControllerPersonaje : MonoBehaviour
     }
     void ComprobarParedes()
     {
-        if (ultimaNormal.y > -0.8f)
+        if (!grounded)
         {
-
-
-            tocandoBorde = Physics2D.Raycast(puntoCheckBorde.position, this.transform.right * Mathf.Sign(pInput.ultimoInputHorizontal), distanciaBorde, capasSuelo);
-            tocandoBorde2 = Physics2D.Raycast(puntoCheckBorde.position, this.transform.right * -Mathf.Sign(pInput.ultimoInputHorizontal), distanciaBorde, capasSuelo);
-
-            //if (ultimaNormal.y > 0.8f||ultimaNormal.y==0)
-            //{
-
-            if (tocandoBorde.collider != null && tocandoBorde.collider.tag != "Enemigo" && tocandoBorde.collider.tag != "NoClimb" && tocandoBorde.collider.tag != "Loop" && tocandoBorde.collider.tag != "Pinchos")
+            if (this.transform.rotation.z > -18 && this.transform.rotation.z < 18)
             {
-                print(tocandoBorde.collider.name);
-                tocando = true;
-            }
-            else if (tocandoBorde2.collider != null && tocandoBorde2.collider.tag != "Enemigo" && tocandoBorde2.collider.tag != "NoClimb" && tocandoBorde2.collider.tag != "Loop" && tocandoBorde2.collider.tag != "Pinchos")
-            {
-
-                print(tocandoBorde2.collider.name);
-                tocando = true;
-            }
-            else
-            {
-                tocando = false;
-
-            }
-            if (!tocando && tocandoizquierda)
-            {
-                if (pInput.ultimoInputHorizontal != 1)
+                if (ultimaNormal.y > -0.8f)
                 {
-                    movimientoBloqueado = true;
 
-                    ledgePos1 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset1, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset1);
-                    ledgePos2 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset2, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset2);
 
-                    ledgePos3 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset3, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset3);
+                    tocandoBorde = Physics2D.Raycast(puntoCheckBorde.position, this.transform.right * Mathf.Sign(pInput.ultimoInputHorizontal), distanciaBorde, capasSuelo);
+                    tocandoBorde2 = Physics2D.Raycast(puntoCheckBorde.position, this.transform.right * -Mathf.Sign(pInput.ultimoInputHorizontal), distanciaBorde, capasSuelo);
 
-                    print("SUBIENDO");
-                    //if (rb.velocity.x > 0)
+                    //if (ultimaNormal.y > 0.8f||ultimaNormal.y==0)
                     //{
-                    //    ledgePos1 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset1, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset1);
-                    //    ledgePos2 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset2, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset2);
 
-                    //    ledgePos3 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset3, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset3);
-                    //    subiendoUnavez = true;
-                    //}
-                    //else if (rb.velocity.x < 0)
-                    //{
-                    //    ledgePos1 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset1, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset1);
-                    //    ledgePos2 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset2, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset2);
-
-                    //    ledgePos3 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset3, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset3);
-                    //    subiendoUnavez = true;
-                    //}
-                    //else
-                    //{
-                    if (!pInput.personajeInvertido)
+                    if (tocandoBorde.collider != null && tocandoBorde.collider.tag != "Enemigo" && tocandoBorde.collider.tag != "NoClimb" && tocandoBorde.collider.tag != "Loop" && tocandoBorde.collider.tag != "Pinchos")
+                    {
+                        print(tocandoBorde.collider.name);
+                        tocando = true;
+                    }
+                    else if (tocandoBorde2.collider != null && tocandoBorde2.collider.tag != "Enemigo" && tocandoBorde2.collider.tag != "NoClimb" && tocandoBorde2.collider.tag != "Loop" && tocandoBorde2.collider.tag != "Pinchos")
                     {
 
+                        print(tocandoBorde2.collider.name);
+                        tocando = true;
                     }
                     else
                     {
-                        subiendoUnavez = true;
+                        tocando = false;
+
+                    }
+                    if (!tocando && tocandoizquierda)
+                    {
+                        if (pInput.ultimoInputHorizontal != 1)
+                        {
+                            movimientoBloqueado = true;
+
+                            ledgePos1 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset1, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset1);
+                            ledgePos2 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset2, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset2);
+
+                            ledgePos3 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset3, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset3);
+
+                            print("SUBIENDO");
+                            //if (rb.velocity.x > 0)
+                            //{
+                            //    ledgePos1 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset1, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset1);
+                            //    ledgePos2 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset2, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset2);
+
+                            //    ledgePos3 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset3, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset3);
+                            //    subiendoUnavez = true;
+                            //}
+                            //else if (rb.velocity.x < 0)
+                            //{
+                            //    ledgePos1 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset1, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset1);
+                            //    ledgePos2 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset2, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset2);
+
+                            //    ledgePos3 = new Vector2(Mathf.Ceil(puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset3, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset3);
+                            //    subiendoUnavez = true;
+                            //}
+                            //else
+                            //{
+                            if (!pInput.personajeInvertido)
+                            {
+
+                            }
+                            else
+                            {
+                                subiendoUnavez = true;
+                            }
+                            //}
+
+
+                        }
+                    }
+                    else if (!tocando && tocandoderecha)
+                    {
+                        if (pInput.ultimoInputHorizontal != -1)
+                        {
+                            print("TocandoBorde" + tocandoizquierda + "iz" + tocandoderecha + "der");
+                            movimientoBloqueado = true;
+
+                            ledgePos1 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset1, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset1);
+                            ledgePos2 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset2, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset2);
+
+                            ledgePos3 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset3, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset3);
+                            if (!pInput.personajeInvertido)
+                            {
+                                subiendoUnavez = true;
+                            }
+                            else
+                            {
+
+                            }
+                        }
+
                     }
                     //}
 
-
                 }
-            }
-            else if (!tocando && tocandoderecha)
-            {
-                if (pInput.ultimoInputHorizontal != -1)
-                {
-                    print("TocandoBorde" + tocandoizquierda + "iz" + tocandoderecha + "der");
-                    movimientoBloqueado = true;
-
-                    ledgePos1 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset1, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset1);
-                    ledgePos2 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset2, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset2);
-
-                    ledgePos3 = new Vector2(Mathf.Floor(puntoCheckBorde.position.x + distanciaBorde) + ledgeClimbXOffset3, Mathf.Floor(puntoCheckBorde.position.y) + ledgeClimbYOffset3);
-                    if (!pInput.personajeInvertido)
-                    {
-                        subiendoUnavez = true;
-                    }
-                    else
-                    {
-
-                    }
-                }
-
             }
             //}
-
         }
-        //}
     }
     IEnumerator SubirBorde()
     {
+        print("empizoscalada");
         rb.velocity = Vector2.zero;
         animCC.SetBool("canClimbLedge", true);
         transform.position = ledgePos1;

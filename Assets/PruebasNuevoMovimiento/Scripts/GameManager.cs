@@ -191,6 +191,55 @@ public class GameManager : MonoBehaviour
             //textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
 
         }
+        if (scene.name == "PlayGround")
+        {
+            actualLevel = 0;
+
+            coleccionablesActNv[(int)actualLevel] = coleccionablesCogidosNivel0.Count;
+            if (personajevivo == false)
+            {
+                actualColeccionablesCogidosNivel0.Clear();
+                foreach (string go in coleccionablesCogidosNivel0)
+                {
+                    Destroy(GameObject.Find(go.ToString()));
+                }
+            }
+            else
+            {
+                foreach (string go in coleccionablesCogidosNivel0)
+                {
+                    Destroy(GameObject.Find(go.ToString()));
+                }
+            }
+            estrellasActNv[(int)actualLevel] = estrellasCogidosNivel0.Count;
+            if (personajevivo == false)
+            {
+                actualEstrellasCogidosNivel0.Clear();
+                foreach (string go in estrellasCogidosNivel0)
+                {
+                    Destroy(GameObject.Find(go.ToString()));
+                }
+            }
+            else
+            {
+                foreach (string go in estrellasCogidosNivel0)
+                {
+                    Destroy(GameObject.Find(go.ToString()));
+                }
+            }
+
+            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
+            textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
+            textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
+            textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
+
+
+            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
+            textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
+            textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
+            textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
+            personajevivo = true;
+        }
         if (scene.name == "Nivel0")
         {
             actualLevel = 0;
