@@ -105,6 +105,7 @@ public class FuncionalidadRebote : MonoBehaviour
 
                             print(distancia + "dist");
                             controlCC.constantegravedad = 1;
+                            print("    constantegravedad = 1;");
                             controlCC.dashEnCaida = false;
                             controlCC.animCC.SetBool("cayendo", controlCC.dashEnCaida);
                             controlCC.dashBloqueado = true;
@@ -192,12 +193,12 @@ public class FuncionalidadRebote : MonoBehaviour
             {
                 StopCoroutine(SalirRebote(0));
                 StartCoroutine(SalirRebote(tiempoTrasReactivarRebote));
-                
+
 
             }
         }
     }
-   
+
     public IEnumerator SalirRebote(float time)
     {
         yield return new WaitForSeconds(time);
