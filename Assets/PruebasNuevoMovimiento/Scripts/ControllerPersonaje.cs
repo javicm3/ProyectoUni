@@ -6,7 +6,7 @@ public class ControllerPersonaje : MonoBehaviour
 {
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] private PlayerInput pInput;
-
+ 
   
     public bool tocandoRebote = false;
 
@@ -33,25 +33,28 @@ public class ControllerPersonaje : MonoBehaviour
     public bool capSpeedUnavez = false;
 
     [Header("Correr")]
+
+    [Space(5)]
+
     [SerializeField] private float distanciaAlSuelo = 1.35f;
 
-    [Space(10)]
+    [Space(5)]
 
     [SerializeField] private float velMinima = 2;
 
-    [Space(10)]
+    [Space(5)]
 
     [SerializeField] private float velMaxima = 6;
 
-    [Space(10)]
+    [Space(5)]
 
     [SerializeField] private float coefAceleracion = 1.5f;
 
-    [Space(10)]
+    [Space(5)]
 
     [SerializeField] private float coefDeceleracion = 0.5f;
 
-    [Space(10)]
+    [Space(5)]
 
     public float fuerzaAtraccionLoop = 2000f;
 
@@ -86,6 +89,37 @@ public class ControllerPersonaje : MonoBehaviour
     [Header("EscalarEsquinas")]
     public float distanciaBorde = 5;
     public Transform puntoCheckBorde;
+
+
+    [Header("Chispazo")]
+    public bool saltoInmediato = false;
+    public GameObject ultimoEnemigoDetectado;
+    public float distanciaChispazo = 10f;
+    public Vector3 destinoChispazo;
+    public bool haciendoChispazo = false;
+    public bool puedeSalirChispazo = false;
+    public float tiempoAntesChispazo = 1f;
+    public float auxTiempoChispazo;
+    public bool unavezSalirChispazo = false;
+    public float fuerzaSalidaChispazo = 500f;
+    public float fuerzaAcercarseChispazo = 500f;
+    public bool chispazoPerdido = false;
+    public float fuerzaChispazoPerdido = 200f;
+
+    [Header("SaltoParedYOtrasVariables")]
+    public bool tocando;
+    public GameObject detectorPared;
+    public float tiempoTrasSaltoPared = 0.5f;
+    ManagerEnergia mEnergy;
+    public float auxtiempoTrasSaltoPared = 0;
+    public Transform posGround;
+    public GameObject ultimoenemigo2;
+    public Transform VFX;
+    bool entradochispazo = false;
+    bool unavezSaltoDobleTrasPared = false;
+    public bool enemigoCerca = false;
+    GameObject enemigoSeleccionado = null;
+
 
     [Header("VariablesQueNoSeDondeMeter")]
     public bool pulsadoEspacio = false;
@@ -131,37 +165,8 @@ public class ControllerPersonaje : MonoBehaviour
     [SerializeField] private LayerMask capasEnemigos;
     [SerializeField] public Vector2 normal;
     [SerializeField] public Vector2 ultimaNormal;
-
-    [Header("Chispazo")]
-    public bool saltoInmediato = false;
-    public GameObject ultimoEnemigoDetectado;
-    public float distanciaChispazo = 10f;
-    public Vector3 destinoChispazo;
-    public bool haciendoChispazo = false;
-    public bool puedeSalirChispazo = false;
-    public float tiempoAntesChispazo = 1f;
-    public float auxTiempoChispazo;
-    public bool unavezSalirChispazo = false;
-    public float fuerzaSalidaChispazo = 500f;
-    public float fuerzaAcercarseChispazo = 500f;
-    public bool chispazoPerdido = false;
-    public float fuerzaChispazoPerdido = 200f;
-
-    [Header("SaltoParedYOtrasVariables")]
-    public bool tocando;
-    public GameObject detectorPared;
-    public float tiempoTrasSaltoPared = 0.5f;
-    ManagerEnergia mEnergy;
-    public float auxtiempoTrasSaltoPared = 0;
-    public Transform posGround;
-    public GameObject ultimoenemigo2;
-    public Transform VFX;
-    bool entradochispazo = false;
-    bool unavezSaltoDobleTrasPared = false;
-    public bool enemigoCerca = false;
-    GameObject enemigoSeleccionado = null;
     // Start is called before the first frame update
-   
+
     void Start()
     {
 
@@ -1300,19 +1305,19 @@ public class ControllerPersonaje : MonoBehaviour
                 }
                 if (Mathf.Abs(this.rb.velocity.x) < velMaxima)
                 {
-                    //if (pInput.inputHorizontal > 0)
-                    if (capSpeedUnavez == false)
-                    {
-                        speed += coefAceleracion * Time.deltaTime;
-                    }
-                    else if (speed < capSpeed)
-                    {
-                        speed += coefAceleracion * Time.deltaTime;
-                    }
-                    else
-                    {
-                        speed = capSpeed;
-                    }
+                    ////if (pInput.inputHorizontal > 0)
+                    //if (capSpeedUnavez == false)
+                    //{
+                    //    speed += coefAceleracion * Time.deltaTime;
+                    //}
+                    //else if (speed < capSpeed)
+                    //{
+                    //    speed += coefAceleracion * Time.deltaTime;
+                    //}
+                    //else
+                    //{
+                    //    speed = capSpeed;
+                    //}
 
                     Vector2 direccion = new Vector2(1, 0).normalized * speed * 80 * pInput.inputHorizontal;
                     this.rb.AddForce(direccion * Time.deltaTime);
