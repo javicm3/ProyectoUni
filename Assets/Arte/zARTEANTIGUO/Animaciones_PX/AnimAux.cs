@@ -7,6 +7,7 @@ public class AnimAux : MonoBehaviour
     public AudioSource source;
     public AudioClip pisada;
     public AudioClip escalada;
+    public Transform suelo;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,17 @@ public class AnimAux : MonoBehaviour
     }
     public void ParticulasAlCaer()
     {
+
         GetComponentInParent<Particulas>().SpawnParticulas(GetComponentInParent<Particulas>().particulasCaida, GetComponentInParent<ControllerPersonaje>().posGround.position);
+        
+    }
+    public void ParticulasCorrer(GameObject particulas)
+    {
+        if(GetComponentInParent<ControllerPersonaje>().grounded == true)
+        {
+            Instantiate(particulas, suelo.position, Quaternion.Euler(0, 0, 90));
+        }
+        
     }
     // Update is called once per frame
     void Update()
