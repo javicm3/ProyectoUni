@@ -6,8 +6,16 @@ public class ControllerPersonaje : MonoBehaviour
 {
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] private PlayerInput pInput;
+
+  
     public bool tocandoRebote = false;
+
+    
+
+    
     Vector2 ultimaParedPosicion;
+
+    [Header("EscaladaYSaltoPared")]
     public float distanciaPared;
     public bool lastJumpPared = false;
     public bool deteccionParedes = true;
@@ -23,14 +31,35 @@ public class ControllerPersonaje : MonoBehaviour
     public bool tengoMaxspeed = false;
     public float capSpeed;
     public bool capSpeedUnavez = false;
+
+    [Header("Correr")]
     [SerializeField] private float distanciaAlSuelo = 1.35f;
+
+    [Space(10)]
+
     [SerializeField] private float velMinima = 2;
+
+    [Space(10)]
+
     [SerializeField] private float velMaxima = 6;
+
+    [Space(10)]
+
     [SerializeField] private float coefAceleracion = 1.5f;
+
+    [Space(10)]
+
     [SerializeField] private float coefDeceleracion = 0.5f;
+
+    [Space(10)]
+
     public float fuerzaAtraccionLoop = 2000f;
+
+    [Header("CambiosSentido")]
     public float fuerzaCambioSentido = 30f;
     public float fuerzaCambioSentidoAire = 120f;
+
+    [Header("Salto")]
     public float fuerzaSaltoMax = 11;
     public float fuerzaSaltoMin = 4;
     public float fSaltoInicial = 7;
@@ -43,6 +72,9 @@ public class ControllerPersonaje : MonoBehaviour
     public float tiempoPreSalto = 0.5f;
     public float tiempoPulsadoEspacio;
     public float auxpresalto;
+    
+
+    [Header("Dash")]
     public float fuerzaDash = 100;
     public float fuerzaDashCaida = 100;
     public float tiempoDasheo = 1f;
@@ -50,8 +82,12 @@ public class ControllerPersonaje : MonoBehaviour
     public float auxdash;
     public float cooldownDash = 1.5f;
     public float auxCdDash;
+
+    [Header("EscalarEsquinas")]
     public float distanciaBorde = 5;
     public Transform puntoCheckBorde;
+
+    [Header("VariablesQueNoSeDondeMeter")]
     public bool pulsadoEspacio = false;
     public bool saltoIniciado = false;
     public bool grounded;
@@ -61,7 +97,6 @@ public class ControllerPersonaje : MonoBehaviour
     public bool dashBloqueado;
     public bool saltoBloqueado = true;
     public bool dashCaidaBloqueado;
-
     public bool subiendoUnavez;
     public bool movParedBloq = false;
     public bool tocandoderecha;
@@ -97,7 +132,7 @@ public class ControllerPersonaje : MonoBehaviour
     [SerializeField] public Vector2 normal;
     [SerializeField] public Vector2 ultimaNormal;
 
-
+    [Header("Chispazo")]
     public bool saltoInmediato = false;
     public GameObject ultimoEnemigoDetectado;
     public float distanciaChispazo = 10f;
@@ -111,6 +146,8 @@ public class ControllerPersonaje : MonoBehaviour
     public float fuerzaAcercarseChispazo = 500f;
     public bool chispazoPerdido = false;
     public float fuerzaChispazoPerdido = 200f;
+
+    [Header("SaltoParedYOtrasVariables")]
     public bool tocando;
     public GameObject detectorPared;
     public float tiempoTrasSaltoPared = 0.5f;
@@ -124,6 +161,7 @@ public class ControllerPersonaje : MonoBehaviour
     public bool enemigoCerca = false;
     GameObject enemigoSeleccionado = null;
     // Start is called before the first frame update
+   
     void Start()
     {
 
