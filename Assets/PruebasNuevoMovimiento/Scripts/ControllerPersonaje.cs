@@ -1421,7 +1421,20 @@ public class ControllerPersonaje : MonoBehaviour
         else
         {
             tengoMaxspeed = true;
-            GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax, VFX.position);
+            if (grounded)
+            {
+                if (GetComponent<PlayerInput>().personajeInvertido)
+                {
+                    GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax2, VFX.position);
+                }
+                else
+                {
+                    GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax, VFX.position);
+                }
+            }
+            
+            
+            
             //particulasVelMax.SetActive(true);
             //GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax, transform.position);
         }

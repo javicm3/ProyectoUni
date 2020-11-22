@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour
     public float inputHorizontal;
     public float ultimoInputHorizontal;
     public float inputVertical;
-
+    public Transform particulasVelMax;
     //public bool puedoSaltar = true;
     public bool personajeInvertido = false;
     public bool inputHorizBlock = false;
@@ -38,6 +38,7 @@ public class PlayerInput : MonoBehaviour
                 {
                     if (personajeInvertido)
                     {
+                        particulasVelMax.localScale *= new Vector2(-1, 1);
                         transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
                         //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
 
@@ -48,6 +49,7 @@ public class PlayerInput : MonoBehaviour
                 {
                     if (personajeInvertido == false)
                     {
+                        particulasVelMax.localScale *= new Vector2(-1, 1);
                         transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
                         //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
                         personajeInvertido = true;
@@ -57,6 +59,7 @@ public class PlayerInput : MonoBehaviour
             }
             else if (inputHorizontal ==-1 && personajeInvertido == false)
             {
+                particulasVelMax.localScale *= new Vector2(-1, 1);
                 transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
                 //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
                 personajeInvertido = true;
@@ -64,6 +67,7 @@ public class PlayerInput : MonoBehaviour
             }
             else if (inputHorizontal ==1 && personajeInvertido == true)
             {
+                particulasVelMax.localScale *= new Vector2(-1, 1);
                 transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
                 //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
 

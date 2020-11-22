@@ -9,6 +9,7 @@ public class Particulas : MonoBehaviour
     public GameObject particulasWallJump;
     public GameObject particulasDash;
     public GameObject particulasvelMax;
+    public GameObject particulasvelMax2;
     public GameObject particulasExplosion;
     public GameObject particulasViajeCables;
     public GameObject particulasCaida;
