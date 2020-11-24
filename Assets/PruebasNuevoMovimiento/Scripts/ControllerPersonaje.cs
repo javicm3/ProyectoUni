@@ -71,7 +71,7 @@ public class ControllerPersonaje : MonoBehaviour
     public bool saltoDobleHecho = false;
     public float fuerzaSaltoDoble = 100;
     public float tiempoSaltoCompleto = 1.2f;
-    public float constantegravedad = 1;
+    public float constantegravedad = 3;
     public float tiempoPreSalto = 0.5f;
     public float tiempoPulsadoEspacio;
     public float auxpresalto;
