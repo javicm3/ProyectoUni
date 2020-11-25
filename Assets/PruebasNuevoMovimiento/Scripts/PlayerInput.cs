@@ -38,40 +38,65 @@ public class PlayerInput : MonoBehaviour
                 {
                     if (personajeInvertido)
                     {
-                        particulasVelMax.localScale *= new Vector2(-1, 1);
-                        transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
-                        //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                       
 
-                        personajeInvertido = false;
+                            particulasVelMax.localScale *= new Vector2(-1, 1);
+                            transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
+                            //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+
+                            personajeInvertido = false;
+                        
                     }
                 }
-                else
+                else if(ultimoInputHorizontal < 0)
                 {
+
+
                     if (personajeInvertido == false)
                     {
-                        particulasVelMax.localScale *= new Vector2(-1, 1);
-                        transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
-                        //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
-                        personajeInvertido = true;
+                        
+                            particulasVelMax.localScale *= new Vector2(-1, 1);
+                            transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
+                            //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                            personajeInvertido = true;
+                        
+
                     }
+                    
+                    
 
                 }
             }
-            else if (inputHorizontal ==-1 && personajeInvertido == false)
+            else if (inputHorizontal == -1 && personajeInvertido == false && (Mathf.Sign(cp.ultimaNormal.y) > 0) )
             {
-                particulasVelMax.localScale *= new Vector2(-1, 1);
+                particulasVelMax.localScale = new Vector2(-1, 1);
                 transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
                 //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
                 personajeInvertido = true;
 
-            }
-            else if (inputHorizontal ==1 && personajeInvertido == true)
+            }else if(inputHorizontal == -1 && personajeInvertido == true && (Mathf.Sign(cp.ultimaNormal.y) < 0) && (!cp.grounded))
             {
-                particulasVelMax.localScale *= new Vector2(-1, 1);
+
+                particulasVelMax.localScale = new Vector2(-1, 1);
+                transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+                //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+
+                personajeInvertido = false;
+            }
+            else if (inputHorizontal == 1 && personajeInvertido == true && (Mathf.Sign(cp.ultimaNormal.y) > 0) )
+            {
+                particulasVelMax.localScale = new Vector2(-1, 1);
                 transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
                 //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
 
                 personajeInvertido = false;
+            }
+            else if (inputHorizontal == 1 && personajeInvertido == false && (Mathf.Sign(cp.ultimaNormal.y) < 0) && (!cp.grounded))
+            {
+                particulasVelMax.localScale = new Vector2(-1, 1);
+                transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                personajeInvertido = true;
             }/*else if ((inputHorizontal == 0)&& (cp.lastJumpPared == true)){*/
 
             //    inputHorizontal = ultimoInputHorizontal;
@@ -83,12 +108,12 @@ public class PlayerInput : MonoBehaviour
     void DetectarInput()
     {
         if (inputHorizBlock == false)
-        {
+        {  inputHorizontal = Input.GetAxisRaw("Horizontal");
             if (inputHorizontal != 0)
             {
                 ultimoInputHorizontal = inputHorizontal;
             }
-            inputHorizontal = Input.GetAxisRaw("Horizontal");
+          
 
 
         }
