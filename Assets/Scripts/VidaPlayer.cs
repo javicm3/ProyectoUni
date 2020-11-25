@@ -43,7 +43,7 @@ public class VidaPlayer : MonoBehaviour
         //cc = this.GetComponent<CharacterController2D>();
         cc = this.GetComponent<ControllerPersonaje>();
         //mov = this.GetComponent<Movimiento>();
-        //animCC = GetComponentInChildren<Animator>();
+        animCC = GetComponentInChildren<Animator>();
         vidaActual = vidaMax;
         auxcdTrasdaño = 0;
 
@@ -65,11 +65,12 @@ public class VidaPlayer : MonoBehaviour
                 //this.GetComponentInChildren<Animator>().SetTrigger("Die");
                 //source.PlayOneShot(muertePlayer);
                 GameManager.Instance.MuertePJ();
+                animCC.SetTrigger("Die");
             }
             else
             {
                 //source.PlayOneShot(dañoPlayer);
-                //animCC.SetTrigger("Daño");
+                animCC.SetTrigger("Daño");
             }
 
 

@@ -701,7 +701,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                 rb.AddForce(new Vector2(1, 0) * 30 * Time.deltaTime);
                 tocandoderecha = true;
-                if ((!grounded) && (!looping)) pegadoPared = true;
+                if ((!grounded) && (!looping)) pegadoPared = true; 
                 dashBloqueado = false;
                 ultimaParedPosicion = new Vector2(this.transform.position.x + 2, this.transform.position.y);
             }
