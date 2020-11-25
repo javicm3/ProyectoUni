@@ -22,7 +22,7 @@ public class Particulas : MonoBehaviour
     {
         if (particulas == particulasDash)
         {
-            if (this.GetComponent<CharacterController2D>().flipped == false)
+            if (this.GetComponent<PlayerInput>().personajeInvertido == false)
             {
                 GameObject part = Instantiate(particulas, posicion, Quaternion.Euler(0, 0, 90), this.GetComponentInChildren<AnimAux>().gameObject.transform);
             }
@@ -30,13 +30,13 @@ public class Particulas : MonoBehaviour
             {
                 GameObject part = Instantiate(particulas, posicion, Quaternion.Euler(0, 0, -90), this.GetComponentInChildren<AnimAux>().gameObject.transform);
             }
-         
+
         }
         else
         {
-              Instantiate(particulas, posicion, Quaternion.identity);
+            Instantiate(particulas, posicion, Quaternion.identity);
         }
-      
+
     }
     // Update is called once per frame
     void Update()

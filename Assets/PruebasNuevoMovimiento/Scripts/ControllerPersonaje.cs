@@ -1591,6 +1591,7 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 if (auxCdDash <= 0)
                 {
+                    GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDash, transform.position);
                     mEnergy.RestarEnergia(mEnergy.energiaDash);
                     rb.velocity = Vector2.zero;
                     speed = velMaxima;

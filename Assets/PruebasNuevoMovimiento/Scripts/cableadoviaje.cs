@@ -43,7 +43,7 @@ public class cableadoviaje : MonoBehaviour
             {
                 m_Rigidbody2D.velocity = Vector2.zero;
                 unavez = true;
-                rendererCuerpo.gameObject.SetActive(false);
+                //rendererCuerpo.gameObject.SetActive(false);
                 //rendererViaje.enabled = true;
                 rendererViaje.gameObject.SetActive(true);
                 colliderNormal.enabled = false;
@@ -189,7 +189,7 @@ public class cableadoviaje : MonoBehaviour
                 m_Rigidbody2D.gravityScale = originalGravity;
                 unavez = false;
                 rendererCuerpo.enabled = true;
-                rendererCuerpo.gameObject.SetActive(true);
+                //rendererCuerpo.gameObject.SetActive(true);
                 //rendererViaje.enabled = false;
                 rendererViaje.gameObject.SetActive(false);
                 colliderViaje.enabled = false;
