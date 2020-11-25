@@ -1519,7 +1519,7 @@ public class ControllerPersonaje : MonoBehaviour
                 constantegravedad *= (800f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //if (rb.velocity.y < -40) rb.velocity = new Vector2(rb.velocity.x, -40);
-                print("7");
+                //print("7");
             }
             else if (rb.velocity.y < -30f)
             {
@@ -1527,7 +1527,7 @@ public class ControllerPersonaje : MonoBehaviour
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
                 constantegravedad *= (750f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
-                print("6");
+                //print("6");
             }
             else if (rb.velocity.y < -20f)
             {
@@ -1535,7 +1535,7 @@ public class ControllerPersonaje : MonoBehaviour
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
                 constantegravedad *= (600f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
-                print("5");
+                //print("5");
             }
             else if (rb.velocity.y < -10f)
             {
@@ -1543,7 +1543,7 @@ public class ControllerPersonaje : MonoBehaviour
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
                 constantegravedad *= (600f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
-                print("4");
+                //print("4");
             }
             else if (rb.velocity.y < 0f)
             {
@@ -1551,7 +1551,7 @@ public class ControllerPersonaje : MonoBehaviour
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
                 constantegravedad *= (600f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
-                print("3");
+                //print("3");
             }
             else if (rb.velocity.y < 15f)
             {
@@ -1562,7 +1562,7 @@ public class ControllerPersonaje : MonoBehaviour
                 constantegravedad *= (400f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
-                print("2");
+                //print("2");
             }
             else if (rb.velocity.y < 150f)
             {
@@ -1573,7 +1573,7 @@ public class ControllerPersonaje : MonoBehaviour
                 constantegravedad *= (500f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
-                print("1");
+                //print("1");
             }
 
             rb.AddForce(new Vector2(0.0f, -350) * Time.deltaTime);
