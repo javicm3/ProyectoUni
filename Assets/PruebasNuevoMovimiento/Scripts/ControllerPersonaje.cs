@@ -1516,37 +1516,42 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 rb.AddForce(new Vector2(0, -600f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (570f * Time.deltaTime);
+                constantegravedad *= (750f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //if (rb.velocity.y < -40) rb.velocity = new Vector2(rb.velocity.x, -40);
+                print("7");
             }
             else if (rb.velocity.y < -30f)
             {
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (535f * Time.deltaTime);
+                constantegravedad *= (600f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+                print("6");
             }
             else if (rb.velocity.y < -20f)
             {
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (510f * Time.deltaTime);
+                constantegravedad *= (500f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+                print("5");
             }
             else if (rb.velocity.y < -10f)
             {
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (495f * Time.deltaTime);
+                constantegravedad *= (400f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+                print("4");
             }
             else if (rb.velocity.y < 0f)
             {
                 rb.AddForce(new Vector2(0, -500f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (540f * Time.deltaTime);
+                constantegravedad *= (600f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+                print("3");
             }
             else if (rb.velocity.y < 15f)
             {
@@ -1554,10 +1559,10 @@ public class ControllerPersonaje : MonoBehaviour
                 //{
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (350f * Time.deltaTime);
+                constantegravedad *= (300f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
-
+                print("2");
             }
             else if (rb.velocity.y < 150f)
             {
@@ -1568,7 +1573,7 @@ public class ControllerPersonaje : MonoBehaviour
                 constantegravedad *= (500f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
-
+                print("1");
             }
 
             rb.AddForce(new Vector2(0.0f, -350) * Time.deltaTime);
