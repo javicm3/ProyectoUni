@@ -1510,60 +1510,62 @@ public class ControllerPersonaje : MonoBehaviour
             looping = false;
             if (constantegravedad > 350) constantegravedad = 350;
             //rb.AddForce(new Vector2(0, -100f * Time.deltaTime));
-            if (rb.velocity.y < -10)
+
+
+            if (rb.velocity.y < -40)
             {
                 rb.AddForce(new Vector2(0, -600f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (190f * Time.deltaTime);
+                constantegravedad *= (570f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //if (rb.velocity.y < -40) rb.velocity = new Vector2(rb.velocity.x, -40);
             }
-            else if (rb.velocity.y < -7.5f)
+            else if (rb.velocity.y < -30f)
             {
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (190f * Time.deltaTime);
+                constantegravedad *= (535f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
             }
-            else if (rb.velocity.y < -5f)
+            else if (rb.velocity.y < -20f)
             {
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (170f * Time.deltaTime);
+                constantegravedad *= (510f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
             }
-            else if (rb.velocity.y < -3f)
+            else if (rb.velocity.y < -10f)
             {
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (165f * Time.deltaTime);
+                constantegravedad *= (495f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
             }
             else if (rb.velocity.y < 0f)
             {
                 rb.AddForce(new Vector2(0, -500f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (180f * Time.deltaTime);
+                constantegravedad *= (540f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
             }
-            else if (rb.velocity.y <= 6f)
+            else if (rb.velocity.y < 15f)
             {
                 //if (ultimaNormal.y > 0)
                 //{
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (75f * Time.deltaTime);
+                constantegravedad *= (350f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
 
             }
-            else if (rb.velocity.y <= 15f)
+            else if (rb.velocity.y < 150f)
             {
                 //if (ultimaNormal.y > 0)
                 //{
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (75f * Time.deltaTime);
+                constantegravedad *= (500f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
 
