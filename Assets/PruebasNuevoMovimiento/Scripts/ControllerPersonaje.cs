@@ -2,9 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
+//using UnityEngine.InputSystem;
 
 public class ControllerPersonaje : MonoBehaviour
 {
+ public InputDevice joystick;
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] private PlayerInput pInput;
 
@@ -161,7 +164,6 @@ public class ControllerPersonaje : MonoBehaviour
     Vector2 normal2;
     Vector2 normal3;
     public Animator animCC;
-
     public float ledgeClimbXOffset1 = 0f;
     public float ledgeClimbYOffset1 = 0f;
     public float ledgeClimbXOffset2 = 0f;
@@ -171,9 +173,42 @@ public class ControllerPersonaje : MonoBehaviour
 
     [SerializeField] private LayerMask capasSuelo;
     [SerializeField] private LayerMask capasEnemigos;
+    //[Header("Control")]
+    //PlayerControls controles;
+    //bool saltoPulsado=false;
+    //bool saltoSoltado=false;
+    //bool dashPulsado=false;
+
+
+    //public Vector2 move;
+
+
 
     // Start is called before the first frame update
+    private void Awake()
+    {
+        joystick = InputManager.ActiveDevice;
+       //controles = new PlayerControls();
+        //controles.Gameplay.Salto.performed += ctx => saltoPulsado = true;
+        //controles.Gameplay.Salto.canceled += ctx =>
+        //{
+        //    saltoPulsado = false;
+        //    saltoSoltado = true;
+        //};
+        //controles.Gameplay.Dash.performed += ctx => dashPulsado = true;
+        //controles.Gameplay.Dash.canceled += ctx => dashPulsado = false;
+        //controles.Gameplay.Movement.performed += ctx => move = ctx.ReadValue<Vector2>();
+        //controles.Gameplay.Movement.canceled += ctx => move = Vector2.zero;
+    }
 
+    private void OnEnable()
+    {
+        //controles.Gameplay.Enable();
+    }
+    private void OnDisable()
+    {
+        //controles.Gameplay.Disable();
+    }
     void Start()
     {
 
@@ -193,6 +228,8 @@ public class ControllerPersonaje : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //move.x = controles.Gameplay.Movement.ReadValue<float>();
+        //print(controles.Gameplay.Movement.ReadValue<float>());
         //print(rb.velocity + "velocidad");
         if (auxCdDash > 0) auxCdDash -= Time.deltaTime;
         if (auxtiempoTrasSaltoPared > 0)
@@ -244,7 +281,7 @@ public class ControllerPersonaje : MonoBehaviour
     {
         DetectarSuelo();
 
-      
+
         if (!movimientoBloqueado)
         {
             MoverPersonaje();
@@ -266,31 +303,31 @@ public class ControllerPersonaje : MonoBehaviour
     }
     public void DetectarEnemigos()
     {
-        //DE TECTAR ENEMIGOS AL PASAR RATON
-        Vector3 pz2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        pz2.z = 0;
-        Vector3 direction = pz2 - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), direction, 10000, capasEnemigos);
-        Debug.DrawRay(Input.mousePosition, direction);
+        ////DE TECTAR ENEMIGOS AL PASAR RATON
+        //Vector3 pz2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //pz2.z = 0;
+        //Vector3 direction = pz2 - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), direction, 10000, capasEnemigos);
+        //Debug.DrawRay(Input.mousePosition, direction);
 
 
-        if (hit != false)
-        {
+        //if (hit != false)
+        //{
 
-            if (hit.collider.tag == "Enemigo")
-            {
-                if (haciendoChispazo == false) ultimoEnemigoDetectado = hit.collider.gameObject;
-            }
-            else
-            {
-                if (haciendoChispazo == false) ultimoEnemigoDetectado = null;
-            }
+        //    if (hit.collider.tag == "Enemigo")
+        //    {
+        //        if (haciendoChispazo == false) ultimoEnemigoDetectado = hit.collider.gameObject;
+        //    }
+        //    else
+        //    {
+        //        if (haciendoChispazo == false) ultimoEnemigoDetectado = null;
+        //    }
 
-        }
-        else
-        {
-            if (haciendoChispazo == false) ultimoEnemigoDetectado = null;
-        }
+        //}
+        //else
+        //{
+        //    if (haciendoChispazo == false) ultimoEnemigoDetectado = null;
+        //}
     }
     public void PonerCollider()
     {
@@ -701,7 +738,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                 rb.AddForce(new Vector2(1, 0) * 30 * Time.deltaTime);
                 tocandoderecha = true;
-                if ((!grounded) && (!looping)) pegadoPared = true; 
+                if ((!grounded) && (!looping)) pegadoPared = true;
                 dashBloqueado = false;
                 ultimaParedPosicion = new Vector2(this.transform.position.x + 2, this.transform.position.y);
             }
@@ -808,8 +845,11 @@ public class ControllerPersonaje : MonoBehaviour
                 rb.velocity = new Vector2(0, pInput.inputVertical * speedpared * Time.deltaTime);
                 animCC.SetFloat("MovimientoPared", Mathf.Abs(pInput.inputVertical));
 
-                if (Input.GetButtonDown("Jump"))
+                //if (Input.GetButtonDown("Jump"))
+                if (joystick.Action1.WasPressed|| Input.GetButtonDown("Jump"))
                 {
+                    //if (saltoPulsado == true)
+                    //{
                     auxtiempoTrasSaltoPared += tiempoTrasSaltoPared;
 
                     lastJumpPared = true;
@@ -909,7 +949,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                     if (tengoMaxspeed)
                     {
-                       
+
 
                         print("cambiosentido2");
                         Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
@@ -1121,8 +1161,8 @@ public class ControllerPersonaje : MonoBehaviour
                         print(capSpeed + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     }
                     speed = capSpeed;
-                    print("frenando"+Mathf.Sign(rb.velocity.x));
-                   if(auxCdDash<1) rb.velocity = new Vector2((velMaxima-1) * Mathf.Sign(ultimaNormal.y) * pInput.ultimoInputHorizontal, rb.velocity.y);
+                    print("frenando" + Mathf.Sign(rb.velocity.x));
+                    if (auxCdDash < 1) rb.velocity = new Vector2((velMaxima - 1) * Mathf.Sign(ultimaNormal.y) * pInput.ultimoInputHorizontal, rb.velocity.y);
                     //this.rb.AddForce(-this.rb.velocity * (coefDeceleracion * 0.1f) * Time.deltaTime);
                     //if (Mathf.Abs(speed) > 0)
                     //{
@@ -1592,10 +1632,12 @@ public class ControllerPersonaje : MonoBehaviour
         if (estoyDasheando == false)
         {
 
-
-
-            if (Input.GetKeyDown(KeyCode.LeftShift) && mEnergy.actualEnergy > mEnergy.energiaDash)
+           
+            //if (Input.GetButtonDown("Dash") && mEnergy.actualEnergy > mEnergy.energiaDash && pInput.inputVertical!=-1)
+             if ((joystick.Action2.WasPressed || Input.GetButtonDown("Dash")) && mEnergy.actualEnergy > mEnergy.energiaDash && pInput.inputVertical != -1)
             {
+                //if (dashPulsado && mEnergy.actualEnergy > mEnergy.energiaDash)
+                //{
                 if (auxCdDash <= 0)
                 {
                     mEnergy.RestarEnergia(mEnergy.energiaDash);
@@ -1753,28 +1795,30 @@ public class ControllerPersonaje : MonoBehaviour
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
-        if (!grounded && pInput.inputVertical < 0 && pegadoPared == false)
+      
+        //if (!grounded && pInput.inputVertical ==-1 && pegadoPared == false && Input.GetButtonDown("Dash"))
+         if (!grounded && pInput.inputVertical == -1 && pegadoPared == false && (joystick.Action2.WasPressed|| Input.GetButtonDown("Dash")))
         {
             if (rb.velocity.y > 0)
             {
-                if (tiempomaxTrasTocarsuelo < -0.2f && mEnergy.actualEnergy > 0)
+                if (tiempomaxTrasTocarsuelo < -0.2f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
                 {
                     mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
-                    rb.AddForce(fuerzaDashCaida * Vector2.down * Time.deltaTime);
+                    rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                     dashEnCaida = true;
                 }
             }
             else
             {
-                if (tiempomaxTrasTocarsuelo < -0.05f && mEnergy.actualEnergy > 0)
+                if (tiempomaxTrasTocarsuelo < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
                 {
                     mEnergy.RestarEnergia(30);
-                    rb.AddForce(fuerzaDashCaida * Vector2.down * Time.deltaTime);
+                    rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                     dashEnCaida = true;
                 }
             }
 
-
+            print("dashabajo");
         }
         else if (grounded)
         {
@@ -1785,7 +1829,8 @@ public class ControllerPersonaje : MonoBehaviour
     void SaltoNormal()
     {
 
-        if (Input.GetButtonDown("Jump"))
+        //if (Input.GetButtonDown("Jump"))
+        if (joystick.Action1.WasPressed|| Input.GetButtonDown("Jump"))
         {
             auxpresalto = tiempoPreSalto;
             tiempoPulsadoEspacio = 0;
@@ -1995,8 +2040,8 @@ public class ControllerPersonaje : MonoBehaviour
 
         }
         if (!pegadoPared)
-        {
-            if (Input.GetKey(KeyCode.Space))
+        { /*if (Input.GetButton("Jump"))*/
+            if (  joystick.Action1.IsPressed|| Input.GetButton("Jump"))
             {
 
 
@@ -2127,14 +2172,14 @@ public class ControllerPersonaje : MonoBehaviour
 
             }
         }
-
-        if (Input.GetKeyUp(KeyCode.Space))
+        //if (Input.GetButtonUp("Jump"))
+        if (joystick.Action1.WasReleased|| Input.GetButtonUp("Jump"))
         {
 
             auxpresalto = tiempoPreSalto;
             pulsadoEspacio = false;
             tiempoPulsadoEspacio = 0;
-
+            //saltoSoltado = false;
 
         }
 
@@ -2398,23 +2443,23 @@ public class ControllerPersonaje : MonoBehaviour
 
                     //if (ultimaNormal.y > 0.8f||ultimaNormal.y==0)
                     //{
-                   
+
                     if (tocandoBorde.collider != null && tocandoBorde.collider.tag != "Enemigo" && tocandoBorde.collider.tag != "NoClimb" && tocandoBorde.collider.tag != "Loop" && tocandoBorde.collider.tag != "Pinchos")
                     {
-                      
+
                         //print(tocandoBorde.collider.name);
                         tocando = true;
                     }
                     else if (tocandoBorde2.collider != null && tocandoBorde2.collider.tag != "Enemigo" && tocandoBorde2.collider.tag != "NoClimb" && tocandoBorde2.collider.tag != "Loop" && tocandoBorde2.collider.tag != "Pinchos")
                     {
-                       
+
                         //print(tocandoBorde2.collider.name);
                         tocando = true;
                     }
-                    if(tocandoBorde.collider==null&& tocandoBorde2.collider==null)
+                    if (tocandoBorde.collider == null && tocandoBorde2.collider == null)
                     {
-                      
-                           tocando = false;
+
+                        tocando = false;
 
                     }
                     if (!tocando && tocandoizquierda)
@@ -2428,11 +2473,11 @@ public class ControllerPersonaje : MonoBehaviour
 
                             //ledgePos1 = new Vector2((puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset1, (puntoCheckBorde.position.y) + ledgeClimbYOffset1);
                             //ledgePos2 = new Vector2((puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset2, (puntoCheckBorde.position.y) + ledgeClimbYOffset2);
-                           puntoChoque= izquierda.point;
+                            puntoChoque = izquierda.point;
                             ledgePos3 = new Vector2((puntoCheckBorde.position.x - distanciaBorde) - ledgeClimbXOffset3, (puntoCheckBorde.position.y) + ledgeClimbYOffset3);
                             ledgePos1 = puntoChoque;
-                            ledgePos2 = puntoChoque ;
-                           
+                            ledgePos2 = puntoChoque;
+
                             print(puntoChoque + "p1"); puntoChoque = this.transform.position;
                             print("SUBIENDO");
                             //if (rb.velocity.x > 0)
@@ -2477,13 +2522,13 @@ public class ControllerPersonaje : MonoBehaviour
 
                             //print("TocandoBorde" + tocandoizquierda + "iz" + tocandoderecha + "der");
                             movimientoBloqueado = true;
-                            
+
                             ledgePos1 = puntoChoque;
                             //ledgePos1 = new Vector2((puntoCheckBorde.position.x + distanciaBorde + ledgeClimbXOffset1),( puntoCheckBorde.position.y + ledgeClimbYOffset1));
                             //ledgePos2 = new Vector2(puntoCheckBorde.position.x + distanciaBorde + ledgeClimbXOffset2, puntoCheckBorde.position.y+ ledgeClimbYOffset2);
                             ledgePos2 = puntoChoque;
-                           
-                            print(puntoChoque+"p2"); puntoChoque = this.transform.position;
+
+                            print(puntoChoque + "p2"); puntoChoque = this.transform.position;
                             ledgePos3 = new Vector2(puntoCheckBorde.position.x + distanciaBorde + ledgeClimbXOffset3, puntoCheckBorde.position.y + ledgeClimbYOffset3);
                             if (!pInput.personajeInvertido)
                             {
@@ -2522,7 +2567,7 @@ public class ControllerPersonaje : MonoBehaviour
         yield return new WaitForSeconds(0.00f);
 
         //transform.position = Vector3.MoveTowards(transform.position, ledgePos2, 2f);
-        transform.position =  new Vector3(ledgePos2.x,ledgePos2.y+2f,0);
+        transform.position = new Vector3(ledgePos2.x, ledgePos2.y + 2f, 0);
         animCC.SetBool("canClimbLedge", false);
         movimientoBloqueado = false;
 
@@ -2531,13 +2576,13 @@ public class ControllerPersonaje : MonoBehaviour
         if (speedAntes.x < 0)
         {
             rb.velocity = speedAntes * 4;
-            
+
         }
         else
         {
             rb.velocity = speedAntes * 4;
         }
-        
+
         //rb.AddForce(speedAntes * 80);
     }
     private void OnTriggerEnter2D(Collider2D collision)
