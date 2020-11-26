@@ -74,7 +74,8 @@ public class PlayerInput : MonoBehaviour
                 //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
                 personajeInvertido = true;
 
-            } else if (inputHorizontal == -1 && personajeInvertido == true && (Mathf.Sign(cp.ultimaNormal.y) < 0) && (!cp.grounded))
+            }
+            else if (inputHorizontal == -1 && personajeInvertido == true && (Mathf.Sign(cp.ultimaNormal.y) < 0) && (!cp.grounded))
             {
 
                 particulasVelMax.localScale = new Vector2(-1, 1);
@@ -114,12 +115,28 @@ public class PlayerInput : MonoBehaviour
     void DetectarInput()
     {
         if (inputHorizBlock == false)
-        {  inputHorizontal = Input.GetAxisRaw("Horizontal");
+        {
+            //inputHorizontal =Input.GetAxis("Horizontal");
+            inputHorizontal = cp.joystick.LeftStickX + Input.GetAxis("Horizontal");
+          
+            if (inputHorizontal > 0.05f)
+            {
+                inputHorizontal = 1;
+            }
+            else if (inputHorizontal < -0.05f)
+            {
+                inputHorizontal = -1;
+            }
+            else
+            {
+                inputHorizontal = 0;
+            }
+          
             if (inputHorizontal != 0)
             {
                 ultimoInputHorizontal = inputHorizontal;
             }
-          
+
 
 
         }
@@ -130,7 +147,21 @@ public class PlayerInput : MonoBehaviour
         }
         if (inputVerticBlock == false)
         {
-            inputVertical = Input.GetAxisRaw("Vertical");
+            //inputVertical = Input.GetAxis("Vertical");
+            inputVertical = cp.joystick.LeftStickY+ Input.GetAxis("Vertical");
+            if (inputVertical > 0.05f)
+            {
+                inputVertical = 1;
+            }
+            else if (inputVertical < -0.05f)
+            {
+                inputVertical = -1;
+            }
+            else
+            {
+                inputVertical = 0;
+            }
+         
         }
         else
         {
