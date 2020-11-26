@@ -39,8 +39,7 @@ public class ManagerEnergia : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
-        {
-            maxEnergy = 10000;
+        { maxEnergy = 10000;
             actualEnergy = 10000;
         }
         barraEnergia.GetComponent<Image>().fillAmount = actualEnergy / maxEnergy;

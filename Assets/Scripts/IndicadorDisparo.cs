@@ -14,7 +14,7 @@ public class IndicadorDisparo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //camPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
+        camPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
         camPos.z = -10;
         Vector3 dir = camPos - this.transform.position;
         Vector3 aux = (camPos - this.transform.position).normalized;
