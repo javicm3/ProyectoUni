@@ -640,6 +640,7 @@ public class GameManager : MonoBehaviour
                 if (GameObject.FindGameObjectWithTag("Player") != null)
                 {
                     GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
+                  
                 }
             }
 

@@ -20,8 +20,9 @@ public class cableadoviaje : MonoBehaviour
     float originalspeed;
     public float originalGravity;
     public bool viajando;
-    GameObject nodoElegido;
+   public  GameObject nodoElegido;
     float elapsed;
+    PlayerInput Pinput;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,7 @@ public class cableadoviaje : MonoBehaviour
         originalGravity = m_Rigidbody2D.gravityScale;
         nodos = GameObject.FindGameObjectsWithTag("Nodo");
         rendererViaje.gameObject.SetActive(false);
+        Pinput = this.GetComponent<PlayerInput>();
     }
 
     // Update is called once per frame
@@ -53,7 +55,7 @@ public class cableadoviaje : MonoBehaviour
             }
 
 
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Pinput.inputVertical>0)
             {
                 /*foreach (GameObject nodo in nodos)
                 {
@@ -82,7 +84,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Pinput.inputVertical < 0)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
@@ -111,7 +113,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if( Pinput.inputHorizontal > 0)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
@@ -141,7 +143,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Pinput.inputHorizontal < 0)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
