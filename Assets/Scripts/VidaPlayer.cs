@@ -64,12 +64,14 @@ public class VidaPlayer : MonoBehaviour
             {
                 //this.GetComponentInChildren<Animator>().SetTrigger("Die");
                 //source.PlayOneShot(muertePlayer);
+                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().morir);
                 GameManager.Instance.MuertePJ();
                 animCC.SetTrigger("Die");
             }
             else
             {
                 //source.PlayOneShot(dañoPlayer);
+                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().daño);
                 animCC.SetTrigger("Daño");
             }
 

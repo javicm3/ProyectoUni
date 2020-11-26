@@ -35,6 +35,8 @@ public class ControllerPersonaje : MonoBehaviour
     public bool tengoMaxspeed = false;
     public float capSpeed;
     public bool capSpeedUnavez = false;
+    public bool heEntradoParedUnaVez = false;
+
 
     [Header("Correr")]
 
@@ -802,7 +804,29 @@ public class ControllerPersonaje : MonoBehaviour
         }
         if (pegadoPared)
         {
+            if (pInput.inputVertical != 0)
+            {
+                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().moverPared);
+            }
+            else
+            {
+                this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
+            }
+            if (heEntradoParedUnaVez == false)
+            {
+                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().pegarPared);
+                heEntradoParedUnaVez = true;
+            }
             saltoDobleHecho = false;
+        }
+        else
+        {
+            if (heEntradoParedUnaVez == true)
+            {
+                this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
+                heEntradoParedUnaVez = false;
+               if(auxtiempoTrasSaltoPared<=0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.2f);
+            }
         }
 
 
@@ -885,6 +909,7 @@ public class ControllerPersonaje : MonoBehaviour
                         dashBloqueado = false;
                         dashCaidaBloqueado = false;
                         unavezsalirpared = true;
+                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez,this.GetComponent<AudioManager>().saltarPared);
 
                     }
                     else
@@ -894,7 +919,7 @@ public class ControllerPersonaje : MonoBehaviour
                 }
                 else
                 {
-                    if ( Input.GetButtonDown("Jump"))
+                    if (Input.GetButtonDown("Jump"))
                     {
                         //if (saltoPulsado == true)
                         //{
@@ -931,14 +956,14 @@ public class ControllerPersonaje : MonoBehaviour
                         dashBloqueado = false;
                         dashCaidaBloqueado = false;
                         unavezsalirpared = true;
-
+                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().saltarPared);
                     }
                     else
                     {
                         unavezsalirpared = true;
                     }
                 }
-                    if (maxTiempoPared <= 0)
+                if (maxTiempoPared <= 0)
                 {
                     pegadoPared = false;
                     animCC.SetBool("PegadoPared", false);
@@ -966,7 +991,7 @@ public class ControllerPersonaje : MonoBehaviour
             if (unavezsalirpared == true)
             {
                 unavezsalirpared = false;
-
+                
                 saltoBloqueado = false;
                 //print("cambiogravedad");
                 dashBloqueado = false;
@@ -989,9 +1014,11 @@ public class ControllerPersonaje : MonoBehaviour
     void MoverPersonaje()
     {
         if (auxTiempoTrasSaltoLoop > 0) auxTiempoTrasSaltoLoop -= Time.deltaTime;
+
         if (grounded)
         {
-            if (ultimaNormal.y > 0.8f)
+            //print(ultimaNormal + "ULTNORMAL" + grounded);
+            if ((ultimaNormal.y > 0.8f) && (looping == false))
             {
                 if (Math.Sign(pInput.ultimoInputHorizontal) != Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 2)
                 {
@@ -1000,140 +1027,132 @@ public class ControllerPersonaje : MonoBehaviour
                     {
 
 
-                        print("cambiosentido2");
-                        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
-                        this.rb.AddForce(direccion * fuerzaCambioSentido * 1.5f * Time.deltaTime);
+                        print("cambiosentido2" + ultimaNormal.y + grounded);
+                        Vector2 direccion = Vector2.Perpendicular(ultimaNormal).normalized * coefDeceleracion * -pInput.inputHorizontal;
+                        this.rb.AddForce(direccion * fuerzaCambioSentido * 0.8f * Time.deltaTime);
+
 
                     }
                     else
                     {
                         //rb.velocity =new Vector2 (0, rb.velocity.y);
-                        print("cambiosentido");
+                        print("cambiosentido" + ultimaNormal.y + grounded);
 
-                        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
+                        Vector2 direccion = Vector2.Perpendicular(ultimaNormal).normalized * coefDeceleracion * -pInput.inputHorizontal;
                         this.rb.AddForce(direccion * fuerzaCambioSentido * Time.deltaTime);
 
 
                     }
+                    cambioSentidoReciente = true;
+                    StopCoroutine(CambioAireReciente(tiempoTrasCambioSentido));
+                    StartCoroutine(CambioAireReciente(tiempoTrasCambioSentido));
                     //rb.velocity = new Vector2(-rb.velocity.x * 0.7f, rb.velocity.y);
                     speed = 0;
                 }
-                //if (pInput.inputHorizontal < 0 && pInput.ultimoInputHorizontal>0&&  rb.velocity.x < 2)
-                //{
-                //    if (tengoMaxspeed)
-                //    {
-
-                //        print("cambiosentido2");
-                //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
-                //        this.rb.AddForce(direccion * fuerzaCambioSentido * 1.5f * Time.deltaTime);
-
-                //    }
-                //    else
-                //    {
-
-                //        print("cambiosentido");
-
-                //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
-                //        this.rb.AddForce(direccion * fuerzaCambioSentido * Time.deltaTime);
-
-
-                //    }
-                //    //rb.velocity = new Vector2(-rb.velocity.x * 0.7f, rb.velocity.y);
-                //    speed = 0;
-                //}
-                //else if (pInput.inputHorizontal> 0 && pInput.ultimoInputHorizontal < 0 && rb.velocity.x > 2)
-                //{
-                //    if (tengoMaxspeed)
-                //    {
-
-                //        print("cambiosentido2");
-                //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
-                //        this.rb.AddForce(direccion * fuerzaCambioSentido * 1.5f * Time.deltaTime);
-
-                //    }
-                //    else
-                //    {
-
-                //        print("cambiosentido");
-
-                //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
-                //        this.rb.AddForce(direccion * fuerzaCambioSentido * Time.deltaTime);
-
-
-                //    }
-                //    speed = 0;
-                //}
-                //else if (pInput.inputHorizontal == 0 && Mathf.Abs(rb.velocity.x) > 2)
-                //{
-
-                //    //if (pInput.ultimoInputHorizontal > 0 && rb.velocity.x < 2)
-                //    //{
-                //    //    if (tengoMaxspeed)
-                //    //    {
-
-                //    //        print("cambiosentido2");
-                //    //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
-                //    //        this.rb.AddForce(direccion * fuerzaCambioSentido * 1.5f * Time.deltaTime);
-
-                //    //    }
-                //    //    else
-                //    //    {
-
-                //    //        print("cambiosentido");
-
-                //    //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
-                //    //        this.rb.AddForce(direccion * fuerzaCambioSentido * Time.deltaTime);
-
-
-                //    //    }
-                //    //    //rb.velocity = new Vector2(-rb.velocity.x * 0.7f, rb.velocity.y);
-                //    //    speed = 0;
-                //    //}
-                //    //else if (pInput.ultimoInputHorizontal < 0 && rb.velocity.x > 2)
-                //    //{
-                //    //    if (tengoMaxspeed)
-                //    //    {
-
-                //    //        print("cambiosentido2");
-                //    //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
-                //    //        this.rb.AddForce(direccion * fuerzaCambioSentido * 1.5f * Time.deltaTime);
-
-                //    //    }
-                //    //    else
-                //    //    {
-
-                //    //        print("cambiosentido");
-
-                //    //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
-                //    //        this.rb.AddForce(direccion * fuerzaCambioSentido * Time.deltaTime);
-
-
-                //    //    }
-                //    //    speed = 0;
-                //    //}
-                //}
-
-
             }
+            //if (pInput.inputHorizontal < 0 && pInput.ultimoInputHorizontal>0&&  rb.velocity.x < 2)
+            //{
+            //    if (tengoMaxspeed)
+            //    {
+
+            //        print("cambiosentido2");
+            //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
+            //        this.rb.AddForce(direccion * fuerzaCambioSentido * 1.5f * Time.deltaTime);
+
+            //    }
+            //    else
+            //    {
+
+            //        print("cambiosentido");
+
+            //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
+            //        this.rb.AddForce(direccion * fuerzaCambioSentido * Time.deltaTime);
+
+
+            //    }
+            //    //rb.velocity = new Vector2(-rb.velocity.x * 0.7f, rb.velocity.y);
+            //    speed = 0;
+            //}
+            //else if (pInput.inputHorizontal> 0 && pInput.ultimoInputHorizontal < 0 && rb.velocity.x > 2)
+            //{
+            //    if (tengoMaxspeed)
+            //    {
+
+            //        print("cambiosentido2");
+            //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
+            //        this.rb.AddForce(direccion * fuerzaCambioSentido * 1.5f * Time.deltaTime);
+
+            //    }
+            //    else
+            //    {
+
+            //        print("cambiosentido");
+
+            //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
+            //        this.rb.AddForce(direccion * fuerzaCambioSentido * Time.deltaTime);
+
+
+            //    }
+            //    speed = 0;
+            //}
+            //else if (pInput.inputHorizontal == 0 && Mathf.Abs(rb.velocity.x) > 2)
+            //{
+
+            //    //if (pInput.ultimoInputHorizontal > 0 && rb.velocity.x < 2)
+            //    //{
+            //    //    if (tengoMaxspeed)
+            //    //    {
+
+            //    //        print("cambiosentido2");
+            //    //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
+            //    //        this.rb.AddForce(direccion * fuerzaCambioSentido * 1.5f * Time.deltaTime);
+
+            //    //    }
+            //    //    else
+            //    //    {
+
+            //    //        print("cambiosentido");
+
+            //    //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
+            //    //        this.rb.AddForce(direccion * fuerzaCambioSentido * Time.deltaTime);
+
+
+            //    //    }
+            //    //    //rb.velocity = new Vector2(-rb.velocity.x * 0.7f, rb.velocity.y);
+            //    //    speed = 0;
+            //    //}
+            //    //else if (pInput.ultimoInputHorizontal < 0 && rb.velocity.x > 2)
+            //    //{
+            //    //    if (tengoMaxspeed)
+            //    //    {
+
+            //    //        print("cambiosentido2");
+            //    //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
+            //    //        this.rb.AddForce(direccion * fuerzaCambioSentido * 1.5f * Time.deltaTime);
+
+            //    //    }
+            //    //    else
+            //    //    {
+
+            //    //        print("cambiosentido");
+
+            //    //        Vector2 direccion = Vector2.Perpendicular(normal).normalized * coefDeceleracion * -pInput.inputHorizontal;
+            //    //        this.rb.AddForce(direccion * fuerzaCambioSentido * Time.deltaTime);
+
+
+            //    //    }
+            //    //    speed = 0;
+            //    //}
+            //}
+
+
+
 
             if (pInput.inputHorizontal != 0)
             {
                 //FUERZA AUXILIAR PARA CAMBIO DE SENTIDO
                 //if (normal.y >= 0)//Para que no se haga en loops (boca abajo);
-                Collider2D[] hit = Physics2D.OverlapCircleAll(this.gameObject.transform.position, 1.1f);
-                foreach (Collider2D col in hit)
-                {
 
-                    if (col.tag == "Loop")
-                    {
-
-                        looping = true;
-
-                    }
-
-
-
-                }
 
                 //else
                 //{
@@ -1201,7 +1220,7 @@ public class ControllerPersonaje : MonoBehaviour
                     //    this.rb.velocity = new Vector2(-velocidadWorld.x,this.rb.velocity.y- velocidadWorld.y);
                     //}
                 }
-                if (Mathf.Abs(this.rb.velocity.x) >= velMaxima)
+                if (Mathf.Abs(this.rb.velocity.x) >= velMaxima+2)
                 {
                     if (capSpeedUnavez == false)
                     {
@@ -1211,7 +1230,8 @@ public class ControllerPersonaje : MonoBehaviour
                     }
                     speed = capSpeed;
                     print("frenando" + Mathf.Sign(rb.velocity.x));
-                    if (auxCdDash < 0) rb.velocity = new Vector2((velMaxima - 1) * Mathf.Sign(ultimaNormal.y) * pInput.ultimoInputHorizontal, rb.velocity.y);
+                    print("nomral" + normal + "normal2" + ultimaNormal);
+                    if (auxCdDash < 0.5f && cambioSentidoReciente == false) rb.velocity = new Vector2((velMaxima - 1) * Mathf.Sign(ultimaNormal.y) * pInput.ultimoInputHorizontal, rb.velocity.y);
                     //this.rb.AddForce(-this.rb.velocity * (coefDeceleracion * 0.1f) * Time.deltaTime);
                     //if (Mathf.Abs(speed) > 0)
                     //{
@@ -1276,19 +1296,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
 
-                Collider2D[] hit = Physics2D.OverlapCircleAll(this.gameObject.transform.position, 1.1f);
-                foreach (Collider2D col in hit)
-                {
 
-                    if (col.tag == "Loop")
-                    {
-
-                        looping = true;
-
-                    }
-
-
-                }
 
                 if (Mathf.Sign(pInput.inputHorizontal) != Mathf.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 1)
                 {
@@ -1309,7 +1317,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                                     Vector2 direccion = new Vector2(1, 0) * coefDeceleracion * pInput.inputHorizontal;
-                                    this.rb.AddForce(direccion * fuerzaCambioSentidoAire * 1.2f * Time.deltaTime);
+                                    this.rb.AddForce(direccion * fuerzaCambioSentidoAire * 0.8f * Time.deltaTime);
                                 }
                                 //if (pInput.ultimoInputHorizontal == 1)
                                 //    {
@@ -1456,7 +1464,7 @@ public class ControllerPersonaje : MonoBehaviour
                     //    this.rb.velocity = new Vector2(-velocidadWorld.x,this.rb.velocity.y- velocidadWorld.y);
                     //}
                 }
-                if (Mathf.Abs(this.rb.velocity.x) > velMaxima)
+                if (Mathf.Abs(this.rb.velocity.x) > velMaxima + 2)
                 {
                     if (capSpeedUnavez == false)
                     {
@@ -1465,8 +1473,10 @@ public class ControllerPersonaje : MonoBehaviour
                         print(capSpeed + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                     }
                     speed = capSpeed;
-
-                    rb.velocity = new Vector2(velMaxima * pInput.inputHorizontal, rb.velocity.y);
+                    print("frenandoAire" + Mathf.Sign(rb.velocity.x));
+                    print("ultimanormalfrenandoaire" + ultimaNormal.y + "x velocidad" + new Vector2((velMaxima - 1) * Mathf.Sign(ultimaNormal.y) * pInput.ultimoInputHorizontal, rb.velocity.y));
+                    if (auxCdDash < 0 && cambioSentidoReciente == false) rb.velocity = new Vector2((velMaxima - 1) * Mathf.Sign(ultimaNormal.y) * pInput.ultimoInputHorizontal, rb.velocity.y);
+                    //if (auxCdDash<0) rb.velocity = new Vector2(velMaxima * pInput.inputHorizontal *Mathf.Sign(ultimaNormal.y), rb.velocity.y);
                     //this.rb.AddForce(-this.rb.velocity * (coefDeceleracion * 0.1f) * Time.deltaTime);
 
 
@@ -1520,16 +1530,19 @@ public class ControllerPersonaje : MonoBehaviour
                 //animCC.SetBool("Corriendo", false);
             }
         }
-        if (Mathf.Abs(rb.velocity.magnitude) < velMaxima - 3f)
+        if (Mathf.Abs(rb.velocity.x) < velMaxima - 2f)
         {
+           if(!pegadoPared) this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
             tengoMaxspeed = false;
             //particulasVelMax.SetActive(false);
         }
         else
         {
+          
             tengoMaxspeed = true;
             if (grounded)
             {
+                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().velMaxima);
                 if (GetComponent<PlayerInput>().personajeInvertido)
                 {
                     GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax2, VFX.position);
@@ -1776,6 +1789,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                         dashCaidaBloqueado = true;
                         auxCdDash = cooldownDash;
+                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dash);
                     }
                     //anim.SetTrigger("Dash");
                     Transform m_GroundCheck = transform.Find("GroundCheckç");
@@ -1785,7 +1799,7 @@ public class ControllerPersonaje : MonoBehaviour
             }
             else
             {
-                if ( Input.GetButtonDown("Dash") && mEnergy.actualEnergy > mEnergy.energiaDash && pInput.inputVertical != -1)
+                if (Input.GetButtonDown("Dash") && mEnergy.actualEnergy > mEnergy.energiaDash && pInput.inputVertical != -1)
                 {
                     //if (dashPulsado && mEnergy.actualEnergy > mEnergy.energiaDash)
                     //{
@@ -1876,6 +1890,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                         dashCaidaBloqueado = true;
                         auxCdDash = cooldownDash;
+                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dash);
                     }
                     //anim.SetTrigger("Dash");
                     Transform m_GroundCheck = transform.Find("GroundCheckç");
@@ -1886,6 +1901,7 @@ public class ControllerPersonaje : MonoBehaviour
         }
         else
         {
+            tiempoPulsadoEspacio = tiempoSaltoCompleto+0.5f;
             auxdash -= Time.deltaTime;
             if (auxdash > 0)
             {
@@ -1972,7 +1988,7 @@ public class ControllerPersonaje : MonoBehaviour
                         dashEnCaida = true;
                     }
                 }
-
+                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                 print("dashabajo");
             }
             else if (grounded)
@@ -1982,7 +1998,7 @@ public class ControllerPersonaje : MonoBehaviour
         }
         else
         {
-            if (!grounded && pInput.inputVertical == -1 && pegadoPared == false &&  Input.GetButtonDown("Dash"))
+            if (!grounded && pInput.inputVertical == -1 && pegadoPared == false && Input.GetButtonDown("Dash"))
             {
                 if (rb.velocity.y > 0)
                 {
@@ -2002,7 +2018,7 @@ public class ControllerPersonaje : MonoBehaviour
                         dashEnCaida = true;
                     }
                 }
-
+                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                 print("dashabajo");
             }
             else if (grounded)
@@ -2010,7 +2026,7 @@ public class ControllerPersonaje : MonoBehaviour
                 dashEnCaida = false;
             }
         }
-     
+
         animCC.SetBool("cayendo", dashEnCaida);
     }
     void SaltoNormal()
@@ -2070,7 +2086,7 @@ public class ControllerPersonaje : MonoBehaviour
                                     //rb.velocity = new Vector2(rb.velocity.x, ultimaNormal.y * fuerzaSaltoMin);
                                 }
                                 //rb.velocity = ;
-                                print("hu");
+                                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
                                 rb.AddForce(this.transform.up * fuerzaSaltoMin, ForceMode2D.Impulse);
 
                             }
@@ -2088,7 +2104,7 @@ public class ControllerPersonaje : MonoBehaviour
                                     rb.velocity = Vector2.zero;
                                     auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
                                 }
-                                print("hStu");
+                                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
                                 //rb.velocity = (ultimaNormal.normalized * fuerzaSaltoMin);
                                 //rb.velocity = ultimaNormal.normalized * fuerzaSaltoMin;
                                 rb.AddForce(this.transform.up * fuerzaSaltoMin, ForceMode2D.Impulse);
@@ -2114,6 +2130,7 @@ public class ControllerPersonaje : MonoBehaviour
                             animCC.SetTrigger("Salto");
                             //rb.velocity = new Vector2(rb.velocity.x, 1* fuerzaSaltoMin);
                             if (looping) auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
+                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
                             rb.AddForce(new Vector2(0, 1) * fuerzaSaltoMin, ForceMode2D.Impulse);
                             pulsadoEspacio = true;
                             saltoIniciado = false;
@@ -2134,14 +2151,16 @@ public class ControllerPersonaje : MonoBehaviour
                                 estoyDasheando = false;
                                 float speedx = rb.velocity.x;
                                 //rb.velocity = new Vector2(rb.velocity.x, 0);
-                                if (cambioSentidoReciente)
+                                //if (cambioSentidoReciente)
+                                //{
+                                //    constantegravedad = 1;
+                                //    rb.velocity = new Vector2(-rb.velocity.x * 0.4f, fuerzaSaltoDoble);
+                                //}
+                                //else
                                 {
                                     constantegravedad = 1;
-                                    rb.velocity = new Vector2(-rb.velocity.x * 0.4f, fuerzaSaltoDoble);
-                                }
-                                else
-                                {
-                                    constantegravedad = 1;
+                                    this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dobleSalto);
+
                                     rb.velocity = new Vector2(rb.velocity.x, fuerzaSaltoDoble);
                                 }
                                 //print("    constantegravedad = 1;");
@@ -2212,7 +2231,7 @@ public class ControllerPersonaje : MonoBehaviour
                                     //rb.velocity = new Vector2(rb.velocity.x, ultimaNormal.y * fuerzaSaltoMin);
                                 }
                                 //rb.velocity = ;
-                                print("hu");
+                                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                                 rb.AddForce(this.transform.up * fuerzaSaltoMin, ForceMode2D.Impulse);
 
                             }
@@ -2230,7 +2249,7 @@ public class ControllerPersonaje : MonoBehaviour
                                     rb.velocity = Vector2.zero;
                                     auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
                                 }
-                                print("hStu");
+                                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                                 //rb.velocity = (ultimaNormal.normalized * fuerzaSaltoMin);
                                 //rb.velocity = ultimaNormal.normalized * fuerzaSaltoMin;
                                 rb.AddForce(this.transform.up * fuerzaSaltoMin, ForceMode2D.Impulse);
@@ -2256,6 +2275,7 @@ public class ControllerPersonaje : MonoBehaviour
                             animCC.SetTrigger("Salto");
                             //rb.velocity = new Vector2(rb.velocity.x, 1* fuerzaSaltoMin);
                             if (looping) auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
+                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(new Vector2(0, 1) * fuerzaSaltoMin, ForceMode2D.Impulse);
                             pulsadoEspacio = true;
                             saltoIniciado = false;
@@ -2276,14 +2296,15 @@ public class ControllerPersonaje : MonoBehaviour
                                 estoyDasheando = false;
                                 float speedx = rb.velocity.x;
                                 //rb.velocity = new Vector2(rb.velocity.x, 0);
-                                if (cambioSentidoReciente)
+                                //if (cambioSentidoReciente)
+                                //{
+                                //    constantegravedad = 1;
+                                //    rb.velocity = new Vector2(-rb.velocity.x * 0.4f, fuerzaSaltoDoble);
+                                //}
+                                //else
                                 {
                                     constantegravedad = 1;
-                                    rb.velocity = new Vector2(-rb.velocity.x * 0.4f, fuerzaSaltoDoble);
-                                }
-                                else
-                                {
-                                    constantegravedad = 1;
+                                    this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dobleSalto);
                                     rb.velocity = new Vector2(rb.velocity.x, fuerzaSaltoDoble);
                                 }
                                 //print("    constantegravedad = 1;");
@@ -2301,7 +2322,7 @@ public class ControllerPersonaje : MonoBehaviour
                 }
             }
         }
-      
+
         if (grounded)
         {
             dashCaidaBloqueado = false;
@@ -2344,7 +2365,8 @@ public class ControllerPersonaje : MonoBehaviour
                         }
                     }
                     //print("fuerzaminX");
-                    print("hwu");
+                    this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
+
                     rb.AddForce(ultimaNormal.normalized * fuerzaSaltoMin, ForceMode2D.Impulse);
                     lastJumpPared = false;
 
@@ -2509,7 +2531,7 @@ public class ControllerPersonaje : MonoBehaviour
             }
             else
             {
-                if ( Input.GetButton("Jump"))
+                if (Input.GetButton("Jump"))
                 {
 
 
@@ -2640,7 +2662,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                 }
             }
-        
+
         }
         //if (Input.GetButtonUp("Jump"))
         if (joystick != null)
@@ -2667,7 +2689,7 @@ public class ControllerPersonaje : MonoBehaviour
 
             }
         }
-        
+
 
 
         //if (Input.GetKeyDown(KeyCode.Space))
@@ -2772,7 +2794,23 @@ public class ControllerPersonaje : MonoBehaviour
         RaycastHit2D hit3;
         if (hit.collider != null)
         {
+            //Collider2D[] hit = Physics2D.OverlapCircleAll(this.gameObject.transform.position, 1.1f);
+            //foreach (Collider2D col in hit)
+            //{
 
+            if (hit.collider.tag == "Loop")
+            {
+
+                looping = true;
+
+            }
+            else
+            {
+                looping = false;
+            }
+
+
+            //}
 
             normal = new Vector2(hit.normal.x, hit.normal.y);
             ultimaNormal = normal;
@@ -2825,7 +2863,16 @@ public class ControllerPersonaje : MonoBehaviour
         {
             tiempomaxTrasTocarsuelo = auxtiempoMaxSuelo;
             grounded = true;
+            if (hit.collider.tag == "Loop")
+            {
 
+                looping = true;
+
+            }
+            else
+            {
+                looping = false;
+            }
             normal = new Vector2(hit.normal.x, hit.normal.y);
             ultimaNormal = normal;
             Debug.DrawRay(transform.position, normal * 100, Color.red);
@@ -2834,7 +2881,16 @@ public class ControllerPersonaje : MonoBehaviour
         }
         else if ((hit2.collider != null))
         {
+            if (hit2.collider.tag == "Loop")
+            {
 
+                looping = true;
+
+            }
+            else
+            {
+                looping = false;
+            }
             tiempomaxTrasTocarsuelo = auxtiempoMaxSuelo;
             grounded = true;
 
@@ -2846,6 +2902,16 @@ public class ControllerPersonaje : MonoBehaviour
         }
         else if ((hit3.collider != null))
         {
+            if (hit3.collider.tag == "Loop")
+            {
+
+                looping = true;
+
+            }
+            else
+            {
+                looping = false;
+            }
             tiempomaxTrasTocarsuelo = auxtiempoMaxSuelo;
             grounded = true;
 
@@ -2856,6 +2922,7 @@ public class ControllerPersonaje : MonoBehaviour
         }
         else
         {
+            looping = false;
             grounded = false;
             tiempomaxTrasTocarsuelo -= Time.deltaTime;
 

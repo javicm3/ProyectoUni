@@ -23,20 +23,25 @@ public class RaycastCaida : MonoBehaviour
         if (hit.collider != null /*&& hit.collider.gameObject.layer == suelo*/)
         {
             //print(hit.collider.name + " coliflor");
-            //print(Vector2.Distance(hit.point, transform.position));
-            if (Vector2.Distance(hit.point, transform.position) <= distanciaSuelo && controller.rb.velocity.y < 0)
+           //print(Vector2.Distance(hit.point, transform.position));
+            if (Vector2.Distance(hit.point, transform.position) <= distanciaSuelo && controller.rb.velocity.y < 0 && !controller.dashEnCaida)
             {
 
                 anim.SetBool("RaycastCaida", true);
                 //print("raycastcaida");
             }
-            else if(controller.rb.velocity.y > 0)
+            else if (controller.rb.velocity.y > 0)
             {
                 anim.SetBool("RaycastCaida", false);
             }
             else if (Vector2.Distance(hit.point, transform.position) > distanciaSuelo)
             {
                 anim.SetBool("RaycastCaida", false);
+            }
+            if (Vector2.Distance(hit.point, transform.position) <= 3f && controller.grounded == false && controller.rb.velocity.y < 0 && !controller.dashEnCaida) /*&& controller.rb.velocity.y < 0*/
+            {
+            
+                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaSuelo);
             }
         }
         else
@@ -45,7 +50,7 @@ public class RaycastCaida : MonoBehaviour
         }
         RaycastHit2D hit2 = Physics2D.Raycast(this.transform.position, Vector2.down, distanciaSueloDash, suelo); ;
         //Debug.DrawRay(this.transform.position, new Vector2(controller.rb.velocity.x * 0.5f, controller.rb.velocity.y) * 14, Color.green);
-        if (hit2.collider != null /*&& hit.collider.gameObject.layer == suelo*/)
+        if (hit2.collider != null /*&& hit.collider.gameObject.layer == suelo*/&& controller.dashEnCaida)
         {
             //print(hit.collider.name + " coliflor");
             //print(Vector2.Distance(hit.point, transform.position));
@@ -63,11 +68,16 @@ public class RaycastCaida : MonoBehaviour
             {
                 anim.SetBool("RaycastCaidaDash", false);
             }
+            if (Vector2.Distance(hit2.point, transform.position) <= 3f && controller.grounded==false && controller.rb.velocity.y<0&&controller.dashEnCaida) /*&& controller.rb.velocity.y < 0*/
+            {
+           
+                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaDashAbajo);
+            }
         }
         else
         {
             anim.SetBool("RaycastCaidaDash", false);
         }
     }
-    
+
 }

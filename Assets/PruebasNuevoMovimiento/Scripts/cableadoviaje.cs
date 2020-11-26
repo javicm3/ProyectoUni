@@ -36,14 +36,16 @@ public class cableadoviaje : MonoBehaviour
     {
         if (viajando)
         {
+          
             controllerPersonaje.movimientoBloqueado = true;
             m_Rigidbody2D.isKinematic = true;
             m_Rigidbody2D.gravityScale = 0;
             if (unavez == false)
             {
+                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().MoverseCables);
                 m_Rigidbody2D.velocity = Vector2.zero;
                 unavez = true;
-                rendererCuerpo.gameObject.SetActive(false);
+               if(rendererCuerpo!=null) rendererCuerpo.gameObject.SetActive(false);
                 //rendererViaje.enabled = true;
                 rendererViaje.gameObject.SetActive(true);
                 colliderNormal.enabled = false;
@@ -180,16 +182,18 @@ public class cableadoviaje : MonoBehaviour
         }
         else
         {
+           
             nodoElegido = null;
             m_Rigidbody2D.isKinematic = false;
             //
             if (unavez == true)
             {
+                this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
 
                 m_Rigidbody2D.gravityScale = originalGravity;
                 unavez = false;
-                rendererCuerpo.enabled = true;
-                rendererCuerpo.gameObject.SetActive(true);
+               if(rendererCuerpo!=null) rendererCuerpo.enabled = true;
+                if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
                 //rendererViaje.enabled = false;
                 rendererViaje.gameObject.SetActive(false);
                 colliderViaje.enabled = false;
@@ -205,32 +209,37 @@ public class cableadoviaje : MonoBehaviour
 
         if (collision.gameObject.tag == "Nodo")
         {
-
+           
             nodoActual = collision.gameObject;
             inputEnabled = true;
             //speedMov = 0;
             Nodo node = collision.gameObject.GetComponent<Nodo>();
             if (node.salida == false && viajando == true)
             {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().pasarPorNodo);
                 this.transform.position = new Vector3(node.transform.position.x,node.transform.position.y,this.transform.position.z);
             }
             if (node.salidaAbajo == true && viajando == true)
             {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                 this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) +new Vector3(0, -2);
                 viajando = false;
             }
             else if (node.salidaArriba == true && viajando == true)
             {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                 this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(0, +2);
                 viajando = false;
             }
             else if (node.salidaDerecha == true && viajando == true)
             {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                 this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(2, 0);
                 viajando = false;
             }
             else if (node.salidaIzquierda == true && viajando == true)
             {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                 this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(-2, 0);
                 viajando = false;
             }

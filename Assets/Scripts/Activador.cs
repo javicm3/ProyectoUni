@@ -40,6 +40,7 @@ public class Activador : MonoBehaviour
                 if (tiempoPuerta <= 0)
                 {
                     this.GetComponent<SpriteRenderer>().sprite = apagado;
+                    source.PlayOneShot(clip);
                 }
             }
         }
@@ -61,6 +62,7 @@ public class Activador : MonoBehaviour
 
                 }
             }
+            source.PlayOneShot(clip);
         }
 
         if (abrePuertas)

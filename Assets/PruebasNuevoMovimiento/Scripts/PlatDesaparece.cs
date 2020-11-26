@@ -15,6 +15,8 @@ public class PlatDesaparece : MonoBehaviour
     public GameObject OffsetIzq;
     public GameObject OffsetDer;
     public GameObject OffsetY;
+    public AudioClip sonidoDesaparecer;
+    public AudioClip sonidoAparecer;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +39,8 @@ public class PlatDesaparece : MonoBehaviour
             }
             if (auxAntes < 0)
             {
-
+                this.GetComponent<AudioSource>().PlayOneShot(sonidoDesaparecer);
+               
                 auxAntes = tiempoAntesDesaparecer;
                 bcollider.enabled = false;
                 srenderer.enabled = false;
@@ -53,7 +56,8 @@ public class PlatDesaparece : MonoBehaviour
                 srenderer.color = new Color(srenderer.color.r, srenderer.color.g, srenderer.color.b, 1f);
                 auxDespues = tiempoAparecer;
                 bcollider.enabled = true;
-
+             
+                this.GetComponent<AudioSource>().PlayOneShot(sonidoAparecer);
 
             }
             else

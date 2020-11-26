@@ -38,8 +38,9 @@ public class Nodo : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     if (GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().viajando == false)
-                    {
-                        GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().viajando = true;
+                        {
+                            GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().entradaCables);
+                            GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().viajando = true;
                         GameObject.FindGameObjectWithTag("Player").transform.position = this.transform.position;
                         if (puedeAbajo)
                         {
