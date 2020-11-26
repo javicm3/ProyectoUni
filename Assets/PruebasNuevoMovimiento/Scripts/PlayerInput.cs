@@ -117,7 +117,15 @@ public class PlayerInput : MonoBehaviour
         if (inputHorizBlock == false)
         {
             //inputHorizontal =Input.GetAxis("Horizontal");
-            inputHorizontal = cp.joystick.LeftStickX + Input.GetAxis("Horizontal");
+            if (cp.joystick != null)
+            {
+                inputHorizontal = cp.joystick.LeftStickX + Input.GetAxis("Horizontal");
+            }
+            else
+            {
+                inputHorizontal =  Input.GetAxis("Horizontal");
+            }
+           
           
             if (inputHorizontal > 0.05f)
             {
@@ -148,7 +156,15 @@ public class PlayerInput : MonoBehaviour
         if (inputVerticBlock == false)
         {
             //inputVertical = Input.GetAxis("Vertical");
-            inputVertical = cp.joystick.LeftStickY+ Input.GetAxis("Vertical");
+            if (cp.joystick != null)
+            {
+ inputVertical = cp.joystick.LeftStickY+ Input.GetAxis("Vertical");
+            }
+            else
+            {
+                inputVertical =  Input.GetAxis("Vertical");
+            }
+               
             if (inputVertical > 0.05f)
             {
                 inputVertical = 1;
