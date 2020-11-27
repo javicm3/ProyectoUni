@@ -825,7 +825,7 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
                 heEntradoParedUnaVez = false;
-               if(auxtiempoTrasSaltoPared<=0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.2f);
+               if(auxtiempoTrasSaltoPared<=0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             }
         }
 
