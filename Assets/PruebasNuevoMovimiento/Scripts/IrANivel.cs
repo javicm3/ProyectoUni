@@ -49,7 +49,7 @@ public class IrANivel : MonoBehaviour
 
             cartel.enabled = true;
             textoEstrellas.text = "Necesitas"+requisitoEstrellas.ToString();
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
             {
                 if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
                 {

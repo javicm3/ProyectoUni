@@ -13,13 +13,16 @@ public class PlatRotatoria : MonoBehaviour
     public float velocidadRotacion = 30f;
     float rotacioninicialZ;
     float aux;
+    public AudioClip clip;
+    public AudioSource source;
    
     // Start is called before the first frame update
     void Start()
     {
         rotacioninicialZ = this.transform.rotation.z;
         aux = rotacioninicialZ;
-        
+        source = this.GetComponent<AudioSource>();
+        source.clip = clip;
     }
 
     // Update is called once per frame
@@ -33,13 +36,14 @@ public class PlatRotatoria : MonoBehaviour
             if (aux < rotacioninicialZ + 180)
             {
                 this.transform.Rotate(0, 0, rotacioninicialZ + velocidadRotacion);
-                //GetComponent<AudioSource>().Play();
-                StartCoroutine(PararAudio(0.3f));
+
+                GetComponent<AudioSource>().PlayOneShot(clip);
+                //StartCoroutine(PararAudio(0.3f));
                 aux += velocidadRotacion;
             }
             else
             {
-               
+                GetComponent<AudioSource>().Stop();
                 aux -= 180;
                 auxtiempoEntreGiros += tiempoentreGiros;
             }
@@ -48,6 +52,7 @@ public class PlatRotatoria : MonoBehaviour
 
         }
         else {
+            GetComponent<AudioSource>().Stop();
             auxtiempoEntreGiros -= Time.deltaTime;
         }
 
@@ -55,7 +60,7 @@ public class PlatRotatoria : MonoBehaviour
     public IEnumerator PararAudio(float tiempo)
     {
         yield return new WaitForSeconds(tiempo);
-        //GetComponent<AudioSource>().Stop();
+       
     }
 }
 

@@ -20,8 +20,9 @@ public class cableadoviaje : MonoBehaviour
     float originalspeed;
     public float originalGravity;
     public bool viajando;
-    GameObject nodoElegido;
+   public  GameObject nodoElegido;
     float elapsed;
+    PlayerInput Pinput;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,7 @@ public class cableadoviaje : MonoBehaviour
         originalGravity = m_Rigidbody2D.gravityScale;
         nodos = GameObject.FindGameObjectsWithTag("Nodo");
         rendererViaje.gameObject.SetActive(false);
+        Pinput = this.GetComponent<PlayerInput>();
     }
 
     // Update is called once per frame
@@ -36,22 +38,26 @@ public class cableadoviaje : MonoBehaviour
     {
         if (viajando)
         {
+          
             controllerPersonaje.movimientoBloqueado = true;
             m_Rigidbody2D.isKinematic = true;
             m_Rigidbody2D.gravityScale = 0;
             if (unavez == false)
             {
+                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().MoverseCables);
                 m_Rigidbody2D.velocity = Vector2.zero;
                 unavez = true;
-                rendererCuerpo.gameObject.SetActive(false);
+               if(rendererCuerpo!=null) rendererCuerpo.gameObject.SetActive(false);
                 //rendererViaje.enabled = true;
                 rendererViaje.gameObject.SetActive(true);
                 colliderNormal.enabled = false;
                 colliderViaje.enabled = true;
+                controllerPersonaje.dashBloqueado = true;
+                controllerPersonaje.dashCaidaBloqueado = true;
             }
 
 
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Pinput.inputVertical>0)
             {
                 /*foreach (GameObject nodo in nodos)
                 {
@@ -80,7 +86,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Pinput.inputVertical < 0)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
@@ -109,7 +115,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if( Pinput.inputHorizontal > 0)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
@@ -139,7 +145,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Pinput.inputHorizontal < 0)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
@@ -180,21 +186,25 @@ public class cableadoviaje : MonoBehaviour
         }
         else
         {
+           
             nodoElegido = null;
             m_Rigidbody2D.isKinematic = false;
             //
             if (unavez == true)
             {
+                this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
 
                 m_Rigidbody2D.gravityScale = originalGravity;
                 unavez = false;
-                rendererCuerpo.enabled = true;
-                rendererCuerpo.gameObject.SetActive(true);
+               if(rendererCuerpo!=null) rendererCuerpo.enabled = true;
+                if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
                 //rendererViaje.enabled = false;
                 rendererViaje.gameObject.SetActive(false);
                 colliderViaje.enabled = false;
                 colliderNormal.enabled = true;
                 controllerPersonaje.movimientoBloqueado = false;
+                controllerPersonaje.dashBloqueado = false;
+                controllerPersonaje.dashCaidaBloqueado = false;
             }
         }
 
@@ -205,32 +215,37 @@ public class cableadoviaje : MonoBehaviour
 
         if (collision.gameObject.tag == "Nodo")
         {
-
+           
             nodoActual = collision.gameObject;
             inputEnabled = true;
             //speedMov = 0;
             Nodo node = collision.gameObject.GetComponent<Nodo>();
             if (node.salida == false && viajando == true)
             {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().pasarPorNodo);
                 this.transform.position = new Vector3(node.transform.position.x,node.transform.position.y,this.transform.position.z);
             }
             if (node.salidaAbajo == true && viajando == true)
             {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                 this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) +new Vector3(0, -2);
                 viajando = false;
             }
             else if (node.salidaArriba == true && viajando == true)
             {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                 this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(0, +2);
                 viajando = false;
             }
             else if (node.salidaDerecha == true && viajando == true)
             {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                 this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(2, 0);
                 viajando = false;
             }
             else if (node.salidaIzquierda == true && viajando == true)
             {
+                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                 this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(-2, 0);
                 viajando = false;
             }

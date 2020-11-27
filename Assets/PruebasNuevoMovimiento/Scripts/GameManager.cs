@@ -485,6 +485,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(tiempo);
         if (GameObject.Find("Player") != null)
         {
+            GameObject.Find("Player").GetComponent<Particulas>().SpawnParticulas(GameObject.FindObjectOfType<Particulas>().particulasExplosion, GameObject.Find("Player").transform.position);
             renderers = GameObject.Find("Player").GetComponentsInChildren<SpriteRenderer>();
             foreach (SpriteRenderer sp in renderers)
             {
@@ -492,8 +493,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        print(GameObject.Find("Player").GetComponentInChildren<SpriteRenderer>().enabled);
-        GameObject.FindObjectOfType<Particulas>().SpawnParticulas(GameObject.FindObjectOfType<Particulas>().particulasExplosion, GameObject.Find("Player").transform.position);
+
+    
         //if (GameObject.Find("Player") != null) Destroy(GameObject.Find("Player").GetComponentInChildren<Animator>());
         StartCoroutine(TrueReinicio(1.3f));
     }
@@ -525,7 +526,7 @@ public class GameManager : MonoBehaviour
     public void CogerEstrellaNivel(GameObject estrellaCogida)
     {
 
-
+      
         if (actualLevel == 0)
         {
             if (!actualEstrellasCogidosNivel0.Contains(estrellaCogida.name))
@@ -536,6 +537,10 @@ public class GameManager : MonoBehaviour
                 ActualizarActualEstrellas(actualLevel);
                 estrellaCogida.GetComponent<SpriteRenderer>().enabled = false;
                 estrellaCogida.GetComponent<Collider2D>().enabled = false;
+                if (GameObject.FindGameObjectWithTag("Player") != null)
+                {
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
+                }
             }
 
         }
@@ -549,6 +554,10 @@ public class GameManager : MonoBehaviour
                 ActualizarActualEstrellas(actualLevel);
                 estrellaCogida.GetComponent<SpriteRenderer>().enabled = false;
                 estrellaCogida.GetComponent<Collider2D>().enabled = false;
+                if (GameObject.FindGameObjectWithTag("Player") != null)
+                {
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
+                }
             }
 
         }
@@ -562,6 +571,10 @@ public class GameManager : MonoBehaviour
                 ActualizarActualEstrellas(actualLevel);
                 estrellaCogida.GetComponent<SpriteRenderer>().enabled = false;
                 estrellaCogida.GetComponent<Collider2D>().enabled = false;
+                if (GameObject.FindGameObjectWithTag("Player") != null)
+                {
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
+                }
             }
 
         }
@@ -590,6 +603,10 @@ public class GameManager : MonoBehaviour
                 ActualizarActualColeccionables(actualLevel);
                 coleccionableCogido.GetComponent<SpriteRenderer>().enabled = false;
                 coleccionableCogido.GetComponent<Collider2D>().enabled = false;
+                if (GameObject.FindGameObjectWithTag("Player") != null)
+                {
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
+                }
             }
 
         }
@@ -603,6 +620,10 @@ public class GameManager : MonoBehaviour
                 ActualizarActualColeccionables(actualLevel);
                 coleccionableCogido.GetComponent<SpriteRenderer>().enabled = false;
                 coleccionableCogido.GetComponent<Collider2D>().enabled = false;
+                if (GameObject.FindGameObjectWithTag("Player") != null)
+                {
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
+                }
             }
 
         }
@@ -616,6 +637,11 @@ public class GameManager : MonoBehaviour
                 ActualizarActualColeccionables(actualLevel);
                 coleccionableCogido.GetComponent<SpriteRenderer>().enabled = false;
                 coleccionableCogido.GetComponent<Collider2D>().enabled = false;
+                if (GameObject.FindGameObjectWithTag("Player") != null)
+                {
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
+                  
+                }
             }
 
         }
