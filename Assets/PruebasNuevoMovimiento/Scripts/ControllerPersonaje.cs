@@ -1661,7 +1661,7 @@ public class ControllerPersonaje : MonoBehaviour
                 //{
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (400f * Time.deltaTime);
+                constantegravedad *= (800f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
                 //print("2");
@@ -1672,12 +1672,12 @@ public class ControllerPersonaje : MonoBehaviour
                 //{
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (500f * Time.deltaTime);
+                constantegravedad *= (1000f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
                 //print("1");
             }
-
+            //if(rb.velocity.y < 0)
             rb.AddForce(new Vector2(0.0f, -350) * Time.deltaTime);
 
 
