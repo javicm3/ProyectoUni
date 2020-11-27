@@ -51,6 +51,7 @@ public class cableadoviaje : MonoBehaviour
                 //rendererViaje.enabled = true;
                 rendererViaje.gameObject.SetActive(true);
                 colliderNormal.enabled = false;
+                GetComponent<VidaPlayer>().enabled = false;
                 colliderViaje.enabled = true;
                 controllerPersonaje.dashBloqueado = true;
                 controllerPersonaje.dashCaidaBloqueado = true;
@@ -193,7 +194,7 @@ public class cableadoviaje : MonoBehaviour
             if (unavez == true)
             {
                 this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
-
+                GetComponent<VidaPlayer>().enabled = true;
                 m_Rigidbody2D.gravityScale = originalGravity;
                 unavez = false;
                if(rendererCuerpo!=null) rendererCuerpo.enabled = true;

@@ -70,6 +70,7 @@ public class VidaPlayer : MonoBehaviour
             }
             else
             {
+                GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDaño, transform.position);
                 //source.PlayOneShot(dañoPlayer);
                 this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().daño);
                 animCC.SetTrigger("Daño");
