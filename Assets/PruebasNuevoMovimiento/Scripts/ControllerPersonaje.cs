@@ -825,7 +825,7 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
                 heEntradoParedUnaVez = false;
-               if(auxtiempoTrasSaltoPared<=0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.2f);
+               if(auxtiempoTrasSaltoPared<=0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             }
         }
 
@@ -865,8 +865,16 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                 rb.velocity = new Vector2(0, rb.velocity.y);
-
-                rb.velocity = new Vector2(0, pInput.inputVertical * speedpared * Time.deltaTime);
+                if (pInput.inputVertical < -0.5f || pInput.inputVertical > 0.5f) {
+                    rb.velocity = new Vector2(0, pInput.inputVertical * speedpared * Time.deltaTime);
+                    print("velocidad pared" + rb.velocity);
+                }
+                else
+                { rb.velocity = new Vector2(0, 0);
+                    print("velocidad pared" + rb.velocity+"suelto");
+                   
+                }
+               
                 animCC.SetFloat("MovimientoPared", Mathf.Abs(pInput.inputVertical));
 
                 //if (Input.GetButtonDown("Jump"))
@@ -1027,7 +1035,7 @@ public class ControllerPersonaje : MonoBehaviour
                     {
 
 
-                        print("cambiosentido2" + ultimaNormal.y + grounded);
+                        //print("cambiosentido2" + ultimaNormal.y + grounded);
                         Vector2 direccion = Vector2.Perpendicular(ultimaNormal).normalized * coefDeceleracion * -pInput.inputHorizontal;
                         this.rb.AddForce(direccion * fuerzaCambioSentido * 0.8f * Time.deltaTime);
 
@@ -1036,7 +1044,7 @@ public class ControllerPersonaje : MonoBehaviour
                     else
                     {
                         //rb.velocity =new Vector2 (0, rb.velocity.y);
-                        print("cambiosentido" + ultimaNormal.y + grounded);
+                        //print("cambiosentido" + ultimaNormal.y + grounded);
 
                         Vector2 direccion = Vector2.Perpendicular(ultimaNormal).normalized * coefDeceleracion * -pInput.inputHorizontal;
                         this.rb.AddForce(direccion * fuerzaCambioSentido * Time.deltaTime);
