@@ -1649,11 +1649,33 @@ public class ControllerPersonaje : MonoBehaviour
             }
             else if (rb.velocity.y < 0f)
             {
-                rb.AddForce(new Vector2(0, -500f * Time.deltaTime));
+                rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
                 constantegravedad *= (600f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //print("3");
+            }
+            else if (rb.velocity.y < 5f)
+            {
+                //if (ultimaNormal.y > 0)
+                //{
+                rb.AddForce(new Vector2(0, -440f * Time.deltaTime));
+                /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
+                constantegravedad *= (550f * Time.deltaTime);
+                rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+                //}
+                //print("2");
+            }
+            else if (rb.velocity.y < 10f)
+            {
+                //if (ultimaNormal.y > 0)
+                //{
+                rb.AddForce(new Vector2(0, -420f * Time.deltaTime));
+                /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
+                constantegravedad *= (500f * Time.deltaTime);
+                rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+                //}
+                //print("2");
             }
             else if (rb.velocity.y < 15f)
             {
@@ -1661,27 +1683,41 @@ public class ControllerPersonaje : MonoBehaviour
                 //{
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (800f * Time.deltaTime);
+                constantegravedad *= (450f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
                 //print("2");
             }
-            else if (rb.velocity.y < 150f)
+            else if (rb.velocity.y <20f)
             {
                 //if (ultimaNormal.y > 0)
                 //{
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (1000f * Time.deltaTime);
+                constantegravedad *= (600f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
                 //print("1");
             }
-            //if(rb.velocity.y < 0)
+            else if (rb.velocity.y < 150f)
+            {
+                //if (ultimaNormal.y > 0)
+                //{
+                rb.AddForce(new Vector2(0, -350f * Time.deltaTime));
+                /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
+                constantegravedad *= (500f * Time.deltaTime);
+                rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+                //}
+                //print("1");
+            }
+            if(rb.velocity.y < 0)
+            {
             rb.AddForce(new Vector2(0.0f, -350) * Time.deltaTime);
 
+            }
 
 
+            print(rb.velocity.y+"Me cago en dios");
         }
 
 
