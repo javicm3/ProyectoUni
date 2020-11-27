@@ -37,7 +37,7 @@ public class MenuPrincipal : MonoBehaviour
     }
     public void Play()
     {
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("NivelSemana26");
     }
     public void Exit()
     {
