@@ -31,7 +31,7 @@ public class AnimAux : MonoBehaviour
     }
     public void SonidoCaminar()
     {
-        source.PlayOneShot(pisada);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidoPasos, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().pasos);
     }
     public void SonidoEscalar()
     {
