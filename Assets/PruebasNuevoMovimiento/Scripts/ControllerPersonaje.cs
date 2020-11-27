@@ -77,7 +77,7 @@ public class ControllerPersonaje : MonoBehaviour
     public bool saltoDobleHecho = false;
     public float fuerzaSaltoDoble = 100;
     public float tiempoSaltoCompleto = 1.2f;
-    public float constantegravedad = 3;
+    public float constantegravedad = 1;
     public float tiempoPreSalto = 0.5f;
     public float tiempoPulsadoEspacio;
     public float auxpresalto;
@@ -1610,7 +1610,7 @@ public class ControllerPersonaje : MonoBehaviour
         {
 
             looping = false;
-            if (constantegravedad > 350) constantegravedad = 350;
+            if (constantegravedad > 400) constantegravedad = 400;
             //rb.AddForce(new Vector2(0, -100f * Time.deltaTime));
 
 
@@ -1641,27 +1641,46 @@ public class ControllerPersonaje : MonoBehaviour
             }
             else if (rb.velocity.y < -10f)
             {
-                rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
+                rb.AddForce(new Vector2(0, -450f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
                 constantegravedad *= (600f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //print("4");
             }
+            else if (rb.velocity.y < -5f)
+            {
+                rb.AddForce(new Vector2(0, -470f * Time.deltaTime));
+                /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
+                constantegravedad *= (750f * Time.deltaTime);
+                rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+                //print("4");
+            }
             else if (rb.velocity.y < 0f)
             {
-                rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
+                rb.AddForce(new Vector2(0, -570f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (600f * Time.deltaTime);
+                constantegravedad *= (780f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //print("3");
+            }
+            else if (rb.velocity.y < 2.5f)
+            {
+                //if (ultimaNormal.y > 0)
+                //{
+                rb.AddForce(new Vector2(0, -600f * Time.deltaTime));
+                /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
+                constantegravedad *= (880f * Time.deltaTime);
+                rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
+                //}
+                //print("2");
             }
             else if (rb.velocity.y < 5f)
             {
                 //if (ultimaNormal.y > 0)
                 //{
-                rb.AddForce(new Vector2(0, -440f * Time.deltaTime));
+                rb.AddForce(new Vector2(0, -570f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (550f * Time.deltaTime);
+                constantegravedad *= (800f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
                 //print("2");
@@ -1670,9 +1689,9 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 //if (ultimaNormal.y > 0)
                 //{
-                rb.AddForce(new Vector2(0, -420f * Time.deltaTime));
+                rb.AddForce(new Vector2(0, -500f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (500f * Time.deltaTime);
+                constantegravedad *= (650f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
                 //print("2");
@@ -1683,7 +1702,7 @@ public class ControllerPersonaje : MonoBehaviour
                 //{
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (450f * Time.deltaTime);
+                constantegravedad *= (500f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
                 //print("2");
@@ -1694,7 +1713,7 @@ public class ControllerPersonaje : MonoBehaviour
                 //{
                 rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (600f * Time.deltaTime);
+                constantegravedad *= (550f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
                 //print("1");
@@ -1703,9 +1722,9 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 //if (ultimaNormal.y > 0)
                 //{
-                rb.AddForce(new Vector2(0, -350f * Time.deltaTime));
+                rb.AddForce(new Vector2(0, -400f * Time.deltaTime));
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
-                constantegravedad *= (500f * Time.deltaTime);
+                constantegravedad *= (450f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
                 //print("1");
@@ -1717,7 +1736,7 @@ public class ControllerPersonaje : MonoBehaviour
             }
 
 
-            print(rb.velocity.y+"Me cago en dios");
+            //print(rb.velocity.y+"Me cago en dios");
         }
 
 
@@ -2403,7 +2422,7 @@ public class ControllerPersonaje : MonoBehaviour
                     //print("fuerzaminX");
                     this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
 
-                    rb.AddForce(ultimaNormal.normalized * fuerzaSaltoMin, ForceMode2D.Impulse);
+                    rb.AddForce(this.transform.up * fuerzaSaltoMin, ForceMode2D.Impulse);
                     lastJumpPared = false;
 
                     //pulsadoEspacio = true;
@@ -2430,6 +2449,42 @@ public class ControllerPersonaje : MonoBehaviour
             }
 
         }
+        if (joystick != null)
+        {
+            if (joystick.Action1.WasReleased || Input.GetButtonUp("Jump"))
+            {
+                if ((tiempoPulsadoEspacio < tiempoSaltoCompleto) && (rb.velocity.y > 0))
+                { print("negar1");
+                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+                }
+               
+                auxpresalto = tiempoPreSalto;
+                pulsadoEspacio = false;
+                tiempoPulsadoEspacio = 0;
+                //saltoSoltado = false;
+
+            }
+        }
+        else
+        {
+            if (Input.GetButtonUp("Jump"))
+            {
+               
+
+                if ((tiempoPulsadoEspacio < tiempoSaltoCompleto)&&(rb.velocity.y>0))
+                { print("negar2");
+                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+                }
+                  
+                
+
+                auxpresalto = tiempoPreSalto;
+                pulsadoEspacio = false;
+                tiempoPulsadoEspacio = 0;
+                //saltoSoltado = false;
+
+            }
+        }
         if (!pegadoPared)
         { /*if (Input.GetButton("Jump"))*/
             if (joystick != null)
@@ -2445,7 +2500,7 @@ public class ControllerPersonaje : MonoBehaviour
                         tiempoPulsadoEspacio += Time.deltaTime;
 
 
-                        if (tiempoPulsadoEspacio <= tiempoSaltoCompleto)
+                        if (tiempoPulsadoEspacio < tiempoSaltoCompleto)
                         {
                             if (lastJumpPared == false)
                             {
@@ -2573,12 +2628,12 @@ public class ControllerPersonaje : MonoBehaviour
 
                     if ((pulsadoEspacio) && (saltoInmediato == false))
                     {
-
+                        print("mantenido");
 
                         tiempoPulsadoEspacio += Time.deltaTime;
 
 
-                        if (tiempoPulsadoEspacio <= tiempoSaltoCompleto)
+                        if (tiempoPulsadoEspacio < tiempoSaltoCompleto && tiempoPulsadoEspacio > 0.1f)
                         {
                             if (lastJumpPared == false)
                             {
@@ -2701,30 +2756,7 @@ public class ControllerPersonaje : MonoBehaviour
 
         }
         //if (Input.GetButtonUp("Jump"))
-        if (joystick != null)
-        {
-            if (joystick.Action1.WasReleased || Input.GetButtonUp("Jump"))
-            {
-
-                auxpresalto = tiempoPreSalto;
-                pulsadoEspacio = false;
-                tiempoPulsadoEspacio = 0;
-                //saltoSoltado = false;
-
-            }
-        }
-        else
-        {
-            if (Input.GetButtonUp("Jump"))
-            {
-
-                auxpresalto = tiempoPreSalto;
-                pulsadoEspacio = false;
-                tiempoPulsadoEspacio = 0;
-                //saltoSoltado = false;
-
-            }
-        }
+       
 
 
 

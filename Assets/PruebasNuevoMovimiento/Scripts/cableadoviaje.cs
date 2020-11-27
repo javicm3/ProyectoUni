@@ -52,6 +52,8 @@ public class cableadoviaje : MonoBehaviour
                 rendererViaje.gameObject.SetActive(true);
                 colliderNormal.enabled = false;
                 colliderViaje.enabled = true;
+                controllerPersonaje.dashBloqueado = true;
+                controllerPersonaje.dashCaidaBloqueado = true;
             }
 
 
@@ -201,6 +203,8 @@ public class cableadoviaje : MonoBehaviour
                 colliderViaje.enabled = false;
                 colliderNormal.enabled = true;
                 controllerPersonaje.movimientoBloqueado = false;
+                controllerPersonaje.dashBloqueado = false;
+                controllerPersonaje.dashCaidaBloqueado = false;
             }
         }
 

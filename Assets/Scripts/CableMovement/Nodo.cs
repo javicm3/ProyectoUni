@@ -35,8 +35,9 @@ public class Nodo : MonoBehaviour
             if (GameObject.FindGameObjectWithTag("Player") != null) if ((Vector2.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, this.transform.position) < 5) && (GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().viajando == false))
                 {
                     cartel.gameObject.SetActive(true);
+
                     //if (Input.GetButtonDown("Interact")|| GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
-                    if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
+                    if (Input.GetButtonDown("Interact") && GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick == null)
                     {
                         if (GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().viajando == false)
                         {
@@ -60,6 +61,35 @@ public class Nodo : MonoBehaviour
                                 //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(-1, 0);
                             }
 
+                        }
+                    }
+                    else if (GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick!=null)
+                    {
+                        if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
+                        {
+                            if (GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().viajando == false)
+                            {
+                                GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().entradaCables);
+                                GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().viajando = true;
+                                GameObject.FindGameObjectWithTag("Player").transform.position = this.transform.position;
+                                if (puedeAbajo)
+                                {
+                                    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(0, -1);
+                                }
+                                else if (puedeArriba)
+                                {
+                                    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(0, 1);
+                                }
+                                else if (puedeDerecha)
+                                {
+                                    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(1, 0);
+                                }
+                                else if (puedeIzquierda)
+                                {
+                                    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(-1, 0);
+                                }
+
+                            }
                         }
                     }
                 }
