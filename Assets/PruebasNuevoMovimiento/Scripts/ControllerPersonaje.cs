@@ -1976,11 +1976,12 @@ public class ControllerPersonaje : MonoBehaviour
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
-
-        //if (!grounded && pInput.inputVertical ==-1 && pegadoPared == false && Input.GetButtonDown("Dash"))
-        if (joystick != null)
+       
+            //if (!grounded && pInput.inputVertical ==-1 && pegadoPared == false && Input.GetButtonDown("Dash"))
+            if (joystick != null)
         {
-            if (!grounded && pegadoPared == false && (pInput.inputVertical == -1 || (joystick.Action2.WasPressed || Input.GetButtonDown("Dash"))))
+            //if (!grounded && pegadoPared == false && (pInput.inputVertical == -1 || (joystick.Action2.WasPressed || Input.GetButtonDown("Dash"))))
+            if (!grounded && pInput.inputVertical == -1 && pegadoPared == false&& joystick.LeftStickY==0 || (joystick.Action2.WasPressed && pInput.inputVertical == -1/*|| Input.GetButtonDown("Dash")*/))
             {
                 if (rb.velocity.y > 0)
                 {
@@ -2010,7 +2011,7 @@ public class ControllerPersonaje : MonoBehaviour
         }
         else
         {
-            if (!grounded && pInput.inputVertical == -1 && pegadoPared == false && Input.GetButtonDown("Dash"))
+            if (!grounded && pInput.inputVertical == -1 && pegadoPared == false /*&& Input.GetButtonDown("Dash")*/)
             {
                 if (rb.velocity.y > 0)
                 {

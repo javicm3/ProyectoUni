@@ -436,9 +436,60 @@ public class GameManager : MonoBehaviour
             textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
             personajevivo = true;
         }
+        if (scene.name == "NivelSemana26")
+        {
+            actualLevel = 2;
+
+            coleccionablesActNv[(int)actualLevel] = coleccionablesCogidosNivel2.Count;
+            if (personajevivo == false)
+            {
+                actualColeccionablesCogidosNivel2.Clear();
+                foreach (string go in coleccionablesCogidosNivel2)
+                {
+                    Destroy(GameObject.Find(go.ToString()));
+                }
+            }
+            else
+            {
+                foreach (string go in coleccionablesCogidosNivel2)
+                {
+                    Destroy(GameObject.Find(go.ToString()));
+                }
+            }
+            estrellasActNv[(int)actualLevel] = estrellasCogidosNivel2.Count;
+            if (personajevivo == false)
+            {
+                actualEstrellasCogidosNivel2.Clear();
+                foreach (string go in estrellasCogidosNivel2)
+                {
+                    Destroy(GameObject.Find(go.ToString()));
+                }
+            }
+            else
+            {
+                foreach (string go in estrellasCogidosNivel2)
+                {
+                    Destroy(GameObject.Find(go.ToString()));
+                }
+            }
+
+            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
+            textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
+            textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
+            textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
+
+
+            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
+            textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
+            textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
+            textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
+            personajevivo = true;
+        }
         Debug.Log(scene.name);
         Debug.Log(mode);
     }
+    
+
     void Awake()
     {
         if (_instance != null && _instance != this)
@@ -453,6 +504,7 @@ public class GameManager : MonoBehaviour
     }
     public void ReiniciarEscena()
     {
+        personajevivo = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     }
