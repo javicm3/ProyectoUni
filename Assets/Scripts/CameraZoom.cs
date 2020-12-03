@@ -12,6 +12,9 @@ public class CameraZoom : MonoBehaviour
     public GameObject segundorb;
     public float indiceMultiplicador = 0.05f;
     float tiempoSinInput;
+    public GameObject hud;
+    float indiceHUD;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,7 @@ public class CameraZoom : MonoBehaviour
             if (cinemakina.m_Lens.OrthographicSize < finalsize)
             {
                 cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize + Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * indiceMultiplicador * Mathf.Clamp(cc.rb.velocity.x, 1, 1.3f) * Time.deltaTime, 0, 7);
+                
             }
 
         }
