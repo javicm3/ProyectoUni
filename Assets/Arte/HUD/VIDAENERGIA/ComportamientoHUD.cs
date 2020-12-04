@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ComportamientoHUD : MonoBehaviour
 {
+   
+    public RenderPipelineAsset pipeline;
+    public RenderPipelineAsset pipeline2;
+
     LineRenderer line;
     public GameObject player;
     public Transform punto1;
@@ -23,6 +28,7 @@ public class ComportamientoHUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         line = GetComponentInChildren<LineRenderer>();
         //player = GameObject.FindGameObjectWithTag("Player");
         calcularPosicion = false;
@@ -35,6 +41,14 @@ public class ComportamientoHUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GetComponentInParent<cableadoviaje>().viajando)
+        {
+            GraphicsSettings.renderPipelineAsset = pipeline2;
+        }
+        else
+        {
+            GraphicsSettings.renderPipelineAsset = pipeline;
+        }
         //print(points);
         //line.SetPosition(1, new Vector3(line.gameObject.transform.position.x, line.gameObject.transform.position.y, player.transform.position.z));
         line.SetPosition(0, punto1.position);
