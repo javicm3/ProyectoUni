@@ -2141,7 +2141,7 @@ public class ControllerPersonaje : MonoBehaviour
                             lastJumpPared = false;
                             rb.velocity = new Vector2(rb.velocity.x, 0);
                             print("postsaltodoblemin");
-                            animCC.SetTrigger("Salto");
+                            animCC.SetTrigger("DobleSalto");
                             //rb.velocity = new Vector2(rb.velocity.x, 1* fuerzaSaltoMin);
                             if (looping) auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
                             this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
@@ -2286,7 +2286,7 @@ public class ControllerPersonaje : MonoBehaviour
                             lastJumpPared = false;
                             rb.velocity = new Vector2(rb.velocity.x, 0);
                             print("postsaltodoblemin");
-                            animCC.SetTrigger("Salto");
+                            animCC.SetTrigger("DobleSalto");
                             //rb.velocity = new Vector2(rb.velocity.x, 1* fuerzaSaltoMin);
                             if (looping) auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
                             this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
