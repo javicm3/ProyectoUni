@@ -57,19 +57,21 @@ public class VidaPlayer : MonoBehaviour
         {
             //if ((this.GetComponent<Movimiento>().cayendoS == false) && (this.GetComponent<CharacterController2D>().dashing == false) && (this.GetComponent<CharacterController2D>().justdashed == false) && (recienAtacado == false))
 
-            AplicarFuerza(puntoimpacto, puntocontacto);
+          
             vidaActual -= daño;
             auxcdTrasdaño += cdTrasDaño;
-            if (vidaActual <= 0)
+            if (vidaActual == 0)
             {
+                AplicarFuerza(puntoimpacto, puntocontacto);
                 //this.GetComponentInChildren<Animator>().SetTrigger("Die");
                 //source.PlayOneShot(muertePlayer);
                 this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().morir);
                 GameManager.Instance.MuertePJ();
                 animCC.SetTrigger("Die");
             }
-            else
+            else if (vidaActual > 0)
             {
+                AplicarFuerza(puntoimpacto, puntocontacto);
                 GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDaño, transform.position);
                 //source.PlayOneShot(dañoPlayer);
                 this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().daño);

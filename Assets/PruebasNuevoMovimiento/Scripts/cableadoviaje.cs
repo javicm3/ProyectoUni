@@ -23,6 +23,7 @@ public class cableadoviaje : MonoBehaviour
    public  GameObject nodoElegido;
     float elapsed;
     PlayerInput Pinput;
+    public bool conVelocidad = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +39,9 @@ public class cableadoviaje : MonoBehaviour
     {
         if (viajando)
         {
-          
+
+
+            controllerPersonaje.saltoBloqueado = true;
             controllerPersonaje.movimientoBloqueado = true;
             m_Rigidbody2D.isKinematic = true;
             m_Rigidbody2D.gravityScale = 0;
@@ -56,9 +59,17 @@ public class cableadoviaje : MonoBehaviour
                 controllerPersonaje.dashBloqueado = true;
                 controllerPersonaje.dashCaidaBloqueado = true;
             }
+            print(this.GetComponent<Rigidbody2D>().velocity);
+            if (this.GetComponent<Rigidbody2D>().velocity != Vector2.zero)
+            {
+                conVelocidad = true;
+            }
+            else
+            {
+                conVelocidad = false;
+            }
 
-
-            if (Pinput.inputVertical>0)
+            if (Pinput.inputVertical>0&&conVelocidad==false)
             {
                 /*foreach (GameObject nodo in nodos)
                 {
@@ -87,7 +98,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if (Pinput.inputVertical < 0)
+            if (Pinput.inputVertical < 0 && conVelocidad == false)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
@@ -116,7 +127,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if( Pinput.inputHorizontal > 0)
+            if( Pinput.inputHorizontal > 0 && conVelocidad == false)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
@@ -146,7 +157,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if (Pinput.inputHorizontal < 0)
+            if (Pinput.inputHorizontal < 0 && conVelocidad == false)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
@@ -177,12 +188,14 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-
-            if (nodoElegido != null)
+          
+            if ((nodoElegido != null))
             {
-                transform.position = Vector3.MoveTowards(transform.position, nodoElegido.transform.position, Time.deltaTime * speedMov);
+                controllerPersonaje.rb.velocity = (transform.position - nodoElegido.transform.position).normalized;
+                 transform.position = Vector3.MoveTowards(transform.position, nodoElegido.transform.position, Time.deltaTime * speedMov);
                 GetComponent<Particulas>().particulasViajeCables.SetActive(true);
                 VelocidadViaje();
+             
             }
         }
         else
@@ -205,6 +218,7 @@ public class cableadoviaje : MonoBehaviour
                 colliderNormal.enabled = true;
                 controllerPersonaje.movimientoBloqueado = false;
                 controllerPersonaje.dashBloqueado = false;
+                controllerPersonaje.saltoBloqueado = false;
                 controllerPersonaje.dashCaidaBloqueado = false;
             }
         }
@@ -219,6 +233,7 @@ public class cableadoviaje : MonoBehaviour
            
             nodoActual = collision.gameObject;
             inputEnabled = true;
+            controllerPersonaje.rb.velocity = Vector2.zero;
             //speedMov = 0;
             Nodo node = collision.gameObject.GetComponent<Nodo>();
             if (node.salida == false && viajando == true)
@@ -296,6 +311,7 @@ public class cableadoviaje : MonoBehaviour
 
         if (collision.gameObject.tag == "Nodo")
         {
+            controllerPersonaje.rb.velocity = Vector2.zero;
             Nodo node = collision.gameObject.GetComponent<Nodo>();
             nodoActual = collision.gameObject;
             if (node.salida == true)

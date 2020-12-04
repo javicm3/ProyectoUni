@@ -865,7 +865,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                 rb.velocity = new Vector2(0, rb.velocity.y);
-                if (pInput.inputVertical < -0.5f || pInput.inputVertical > 0.5f) {
+                if (pInput.inputVertical < -0.8f || pInput.inputVertical > 0.8f) {
                     rb.velocity = new Vector2(0, pInput.inputVertical * speedpared * Time.deltaTime);
                     print("velocidad pared" + rb.velocity);
                 }
