@@ -825,7 +825,7 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
                 heEntradoParedUnaVez = false;
-               if(auxtiempoTrasSaltoPared<=0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+               if(auxtiempoTrasSaltoPared<=0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.7f);
             }
         }
 
@@ -1154,29 +1154,45 @@ public class ControllerPersonaje : MonoBehaviour
             //}
 
 
+            if (pInput.inputHorizontal == 0)
+            {  print("FrenandosinINp ut");
+                
+                if (Mathf.Abs(rb.velocity.x) > 0)
+                {
+                    if (Mathf.Abs(speed) > 2)
+                    {
+                        speed -= coefDeceleracion  * Time.deltaTime;
+                    }
+                    if (speed <= 2)
+                    {
+                        speed = 0;
+                    }
 
 
-            if (pInput.inputHorizontal != 0)
+                    //Vector2 direccion = Vector2.Perpendicular(normal) * speed * -pInput.inputHorizontal;
+                    //print("no acelerando");
+                    //this.rb.AddForce(-direccion * Time.fixedDeltaTime);
+                    this.rb.AddForce(-this.rb.velocity * coefDeceleracion * Time.deltaTime);
+                  
+                    if (Mathf.Abs(rb.velocity.x) <= 0.5f)
+                    {
+                        rb.velocity = new Vector2(0, rb.velocity.y);
+                    }
+
+                }
+                animCC.SetBool("Corriendo", false);
+            }
+            else if (pInput.inputHorizontal != 0)
             {
-                //FUERZA AUXILIAR PARA CAMBIO DE SENTIDO
-                //if (normal.y >= 0)//Para que no se haga en loops (boca abajo);
-
-
-                //else
-                //{
-
-                //}
-
-
-
+               
                 if (Mathf.Abs(rb.velocity.x) < (velMinima))
                 {
-
+                    print("velminnn");
                     speed = velMinima;
 
-                    Vector2 direccion = Vector2.Perpendicular(normal).normalized * speed * 80 * -pInput.inputHorizontal;
+                    Vector2 direccion = Vector2.Perpendicular(normal).normalized * speed * 90 * -pInput.inputHorizontal;
                     this.rb.AddForce(direccion * Time.deltaTime);
-                    //rb.velocity += direccion * 1.1f * Time.deltaTime;
+                    //rb.velocity += direccion * 1.6f * Time.deltaTime;
 
                     //if (pInput.inputHorizontal > 0)
                     //{
@@ -1192,10 +1208,14 @@ public class ControllerPersonaje : MonoBehaviour
                     //}
 
                 }
-                if (Mathf.Abs(this.rb.velocity.x) < velMaxima)
+                else                if (Mathf.Abs(this.rb.velocity.x) < velMaxima)
                 {
+                    print("velmeddd ut");
                     //if (pInput.inputHorizontal > 0)
-
+                    if (speed < velMinima)
+                    {
+                        speed = velMinima;
+                    }
                     if (capSpeedUnavez == false)
                     {
                         speed += coefAceleracion * Time.deltaTime;
@@ -1228,7 +1248,7 @@ public class ControllerPersonaje : MonoBehaviour
                     //    this.rb.velocity = new Vector2(-velocidadWorld.x,this.rb.velocity.y- velocidadWorld.y);
                     //}
                 }
-                if (Mathf.Abs(this.rb.velocity.x) >= velMaxima+2)
+              else  if (Mathf.Abs(this.rb.velocity.x) >= velMaxima+2)
                 {
                     if (capSpeedUnavez == false)
                     {
@@ -1263,13 +1283,20 @@ public class ControllerPersonaje : MonoBehaviour
                 //print("acelerando");
                 animCC.SetBool("Corriendo", true);
             }
-            else
+           
+          
+            //print(rb.velocity);
+
+        }
+        else
+        {
+            if (pInput.inputHorizontal == 0)
             {
                 if (Mathf.Abs(rb.velocity.x) > 0)
                 {
                     if (Mathf.Abs(speed) > 0)
                     {
-                        speed -= coefDeceleracion * Time.deltaTime;
+                        speed -= coefDeceleracion;
                     }
                     if (speed <= 0)
                     {
@@ -1280,21 +1307,15 @@ public class ControllerPersonaje : MonoBehaviour
                     //Vector2 direccion = Vector2.Perpendicular(normal) * speed * -pInput.inputHorizontal;
                     //print("no acelerando");
                     //this.rb.AddForce(-direccion * Time.fixedDeltaTime);
-                    this.rb.AddForce(-this.rb.velocity * coefDeceleracion * Time.deltaTime);
+                    this.rb.AddForce(new Vector2(-this.rb.velocity.x, 0).normalized * coefDeceleracion * Time.deltaTime);
                     if (Mathf.Abs(rb.velocity.x) <= 0)
                     {
                         rb.velocity = new Vector2(0, rb.velocity.y);
                     }
 
                 }
-                animCC.SetBool("Corriendo", false);
+                //animCC.SetBool("Corriendo", false);
             }
-            //print(rb.velocity);
-
-        }
-        else
-        {
-
             if (pInput.inputHorizontal != 0)
             {
                 //if (rb.velocity.y < 0)
@@ -1423,9 +1444,12 @@ public class ControllerPersonaje : MonoBehaviour
                     //    this.rb.velocity = new Vector2(-velMinima, rb.velocity.y);
                     //}
                     //this.rb.AddForce(direccion * Time.deltaTime);
-                }
-                if (Mathf.Abs(this.rb.velocity.x) < velMaxima)
+                }else                if (Mathf.Abs(this.rb.velocity.x) < velMaxima)
                 {
+                    if (speed < velMinima)
+                    {
+                        speed = velMinima;
+                    }
                     ////if (pInput.inputHorizontal > 0)
                     if (capSpeedUnavez == false)
                     {
@@ -1472,7 +1496,7 @@ public class ControllerPersonaje : MonoBehaviour
                     //    this.rb.velocity = new Vector2(-velocidadWorld.x,this.rb.velocity.y- velocidadWorld.y);
                     //}
                 }
-                if (Mathf.Abs(this.rb.velocity.x) > velMaxima + 2)
+              else if (Mathf.Abs(this.rb.velocity.x) > velMaxima + 2)
                 {
                     if (capSpeedUnavez == false)
                     {
@@ -1511,32 +1535,7 @@ public class ControllerPersonaje : MonoBehaviour
                 //print("acelerando");
                 //animCC.SetBool("Corriendo", true);
             }
-            else
-            {
-                if (Mathf.Abs(rb.velocity.x) > 0)
-                {
-                    if (Mathf.Abs(speed) > 0)
-                    {
-                        speed -= coefDeceleracion;
-                    }
-                    if (speed <= 0)
-                    {
-                        speed = 0;
-                    }
-
-
-                    //Vector2 direccion = Vector2.Perpendicular(normal) * speed * -pInput.inputHorizontal;
-                    //print("no acelerando");
-                    //this.rb.AddForce(-direccion * Time.fixedDeltaTime);
-                    this.rb.AddForce(new Vector2(-this.rb.velocity.x, 0).normalized * coefDeceleracion * Time.deltaTime);
-                    if (Mathf.Abs(rb.velocity.x) <= 0)
-                    {
-                        rb.velocity = new Vector2(0, rb.velocity.y);
-                    }
-
-                }
-                //animCC.SetBool("Corriendo", false);
-            }
+          
         }
         if (Mathf.Abs(rb.velocity.x) < velMaxima - 2f)
         {
@@ -1629,7 +1628,7 @@ public class ControllerPersonaje : MonoBehaviour
                 constantegravedad *= (750f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //if (rb.velocity.y < -40) rb.velocity = new Vector2(rb.velocity.x, -40);
-                print("7");
+                //print("7");
             }
             else if (rb.velocity.y < -30f)
             {
@@ -1637,7 +1636,7 @@ public class ControllerPersonaje : MonoBehaviour
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
                 constantegravedad *= (600f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
-                print("6");
+                //print("6");
             }
             else if (rb.velocity.y < -20f)
             {
@@ -1645,7 +1644,7 @@ public class ControllerPersonaje : MonoBehaviour
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
                 constantegravedad *= (600f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
-                print("5");
+                //print("5");
             }
             else if (rb.velocity.y < -10f)
             {
@@ -1653,7 +1652,7 @@ public class ControllerPersonaje : MonoBehaviour
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
                 constantegravedad *= (500f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
-                print("4");
+                //print("4");
             }
             else if (rb.velocity.y < 0f)
             {
@@ -1661,7 +1660,7 @@ public class ControllerPersonaje : MonoBehaviour
                 /* if (rb.velocity.y < -12) rb.velocity = new Vector2(rb.velocity.x, -12f);*//*rb.AddForce(new Vector2(0, -0.005f)); *//*rb.velocity = new Vector2(rb.velocity.x,-5f);*/
                 constantegravedad *= (600f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
-                print("3");
+                //print("3");
             }
             else if (rb.velocity.y < 15f)
             {
@@ -1672,7 +1671,7 @@ public class ControllerPersonaje : MonoBehaviour
                 constantegravedad *= (700f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
-                print("2");
+                //print("2");
             }
             else if (rb.velocity.y < 150f)
             {
@@ -1683,7 +1682,7 @@ public class ControllerPersonaje : MonoBehaviour
                 constantegravedad *= (450f * Time.deltaTime);
                 rb.AddForce(new Vector2(0.0f, -constantegravedad * Time.deltaTime), ForceMode2D.Force);
                 //}
-                print("1");
+                //print("1");
             }
             if(rb.velocity.y < 0)
             {
@@ -2065,7 +2064,7 @@ public class ControllerPersonaje : MonoBehaviour
                                 if (tengoMaxspeed == false)
                                 {
 
-                                    rb.velocity = new Vector2(velMaxima * 0.3f, rb.velocity.y);
+                                    //rb.velocity = new Vector2(velMaxima * 0.3f, rb.velocity.y);
                                 }
                                 else
                                 {
@@ -2077,7 +2076,7 @@ public class ControllerPersonaje : MonoBehaviour
                             {
                                 if (tengoMaxspeed == false)
                                 {
-                                    rb.velocity = new Vector2(-velMaxima * 0.3f, rb.velocity.y);
+                                    //rb.velocity = new Vector2(-velMaxima * 0.3f, rb.velocity.y);
                                 }
                                 else
                                 {
@@ -2154,7 +2153,7 @@ public class ControllerPersonaje : MonoBehaviour
                     {
                         if (pegadoPared == false)
                         {
-                            if (auxtiempoTrasSaltoPared < 0.7f)
+                            if (auxtiempoTrasSaltoPared <= 0.0f)
                             {
 
 
@@ -2299,7 +2298,7 @@ public class ControllerPersonaje : MonoBehaviour
                     {
                         if (pegadoPared == false)
                         {
-                            if (auxtiempoTrasSaltoPared < 0.7f)
+                            if (auxtiempoTrasSaltoPared <= 0.0f)
                             {
 
 

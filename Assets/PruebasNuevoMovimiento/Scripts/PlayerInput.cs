@@ -119,26 +119,28 @@ public class PlayerInput : MonoBehaviour
             //inputHorizontal =Input.GetAxis("Horizontal");
             if (cp.joystick != null)
             {
-                inputHorizontal = cp.joystick.LeftStickX + Input.GetAxis("Horizontal");
+                inputHorizontal = cp.joystick.LeftStickX + Input.GetAxisRaw("Horizontal");
+                print(inputHorizontal + "horiz22");
             }
             else
             {
-                inputHorizontal =  Input.GetAxis("Horizontal");
+                inputHorizontal =  Input.GetAxisRaw("Horizontal");
+                print(inputHorizontal + "horiz");
             }
-           
-          
-            if (inputHorizontal > 0.05f)
-            {
-                inputHorizontal = 1;
-            }
-            else if (inputHorizontal < -0.05f)
-            {
-                inputHorizontal = -1;
-            }
-            else
+
+            if (Mathf.Abs(inputHorizontal )<=0.2f)
             {
                 inputHorizontal = 0;
             }
+           else if (inputHorizontal > 0.2f)
+            {
+                inputHorizontal = 1;
+            }
+            else if (inputHorizontal < -0.2f)
+            {
+                inputHorizontal = -1;
+            }
+           
           
             if (inputHorizontal != 0)
             {
@@ -158,11 +160,11 @@ public class PlayerInput : MonoBehaviour
             //inputVertical = Input.GetAxis("Vertical");
             if (cp.joystick != null)
             {
- inputVertical = cp.joystick.LeftStickY+ Input.GetAxis("Vertical");
+ inputVertical = cp.joystick.LeftStickY+ Input.GetAxisRaw("Vertical");
             }
             else
             {
-                inputVertical =  Input.GetAxis("Vertical");
+                inputVertical =  Input.GetAxisRaw("Vertical");
             }
                
             if (inputVertical > 0.05f)
