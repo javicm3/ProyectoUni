@@ -74,8 +74,9 @@ public class CameraZoom : MonoBehaviour
         }
         if (soloplayer==true)
         {
-
-
+            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping >= 0.2f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping -= 0.5f*  Time.deltaTime;
+            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping >= 0.2f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping -= 0.4f * Time.deltaTime;
+            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping >= 0.2f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping -= 0.4f * Time.deltaTime;
             if (Mathf.Abs(cc.rb.velocity.x) > 7)
             {
                 tiempoSinInput = 0;
@@ -153,6 +154,9 @@ public class CameraZoom : MonoBehaviour
         }
         else
         {
+            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping <= 4f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping += 10* Time.deltaTime;
+            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping <= 4f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping += 10 * Time.deltaTime;
+            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping <= 4f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping += 10* Time.deltaTime;
             maxDistance = DistanciaMaxima();
             if (cinemakina.m_Lens.OrthographicSize < maxDistance * 0.6f && cinemakina.m_Lens.OrthographicSize < maxZoom)
             {
