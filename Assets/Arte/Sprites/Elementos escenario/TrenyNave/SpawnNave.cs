@@ -19,7 +19,7 @@ public class SpawnNave : MonoBehaviour
     void Update()
     {
         posicion = Random.Range(this.transform.position.y + rango, this.transform.position.y - rango);
-        print(posicion);
+
         tiempoSpawn -= Time.deltaTime;
         if(tiempoSpawn <= 0)
         {
