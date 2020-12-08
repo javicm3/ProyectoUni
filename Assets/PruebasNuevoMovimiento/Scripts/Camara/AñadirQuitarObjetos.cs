@@ -8,13 +8,13 @@ public class AñadirQuitarObjetos : MonoBehaviour
     CinemachineVirtualCamera cinemakina;
     CinemachineTargetGroup targetGroup;
     [Header("TIPOS")]
-    public bool añadirObjetos;
-    public bool quitarObjetos;
-    public bool dejarSoloPlayer;
-    public bool enfocarObjetoSolo;
-    public bool enfocarVariosObjetos;
-    public bool enfocarSecuenciaObjetos;
-
+    public bool añadirObjetos=false;
+    public bool quitarObjetos = false;
+    public bool dejarSoloPlayer = false;
+    public bool enfocarObjetoSolo = false;
+    public bool enfocarVariosObjetos = false;
+    public bool enfocarSecuenciaObjetos = false;
+    public bool seDestruyeTrasTocarlo = false;
     [Header("Timers y Objetos")]
     [Header("Un objeto enfocado x tiempo")]
     public GameObject objetoEnfocadoSolo;
@@ -37,13 +37,13 @@ public class AñadirQuitarObjetos : MonoBehaviour
     bool timerSoloInicio = false;
     bool timerVariosInicio = false;
     bool timerSecuencialInicio = false;
-   public float coeficienteInicialSecuencia = 0;
+    public int coeficienteInicialSecuencia = 0;
     // Start is called before the first frame update
     void Start()
     {
         cinemakina = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
         targetGroup = GameObject.FindObjectOfType<CinemachineTargetGroup>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
     }
 
     void AñadirObj()
@@ -112,6 +112,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
                 }
             }
         }
+        FindObjectOfType<CameraZoom>().soloplayer = true;
     }
     // Update is called once per frame
     void Update()
@@ -162,7 +163,9 @@ public class AñadirQuitarObjetos : MonoBehaviour
     {
         for (int i = 0; i < targetGroup.m_Targets.Length; i++)
         {
-            if (i == 0) { targetGroup.m_Targets[0].target = objetoEnfocadoSolo.transform;
+            if (i == 0)
+            {
+                targetGroup.m_Targets[0].target = objetoEnfocadoSolo.transform;
 
                 //targetGroup.m_Targets[0].radius=radioEnfoqueObjSolo;
             }
@@ -185,31 +188,31 @@ public class AñadirQuitarObjetos : MonoBehaviour
         {
             for (int i = 0; i < targetGroup.m_Targets.Length; i++)
             {
-               
-                    if (targetGroup.m_Targets[i].target != null)
-                    {
 
-                        if (targetGroup.m_Targets[i].target == go.transform)
-                        {
-                            break;
-                        }
-                    }
-                    else
+                if (targetGroup.m_Targets[i].target != null)
+                {
+
+                    if (targetGroup.m_Targets[i].target == go.transform)
                     {
-                        targetGroup.m_Targets[i].target = go.transform;
                         break;
                     }
-                
+                }
+                else
+                {
+                    targetGroup.m_Targets[i].target = go.transform;
+                    break;
+                }
+
             }
         }
-       
+
         auxTiempoVariosEnfoques += tiempoVolverVariosEnfocados;
         timerVariosInicio = true;
     }
     void EnfocarSecuenciaObj()
     {
-        print("PUTAMADRE");
-        targetGroup.m_Targets[0].target = objetosEnfocadosSecuencia[0].transform;
+
+        targetGroup.m_Targets[0].target = objetosEnfocadosSecuencia[(int)coeficienteInicialSecuencia].transform;
         auxTiempoSecuenciaEnfoques = tiempoEntreEnfoquesSecuencia;
         coeficienteInicialSecuencia += 1;
         timerSecuencialInicio = true;
@@ -217,7 +220,11 @@ public class AñadirQuitarObjetos : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
-        { if (dejarSoloPlayer) DejarSoloPlayer();
+        {
+            if (dejarSoloPlayer)
+            {
+                DejarSoloPlayer();
+            }
 
             if (añadirObjetos)
             {
@@ -228,19 +235,21 @@ public class AñadirQuitarObjetos : MonoBehaviour
                 QuitarObj();
 
             }
-           
-            if (enfocarObjetoSolo&&timerSoloInicio==false)
+
+            if (enfocarObjetoSolo && timerSoloInicio == false)
             {
                 EnfocarObjSolo(); ;
             }
-            if (enfocarVariosObjetos&&timerVariosInicio==false)
+            if (enfocarVariosObjetos && timerVariosInicio == false)
             {
-              EnfocarVariosObj() ;
+                EnfocarVariosObj();
             }
-            if (enfocarSecuenciaObjetos&&timerSecuencialInicio==false)
+            if (enfocarSecuenciaObjetos && timerSecuencialInicio == false)
             {
                 EnfocarSecuenciaObj();
             }
+
+            if (seDestruyeTrasTocarlo) Destroy(this.gameObject);
         }
     }
 }

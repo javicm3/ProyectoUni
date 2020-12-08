@@ -1155,7 +1155,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
             if (pInput.inputHorizontal == 0)
-            {  print("FrenandosinINp ut");
+            {/*  print("FrenandosinINp ut");*/
                 
                 if (Mathf.Abs(rb.velocity.x) > 0)
                 {
@@ -1187,7 +1187,7 @@ public class ControllerPersonaje : MonoBehaviour
                
                 if (Mathf.Abs(rb.velocity.x) < (velMinima))
                 {
-                    print("velminnn");
+                    //print("velminnn");
                     speed = velMinima;
 
                     Vector2 direccion = Vector2.Perpendicular(normal).normalized * speed * 90 * -pInput.inputHorizontal;
@@ -1210,7 +1210,7 @@ public class ControllerPersonaje : MonoBehaviour
                 }
                 else                if (Mathf.Abs(this.rb.velocity.x) < velMaxima)
                 {
-                    print("velmeddd ut");
+                    //print("velmeddd ut");
                     //if (pInput.inputHorizontal > 0)
                     if (speed < velMinima)
                     {

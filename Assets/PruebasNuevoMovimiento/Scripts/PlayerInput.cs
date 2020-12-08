@@ -120,12 +120,12 @@ public class PlayerInput : MonoBehaviour
             if (cp.joystick != null)
             {
                 inputHorizontal = cp.joystick.LeftStickX + Input.GetAxisRaw("Horizontal");
-                print(inputHorizontal + "horiz22");
+                //print(inputHorizontal + "horiz22");
             }
             else
             {
                 inputHorizontal =  Input.GetAxisRaw("Horizontal");
-                print(inputHorizontal + "horiz");
+                //print(inputHorizontal + "horiz");
             }
 
             if (Mathf.Abs(inputHorizontal )<=0.2f)
