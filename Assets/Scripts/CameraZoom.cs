@@ -62,12 +62,12 @@ public class CameraZoom : MonoBehaviour
                 if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target == this.gameObject.transform)
                 {
                     soloplayer = true;
-                    GameObject.Find("Cubito").GetComponent<SpriteRenderer>().enabled = false;
+                    //GameObject.Find("Cubito").GetComponent<SpriteRenderer>().enabled = false;
                 }
                 else
                 {
                     soloplayer = false;
-                    GameObject.Find("Cubito").GetComponent<SpriteRenderer>().enabled = true;
+                    //GameObject.Find("Cubito").GetComponent<SpriteRenderer>().enabled = true;
                 }
             }
             else
@@ -75,7 +75,7 @@ public class CameraZoom : MonoBehaviour
                 if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[i].target != null)
                 {
                     soloplayer = false;
-                    GameObject.Find("Cubito").GetComponent<SpriteRenderer>().enabled = true;
+                    //GameObject.Find("Cubito").GetComponent<SpriteRenderer>().enabled = true;
 
                 }
             }
@@ -178,7 +178,7 @@ public class CameraZoom : MonoBehaviour
                 //if (this.GetComponent<ControllerPersonaje>().ultimaNormal.y > 0.7f)
                 //{
 
-                if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) > 0.1f)
+                if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) > 0.3f)
                 {
                     cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x -= velocidadPaneoHorizontal * Time.deltaTime * Mathf.Sign(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x);
 

@@ -43,6 +43,8 @@ public class cableadoviaje : MonoBehaviour
 
             controllerPersonaje.saltoBloqueado = true;
             controllerPersonaje.movimientoBloqueado = true;
+            controllerPersonaje.dashBloqueado = true;
+            controllerPersonaje.dashCaidaBloqueado = true;
             m_Rigidbody2D.isKinematic = true;
             m_Rigidbody2D.gravityScale = 0;
             if (unavez == false)
@@ -56,18 +58,17 @@ public class cableadoviaje : MonoBehaviour
                 colliderNormal.enabled = false;
                 GetComponent<VidaPlayer>().enabled = false;
                 colliderViaje.enabled = true;
-                controllerPersonaje.dashBloqueado = true;
-                controllerPersonaje.dashCaidaBloqueado = true;
+               
             }
             print(this.GetComponent<Rigidbody2D>().velocity);
-            if (this.GetComponent<Rigidbody2D>().velocity != Vector2.zero)
-            {
-                conVelocidad = true;
-            }
-            else
-            {
-                conVelocidad = false;
-            }
+            //if (this.GetComponent<Rigidbody2D>().velocity != Vector2.zero)
+            //{
+            //    conVelocidad = true;
+            //}
+            //else
+            //{
+            //    conVelocidad = false;
+            //}
 
             if (Pinput.inputVertical>0&&conVelocidad==false)
             {
@@ -233,7 +234,7 @@ public class cableadoviaje : MonoBehaviour
            
             nodoActual = collision.gameObject;
             inputEnabled = true;
-            controllerPersonaje.rb.velocity = Vector2.zero;
+           if(nodoActual.GetComponent<Nodo>().entrada==false&& nodoActual.GetComponent<Nodo>().salida == false) controllerPersonaje.rb.velocity = Vector2.zero;
             //speedMov = 0;
             Nodo node = collision.gameObject.GetComponent<Nodo>();
             if (node.salida == false && viajando == true)
@@ -273,6 +274,7 @@ public class cableadoviaje : MonoBehaviour
     {
         if (collision.gameObject.tag == "Nodo")
         {
+            conVelocidad = true;
             //speedMov = originalspeed;
 
             //inputEnabled = false;
@@ -284,7 +286,7 @@ public class cableadoviaje : MonoBehaviour
         float distanciaAlObjetivo = Vector2.Distance(transform.position, nodoElegido.transform.position);
         if (distanciaEntreNodos * 0.8f < distanciaAlObjetivo)
         {
-            speedMov = originalspeed * 6f;
+            speedMov = originalspeed * 4f;
 
         }
         else if (distanciaEntreNodos * 0.2 > distanciaAlObjetivo)
@@ -311,7 +313,8 @@ public class cableadoviaje : MonoBehaviour
 
         if (collision.gameObject.tag == "Nodo")
         {
-            controllerPersonaje.rb.velocity = Vector2.zero;
+            if (nodoActual.GetComponent<Nodo>().entrada==false&& nodoActual.GetComponent<Nodo>().salida == false )controllerPersonaje.rb.velocity = Vector2.zero;
+            conVelocidad = false;
             Nodo node = collision.gameObject.GetComponent<Nodo>();
             nodoActual = collision.gameObject;
             if (node.salida == true)
@@ -323,6 +326,10 @@ public class cableadoviaje : MonoBehaviour
                         viajando = false;
                     }
                 }
+            }
+            else
+            {
+              
             }
         }
     }
