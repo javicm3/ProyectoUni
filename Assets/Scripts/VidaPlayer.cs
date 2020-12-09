@@ -57,21 +57,19 @@ public class VidaPlayer : MonoBehaviour
         {
             //if ((this.GetComponent<Movimiento>().cayendoS == false) && (this.GetComponent<CharacterController2D>().dashing == false) && (this.GetComponent<CharacterController2D>().justdashed == false) && (recienAtacado == false))
 
-          
+            AplicarFuerza(puntoimpacto, puntocontacto);
             vidaActual -= daño;
             auxcdTrasdaño += cdTrasDaño;
-            if (vidaActual == 0)
+            if (vidaActual <= 0)
             {
-                AplicarFuerza(puntoimpacto, puntocontacto);
                 //this.GetComponentInChildren<Animator>().SetTrigger("Die");
                 //source.PlayOneShot(muertePlayer);
                 this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().morir);
                 GameManager.Instance.MuertePJ();
                 animCC.SetTrigger("Die");
             }
-            else if (vidaActual > 0)
+            else
             {
-                AplicarFuerza(puntoimpacto, puntocontacto);
                 GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDaño, transform.position);
                 //source.PlayOneShot(dañoPlayer);
                 this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().daño);
@@ -105,12 +103,12 @@ public class VidaPlayer : MonoBehaviour
         }
 
         //direccion = new Vector3(direccion.x * 3, direccion.y);
-        //this.transform.position = this.transform.position + new Vector3(-direccion.x * 1.6f, 0.8f, 0);
+        this.transform.position = this.transform.position + new Vector3(-direccion.x * 1.6f, 0.8f, 0);
         //invulnerable = true;
         this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         //this.GetComponent<CharacterController2D>().dashing = true;
 
-        this.GetComponent<Rigidbody2D>().AddForce(-direccion * 20,ForceMode2D.Impulse);
+        this.GetComponent<Rigidbody2D>().AddForce(-direccion * 7, ForceMode2D.Impulse);
     }
     // Update is called once per frame
     void Update()

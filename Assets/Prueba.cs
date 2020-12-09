@@ -8,7 +8,7 @@ public class Prueba : MonoBehaviour
     void Start()
     { float numerocoll = GameObject.FindGameObjectsWithTag("Coleccionable").Length;
         float numeroest = GameObject.FindGameObjectsWithTag("Estrella").Length;
-        //print(numerocoll + "colecc" + numeroest + "estrella");
+        print(numerocoll + "colecc" + numeroest + "estrella");
     }
 
     // Update is called once per frame
