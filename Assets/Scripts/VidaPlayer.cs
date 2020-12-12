@@ -33,11 +33,11 @@ public class VidaPlayer : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "Lobby")
         {
-            spritesvida[0] = GameObject.Find("Vida0").GetComponent<Image>();
-            spritesvida[1] = GameObject.Find("Vida1").GetComponent<Image>();
-            spritesvida[2] = GameObject.Find("Vida2").GetComponent<Image>();
-            spritesvida[3] = GameObject.Find("Vida3").GetComponent<Image>();
-            colorinicial = spritesvida[0].GetComponent<Image>().color;
+            //spritesvida[0] = GameObject.Find("Vida0").GetComponent<Image>();
+            //spritesvida[1] = GameObject.Find("Vida1").GetComponent<Image>();
+            //spritesvida[2] = GameObject.Find("Vida2").GetComponent<Image>();
+            //spritesvida[3] = GameObject.Find("Vida3").GetComponent<Image>();
+            //colorinicial = spritesvida[0].GetComponent<Image>().color;
         }
         auxcdinvuln = cdInvulnAtaq;
         //cc = this.GetComponent<CharacterController2D>();
@@ -133,41 +133,41 @@ public class VidaPlayer : MonoBehaviour
                 }
             }
             if (auxcdTrasdaño > 0) auxcdTrasdaño -= Time.deltaTime;
-            if (vidaActual <= 0)
-            {
-                spritesvida[0].GetComponent<Image>().color = Color.black;
-                spritesvida[1].GetComponent<Image>().color = Color.black;
-                spritesvida[2].GetComponent<Image>().color = Color.black;
-                spritesvida[3].GetComponent<Image>().color = Color.black;
-            }
-            else if (vidaActual == 1)
-            {
-                spritesvida[0].GetComponent<Image>().color = colorinicial;
-                spritesvida[1].GetComponent<Image>().color = Color.black;
-                spritesvida[2].GetComponent<Image>().color = Color.black;
-                spritesvida[3].GetComponent<Image>().color = Color.black;
-            }
-            else if (vidaActual == 2)
-            {
-                spritesvida[0].GetComponent<Image>().color = colorinicial;
-                spritesvida[1].GetComponent<Image>().color = colorinicial;
-                spritesvida[2].GetComponent<Image>().color = Color.black;
-                spritesvida[3].GetComponent<Image>().color = Color.black;
-            }
-            else if (vidaActual == 3)
-            {
-                spritesvida[0].GetComponent<Image>().color = colorinicial;
-                spritesvida[1].GetComponent<Image>().color = colorinicial;
-                spritesvida[2].GetComponent<Image>().color = colorinicial;
-                spritesvida[3].GetComponent<Image>().color = Color.black;
-            }
-            else if (vidaActual == 4)
-            {
-                spritesvida[0].GetComponent<Image>().color = colorinicial;
-                spritesvida[1].GetComponent<Image>().color = colorinicial;
-                spritesvida[2].GetComponent<Image>().color = colorinicial;
-                spritesvida[3].GetComponent<Image>().color = colorinicial;
-            }
+            //if (vidaActual <= 0)
+            //{
+            //    spritesvida[0].GetComponent<Image>().color = Color.black;
+            //    spritesvida[1].GetComponent<Image>().color = Color.black;
+            //    spritesvida[2].GetComponent<Image>().color = Color.black;
+            //    spritesvida[3].GetComponent<Image>().color = Color.black;
+            //}
+            //else if (vidaActual == 1)
+            //{
+            //    spritesvida[0].GetComponent<Image>().color = colorinicial;
+            //    spritesvida[1].GetComponent<Image>().color = Color.black;
+            //    spritesvida[2].GetComponent<Image>().color = Color.black;
+            //    spritesvida[3].GetComponent<Image>().color = Color.black;
+            //}
+            //else if (vidaActual == 2)
+            //{
+            //    spritesvida[0].GetComponent<Image>().color = colorinicial;
+            //    spritesvida[1].GetComponent<Image>().color = colorinicial;
+            //    spritesvida[2].GetComponent<Image>().color = Color.black;
+            //    spritesvida[3].GetComponent<Image>().color = Color.black;
+            //}
+            //else if (vidaActual == 3)
+            //{
+            //    spritesvida[0].GetComponent<Image>().color = colorinicial;
+            //    spritesvida[1].GetComponent<Image>().color = colorinicial;
+            //    spritesvida[2].GetComponent<Image>().color = colorinicial;
+            //    spritesvida[3].GetComponent<Image>().color = Color.black;
+            //}
+            //else if (vidaActual == 4)
+            //{
+            //    spritesvida[0].GetComponent<Image>().color = colorinicial;
+            //    spritesvida[1].GetComponent<Image>().color = colorinicial;
+            //    spritesvida[2].GetComponent<Image>().color = colorinicial;
+            //    spritesvida[3].GetComponent<Image>().color = colorinicial;
+            //}
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
