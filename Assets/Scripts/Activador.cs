@@ -117,21 +117,10 @@ public class Activador : MonoBehaviour
 
 
                 cartel.enabled = true;
-                if (GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick == null)
+                if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
                 {
-                    if (Input.GetButtonDown("Interact"))
-                    {
-                        Activar();
-                    }
+                    Activar();
                 }
-                else
-                {
-                    if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
-                    {
-                        Activar();
-                    }
-                }
-
             }
             else
             {

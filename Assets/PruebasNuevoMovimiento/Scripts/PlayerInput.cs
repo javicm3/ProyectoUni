@@ -119,28 +119,26 @@ public class PlayerInput : MonoBehaviour
             //inputHorizontal =Input.GetAxis("Horizontal");
             if (cp.joystick != null)
             {
-                inputHorizontal = cp.joystick.LeftStickX + Input.GetAxisRaw("Horizontal");
-                //print(inputHorizontal + "horiz22");
+                inputHorizontal = cp.joystick.LeftStickX + Input.GetAxis("Horizontal");
             }
             else
             {
-                inputHorizontal =  Input.GetAxisRaw("Horizontal");
-                //print(inputHorizontal + "horiz");
+                inputHorizontal =  Input.GetAxis("Horizontal");
             }
-
-            if (Mathf.Abs(inputHorizontal )<=0.2f)
-            {
-                inputHorizontal = 0;
-            }
-           else if (inputHorizontal > 0.2f)
+           
+          
+            if (inputHorizontal > 0.05f)
             {
                 inputHorizontal = 1;
             }
-            else if (inputHorizontal < -0.2f)
+            else if (inputHorizontal < -0.05f)
             {
                 inputHorizontal = -1;
             }
-           
+            else
+            {
+                inputHorizontal = 0;
+            }
           
             if (inputHorizontal != 0)
             {
@@ -160,11 +158,11 @@ public class PlayerInput : MonoBehaviour
             //inputVertical = Input.GetAxis("Vertical");
             if (cp.joystick != null)
             {
- inputVertical = cp.joystick.LeftStickY+ Input.GetAxisRaw("Vertical");
+ inputVertical = cp.joystick.LeftStickY+ Input.GetAxis("Vertical");
             }
             else
             {
-                inputVertical =  Input.GetAxisRaw("Vertical");
+                inputVertical =  Input.GetAxis("Vertical");
             }
                
             if (inputVertical > 0.05f)

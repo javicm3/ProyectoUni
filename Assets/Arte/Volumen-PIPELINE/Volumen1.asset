@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29fa0085f50d5e54f8144f766051a691, type: 3}
   m_Name: FilmGrain
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
   type:
     m_OverrideState: 1
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.468
+    m_Value: 0.482
     min: 0
     max: 1
   response:
@@ -28,8 +28,8 @@ MonoBehaviour:
     min: 0
     max: 1
   texture:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: 5bc6dbe2f680f1f449213389f726316c, type: 3}
 --- !u!114 &-3015838665047358594
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -49,15 +49,15 @@ MonoBehaviour:
     m_Value: 0
   quality:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.141
     min: 0
     max: 1
   clamp:
     m_OverrideState: 1
-    m_Value: 0.057
+    m_Value: 0.2
     min: 0
     max: 0.2
 --- !u!114 &-2846605213043013800
@@ -100,20 +100,20 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 2.85
+    m_Value: 2.3
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 5.68
+    m_Value: 12
     min: 0
   scatter:
     m_OverrideState: 0
-    m_Value: 0.28
+    m_Value: 0.451
     min: 0
     max: 1
   clamp:
     m_OverrideState: 0
-    m_Value: 65472
+    m_Value: 0
     min: 0
   tint:
     m_OverrideState: 1
@@ -122,14 +122,14 @@ MonoBehaviour:
     showAlpha: 0
     showEyeDropper: 1
   highQualityFiltering:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   dirtTexture:
-    m_OverrideState: 0
-    m_Value: {fileID: 2800000, guid: 70dd1f09e0d31f449ab178ea000b9b18, type: 3}
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: b34103240351ac04699013030f4a267b, type: 3}
   dirtIntensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.2
     min: 0
 --- !u!114 &-457913758727751164
 MonoBehaviour:
@@ -168,6 +168,7 @@ MonoBehaviour:
   - {fileID: 3991696462472759821}
   - {fileID: -6850122660064838459}
   - {fileID: -457913758727751164}
+  - {fileID: 4945150534170382611}
 --- !u!114 &3991696462472759821
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -180,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
   postExposure:
     m_OverrideState: 0
@@ -192,20 +193,39 @@ MonoBehaviour:
     max: 100
   colorFilter:
     m_OverrideState: 0
-    m_Value: {r: 0, g: 1, b: 0.034508705, a: 1}
+    m_Value: {r: 0.9616579, g: 1, b: 0, a: 1}
     hdr: 1
     showAlpha: 0
     showEyeDropper: 1
   hueShift:
     m_OverrideState: 0
-    m_Value: 180
+    m_Value: -180
     min: -180
     max: 180
   saturation:
     m_OverrideState: 0
-    m_Value: 59
+    m_Value: -100
     min: -100
     max: 100
+--- !u!114 &4945150534170382611
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.14
+    min: 0
+    max: 1
 --- !u!114 &6717710367592771233
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -218,11 +238,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
   m_Name: Vignette
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
   color:
     m_OverrideState: 1
-    m_Value: {r: 0, g: 0, b: 0, a: 1}
+    m_Value: {r: 0.71189404, g: 0, b: 1, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -231,7 +251,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.485
+    m_Value: 0.205
     min: 0
     max: 1
   smoothness:
@@ -241,4 +261,4 @@ MonoBehaviour:
     max: 1
   rounded:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
