@@ -8,6 +8,7 @@ public class ControladorPlataformas : MonoBehaviour
     public Sprite apagado;
 
     public GameObject[] objetosActivados;
+    public float tiempoEntrePlataformas = 0.4f;
     
     public AudioClip clip;
     public AudioSource source;
@@ -25,6 +26,7 @@ public class ControladorPlataformas : MonoBehaviour
     }
     public void Activar()
     {
+        PlataformaND1.vuelta = false;        
         StartCoroutine(ScuttleV2());
         source.PlayOneShot(clip);
     }
@@ -35,8 +37,6 @@ public class ControladorPlataformas : MonoBehaviour
         {
             if (this.GetComponent<SpriteRenderer>().sprite == apagado)
             {
-
-
                 cartel.enabled = true;
                 if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
                 {
@@ -63,7 +63,7 @@ public class ControladorPlataformas : MonoBehaviour
         {
             go.SetActive(true);
             print("squalo");
-            yield return new WaitForSeconds(0.4f);
-        }      
+            yield return new WaitForSeconds(tiempoEntrePlataformas);
+        }
     }
 }
