@@ -21,6 +21,7 @@ public class ComportamientoHUD : MonoBehaviour
     float alturaPlayer;
     public float responsividad = 2;
     public float velocidad = 1;
+    
     float vAux;
     public float velocidadMax = 50;
     bool vCambioSentido;
@@ -71,6 +72,7 @@ public class ComportamientoHUD : MonoBehaviour
             posicion1 += new Vector2(0, 2);
             posicion2 += new Vector2(0, 2);
             calcularPosicion = false;
+            velocidad = 2;
         }
         else if (player.transform.position.y >= alturaPlayer + responsividad)
         {
@@ -79,12 +81,13 @@ public class ComportamientoHUD : MonoBehaviour
             posicion1 -= new Vector2(0, 4);
             posicion2 -= new Vector2(0, 4);
             calcularPosicion = false;
+            velocidad = 2;
         }
         else 
         {
             //posicion2.x = player.transform.position.x + movimiento + 10;
             posicion1 = new Vector2(player.transform.position.x - movimiento, altura + player.transform.position.y);
-
+            velocidad = vAux;
             posicion2 = new Vector2(player.transform.position.x + movimiento , altura + player.transform.position.y);
             //posicion1.x = player.transform.position.x - movimiento;
 
