@@ -157,7 +157,7 @@ public class ControllerPersonaje : MonoBehaviour
     public RaycastHit2D izquierda;
     public float tiempoCOYOTE = 0.2f;
     float originalgravity;
-   public  bool invertirValores = false;
+    public bool invertirValores = false;
     float auxtiempoMaxSuelo;
     Vector2 speedAntes;
     Vector2 ledgePos1;
@@ -806,7 +806,7 @@ public class ControllerPersonaje : MonoBehaviour
         {
             if (pInput.inputVertical != 0)
             {
-               if(this.GetComponent<AudioManager>().sonidoLoop.isPlaying==false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().moverPared);
+                if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().moverPared);
             }
             else
             {
@@ -827,7 +827,7 @@ public class ControllerPersonaje : MonoBehaviour
                 heEntradoParedUnaVez = false;
                 ultimaNormal = new Vector2(0, 1);
                 //VELOCIDAD A LA QUE SALE DE LA PARED POR ARRIBA, AHORA SE FRENA
-                if (auxtiempoTrasSaltoPared <= 0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y *0);
+                if (auxtiempoTrasSaltoPared <= 0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             }
         }
 
@@ -1992,28 +1992,30 @@ public class ControllerPersonaje : MonoBehaviour
             //if (!grounded && pegadoPared == false && (pInput.inputVertical == -1 || (joystick.Action2.WasPressed || Input.GetButtonDown("Dash"))))
             if (!grounded && pInput.inputVertical == -1 && pegadoPared == false && joystick.LeftStickY == 0 || (joystick.Action2.WasPressed && pInput.inputVertical == -1 && Mathf.Abs(joystick.LeftStick.X) <= 1f/*|| Input.GetButtonDown("Dash")*/))
             {
-                if (rb.velocity.y > 0)
+                if (dashEnCaida == false)
                 {
-                    if (tiempoCOYOTE < -0.2f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
+                    if (rb.velocity.y > 0)
                     {
-                        mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
-                        rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
-                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
-                        dashEnCaida = true;
+                        if (tiempoCOYOTE < -0.2f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
+                        {
+                            mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
+                            rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
+                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                            dashEnCaida = true;
+                        }
+                    }
+                    else
+                    {
+                        if (tiempoCOYOTE < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
+                        {
+                            mEnergy.RestarEnergia(30);
+                            rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
+                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                            dashEnCaida = true;
+                        }
                     }
                 }
-                else
-                {
-                    if (tiempoCOYOTE < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
-                    {
-                        mEnergy.RestarEnergia(30);
-                        rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
-                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
-                        dashEnCaida = true;
-                    }
-                }
-                
-                print("dashabajo");
+
             }
             else if (grounded)
             {
@@ -2024,27 +2026,33 @@ public class ControllerPersonaje : MonoBehaviour
         {
             if (!grounded && pInput.inputVertical == -1 && pegadoPared == false /*&& Input.GetButtonDown("Dash")*/)
             {
-                if (rb.velocity.y > 0)
+                if (dashEnCaida == false)
                 {
-                    if (tiempoCOYOTE < -0.2f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
+
+
+                    if (rb.velocity.y > 0)
                     {
-                        mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
-                        //Si lo lees tienes CoVid-19
-                        rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
-                        dashEnCaida = true;
+                        if (tiempoCOYOTE < -0.2f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
+                        {
+                            mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
+                            //Si lo lees tienes CoVid-19
+                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                            rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
+                            dashEnCaida = true;
+                        }
+                    }
+                    else
+                    {
+                        if (tiempoCOYOTE < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
+                        {
+                            mEnergy.RestarEnergia(30);
+                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                            rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
+                            dashEnCaida = true;
+                        }
                     }
                 }
-                else
-                {
-                    if (tiempoCOYOTE < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
-                    {
-                        mEnergy.RestarEnergia(30);
-                        rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
-                        dashEnCaida = true;
-                    }
-                }
-                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
-                print("dashabajo");
+
             }
             else if (grounded)
             {
@@ -3020,7 +3028,7 @@ public class ControllerPersonaje : MonoBehaviour
 
         if (hit.collider != null)
         {
-           
+
             grounded = true;
             if (hit.collider.tag == "Loop")
             {
@@ -3050,7 +3058,7 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 looping = false;
             }
-          
+
             grounded = true;
 
             normal = new Vector2(hit2.normal.x, hit2.normal.y);
@@ -3071,7 +3079,7 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 looping = false;
             }
-          
+
             grounded = true;
 
             normal = new Vector2(hit3.normal.x, hit3.normal.y);
@@ -3083,11 +3091,11 @@ public class ControllerPersonaje : MonoBehaviour
         {
             looping = false;
             grounded = false;
-           
+
 
 
         }
-       
+
         normal2 = new Vector2(hit2.normal.x, hit2.normal.y);
         normal3 = new Vector2(hit3.normal.x, hit3.normal.y);
         if (normal.y < 0.05f && normal.y > -0.05f)

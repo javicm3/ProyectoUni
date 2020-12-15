@@ -5251,7 +5251,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1688326322811515257}
   - component: {fileID: 1688326322811515256}
-  - component: {fileID: 5973265458986525670}
+  - component: {fileID: 7894132284097293979}
+  - component: {fileID: 5641394478462635531}
   m_Layer: 8
   m_Name: ParedEscalableComic_2
   m_TagString: Untagged
@@ -5324,8 +5325,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &5973265458986525670
-PolygonCollider2D:
+--- !u!61 &7894132284097293979
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5335,9 +5336,9 @@ PolygonCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.010185719, y: -0.18861976}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5347,20 +5348,28 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.64631975, y: -0.19115911}
-      - {x: 0.21889299, y: 0.08676887}
-      - {x: -0.22999999, y: 0.35}
-      - {x: -0.59, y: 0.52}
-      - {x: -0.65999997, y: 0.53}
-      - {x: -0.7, y: 0.48999998}
-      - {x: -0.7, y: -0.48999998}
-      - {x: -0.65999997, y: -0.53}
-      - {x: -0.56281006, y: -0.46912718}
-      - {x: -0.24782348, y: -0.5441321}
-      - {x: 0.6339316, y: -0.47382063}
-      - {x: 0.65947604, y: -0.34850022}
+  serializedVersion: 2
+  m_Size: {x: 1.3950377, y: 0.6690869}
+  m_EdgeRadius: 0
+--- !u!251 &5641394478462635531
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688326322811515262}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 0
 --- !u!1001 &1688326321230557001
 PrefabInstance:
   m_ObjectHideFlags: 0
