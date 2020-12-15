@@ -806,7 +806,7 @@ public class ControllerPersonaje : MonoBehaviour
         {
             if (pInput.inputVertical != 0)
             {
-                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().moverPared);
+               if(this.GetComponent<AudioManager>().sonidoLoop.isPlaying==false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().moverPared);
             }
             else
             {
@@ -826,7 +826,8 @@ public class ControllerPersonaje : MonoBehaviour
                 this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
                 heEntradoParedUnaVez = false;
                 ultimaNormal = new Vector2(0, 1);
-                if (auxtiempoTrasSaltoPared <= 0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.7f);
+                //VELOCIDAD A LA QUE SALE DE LA PARED POR ARRIBA, AHORA SE FRENA
+                if (auxtiempoTrasSaltoPared <= 0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y *0);
             }
         }
 
@@ -868,6 +869,7 @@ public class ControllerPersonaje : MonoBehaviour
                 rb.velocity = new Vector2(0, rb.velocity.y);
                 if (pInput.inputVertical < -0.8f || pInput.inputVertical > 0.8f)
                 {
+
                     rb.velocity = new Vector2(0, pInput.inputVertical * speedpared * Time.deltaTime);
                     print("velocidad pared" + rb.velocity);
                 }
@@ -1557,7 +1559,7 @@ public class ControllerPersonaje : MonoBehaviour
             tengoMaxspeed = true;
             if (grounded)
             {
-                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().velMaxima);
+                if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().velMaxima);
                 if (GetComponent<PlayerInput>().personajeInvertido)
                 {
                     GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax2, VFX.position);
@@ -1996,6 +1998,7 @@ public class ControllerPersonaje : MonoBehaviour
                     {
                         mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
                         rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
+                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                         dashEnCaida = true;
                     }
                 }
@@ -2005,10 +2008,11 @@ public class ControllerPersonaje : MonoBehaviour
                     {
                         mEnergy.RestarEnergia(30);
                         rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
+                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                         dashEnCaida = true;
                     }
                 }
-                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                
                 print("dashabajo");
             }
             else if (grounded)

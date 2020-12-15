@@ -19,12 +19,13 @@ public class RaycastCaida : MonoBehaviour
     void Update()
     {
         RaycastHit2D hit = Physics2D.Raycast(this.transform.position, new Vector2(controller.rb.velocity.x * 0.5f, controller.rb.velocity.y), distanciaSuelo, suelo); ;
+       
         Debug.DrawRay(this.transform.position, new Vector2(controller.rb.velocity.x * 0.5f, controller.rb.velocity.y) * 14, Color.green);
         if (hit.collider != null /*&& hit.collider.gameObject.layer == suelo*/)
         {
             //print(hit.collider.name + " coliflor");
            //print(Vector2.Distance(hit.point, transform.position));
-            if (Vector2.Distance(hit.point, transform.position) <= distanciaSuelo && controller.rb.velocity.y < 0 && !controller.dashEnCaida)
+            if (Vector2.Distance(hit.point, new Vector2(transform.position.x, transform.position.y - 1)) <= distanciaSuelo && controller.rb.velocity.y < 0 && !controller.dashEnCaida)
             {
 
                 anim.SetBool("RaycastCaida", true);
@@ -34,15 +35,11 @@ public class RaycastCaida : MonoBehaviour
             {
                 anim.SetBool("RaycastCaida", false);
             }
-            else if (Vector2.Distance(hit.point, transform.position) > distanciaSuelo)
+            else if (Vector2.Distance(hit.point, new Vector2(transform.position.x, transform.position.y - 1)) > distanciaSuelo)
             {
                 anim.SetBool("RaycastCaida", false);
             }
-            if (Vector2.Distance(hit.point, transform.position) <= 3f && controller.grounded == false && controller.rb.velocity.y < 0 && !controller.dashEnCaida) /*&& controller.rb.velocity.y < 0*/
-            {
-            
-                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaSuelo);
-            }
+           
         }
         else
         {
@@ -54,7 +51,7 @@ public class RaycastCaida : MonoBehaviour
         {
             //print(hit.collider.name + " coliflor");
             //print(Vector2.Distance(hit.point, transform.position));
-            if (Vector2.Distance(hit2.point, transform.position) <= distanciaSueloDash /*&& controller.rb.velocity.y < 0*/)
+            if (Vector2.Distance(hit2.point, new Vector2(transform.position.x, transform.position.y - 1)) <= distanciaSueloDash /*&& controller.rb.velocity.y < 0*/)
             {
 
                 anim.SetBool("RaycastCaidaDash", true);
@@ -64,19 +61,43 @@ public class RaycastCaida : MonoBehaviour
             {
                 anim.SetBool("RaycastCaidaDash", false);
             }
-            else if (Vector2.Distance(hit2.point, transform.position) > distanciaSueloDash)
+            else if (Vector2.Distance(hit2.point, new Vector2(transform.position.x, transform.position.y - 1)) > distanciaSueloDash)
             {
                 anim.SetBool("RaycastCaidaDash", false);
             }
-            if (Vector2.Distance(hit2.point, transform.position) <= 3f && controller.grounded==false && controller.rb.velocity.y<0&&controller.dashEnCaida) /*&& controller.rb.velocity.y < 0*/
-            {
-           
-                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaDashAbajo);
-            }
+          
         }
         else
         {
             anim.SetBool("RaycastCaidaDash", false);
+        }
+        RaycastHit2D hit3 = Physics2D.Raycast(this.transform.position, -this.transform.up, 10000, suelo);
+        Debug.DrawRay(this.transform.position, -this.transform.up*10000, Color.yellow);
+        if (hit3.collider != null)
+        {
+            if (!controller.dashEnCaida)
+            {
+                if (Vector2.Distance(hit3.point, new Vector2(transform.position.x,transform.position.y-1)) <= 3f && controller.grounded == false && controller.rb.velocity.y < 0 ) /*&& controller.rb.velocity.y < 0*/
+                {
+                 
+                      this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaSuelo);
+                    print("SONIDOCAIDA");
+                }
+            }
+            else
+            {
+                if (Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)) <= 12f && controller.grounded == false && controller.rb.velocity.y < 0 ) /*&& controller.rb.velocity.y < 0*/
+                {
+                   
+                   this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaDashAbajo);
+                    print("SONIDODASHABAJO");
+                }
+            }
+
+            if (Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)) <= 4f)print("menor"+Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)));
+            if (Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)) > 4f) print("mayo" + Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)));
+
+
         }
     }
 
