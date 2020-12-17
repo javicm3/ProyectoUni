@@ -94,8 +94,8 @@ public class RaycastCaida : MonoBehaviour
                 }
             }
 
-            if (Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)) <= 4f)print("menor"+Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)));
-            if (Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)) > 4f) print("mayo" + Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)));
+            //if (Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)) <= 4f)print("menor"+Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)));
+            //if (Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)) > 4f) print("mayo" + Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)));
 
 
         }
