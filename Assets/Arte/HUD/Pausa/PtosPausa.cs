@@ -10,11 +10,14 @@ public class PtosPausa : MonoBehaviour
     Vector2 lastFrameVelocity;
     float minVelocity;
     public float distanciaMinima;
+    Gradient gradient;
+    float alpha = 1.0f;
+
+    GameObject elegido;
     // Start is called before the first frame update
     void Start()
     {
         minVelocity = speed;
-        
         rb = GetComponent<Rigidbody2D>();
         Launch();
         
@@ -24,21 +27,43 @@ public class PtosPausa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f), new GradientColorKey(Color.blue, 1.0f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(Mathf.Clamp(1/alpha -  0.1f, 0, 1), 0.0f), new GradientAlphaKey(Mathf.Clamp(1 / alpha - 0.1f, 0, 1), 1.0f) }
+        );
         lastFrameVelocity = rb.velocity;
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Pausa");
 
         for(int i = 0; i < gos.Length; i++)
         {
-            if(Vector2.Distance(gos[i].transform.position, transform.position) < distanciaMinima && gos[i] != this.gameObject)
+            //if (elegido == null)
+            //{
+            //    elegido = gos[i];
+            //}
+            
+            if (Vector2.Distance(gos[i].transform.position, transform.position) < distanciaMinima && gos[i] != this.gameObject)
             {
+                //if(Vector2.Distance(gos[i].transform.position, transform.position) < Vector2.Distance(elegido.transform.position, transform.position))
+                //{
+                //    gos[i] = elegido;
+                //}
+                
                 GetComponent<LineRenderer>().SetPosition(0, new Vector3(this.transform.position.x, this.transform.position.y, 0));
                 GetComponent<LineRenderer>().SetPosition(1, new Vector3(gos[i].transform.position.x, gos[i].transform.position.y, 0));
+                alpha = Mathf.Abs(Vector2.Distance(transform.position, gos[i].transform.position) - distanciaMinima / distanciaMinima);
+                GetComponent<LineRenderer>().colorGradient = gradient;
+                
             }
+            
         }
         if (Vector2.Distance(Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position) < distanciaMinima)
         {
             GetComponent<LineRenderer>().SetPosition(0, new Vector3(this.transform.position.x, this.transform.position.y, 0));
             GetComponent<LineRenderer>().SetPosition(1, new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, 0));
+            alpha = Mathf.Abs(Vector2.Distance(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition)) - distanciaMinima / distanciaMinima);
+            GetComponent<LineRenderer>().colorGradient = gradient;
         }
     }
     private void Launch()
