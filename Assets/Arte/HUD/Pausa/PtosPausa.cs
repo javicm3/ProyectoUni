@@ -12,7 +12,7 @@ public class PtosPausa : MonoBehaviour
     public float distanciaMinima;
     Gradient gradient;
     float alpha = 1.0f;
-
+    public float coeficienteTransparencia;
     GameObject elegido;
     // Start is called before the first frame update
     void Start()
@@ -31,24 +31,20 @@ public class PtosPausa : MonoBehaviour
         gradient = new Gradient();
         gradient.SetKeys(
             new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f), new GradientColorKey(Color.blue, 1.0f) },
-            new GradientAlphaKey[] { new GradientAlphaKey(Mathf.Clamp(1/alpha -  0.1f, 0, 1), 0.0f), new GradientAlphaKey(Mathf.Clamp(1 / alpha - 0.1f, 0, 1), 1.0f) }
+            new GradientAlphaKey[] { new GradientAlphaKey(Mathf.Clamp(1 / alpha - coeficienteTransparencia, 0, 0.4f), 0.0f), new GradientAlphaKey(Mathf.Clamp(1 / alpha - coeficienteTransparencia, 0, 0.4f), 1.0f) }
+            //new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f), new GradientColorKey(Color.blue, 1.0f) },
+            //new GradientAlphaKey[] { new GradientAlphaKey(Mathf.Clamp(coeficienteTransparencia - 1 / alpha, 0, 0.75f), 0.0f), new GradientAlphaKey(Mathf.Clamp(coeficienteTransparencia - 1 / alpha, 0, 0.75f), 1.0f) }
         );
         lastFrameVelocity = rb.velocity;
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Pausa");
 
         for(int i = 0; i < gos.Length; i++)
         {
-            //if (elegido == null)
-            //{
-            //    elegido = gos[i];
-            //}
+           
             
             if (Vector2.Distance(gos[i].transform.position, transform.position) < distanciaMinima && gos[i] != this.gameObject)
             {
-                //if(Vector2.Distance(gos[i].transform.position, transform.position) < Vector2.Distance(elegido.transform.position, transform.position))
-                //{
-                //    gos[i] = elegido;
-                //}
+                
                 
                 GetComponent<LineRenderer>().SetPosition(0, new Vector3(this.transform.position.x, this.transform.position.y, 0));
                 GetComponent<LineRenderer>().SetPosition(1, new Vector3(gos[i].transform.position.x, gos[i].transform.position.y, 0));
@@ -65,6 +61,10 @@ public class PtosPausa : MonoBehaviour
             alpha = Mathf.Abs(Vector2.Distance(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition)) - distanciaMinima / distanciaMinima);
             GetComponent<LineRenderer>().colorGradient = gradient;
         }
+        if (rb.velocity == Vector2.zero)
+        {
+            Launch();
+        }
     }
     private void Launch()
     {
@@ -74,14 +74,7 @@ public class PtosPausa : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-        //Vector2 bounceAngle = GetBounceAngle(transform.position, col.transform.position, col.collider.bounds.size.y);
         Bounce(col.contacts[0].normal);
-        //if (col.gameObject.tag == "Pausa")
-        //{
-        //    //Vector2 direction = new Vector2(Random.Range(-1,1), bounceAngle).normalized;
-        //    direccion = Vector2.Reflect(transform.position, col.gameObject.transform.up);
-        //    rb.velocity = direccion * speed;
-        //}
     }
      void Bounce(Vector2 collisionNormal)
     {
@@ -90,11 +83,5 @@ public class PtosPausa : MonoBehaviour
         rb.velocity = direccion * Mathf.Max(speed, minVelocity);
     }
 
-    float GetBounceAngle(Vector2 ballPosition, Vector2 playerPosition, float playerSizeHeight)
-    {
-        //return (ballPosition.y - playerPosition.y) / playerSizeHeight;
-        return (ballPosition.y - playerPosition.y);
-
-
-    }
+   
 }
