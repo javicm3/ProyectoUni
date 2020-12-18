@@ -44,7 +44,7 @@ public class cableadoviaje : MonoBehaviour
             m_Rigidbody2D.gravityScale = 0;
             if (unavez == false)
             {
-                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().MoverseCables);
+                if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().MoverseCables);
                 m_Rigidbody2D.velocity = Vector2.zero;
                 unavez = true;
                if(rendererCuerpo!=null) rendererCuerpo.gameObject.SetActive(false);

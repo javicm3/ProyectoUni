@@ -23,9 +23,13 @@ public class AudioManager : MonoBehaviour
     public AudioClip pasarPorNodo;
     public AudioClip MoverseCables;
     public AudioClip pasos;
+    
     public AudioSource sonidosUnaVez;
+    public AudioSource[] sonidosArrayUnavez;
     public AudioSource sonidoLoop;
+    public AudioSource[] sonidosLoop;
     public AudioSource sonidoPasos;
+    public AudioSource[] sonidosPasos;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,17 +45,67 @@ public class AudioManager : MonoBehaviour
     {
         if (source == sonidosUnaVez)
         {
-            Stop(sonidosUnaVez);
-            sonidosUnaVez.PlayOneShot(clipp);
+            if (sonidosUnaVez.isPlaying == true&&sonidosUnaVez.clip!= clipp)
+            {
+                for (int i = 0; i < sonidosArrayUnavez.Length; i++)
+                {
+                    if (sonidosArrayUnavez[i].isPlaying == false  &&sonidosArrayUnavez[i].clip != clipp)
+                    {
+                        Stop(sonidosArrayUnavez[i]);
+                        sonidosArrayUnavez[i].PlayOneShot(clipp);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+              
+                sonidosUnaVez.PlayOneShot(clipp);
+            }
+           
         }
         else if(source==sonidoLoop)
         {
-            sonidoLoop.clip = clipp;
-            sonidoLoop.Play();
-        }else if (source == sonidoPasos)
+            if (sonidoLoop.isPlaying == true && sonidoLoop.clip!=clipp)
+            {
+                for (int i = 0; i < sonidosLoop.Length; i++)
+                {
+                    if (sonidosLoop[i].isPlaying == false && sonidosLoop[i].clip!= clipp )
+                    {
+                        Stop(sonidosLoop[i]);
+                        sonidosLoop[i].PlayOneShot(clipp);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+               
+                sonidoLoop.PlayOneShot(clipp);
+            }
+
+        }
+        else if (source == sonidoPasos)
         {
-            Stop(sonidoPasos);
-            sonidoPasos.PlayOneShot(clipp);
+            if (sonidoPasos.isPlaying == true && sonidoPasos.clip != clipp)
+            {
+                for (int i = 0; i < sonidosLoop.Length; i++)
+                {
+                    if (sonidosPasos[i].isPlaying == false && sonidosPasos[i].clip != clipp)
+                    {
+                        Stop(sonidosPasos[i]);
+                        sonidosPasos[i].PlayOneShot(clipp);
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                sonidoPasos.PlayOneShot(clipp);
+              
+            }
+          
+           
         }
     }
     public void Stop(AudioSource source)

@@ -314,9 +314,9 @@ public class CameraZoom : MonoBehaviour
         }
         else
         {
-            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping <= 4f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping += 10 * Time.deltaTime;
-            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping <= 4f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping += 10 * Time.deltaTime;
-            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping <= 4f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping += 10 * Time.deltaTime;
+            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping <= 3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping += 10 * Time.deltaTime;
+            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping <= 3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping += 10 * Time.deltaTime;
+            if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping <= 3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping += 10 * Time.deltaTime;
             maxDistance = DistanciaMaxima();
             if (cinemakina.m_Lens.OrthographicSize < maxDistance * 0.6f && cinemakina.m_Lens.OrthographicSize < maxZoom)
             {
