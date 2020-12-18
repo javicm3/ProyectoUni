@@ -8,7 +8,7 @@ public class MenuPausa : MonoBehaviour
     Animator anim;
     Animator playerAnim;
     GameObject[] ptosPausa;
-    bool paused;
+    public bool paused;
     public ControllerPersonaje controllerAndInput;
     PlayerInput pi;
     float gravedadNormal;

@@ -8,9 +8,13 @@ public class CameraZoom : MonoBehaviour
     CinemachineVirtualCamera cinemakina;
     public float startsize = 13;
     public float finalsize = 19;
+    public float auxstartsize;
+    public float auxfinalsize;
+    public float tamañoCamaraPausa = 3f;
     ControllerPersonaje cc;
     public GameObject segundorb;
     public float indiceMultiplicador = 0.05f;
+    public float indiceMultiplicadorPausa = 0.05f;
     float tiempoSinInput;
     public GameObject hud;
     float indiceHUD;
@@ -24,9 +28,12 @@ public class CameraZoom : MonoBehaviour
     public float velocidadPaneoVertical = 5;
     public float indiceMultiplicadorZoom = 0.2f;
     public bool soloplayer;
+    bool pausado = false;
     // Start is called before the first frame update
     void Start()
     {
+        auxfinalsize = finalsize;
+        auxstartsize = startsize;
         tiempoSinInput = 0;
         cinemakina = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
         cc = GameObject.FindObjectOfType<ControllerPersonaje>();
@@ -80,8 +87,31 @@ public class CameraZoom : MonoBehaviour
                 }
             }
         }
-        if (soloplayer == true)
+        if(GameManager.Instance != null && GameManager.Instance.GetComponent<MenuPausa>().paused)
         {
+            startsize = tamañoCamaraPausa;
+            if (cinemakina.m_Lens.OrthographicSize > startsize)
+            {
+                pausado = true;
+                cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize - indiceMultiplicadorPausa * Time.deltaTime;
+                if (cinemakina.m_Lens.OrthographicSize <= startsize)
+                {
+                    cinemakina.m_Lens.OrthographicSize = startsize;
+                }
+            }
+        }
+        else if (soloplayer == true)
+        {
+            startsize = auxstartsize;
+            if (cinemakina.m_Lens.OrthographicSize < startsize && pausado == true)
+            {
+                cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize + indiceMultiplicadorPausa * Time.deltaTime;
+                if(cinemakina.m_Lens.OrthographicSize >= startsize && pausado == true)
+                {
+                    cinemakina.m_Lens.OrthographicSize = startsize;
+                    pausado = false;
+                }
+            }
             if (this.GetComponent<PlayerInput>().inputHorizontal != 0 && this.GetComponent<ControllerPersonaje>().ultimaNormal.y > 0.7f)
             {
                 if (Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x) > 15)
