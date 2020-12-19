@@ -32,16 +32,21 @@ public class IrANivel : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
 
-            if (nivelDestino == "Nivel0")
+            if (nivelDestino == "ND-1")
             { textoEstrellasCogidas.text = "Estrellas"+ GameManager.Instance.estrellasCogidosNivel0.Count.ToString()+"/"+ GameManager.Instance.estrellasMaxNv[0];
                 textoColeccionablesCogidos.text = "Coleccionables" + GameManager.Instance.coleccionablesCogidosNivel0.Count.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[0];
             }
-            if (nivelDestino == "Nivel1")
+            if (nivelDestino == "ND-2")
             {
                 textoEstrellasCogidas.text = "Estrellas" + GameManager.Instance.estrellasCogidosNivel1.Count.ToString() + "/" + GameManager.Instance.estrellasMaxNv[1];
                 textoColeccionablesCogidos.text = "Coleccionables" + GameManager.Instance.coleccionablesCogidosNivel1.Count.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[1];
             }
-            if (nivelDestino == "Nivel2")
+            if (nivelDestino == "ND-3")
+            {
+                textoEstrellasCogidas.text = "Estrellas" + GameManager.Instance.estrellasCogidosNivel2.Count.ToString() + "/" + GameManager.Instance.estrellasMaxNv[2];
+                textoColeccionablesCogidos.text = "Coleccionables" + GameManager.Instance.coleccionablesCogidosNivel2.Count.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[2];
+            }
+            if (nivelDestino == "NivelSemana26")
             {
                 textoEstrellasCogidas.text = "Estrellas" + GameManager.Instance.estrellasCogidosNivel2.Count.ToString() + "/" + GameManager.Instance.estrellasMaxNv[2];
                 textoColeccionablesCogidos.text = "Coleccionables" + GameManager.Instance.coleccionablesCogidosNivel2.Count.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[2];
