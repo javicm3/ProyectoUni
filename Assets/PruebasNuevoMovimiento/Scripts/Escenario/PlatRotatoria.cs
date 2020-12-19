@@ -15,10 +15,12 @@ public class PlatRotatoria : MonoBehaviour
     float aux;
     public AudioClip clip;
     public AudioSource source;
+    public GameObject player;
    
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
         rotacioninicialZ = this.transform.rotation.z;
         aux = rotacioninicialZ;
         source = this.GetComponent<AudioSource>();
@@ -61,6 +63,21 @@ public class PlatRotatoria : MonoBehaviour
     {
         yield return new WaitForSeconds(tiempo);
        
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        print(collision.gameObject.name + "NOMBRE");
+        if (collision.gameObject.name == player.gameObject.name)
+        {
+            collision.transform.SetParent(this.transform.parent, true);
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == player.gameObject.name)
+        {
+            collision.transform.parent = null;
+        }
     }
 }
 
