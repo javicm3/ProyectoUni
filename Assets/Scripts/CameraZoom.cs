@@ -87,20 +87,20 @@ public class CameraZoom : MonoBehaviour
                 }
             }
         }
-        //if(GameManager.Instance != null && GameManager.Instance.GetComponent<MenuPausa>().paused)
-        //{
-        //    startsize = tamañoCamaraPausa;
-        //    if (cinemakina.m_Lens.OrthographicSize > startsize)
-        //    {
-        //        pausado = true;
-        //        cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize - indiceMultiplicadorPausa * Time.deltaTime;
-        //        if (cinemakina.m_Lens.OrthographicSize <= startsize)
-        //        {
-        //            cinemakina.m_Lens.OrthographicSize = startsize;
-        //        }
-        //    }
-        //}
-        //else
+        if (GameManager.Instance != null && GameManager.Instance.GetComponent<MenuPausa>().paused)
+        {
+            startsize = tamañoCamaraPausa;
+            if (cinemakina.m_Lens.OrthographicSize > startsize)
+            {
+                pausado = true;
+                cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize - indiceMultiplicadorPausa * Time.deltaTime;
+                if (cinemakina.m_Lens.OrthographicSize <= startsize)
+                {
+                    cinemakina.m_Lens.OrthographicSize = startsize;
+                }
+            }
+        }
+        else
         if (soloplayer == true)
         {
             startsize = auxstartsize;
