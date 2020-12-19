@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class cableadoviaje : MonoBehaviour
 {
+    public bool conVelocidad = false;
     public GameObject[] nodos;
     GameObject nodoActual;
     bool unavez = false;
@@ -20,7 +21,7 @@ public class cableadoviaje : MonoBehaviour
     float originalspeed;
     public float originalGravity;
     public bool viajando;
-   public  GameObject nodoElegido;
+    public GameObject nodoElegido;
     float elapsed;
     PlayerInput Pinput;
     // Start is called before the first frame update
@@ -38,8 +39,9 @@ public class cableadoviaje : MonoBehaviour
     {
         if (viajando)
         {
-          
+            controllerPersonaje.saltoBloqueado = true;
             controllerPersonaje.movimientoBloqueado = true;
+            controllerPersonaje.dashBloqueado = true;
             m_Rigidbody2D.isKinematic = true;
             m_Rigidbody2D.gravityScale = 0;
             if (unavez == false)
@@ -47,7 +49,7 @@ public class cableadoviaje : MonoBehaviour
                 if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().MoverseCables);
                 m_Rigidbody2D.velocity = Vector2.zero;
                 unavez = true;
-               if(rendererCuerpo!=null) rendererCuerpo.gameObject.SetActive(false);
+                if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(false);
                 //rendererViaje.enabled = true;
                 rendererViaje.gameObject.SetActive(true);
                 colliderNormal.enabled = false;
@@ -56,9 +58,16 @@ public class cableadoviaje : MonoBehaviour
                 controllerPersonaje.dashBloqueado = true;
                 controllerPersonaje.dashCaidaBloqueado = true;
             }
+            if (this.GetComponent<Rigidbody2D>().velocity != Vector2.zero)
+            {
+                conVelocidad = true;
+            }
+            else
+            {
+                conVelocidad = false;
+            }
 
-
-            if (Pinput.inputVertical>0)
+            if (Pinput.inputVertical > 0 && conVelocidad == false)
             {
                 /*foreach (GameObject nodo in nodos)
                 {
@@ -87,7 +96,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if (Pinput.inputVertical < 0)
+            if (Pinput.inputVertical < 0 && conVelocidad == false)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
@@ -116,7 +125,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if( Pinput.inputHorizontal > 0)
+            if (Pinput.inputHorizontal > 0 && conVelocidad == false)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
@@ -146,7 +155,7 @@ public class cableadoviaje : MonoBehaviour
                     }
                 }
             }
-            if (Pinput.inputHorizontal < 0)
+            if (Pinput.inputHorizontal < 0 && conVelocidad == false)
             {
                 //foreach (GameObject nodo in nodos)
                 //{
@@ -180,14 +189,17 @@ public class cableadoviaje : MonoBehaviour
 
             if (nodoElegido != null)
             {
+                //transform.position = Vector3.MoveTowards(transform.position, nodoElegido.transform.position, Time.deltaTime * speedMov);
+                controllerPersonaje.rb.velocity = (transform.position - nodoElegido.transform.position).normalized;
                 transform.position = Vector3.MoveTowards(transform.position, nodoElegido.transform.position, Time.deltaTime * speedMov);
                 GetComponent<Particulas>().particulasViajeCables.SetActive(true);
                 VelocidadViaje();
+
             }
         }
         else
         {
-           
+
             nodoElegido = null;
             m_Rigidbody2D.isKinematic = false;
             //
@@ -197,7 +209,7 @@ public class cableadoviaje : MonoBehaviour
                 GetComponent<VidaPlayer>().enabled = true;
                 m_Rigidbody2D.gravityScale = originalGravity;
                 unavez = false;
-               if(rendererCuerpo!=null) rendererCuerpo.enabled = true;
+                if (rendererCuerpo != null) rendererCuerpo.enabled = true;
                 if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
                 //rendererViaje.enabled = false;
                 rendererViaje.gameObject.SetActive(false);
@@ -206,6 +218,7 @@ public class cableadoviaje : MonoBehaviour
                 controllerPersonaje.movimientoBloqueado = false;
                 controllerPersonaje.dashBloqueado = false;
                 controllerPersonaje.dashCaidaBloqueado = false;
+                controllerPersonaje.saltoBloqueado = false;
             }
         }
 
@@ -216,20 +229,21 @@ public class cableadoviaje : MonoBehaviour
 
         if (collision.gameObject.tag == "Nodo")
         {
-           
+
             nodoActual = collision.gameObject;
             inputEnabled = true;
             //speedMov = 0;
+            controllerPersonaje.rb.velocity = Vector2.zero;
             Nodo node = collision.gameObject.GetComponent<Nodo>();
             if (node.salida == false && viajando == true)
             {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().pasarPorNodo);
-                this.transform.position = new Vector3(node.transform.position.x,node.transform.position.y,this.transform.position.z);
+                this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z);
             }
             if (node.salidaAbajo == true && viajando == true)
             {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
-                this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) +new Vector3(0, -2);
+                this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(0, -2);
                 viajando = false;
             }
             else if (node.salidaArriba == true && viajando == true)
@@ -250,7 +264,7 @@ public class cableadoviaje : MonoBehaviour
                 this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(-2, 0);
                 viajando = false;
             }
-          
+
 
         }
     }
@@ -296,6 +310,8 @@ public class cableadoviaje : MonoBehaviour
 
         if (collision.gameObject.tag == "Nodo")
         {
+
+
             Nodo node = collision.gameObject.GetComponent<Nodo>();
             nodoActual = collision.gameObject;
             if (node.salida == true)
@@ -307,6 +323,14 @@ public class cableadoviaje : MonoBehaviour
                         viajando = false;
                     }
                 }
+            }
+            else
+            {
+                if (node.entrada == false)
+                {
+                    controllerPersonaje.rb.velocity = Vector2.zero;
+                }
+
             }
         }
     }
