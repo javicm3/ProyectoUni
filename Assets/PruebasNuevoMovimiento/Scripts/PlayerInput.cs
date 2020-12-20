@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour
     public bool inputHorizBlock = false;
     public bool inputVerticBlock = false;
     ControllerPersonaje cp;
+    Vector2 originalScale;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class PlayerInput : MonoBehaviour
     {
         rb = this.GetComponent<Rigidbody2D>();
         cp = this.GetComponent<ControllerPersonaje>();
+        originalScale = transform.Find("Cuerpo").localScale;
     }
 
     // Update is called once per frame
@@ -36,12 +38,13 @@ public class PlayerInput : MonoBehaviour
             {
                 if (ultimoInputHorizontal > 0)
                 {
+                    transform.Find("Cuerpo").localScale = originalScale;
                     if (personajeInvertido)
                     {
 
 
                         particulasVelMax.localScale *= new Vector2(-1, 1);
-                        transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
+                        //transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
                         //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
 
                         personajeInvertido = false;
@@ -51,12 +54,12 @@ public class PlayerInput : MonoBehaviour
                 else if (ultimoInputHorizontal < 0)
                 {
 
-
+                    transform.Find("Cuerpo").localScale = new Vector2(-originalScale.x, originalScale.y);
                     if (personajeInvertido == false)
                     {
 
                         particulasVelMax.localScale *= new Vector2(-1, 1);
-                        transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
+                        //transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
                         //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
                         personajeInvertido = true;
 
