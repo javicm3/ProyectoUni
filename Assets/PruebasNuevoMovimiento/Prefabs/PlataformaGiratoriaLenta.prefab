@@ -178,6 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2577066184537145943}
   - component: {fileID: 2577066184537145936}
+  - component: {fileID: 2577066184537145937}
   - component: {fileID: 2577066184537145942}
   m_Layer: 8
   m_Name: PlataformaGiratoria (1)
@@ -247,9 +248,30 @@ SpriteRenderer:
   m_Size: {x: 3.140625, y: 2.09375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &2577066184537145937
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2577066184537145940}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 7
 --- !u!61 &2577066184537145942
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -288,7 +310,6 @@ GameObject:
   - component: {fileID: 2577066184597023079}
   - component: {fileID: 2577066184597023076}
   - component: {fileID: 8916086210533215855}
-  - component: {fileID: 994506936}
   m_Layer: 8
   m_Name: PlataformaGiratoriaLenta
   m_TagString: Untagged
@@ -319,7 +340,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2577066184597023077}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -330,7 +351,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -351,12 +372,12 @@ SpriteRenderer:
   m_SortingLayerID: 1838123621
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 868801f72ba789d458eeeaaa2b2962ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89bb086a0425d6942b3833a63cc049bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 8, y: 6}
+  m_Size: {x: 3.140625, y: 2.09375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -379,7 +400,6 @@ MonoBehaviour:
   velocidadRotacion: 9
   clip: {fileID: 8300000, guid: b66d6610803a47441aa04af6316a1ec4, type: 3}
   source: {fileID: 0}
-  player: {fileID: 0}
 --- !u!82 &8916086210533215855
 AudioSource:
   m_ObjectHideFlags: 0
@@ -399,11 +419,11 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 145
-  DopplerLevel: 0.53
+  DopplerLevel: 0.58
   MinDistance: 1
-  MaxDistance: 12.06
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -476,27 +496,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!50 &994506936
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2577066184597023077}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1001 &226027953
 PrefabInstance:
   m_ObjectHideFlags: 0
