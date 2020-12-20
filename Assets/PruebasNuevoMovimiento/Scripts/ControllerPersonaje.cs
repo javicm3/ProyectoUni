@@ -173,7 +173,7 @@ public class ControllerPersonaje : MonoBehaviour
     public float ledgeClimbYOffset2 = 0f;
     public float ledgeClimbXOffset3 = 0f;
     public float ledgeClimbYOffset3 = 0f;
-
+    public GameObject boss;
     [SerializeField] private LayerMask capasSuelo;
     [SerializeField] private LayerMask capasEnemigos;
     //[Header("Control")]
@@ -3519,6 +3519,14 @@ public class ControllerPersonaje : MonoBehaviour
 
             GameManager.Instance.CogerEstrellaNivel(collision.gameObject);
 
+        }
+        if(collision.tag == "TriggerPausaBoss")
+        {
+            if(boss != null)
+            {
+
+               boss.GetComponent<BossPath>().cmpRuta.pausaTerminada = true;
+            }
         }
     }
     //private void OnCollisionEnter2D(Collision2D collision)

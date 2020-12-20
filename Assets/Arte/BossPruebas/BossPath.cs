@@ -11,10 +11,16 @@ public class BossPath : MonoBehaviour
     private float tParam;
 
     private Vector2 catPosition;
-
+    Quaternion catRotation;
+    public Animator anim;
+    GameObject elegido;
+    bool rotado;
+    GameObject player;
+    public bool triggerPausa;
+    public GameObject cuerpoGusano;
     //public float[] speedModifier;
 
-    Ruta cmpRuta;
+    public Ruta cmpRuta;
 
     bool tienePausa = false;
 
@@ -22,19 +28,21 @@ public class BossPath : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         routeToGo = 0;
         tParam = 0f;
         
         //speedModifier = 0.5f;
         coroutineAllowed = true;
+        //anim = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        triggerPausa = true;
         cmpRuta = routes[routeToGo].gameObject.GetComponent<Ruta>();
-
+        elegido = cmpRuta.gameObject;
         //if ()
             
         if(coroutineAllowed)
@@ -44,10 +52,15 @@ public class BossPath : MonoBehaviour
     }
     private IEnumerator GoByTheRoute(int routeNumber)
     {
+        anim.SetTrigger(cmpRuta.animacion);
         if(cmpRuta.pausa && cmpRuta.pausaTerminada == false)
         {
             
             StartCoroutine(EsperarPausa());
+        }
+        else if(cmpRuta.pausaConTrigger == true && cmpRuta.pausaTerminada == false)
+        {
+            //EsperarPausaConTrigger();
         }
         else
         {
@@ -58,13 +71,23 @@ public class BossPath : MonoBehaviour
             Vector2 p2 = routes[routeNumber].GetChild(2).position;
             Vector2 p3 = routes[routeNumber].GetChild(3).position;
 
+            Quaternion p0r = routes[routeNumber].GetChild(0).rotation;
+            Quaternion p1r = routes[routeNumber].GetChild(1).rotation;
+            Quaternion p2r = routes[routeNumber].GetChild(2).rotation;
+            Quaternion p3r = routes[routeNumber].GetChild(3).rotation;
             while (tParam < 1)
             {
                 tParam += Time.deltaTime * cmpRuta.speedModifier;
 
                 catPosition = Mathf.Pow(1 - tParam, 3) * p0 + 3 * Mathf.Pow(1 - tParam, 2) * tParam * p1 + 3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2 + Mathf.Pow(tParam, 3) * p3;
+                //catRotation = Mathf.Pow(1 - tParam, 3) * p0r + 3 * Mathf.Pow(1 - tParam, 2) * tParam * p1r + 3 * (1 - tParam) * Mathf.Pow(tParam, 2) * p2r + Mathf.Pow(tParam, 3) * p3r;
 
                 transform.position = catPosition;
+                //transform.rotation = Quaternion.LookRotation(cmpRuta.rotacion);
+                Quaternion target = Quaternion.Euler(0, 0, cmpRuta.rotacion);
+                cuerpoGusano.transform.rotation = Quaternion.Slerp(transform.rotation, target, 10000 * Time.deltaTime);
+
+                //Vector3 rotacionGusano = Vector3.RotateTowards(transform.forward, Quaternion.Angle()
                 yield return new WaitForEndOfFrame();
             }
 
@@ -77,7 +100,17 @@ public class BossPath : MonoBehaviour
 
             coroutineAllowed = true;
         }
-        
+        //if (elegido != cmpRuta.gameObject)
+        //{
+        //    rotado = true;
+        //    if(rotado == true)
+        //    {
+        //        transform.Rotate(new Vector3(0, 0, cmpRuta.rotacion));
+                
+        //        elegido = cmpRuta.gameObject;
+        //        rotado = false;
+        //    }
+        //}
     }
     private IEnumerator EsperarPausa()
     {
@@ -87,4 +120,14 @@ public class BossPath : MonoBehaviour
         cmpRuta.pausaTerminada = true;
         //coroutineAllowed = false;
     }
+    //void EsperarPausaConTrigger()
+    //{
+
+    //    if (triggerPausa == false)
+    //    {
+    //        cmpRuta.pausaTerminada = true;
+    //        cmpRuta.pausaConTrigger = false;
+    //        triggerPausa = true;
+    //    }
+    //}
 }

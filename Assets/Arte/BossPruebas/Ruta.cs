@@ -13,6 +13,9 @@ public class Ruta : MonoBehaviour
     public float segundosPausa;
     public bool pausaTerminada;
     public float speedModifier;
+    public string animacion;
+    public float rotacion;
+    public bool pausaConTrigger;
 
 
     private void OnDrawGizmos()
