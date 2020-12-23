@@ -20,8 +20,8 @@ public class LucesPolicia : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timing += 1 + Time.deltaTime;
-        if (timing > 25)
+        timing += 1 * Time.deltaTime;
+        if (timing > 0.5f)
         {
             if (colorRojoBool)
             {
@@ -36,14 +36,6 @@ public class LucesPolicia : MonoBehaviour
                 colorRojoBool = true;
             }
             timing = 0; 
-            
-            
-            //if (timing > 6)
-            //{
-            //    timing = 0;
-            //    colorRojo.SetActive(true);
-            //    colorAzul.SetActive(false);
-            //}
         }
     }
 }
