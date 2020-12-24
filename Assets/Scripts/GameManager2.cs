@@ -626,7 +626,7 @@ public class GameManager2 : MonoBehaviour
             Frenar();
             //Time.timeScale = 0.3f;
             //GameObject.Find("Player").GetComponent<Animator>().SetTrigger("Die");
-            if (GameObject.Find("Player") != null) GameObject.Find("Player").GetComponent<CharacterController2D>().enabled = false;
+            //if (GameObject.Find("Player") != null) GameObject.Find("Player").GetComponent<CharacterController2D>().enabled = false;
             //GameObject.Find("Player").GetComponent<SpriteRenderer>().color = Color.black;
             StartCoroutine(Tiemporeiniciar(0.6f));
         }
@@ -640,7 +640,7 @@ public class GameManager2 : MonoBehaviour
 
             GameObject.Find("Player").GetComponent<Movimiento>().enabled = false;
             //GameObject.Find("Player").GetComponent<CharacterController2D>().anim.SetTrigger("Die");
-            GameObject.Find("Player").GetComponent<CharacterController2D>().enabled = false;
+            //GameObject.Find("Player").GetComponent<CharacterController2D>().enabled = false;
         }
 
     }
@@ -659,7 +659,7 @@ public class GameManager2 : MonoBehaviour
         }
 
         print(GameObject.Find("Player").GetComponentInChildren<SpriteRenderer>().enabled);
-        GameObject.FindObjectOfType<Particulas>().SpawnParticulas(GameObject.FindObjectOfType<Particulas>().particulasExplosion, GameObject.Find("Player").transform.position);
+        //GameObject.FindObjectOfType<Particulas>().SpawnParticulas(GameObject.FindObjectOfType<Particulas>().particulasExplosion, GameObject.Find("Player").transform.position);
         //if (GameObject.Find("Player") != null) Destroy(GameObject.Find("Player").GetComponentInChildren<Animator>());
         StartCoroutine(TrueReinicio(1.3f));
     }

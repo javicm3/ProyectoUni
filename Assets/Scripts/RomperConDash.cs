@@ -24,30 +24,30 @@ public class RomperConDash : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.GetComponent<Movimiento>().cayendoS == true)
-            {
-                //collision.gameObject.GetComponent<Movimiento>().cayendoS = false;
-                //Destroy(this.gameObject);
-                GetComponentInParent<Animator>().SetTrigger("HaDasheado");
-                //StartCoroutine(Romperse());
-                GetComponent<Collider2D>().enabled = false;
-                Instantiate(particulas, puntoParticulas);
-            }
+            //if (collision.gameObject.GetComponent<Movimiento>().cayendoS == true)
+            //{
+            //    //collision.gameObject.GetComponent<Movimiento>().cayendoS = false;
+            //    //Destroy(this.gameObject);
+            //    GetComponentInParent<Animator>().SetTrigger("HaDasheado");
+            //    //StartCoroutine(Romperse());
+            //    GetComponent<Collider2D>().enabled = false;
+            //    Instantiate(particulas, puntoParticulas);
+            //}
         }   
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.GetComponent<Movimiento>().cayendoS == true)
-            {
-                //collision.gameObject.GetComponent<Movimiento>().cayendoS = false;
-                //Destroy(this.gameObject);
-                GetComponentInParent<Animator>().SetTrigger("HaDasheado");
-                //StartCoroutine(Romperse());
-                GetComponent<Collider2D>().enabled = false;
-                Instantiate(particulas, puntoParticulas);
-            }
+            //if (collision.gameObject.GetComponent<Movimiento>().cayendoS == true)
+            //{
+            //    //collision.gameObject.GetComponent<Movimiento>().cayendoS = false;
+            //    //Destroy(this.gameObject);
+            //    GetComponentInParent<Animator>().SetTrigger("HaDasheado");
+            //    //StartCoroutine(Romperse());
+            //    GetComponent<Collider2D>().enabled = false;
+            //    Instantiate(particulas, puntoParticulas);
+            //}
         }
     }
     IEnumerator Romperse()

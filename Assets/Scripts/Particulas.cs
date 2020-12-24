@@ -14,12 +14,15 @@ public class Particulas : MonoBehaviour
     public GameObject particulasViajeCables;
     public GameObject particulasCaida;
     public GameObject particulasDaño;
+    public GameObject particulasDobleSalto;
+    public GameObject particulasSaltoNiebla;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
-    public void SpawnParticulas(GameObject particulas,Vector3 posicion)
+    public void SpawnParticulas(GameObject particulas,Vector3 posicion, Transform parent)
     {
         if (particulas == particulasDash)
         {
@@ -33,9 +36,13 @@ public class Particulas : MonoBehaviour
             }
 
         }
-        else
+        else if(parent == null)
         {
             Instantiate(particulas, posicion, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(particulas, posicion, Quaternion.identity, parent);
         }
 
     }

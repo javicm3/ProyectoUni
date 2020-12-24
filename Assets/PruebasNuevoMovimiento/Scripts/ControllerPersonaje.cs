@@ -1693,11 +1693,11 @@ public class ControllerPersonaje : MonoBehaviour
                 if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().velMaxima);
                 if (GetComponent<PlayerInput>().personajeInvertido)
                 {
-                    GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax2, VFX.position);
+                    GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax2, VFX.position, VFX.transform);
                 }
                 else
                 {
-                    GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax, VFX.position);
+                    GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax, VFX.position, VFX.transform);
                 }
             }
 
@@ -2341,7 +2341,7 @@ public class ControllerPersonaje : MonoBehaviour
                         pulsadoEspacio = true;
                         saltoIniciado = false;
                         animCC.SetTrigger("Salto");
-                        GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasSalto, posGround.position);
+                        GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasSalto, posGround.position, posGround);
                     }
                 }
                 else
@@ -2387,6 +2387,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                                 //print("saltodoble");
                                 animCC.SetTrigger("DobleSalto");
+                                GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
                                 saltoDobleHecho = true;
                                 dashEnCaida = false;
                                 estoyDasheando = false;
@@ -2499,7 +2500,7 @@ public class ControllerPersonaje : MonoBehaviour
                         pulsadoEspacio = true;
                         saltoIniciado = false;
                         animCC.SetTrigger("Salto");
-                        GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasSalto, posGround.position);
+                        GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasSalto, posGround.position, posGround);
                     }
                 }
                 else
@@ -2545,6 +2546,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                                 //print("saltodoble");
                                 animCC.SetTrigger("DobleSalto");
+                                GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
                                 saltoDobleHecho = true;
                                 dashEnCaida = false;
                                 estoyDasheando = false;

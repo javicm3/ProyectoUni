@@ -66,10 +66,10 @@ public class TriggerColliderPLayer : MonoBehaviour
                
             }
         }
-        if (FindObjectOfType<Movimiento>().cayendoS == false)
-        {
-            Desactivar("abajo");
-        }
+        //if (FindObjectOfType<Movimiento>().cayendoS == false)
+        //{
+        //    Desactivar("abajo");
+        //}
        
     }
 }

@@ -123,9 +123,9 @@ public class VidaEnemigo : MonoBehaviour
                 }
                     if (collision.gameObject.GetComponent<TriggerColliderPLayer>().ataqueabajo)
                 {
-                    GameObject.FindObjectOfType<Movimiento>().cayendoS = false;
+                    //GameObject.FindObjectOfType<Movimiento>().cayendoS = false;
                     collision.gameObject.GetComponent<TriggerColliderPLayer>().Desactivar("abajo");
-                    collision.gameObject.GetComponentInParent<CharacterController2D>().ReboteEnemigo();
+                    //collision.gameObject.GetComponentInParent<CharacterController2D>().ReboteEnemigo();
                     RecibirDaño(dañoDashAbajo);
                     this.GetComponent<Collider2D>().enabled = false;
                 }

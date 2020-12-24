@@ -50,7 +50,7 @@ public class FuncionalidadRebote : MonoBehaviour
                 if (Input.GetKeyUp(KeyCode.Q))
                 {
                     entrado = false;
-                    GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasBounce, transform.position);
+                    GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasBounce, transform.position, transform);
                     controlCC.pulsadoEspacio = false;
                     print("reboto");
                     puedeRebotar = false;
@@ -133,7 +133,7 @@ public class FuncionalidadRebote : MonoBehaviour
 
 
                                 entrado = false;
-                                GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasBounce, transform.position);
+                                GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasBounce, transform.position, transform);
                                 controlCC.pulsadoEspacio = false;
 
                                 puedeRebotar = false;

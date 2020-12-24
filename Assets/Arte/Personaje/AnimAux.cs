@@ -24,10 +24,10 @@ public class AnimAux : MonoBehaviour
     }
     public void SpawnParticulas()
     {
-        if (GameObject.FindObjectOfType<Movimiento>().maxSpeed == true)
-        {
-            GameObject.FindObjectOfType<Particulas>().SpawnParticulas(GameObject.FindObjectOfType<Particulas>().particulasBounce, GameObject.FindObjectOfType<CharacterController2D>().m_GroundCheck.position);
-        }
+        //if (GameObject.FindObjectOfType<Movimiento>().maxSpeed == true)
+        //{
+        //    GameObject.FindObjectOfType<Particulas>().SpawnParticulas(GameObject.FindObjectOfType<Particulas>().particulasBounce, GameObject.FindObjectOfType<CharacterController2D>().m_GroundCheck.position);
+        //}
     }
     public void SonidoCaminar()
     {
@@ -40,7 +40,7 @@ public class AnimAux : MonoBehaviour
     public void ParticulasAlCaer()
     {
 
-        GetComponentInParent<Particulas>().SpawnParticulas(GetComponentInParent<Particulas>().particulasCaida, GetComponentInParent<ControllerPersonaje>().posGround.position);
+        GetComponentInParent<Particulas>().SpawnParticulas(GetComponentInParent<Particulas>().particulasCaida, GetComponentInParent<ControllerPersonaje>().posGround.position, GetComponentInParent<ControllerPersonaje>().posGround);
         
     }
     public void ParticulasCorrer(GameObject particulas)

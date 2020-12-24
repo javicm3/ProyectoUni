@@ -565,7 +565,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(tiempo);
         if (GameObject.Find("Player") != null)
         {
-            GameObject.Find("Player").GetComponent<Particulas>().SpawnParticulas(GameObject.FindObjectOfType<Particulas>().particulasExplosion, GameObject.Find("Player").transform.position);
+            GameObject.Find("Player").GetComponent<Particulas>().SpawnParticulas(GameObject.FindObjectOfType<Particulas>().particulasExplosion, GameObject.Find("Player").transform.position, GameObject.Find("Player").transform);
             renderers = GameObject.Find("Player").GetComponentsInChildren<SpriteRenderer>();
             foreach (SpriteRenderer sp in renderers)
             {

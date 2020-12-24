@@ -13,7 +13,7 @@ public class ViajeCables : MonoBehaviour
     Vector2 targetVelocity;
     public float speedMov = 10;
     public Rigidbody2D m_Rigidbody2D;
-    public CharacterController2D char2d;
+    //public CharacterController2D char2d;
     public Movimiento mov;
     public SpriteRenderer rendererCuerpo;
     public SpriteRenderer rendererViaje;
@@ -51,7 +51,7 @@ public class ViajeCables : MonoBehaviour
                 //rendererCuerpo.enabled = false;
                 rendererCuerpo.gameObject.SetActive(false);
                 rendererViaje.enabled = true;
-                char2d.enabled = false;
+                //char2d.enabled = false;
                 mov.enabled = false;
                 colliderBueno.enabled = false;
                 colliderViaje.enabled = true;
@@ -69,7 +69,7 @@ public class ViajeCables : MonoBehaviour
                 rendererCuerpo.enabled = true;
                 rendererCuerpo.gameObject.SetActive(true);
                 rendererViaje.enabled = false;
-                char2d.enabled = true;
+                //char2d.enabled = true;
                 mov.enabled = true; colliderViaje.enabled = false;
                 colliderBueno.enabled = true;
 
