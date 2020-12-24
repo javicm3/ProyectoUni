@@ -15,7 +15,7 @@ public class Particulas : MonoBehaviour
     public GameObject particulasCaida;
     public GameObject particulasDaño;
     public GameObject particulasDobleSalto;
-    public GameObject particulasSaltoNiebla;
+    public GameObject particulasDobleSaltoInvertido;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +36,18 @@ public class Particulas : MonoBehaviour
             }
 
         }
+        else if (particulas == particulasDobleSalto)
+        {
+            if (this.GetComponent<PlayerInput>().personajeInvertido == false)
+            {
+                GameObject part = Instantiate(particulasDobleSalto, posicion, Quaternion.identity, parent);
+            }
+            else
+            {
+                GameObject part = Instantiate(particulasDobleSaltoInvertido, posicion, Quaternion.identity, parent);
+            }
+
+        }
         else if(parent == null)
         {
             Instantiate(particulas, posicion, Quaternion.identity);
@@ -44,6 +56,12 @@ public class Particulas : MonoBehaviour
         {
             Instantiate(particulas, posicion, Quaternion.identity, parent);
         }
+
+    }
+    public void SpawnParticulasSinTransform(GameObject particulas, Vector3 posicion)
+    {
+       
+            Instantiate(particulas, posicion, Quaternion.identity);
 
     }
     // Update is called once per frame

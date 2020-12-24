@@ -1943,7 +1943,7 @@ public class ControllerPersonaje : MonoBehaviour
                         dashEnCaida = false;
                         animCC.SetBool("cayendo", dashEnCaida);
                         animCC.SetTrigger("Dash");
-
+                        GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDash, transform.position, transform);
                         dashCaidaBloqueado = true;
                         auxCdDash = cooldownDash;
                         this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dash);
@@ -2341,7 +2341,7 @@ public class ControllerPersonaje : MonoBehaviour
                         pulsadoEspacio = true;
                         saltoIniciado = false;
                         animCC.SetTrigger("Salto");
-                        GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasSalto, posGround.position, posGround);
+                        GetComponent<Particulas>().SpawnParticulasSinTransform(GetComponent<Particulas>().particulasSalto, posGround.position);
                     }
                 }
                 else
