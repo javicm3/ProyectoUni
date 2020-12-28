@@ -732,7 +732,7 @@ public class GameManager : MonoBehaviour
 
 
 
-        textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
+       if(textoActualColecc.gameObject!=null)textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
 
 
     }
