@@ -81,7 +81,7 @@ public class RaycastCaida : MonoBehaviour
                 {
                  
                       this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaSuelo);
-                    print("SONIDOCAIDA");
+
                 }
             }
             else
@@ -90,7 +90,6 @@ public class RaycastCaida : MonoBehaviour
                 {
                    
                    this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaDashAbajo);
-                    print("SONIDODASHABAJO");
                 }
             }
 
