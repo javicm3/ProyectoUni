@@ -78,15 +78,7 @@ public class PlayerInput : MonoBehaviour
                 personajeInvertido = true;
 
             }
-            else if (inputHorizontal == -1 && personajeInvertido == true && (Mathf.Sign(cp.ultimaNormal.y) < 0) && (!cp.grounded))
-            {
 
-                particulasVelMax.localScale = new Vector2(-1, 1);
-                transform.Find("Cuerpo").localScale = new Vector2(1, 1);
-                //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
-
-                personajeInvertido = false;
-            }
             else if (inputHorizontal == 1 && personajeInvertido == true && (Mathf.Sign(cp.ultimaNormal.y) > 0))
             {
                 particulasVelMax.localScale = new Vector2(-1, 1);
@@ -97,11 +89,163 @@ public class PlayerInput : MonoBehaviour
             }
             else if (inputHorizontal == 1 && personajeInvertido == false && (Mathf.Sign(cp.ultimaNormal.y) < 0) && (!cp.grounded))
             {
-                particulasVelMax.localScale = new Vector2(-1, 1);
-                transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
-                //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
-                personajeInvertido = true;
+                if (rb.velocity.x > 0.2f)
+                {
+                    particulasVelMax.localScale = new Vector2(1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = false;
+                }
+                else if (rb.velocity.x < 0.2f)
+                {
+                    particulasVelMax.localScale = new Vector2(-1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = true;
+                }
+
             }
+            else if (inputHorizontal == 1 && personajeInvertido == true && (Mathf.Sign(cp.ultimaNormal.y) < 0) && (!cp.grounded))
+            {
+                if (rb.velocity.x > 0.2f)
+                {
+                    particulasVelMax.localScale = new Vector2(1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = false;
+                }
+                else if (rb.velocity.x < 0.2f)
+                {
+                    particulasVelMax.localScale = new Vector2(-1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = true;
+                }
+                //particulasVelMax.localScale = new Vector2(1, 1);
+                //transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+                ////GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+
+                //personajeInvertido = false;
+            }
+            else if (inputHorizontal == -1 && personajeInvertido == true && (Mathf.Sign(cp.ultimaNormal.y) < 0) && (!cp.grounded))
+            {
+                if (rb.velocity.x > 0.2f)
+                {
+                    particulasVelMax.localScale = new Vector2(1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = false;
+                }
+                else if (rb.velocity.x < 0.2f)
+                {
+                    particulasVelMax.localScale = new Vector2(-1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = true;
+                }
+                //particulasVelMax.localScale = new Vector2(-1, 1);
+                //transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                ////GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+
+                //personajeInvertido = true;
+            }
+
+            else if (inputHorizontal == -1 && personajeInvertido == false && (Mathf.Sign(cp.ultimaNormal.y) < 0) && (!cp.grounded))
+            {
+                if (rb.velocity.x > 0.05f)
+                {
+                    particulasVelMax.localScale = new Vector2(1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = false;
+                }
+                else if (rb.velocity.x < 0.05f)
+                {
+                    particulasVelMax.localScale = new Vector2(-1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = true;
+                }
+                //particulasVelMax.localScale = new Vector2(-1, 1);
+                //transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                ////GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+
+                //personajeInvertido = true;
+            }
+            else if ((Mathf.Sign(cp.ultimaNormal.y) < 0) && (cp.grounded))
+            {
+                if (cp.ultimaNormal.y < 0.15f && cp.ultimaNormal.y > -0.15f)
+                {
+                    if (rb.velocity.y > 0.05f)
+                    {
+                        if (cp.ultimaNormal.x > 0)
+                        {
+                            particulasVelMax.localScale = new Vector2(-1, 1);
+                            transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                            //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                            personajeInvertido = true;
+                        }
+                        else
+                        {
+                            particulasVelMax.localScale = new Vector2(1, 1);
+                            transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+                            //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                            personajeInvertido = false;
+                        }
+
+                    }
+                    else if (rb.velocity.y < 0.05f)
+                    {
+                        if (cp.ultimaNormal.x > 0)
+                        {
+                            particulasVelMax.localScale = new Vector2(1, 1);
+                            transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+                            //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                            personajeInvertido = false;
+                        }
+                        else
+                        {
+                            particulasVelMax.localScale = new Vector2(-1, 1);
+                            transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                            //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                            personajeInvertido = true;
+                        }
+
+                    }
+                }
+                else if (rb.velocity.x > 0.05f)
+                {
+                    particulasVelMax.localScale = new Vector2(1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = false;
+                }
+                else if (rb.velocity.x < 0.05f)
+                {
+                    particulasVelMax.localScale = new Vector2(-1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = true;
+                }
+            }
+            else if ((Mathf.Sign(cp.ultimaNormal.y) > 0) && (cp.grounded) && cp.looping)
+            {
+                if (rb.velocity.x > 0.05f)
+                {
+                    particulasVelMax.localScale = new Vector2(1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = false;
+                }
+                else if (rb.velocity.x < 0.05f)
+                {
+                    particulasVelMax.localScale = new Vector2(-1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = true;
+                }
+            }
+
             /*else if ((inputHorizontal == 0)&& (cp.lastJumpPared == true)){*/
 
             //    inputHorizontal = ultimoInputHorizontal;
