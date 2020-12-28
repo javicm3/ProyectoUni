@@ -1920,11 +1920,11 @@ public class ControllerPersonaje : MonoBehaviour
                         dashEnCaida = false;
                         animCC.SetBool("cayendo", dashEnCaida);
                         animCC.SetTrigger("Dash");
-<<<<<<< HEAD
+
                         GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDash, transform.position, transform);
-=======
+
                         //movimientoBloqueado = true;
->>>>>>> ProgramacionV2
+
                         dashCaidaBloqueado = true;
                         auxCdDash = cooldownDash;
                         this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dash);
