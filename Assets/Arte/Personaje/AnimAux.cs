@@ -31,11 +31,20 @@ public class AnimAux : MonoBehaviour
     }
     public void SonidoCaminar()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidoPasos, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().pasos);
+        FindObjectOfType<NewAudioManager>().Play("PlayerStep");
+        //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidoPasos, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().pasos);
     }
     public void SonidoEscalar()
     {
-        source.PlayOneShot(escalada);
+        //source.PlayOneShot(escalada);
+    }
+    public void SonidoCaer()
+    {
+        FindObjectOfType<NewAudioManager>().Play("PlayerFall");
+    }
+    public void SonidoCaerDash()
+    {
+        FindObjectOfType<NewAudioManager>().Play("PlayerFallDash");
     }
     public void ParticulasAlCaer()
     {

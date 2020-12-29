@@ -824,14 +824,14 @@ public class ControllerPersonaje : MonoBehaviour
         }
         if (pegadoPared)
         {
-            if (pInput.inputVertical != 0)
-            {
-                if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().moverPared);
-            }
-            else
-            {
-                this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
-            }
+            //if (pInput.inputVertical != 0)
+            //{
+            //    if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().moverPared);
+            //}
+            //else
+            //{
+            //    this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
+            //}
             if (heEntradoParedUnaVez == false)
             {
                 transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
@@ -844,7 +844,8 @@ public class ControllerPersonaje : MonoBehaviour
                     pInput.personajeInvertido = false;
                 }
                 speed = 0;
-                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().pegarPared);
+                FindObjectOfType<NewAudioManager>().Play("PlayerWall");
+                //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().pegarPared);
                 heEntradoParedUnaVez = true;
             }
             saltoDobleHecho = false;
@@ -862,7 +863,7 @@ public class ControllerPersonaje : MonoBehaviour
                 {
                     pInput.personajeInvertido = false;
                 }
-                this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
+                //this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
                 heEntradoParedUnaVez = false;
                 movimientoBloqueado = false;
                 ultimaNormal = new Vector2(0, 1);
@@ -979,7 +980,7 @@ public class ControllerPersonaje : MonoBehaviour
                         dashBloqueado = false;
                         dashCaidaBloqueado = false;
                         unavezsalirpared = true;
-                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().saltarPared);
+                        //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().saltarPared);
 
                     }
                     else
@@ -1027,7 +1028,7 @@ public class ControllerPersonaje : MonoBehaviour
                         dashBloqueado = false;
                         dashCaidaBloqueado = false;
                         unavezsalirpared = true;
-                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().saltarPared);
+                        //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().saltarPared);
                     }
                     else
                     {
@@ -1657,7 +1658,7 @@ public class ControllerPersonaje : MonoBehaviour
         }
         if (Mathf.Abs(rb.velocity.x) < velMaxima - 2f)
         {
-            if (!pegadoPared) this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
+            //if (!pegadoPared) this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
             tengoMaxspeed = false;
             //particulasVelMax.SetActive(false);
         }
@@ -1667,7 +1668,7 @@ public class ControllerPersonaje : MonoBehaviour
             tengoMaxspeed = true;
             if (grounded)
             {
-                if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().velMaxima);
+                //if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().velMaxima);
                 if (GetComponent<PlayerInput>().personajeInvertido)
                 {
                     GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax2, VFX.position, VFX.transform);
@@ -1927,7 +1928,8 @@ public class ControllerPersonaje : MonoBehaviour
 
                         dashCaidaBloqueado = true;
                         auxCdDash = cooldownDash;
-                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dash);
+                        FindObjectOfType<NewAudioManager>().Play("PlayerDash");
+                        //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dash);
                     }
                     //anim.SetTrigger("Dash");
                     Transform m_GroundCheck = transform.Find("GroundCheckç");
@@ -2029,7 +2031,8 @@ public class ControllerPersonaje : MonoBehaviour
                         //movimientoBloqueado = true;
                         dashCaidaBloqueado = true;
                         auxCdDash = cooldownDash;
-                        this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dash);
+                        FindObjectOfType<NewAudioManager>().Play("PlayerDash");
+                        //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dash);
                     }
                     //anim.SetTrigger("Dash");
                     Transform m_GroundCheck = transform.Find("GroundCheckç");
@@ -2179,7 +2182,8 @@ public class ControllerPersonaje : MonoBehaviour
                         {
                             mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
-                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                            FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
+                            //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             dashEnCaida = true;
                         }
                     }
@@ -2189,7 +2193,8 @@ public class ControllerPersonaje : MonoBehaviour
                         {
                             mEnergy.RestarEnergia(30);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
-                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                            FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
+                            //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             dashEnCaida = true;
                         }
                     }
@@ -2215,7 +2220,7 @@ public class ControllerPersonaje : MonoBehaviour
                         {
                             mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
                             //Si lo lees tienes CoVid-19
-                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                            //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                             dashEnCaida = true;
                         }
@@ -2225,7 +2230,7 @@ public class ControllerPersonaje : MonoBehaviour
                         if (tiempoCOYOTE < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
                         {
                             mEnergy.RestarEnergia(30);
-                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                            //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                             dashEnCaida = true;
                         }
@@ -2298,7 +2303,8 @@ public class ControllerPersonaje : MonoBehaviour
                                     //rb.velocity = new Vector2(rb.velocity.x, ultimaNormal.y * fuerzaSaltoMin);
                                 }
                                 //rb.velocity = ;
-                                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
+                                //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
+                                FindObjectOfType<NewAudioManager>().Play("PlayerJump");
                                 rb.AddForce(this.transform.up * fuerzaSaltoMin, ForceMode2D.Impulse);
 
                             }
@@ -2316,7 +2322,8 @@ public class ControllerPersonaje : MonoBehaviour
                                     rb.velocity = Vector2.zero;
                                     auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
                                 }
-                                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
+                                FindObjectOfType<NewAudioManager>().Play("PlayerJump");
+                                //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
                                 //rb.velocity = (ultimaNormal.normalized * fuerzaSaltoMin);
                                 //rb.velocity = ultimaNormal.normalized * fuerzaSaltoMin;
                                 rb.AddForce(this.transform.up * fuerzaSaltoMin, ForceMode2D.Impulse);
@@ -2342,7 +2349,8 @@ public class ControllerPersonaje : MonoBehaviour
                             animCC.SetTrigger("Salto");
                             //rb.velocity = new Vector2(rb.velocity.x, 1* fuerzaSaltoMin);
                             if (looping) auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
-                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
+                            FindObjectOfType<NewAudioManager>().Play("PlayerJump");
+                            //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
                             rb.AddForce(new Vector2(0, 1) * fuerzaSaltoMin, ForceMode2D.Impulse);
                             pulsadoEspacio = true;
                             saltoIniciado = false;
@@ -2360,7 +2368,8 @@ public class ControllerPersonaje : MonoBehaviour
                                 animCC.SetTrigger("Salto");
                                 //rb.velocity = new Vector2(rb.velocity.x, 1* fuerzaSaltoMin);
                                 if (looping) auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
-                                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
+                                FindObjectOfType<NewAudioManager>().Play("PlayerJump");
+                                //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
                                 rb.AddForce(new Vector2(0, 1) * fuerzaSaltoMin, ForceMode2D.Impulse);
                                 pulsadoEspacio = true;
                                 saltoIniciado = false;
@@ -2385,7 +2394,8 @@ public class ControllerPersonaje : MonoBehaviour
                                 //else
                                 {
                                     constantegravedad = 1;
-                                    this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dobleSalto);
+                                    FindObjectOfType<NewAudioManager>().Play("PlayerDoubleJump");
+                                    //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dobleSalto);
 
                                     rb.velocity = new Vector2(rb.velocity.x, fuerzaSaltoDoble);
                                 }
@@ -2457,7 +2467,7 @@ public class ControllerPersonaje : MonoBehaviour
                                     //rb.velocity = new Vector2(rb.velocity.x, ultimaNormal.y * fuerzaSaltoMin);
                                 }
                                 //rb.velocity = ;
-                                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                                //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                                 rb.AddForce(this.transform.up * fuerzaSaltoMin, ForceMode2D.Impulse);
 
                             }
@@ -2475,7 +2485,7 @@ public class ControllerPersonaje : MonoBehaviour
                                     rb.velocity = Vector2.zero;
                                     auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
                                 }
-                                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                                //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                                 //rb.velocity = (ultimaNormal.normalized * fuerzaSaltoMin);
                                 //rb.velocity = ultimaNormal.normalized * fuerzaSaltoMin;
                                 rb.AddForce(this.transform.up * fuerzaSaltoMin, ForceMode2D.Impulse);
@@ -2501,7 +2511,7 @@ public class ControllerPersonaje : MonoBehaviour
                             animCC.SetTrigger("Salto");
                             //rb.velocity = new Vector2(rb.velocity.x, 1* fuerzaSaltoMin);
                             if (looping) auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
-                            this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
+                            //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(new Vector2(0, 1) * fuerzaSaltoMin, ForceMode2D.Impulse);
                             pulsadoEspacio = true;
                             saltoIniciado = false;
@@ -2519,7 +2529,8 @@ public class ControllerPersonaje : MonoBehaviour
                                 animCC.SetTrigger("Salto");
                                 //rb.velocity = new Vector2(rb.velocity.x, 1* fuerzaSaltoMin);
                                 if (looping) auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
-                                this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
+                                FindObjectOfType<NewAudioManager>().Play("PlayerJump");
+                                //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
                                 rb.AddForce(new Vector2(0, 1) * fuerzaSaltoMin, ForceMode2D.Impulse);
                                 pulsadoEspacio = true;
                                 saltoIniciado = false;
@@ -2544,7 +2555,8 @@ public class ControllerPersonaje : MonoBehaviour
                                 //else
                                 {
                                     constantegravedad = 1;
-                                    this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dobleSalto);
+                                    FindObjectOfType<NewAudioManager>().Play("PlayerDoubleJump");
+                                    //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dobleSalto);
 
                                     rb.velocity = new Vector2(rb.velocity.x, fuerzaSaltoDoble);
                                 }
@@ -2621,7 +2633,8 @@ public class ControllerPersonaje : MonoBehaviour
                         }
                     }
                     //print("fuerzaminX");
-                    this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
+                    FindObjectOfType<NewAudioManager>().Play("PlayerJump");
+                    //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
 
                     rb.AddForce(this.transform.up * fuerzaSaltoMin, ForceMode2D.Impulse);
                     lastJumpPared = false;

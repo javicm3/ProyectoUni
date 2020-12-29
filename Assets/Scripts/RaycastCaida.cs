@@ -79,8 +79,7 @@ public class RaycastCaida : MonoBehaviour
             {
                 if (Vector2.Distance(hit3.point, new Vector2(transform.position.x,transform.position.y-1)) <= 3f && controller.grounded == false && controller.rb.velocity.y < 0 ) /*&& controller.rb.velocity.y < 0*/
                 {
-                 
-                      this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaSuelo);
+                    //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaSuelo);
 
                 }
             }
@@ -88,8 +87,7 @@ public class RaycastCaida : MonoBehaviour
             {
                 if (Vector2.Distance(hit3.point, new Vector2(transform.position.x, transform.position.y - 1)) <= 12f && controller.grounded == false && controller.rb.velocity.y < 0 ) /*&& controller.rb.velocity.y < 0*/
                 {
-                   
-                   this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaDashAbajo);
+                    //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().caidaDashAbajo);
                 }
             }
 
