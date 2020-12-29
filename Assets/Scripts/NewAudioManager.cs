@@ -35,5 +35,14 @@ public class NewAudioManager : MonoBehaviour
         }
         s.source.Play();
     }
-
+    public void Stop (string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " tiene COVID!");
+            return;
+        }
+        s.source.Stop();
+    }
 }
