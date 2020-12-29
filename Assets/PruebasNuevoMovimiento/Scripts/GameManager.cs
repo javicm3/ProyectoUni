@@ -619,7 +619,9 @@ public class GameManager : MonoBehaviour
                 estrellaCogida.GetComponent<Collider2D>().enabled = false;
                 if (GameObject.FindGameObjectWithTag("Player") != null)
                 {
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
+                    FindObjectOfType<NewAudioManager>().Play("Stars");
+                    return;
+                   //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
                 }
             }
 
@@ -636,7 +638,9 @@ public class GameManager : MonoBehaviour
                 estrellaCogida.GetComponent<Collider2D>().enabled = false;
                 if (GameObject.FindGameObjectWithTag("Player") != null)
                 {
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
+                    FindObjectOfType<NewAudioManager>().Play("Stars");
+                    return;
+                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
                 }
             }
 
@@ -653,7 +657,9 @@ public class GameManager : MonoBehaviour
                 estrellaCogida.GetComponent<Collider2D>().enabled = false;
                 if (GameObject.FindGameObjectWithTag("Player") != null)
                 {
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
+                    FindObjectOfType<NewAudioManager>().Play("Stars");
+                    return;
+                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
                 }
             }
 
@@ -685,7 +691,9 @@ public class GameManager : MonoBehaviour
                 coleccionableCogido.GetComponent<Collider2D>().enabled = false;
                 if (GameObject.FindGameObjectWithTag("Player") != null)
                 {
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
+                    FindObjectOfType<NewAudioManager>().Play("Points");
+                    return;
+                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
                 }
             }
 
@@ -702,7 +710,9 @@ public class GameManager : MonoBehaviour
                 coleccionableCogido.GetComponent<Collider2D>().enabled = false;
                 if (GameObject.FindGameObjectWithTag("Player") != null)
                 {
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
+                    FindObjectOfType<NewAudioManager>().Play("Points");
+                    return;
+                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
                 }
             }
 
@@ -719,7 +729,9 @@ public class GameManager : MonoBehaviour
                 coleccionableCogido.GetComponent<Collider2D>().enabled = false;
                 if (GameObject.FindGameObjectWithTag("Player") != null)
                 {
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
+                    FindObjectOfType<NewAudioManager>().Play("Points");
+                    return;
+                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
                   
                 }
             }
