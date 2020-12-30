@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class MenuPausa : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class MenuPausa : MonoBehaviour
     public ControllerPersonaje controllerAndInput;
     PlayerInput pi;
     float gravedadNormal;
+    GameObject targetGroup;
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +30,8 @@ public class MenuPausa : MonoBehaviour
         {
             Destroy(ptosPausa[i]);
         }
+        targetGroup = GameObject.FindObjectOfType<CinemachineTargetGroup>().gameObject;
+        player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
 
     }
 
@@ -71,6 +76,18 @@ public class MenuPausa : MonoBehaviour
     }
     private void CerrarMenu()
     {
+        for (int i = 0; i < targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets.Length; i++)
+        {
+            if (i == 0) { targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target = player.transform; }
+            else
+            {
+                if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[i].target != null)
+                {
+                    targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[i].target = null;
+
+                }
+            }
+        }
         paused = false;
         controllerAndInput.enabled = true;
         pi.enabled = true;

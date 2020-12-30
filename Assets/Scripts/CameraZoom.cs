@@ -29,6 +29,8 @@ public class CameraZoom : MonoBehaviour
     public float indiceMultiplicadorZoom = 0.2f;
     public bool soloplayer;
     bool pausado = false;
+    public GameObject pausaZoom;
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,7 @@ public class CameraZoom : MonoBehaviour
         tiempoSinInput = 0;
         cinemakina = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
         cc = GameObject.FindObjectOfType<ControllerPersonaje>();
+        player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
     }
     float DistanciaMaxima()
     {
@@ -87,23 +90,37 @@ public class CameraZoom : MonoBehaviour
                 }
             }
         }
-        //if (GameManager.Instance != null
-        //    && GameManager.Instance.GetComponent<MenuPausa>().paused)
-        //{
-        //    startsize = tamañoCamaraPausa;
-        //    if (cinemakina.m_Lens.OrthographicSize > startsize)
-        //    {
-        //        pausado = true;
-        //        cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize - indiceMultiplicadorPausa * Time.deltaTime;
-        //        if (cinemakina.m_Lens.OrthographicSize <= startsize)
-        //        {
-        //            cinemakina.m_Lens.OrthographicSize = startsize;
-        //        }
-        //    }
-        //}
-        //else
+        if (GameManager.Instance != null
+            && GameManager.Instance.GetComponent<MenuPausa>().paused)
+        {
+
+            startsize = tamañoCamaraPausa;
+            for (int i = 0; i < targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets.Length; i++)
+            {
+                if (i == 0) { targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target = pausaZoom.transform; }
+                else
+                {
+                    if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[i].target != null)
+                    {
+                        targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[i].target = null;
+
+                    }
+                }
+            }
+            if (cinemakina.m_Lens.OrthographicSize > startsize)
+            {
+                pausado = true;
+                cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize - indiceMultiplicadorPausa * Time.deltaTime;
+                if (cinemakina.m_Lens.OrthographicSize <= startsize)
+                {
+                    cinemakina.m_Lens.OrthographicSize = startsize;
+                }
+            }
+        }
+        else
         if (soloplayer == true)
         {
+            
             startsize = auxstartsize;
             if (cinemakina.m_Lens.OrthographicSize < startsize && pausado == true)
             {
