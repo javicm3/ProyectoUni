@@ -1939,11 +1939,12 @@ public class ControllerPersonaje : MonoBehaviour
                         dashCaidaBloqueado = true;
                         auxCdDash = cooldownDash;
                         FindObjectOfType<NewAudioManager>().Play("PlayerDash");
+                        //FindObjectOfType<NewAudioManager>().Change("Theme");
                         //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dash);
                     }
                     //anim.SetTrigger("Dash");
                     Transform m_GroundCheck = transform.Find("GroundCheckç");
-
+                    //es normal esa ç?
 
                 }
 
