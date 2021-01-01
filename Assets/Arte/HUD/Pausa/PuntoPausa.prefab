@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5086594394166903903}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.7, y: -0.64, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.08, z: 1}
+  m_LocalScale: {x: 0.05, y: 0.065, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb1098588953cfc419ddc466de73cad6, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingOrder: 23
   m_Sprite: {fileID: 4284005643250098877, guid: 0e965aed920b74640b311c6d4a359cc0,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.12941174, g: 0.8107112, b: 0.9529412, a: 0.7176471}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,9 +135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ec54303cfd46844bb6d4d858e980f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.14
+  speed: 0.2
   distanciaMinima: 1
   coeficienteTransparencia: 2
+  colorUnion: {r: 0.051886797, g: 0.53210884, b: 1, a: 0}
+  colorUnion2: {r: 0.9125824, g: 0, b: 1, a: 0}
 --- !u!120 &-2765164904202124044
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -200,17 +202,17 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.9541393, b: 0.042452812, a: 1}
-      key1: {r: 1, g: 0.9541393, b: 0.042452812, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 0, b: 0.48557186, a: 1}
+      key1: {r: 0, g: 0.07012853, b: 0.3773585, a: 0}
+      key2: {r: 0, g: 0.07012853, b: 0.3773585, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 0
+      ctime0: 386
       ctime1: 65535
-      ctime2: 0
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0
