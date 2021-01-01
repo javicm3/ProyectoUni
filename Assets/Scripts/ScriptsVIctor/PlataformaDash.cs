@@ -8,7 +8,11 @@ public class PlataformaDash : MonoBehaviour
     ControllerPersonaje CP;
 
     public Transform Up;
+    public Transform Ups;
     public Transform Down;
+
+    public bool UpUp;
+    bool up;
 
     public float WaitFor = 5;
 
@@ -22,6 +26,15 @@ public class PlataformaDash : MonoBehaviour
         if (collision.gameObject.GetComponent<ControllerPersonaje>().estoyDasheando)
         {
             transform.position = Up.transform.position;
+            //up = true;
+            //if (UpUp && up)
+            //{
+            //    transform.position = Ups.transform.position;
+            //}
+            //else
+            //{
+            //    return;
+            //}
             StartCoroutine(Wait());
         }
     }
@@ -31,5 +44,6 @@ public class PlataformaDash : MonoBehaviour
         yield return new WaitForSeconds(WaitFor);
 
         transform.position = Down.transform.position;
+        //up = false;
     }
 }
