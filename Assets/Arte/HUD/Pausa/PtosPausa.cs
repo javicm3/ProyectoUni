@@ -31,7 +31,7 @@ public class PtosPausa : MonoBehaviour
         gradient = new Gradient();
         gradient.SetKeys(
             new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f), new GradientColorKey(Color.blue, 1.0f) },
-            new GradientAlphaKey[] { new GradientAlphaKey(Mathf.Clamp(1 / alpha - coeficienteTransparencia, 0, 0.4f), 0.0f), new GradientAlphaKey(Mathf.Clamp(1 / alpha - coeficienteTransparencia, 0, 0.4f), 1.0f) }
+            new GradientAlphaKey[] { new GradientAlphaKey(Mathf.Clamp(1 / alpha - coeficienteTransparencia, 0, 0.2f), 0.0f), new GradientAlphaKey(Mathf.Clamp(1 / alpha - coeficienteTransparencia, 0, 0.2f), 1.0f) }
             //new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f), new GradientColorKey(Color.blue, 1.0f) },
             //new GradientAlphaKey[] { new GradientAlphaKey(Mathf.Clamp(coeficienteTransparencia - 1 / alpha, 0, 0.75f), 0.0f), new GradientAlphaKey(Mathf.Clamp(coeficienteTransparencia - 1 / alpha, 0, 0.75f), 1.0f) }
         );
