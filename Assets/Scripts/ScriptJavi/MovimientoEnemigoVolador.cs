@@ -6,8 +6,10 @@ public class MovimientoEnemigoVolador : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] Transform[] puntosPersonaje;
+    bool arrived = false;
     int indexArray;
-   
+
+    [SerializeField] float tiempoEspera;
 
 
     // Start is called before the first frame update
@@ -20,27 +22,41 @@ public class MovimientoEnemigoVolador : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         print(indexArray);
         print(puntosPersonaje.Length);
-        if (Vector3.Distance(this.transform.position, puntosPersonaje[indexArray].position) > 1)
+        if (Vector3.Distance(this.transform.position, puntosPersonaje[indexArray].position) > 1 && !arrived)
         {
             this.transform.Translate((puntosPersonaje[indexArray].position - this.transform.position).normalized * Time.deltaTime * speed);
            
-        
-
         }
         else
         {
             if (indexArray < puntosPersonaje.Length - 1)
             {
-                indexArray++;
+                arrived = true;
+                indexArray++;              
+                StartCoroutine("Wait");
+                
             }
             else
             {
-                indexArray = 0;
+                arrived = true;
+                indexArray = 0;              
+                StartCoroutine("Wait");
+                
+
             }
         }
     }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(tiempoEspera);
+        arrived = false;
+    }
+
+ 
 
 
 
