@@ -25,6 +25,9 @@ public class MovimientoEnemigoVolador : MonoBehaviour
         if (Vector3.Distance(this.transform.position, puntosPersonaje[indexArray].position) > 1)
         {
             this.transform.Translate((puntosPersonaje[indexArray].position - this.transform.position).normalized * Time.deltaTime * speed);
+           
+        
+
         }
         else
         {
