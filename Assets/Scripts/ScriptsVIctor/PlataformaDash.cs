@@ -21,9 +21,9 @@ public class PlataformaDash : MonoBehaviour
         this.transform.position = Down.transform.position;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<ControllerPersonaje>().estoyDasheando)
+        if (collision.gameObject.tag =="Player")
         {
             transform.position = Up.transform.position;
             //up = true;
