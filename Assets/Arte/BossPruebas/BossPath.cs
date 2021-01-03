@@ -55,12 +55,15 @@ public class BossPath : MonoBehaviour
         anim.SetTrigger(cmpRuta.animacion);
         if(cmpRuta.pausa && cmpRuta.pausaTerminada == false)
         {
-            
+            Quaternion target = Quaternion.Euler(0, 0, cmpRuta.rotacion);
+            cuerpoGusano.transform.rotation = Quaternion.Slerp(transform.rotation, target, 10000 * Time.deltaTime);
             StartCoroutine(EsperarPausa());
         }
         else if(cmpRuta.pausaConTrigger == true && cmpRuta.pausaTerminada == false)
         {
             //EsperarPausaConTrigger();
+            Quaternion target = Quaternion.Euler(0, 0, cmpRuta.rotacion);
+            cuerpoGusano.transform.rotation = Quaternion.Slerp(transform.rotation, target, 10000 * Time.deltaTime);
         }
         else
         {

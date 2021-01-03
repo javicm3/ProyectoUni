@@ -3555,7 +3555,7 @@ public class ControllerPersonaje : MonoBehaviour
             if (boss != null)
             {
 
-                boss.GetComponent<BossPath>().cmpRuta.pausaTerminada = true;
+                boss.GetComponent<BossPath>().cmpRuta.pausaConTrigger = false;
             }
         }
     }
