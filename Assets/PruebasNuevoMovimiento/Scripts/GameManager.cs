@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
 
             textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
             //textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text =  totalEstrellas.Count.ToString();
+            textoActualEstrellas.text = totalEstrellas.Count.ToString();
             //textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
 
         }
@@ -271,7 +271,7 @@ public class GameManager : MonoBehaviour
         }
         if (scene.name == "NivelSemana26")
         {
-            actualLevel =4;
+            actualLevel = 4;
 
             coleccionablesActNv[(int)actualLevel] = coleccionablesCogidosNivel4.Count;
             if (personajevivo == false)
@@ -349,12 +349,12 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                foreach(string go in estrellasCogidosNivel0)
+                foreach (string go in estrellasCogidosNivel0)
                 {
                     Destroy(GameObject.Find(go.ToString()));
                 }
             }
-            
+
             textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
             textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
             textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
@@ -403,17 +403,30 @@ public class GameManager : MonoBehaviour
                     Destroy(GameObject.Find(go.ToString()));
                 }
             }
+            if (GameObject.Find("Actual") != null)
+            {
+                textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
+                textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
+            }
+            if (GameObject.Find("Maximo") != null)
+            {
+                textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
 
-            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-            textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-            textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
-            textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
+                textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
+            }
 
 
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
-            textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
+            if (GameObject.Find("ActualEstrella") != null)
+            {
+                textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
+                textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
+            }
+            if (GameObject.Find("MaximoEstrella") != null)
+            {
+                textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
+
+                textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
+            }
             personajevivo = true;
         }
         if (scene.name == "NIVEL 1")
@@ -514,9 +527,9 @@ public class GameManager : MonoBehaviour
             textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
             personajevivo = true;
         }
-       
+
     }
-    
+
 
     void Awake()
     {
@@ -574,7 +587,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-    
+
         //if (GameObject.Find("Player") != null) Destroy(GameObject.Find("Player").GetComponentInChildren<Animator>());
         StartCoroutine(TrueReinicio(1.3f));
     }
@@ -606,7 +619,7 @@ public class GameManager : MonoBehaviour
     public void CogerEstrellaNivel(GameObject estrellaCogida)
     {
 
-      
+
         if (actualLevel == 0)
         {
             if (!actualEstrellasCogidosNivel0.Contains(estrellaCogida.name))
@@ -621,7 +634,7 @@ public class GameManager : MonoBehaviour
                 {
                     FindObjectOfType<NewAudioManager>().Play("Stars");
                     return;
-                   //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
+                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
                 }
             }
 
@@ -732,7 +745,7 @@ public class GameManager : MonoBehaviour
                     FindObjectOfType<NewAudioManager>().Play("Points");
                     return;
                     //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
-                  
+
                 }
             }
 
@@ -744,7 +757,7 @@ public class GameManager : MonoBehaviour
 
 
 
-       if(textoActualColecc.gameObject!=null)textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
+        if (textoActualColecc.gameObject != null) textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
 
 
     }
