@@ -31,7 +31,8 @@ public class PlataformaDash : MonoBehaviour
     public bool spriteApagado;
     public bool spriteArriba;
     public bool spriteAbajo;
-
+    public Animator animatorFlechas;
+    public Animator animatorEngranajes;
     public float WaitFor = 5;
 
     void Start()
@@ -92,8 +93,10 @@ public class PlataformaDash : MonoBehaviour
         }
         if (subiendo1)
         {
-            this.GetComponentInChildren<Animator>().SetBool("Subiendo", true);
-            this.GetComponentInChildren<Animator>().SetBool("Bajando", false);
+          if(animatorFlechas!=null) animatorFlechas.SetBool("Subiendo", true);
+            if (animatorFlechas != null) animatorFlechas.SetBool("Bajando", false);
+            if (animatorEngranajes != null) animatorEngranajes.SetBool("moviendose", true);
+        
             if (this.transform.position.y < puntoArriba.transform.position.y)
             {
                 this.transform.position = this.transform.position + ((Vector3.up * velocidadSubida1) * Time.deltaTime);
@@ -108,8 +111,9 @@ public class PlataformaDash : MonoBehaviour
         }
         if (arriba == true)
         {
-            this.GetComponentInChildren<Animator>().SetBool("Subiendo", false);
-            this.GetComponentInChildren<Animator>().SetBool("Bajando", false);
+            if (animatorFlechas != null) animatorFlechas.SetBool("Subiendo", false);
+            if (animatorFlechas != null) animatorFlechas.SetBool("Bajando", false);
+            if (animatorEngranajes != null) animatorEngranajes.SetBool("moviendose", false);
             if (auxtiempoEsperaP1 > 0)
             {
                 auxtiempoEsperaP1 -= Time.deltaTime;
@@ -123,8 +127,9 @@ public class PlataformaDash : MonoBehaviour
         }
         if (subiendo2)
         {
-            this.GetComponentInChildren<Animator>().SetBool("Subiendo", true);
-            this.GetComponentInChildren<Animator>().SetBool("Bajando", false);
+            if (animatorFlechas != null) animatorFlechas.SetBool("Subiendo", true);
+            if (animatorFlechas != null) animatorFlechas.SetBool("Bajando", false);
+            if (animatorEngranajes != null) animatorEngranajes.SetBool("moviendose", true);
             if (this.transform.position.y < puntoArribaTodo.transform.position.y)
             {
                 this.transform.position = this.transform.position + ((Vector3.up * velocidadSubida2) * Time.deltaTime);
@@ -139,8 +144,9 @@ public class PlataformaDash : MonoBehaviour
         }
         if (arribadeltodo == true)
         {
-            this.GetComponentInChildren<Animator>().SetBool("Subiendo", false);
-            this.GetComponentInChildren<Animator>().SetBool("Bajando", false);
+            if (animatorFlechas != null) animatorFlechas.SetBool("Subiendo", false);
+            if (animatorFlechas != null) animatorFlechas.SetBool("Bajando", false);
+            if (animatorEngranajes != null) animatorEngranajes.SetBool("moviendose", false);
             if (auxtiempoEsperaP2 > 0)
             {
                 auxtiempoEsperaP2 -= Time.deltaTime;
@@ -157,14 +163,16 @@ public class PlataformaDash : MonoBehaviour
            
             if (this.transform.position.y > puntoAbajo.transform.position.y)
             {
-                this.GetComponentInChildren<Animator>().SetBool("Subiendo", false);
-                this.GetComponentInChildren<Animator>().SetBool("Bajando", true);
+                if (animatorFlechas != null) animatorFlechas.SetBool("Subiendo", false);
+                if (animatorFlechas != null) animatorFlechas.SetBool("Bajando", true);
+                if (animatorEngranajes != null) animatorEngranajes.SetBool("moviendose", true);
                 this.transform.position = this.transform.position - ((Vector3.up * velocidadBajada) * Time.deltaTime);
             }
             else
             {
-                this.GetComponentInChildren<Animator>().SetBool("Subiendo", false);
-                this.GetComponentInChildren<Animator>().SetBool("Bajando", false);
+                if (animatorFlechas != null) animatorFlechas.SetBool("Subiendo", false);
+                if (animatorFlechas != null) animatorFlechas.SetBool("Bajando", false);
+                if (animatorEngranajes != null) animatorEngranajes.SetBool("moviendose", false);
                 activado = false;
                 abajo = true;
                 arribadeltodo = false; arriba = false; subiendo1 = false; subiendo2 = false;playerporencimaunavez = false;bajando = false;
