@@ -28,7 +28,9 @@ public class PlataformaDash : MonoBehaviour
     public float velocidadBajada = 5f;
     public float tiempoSinCollider = 1f;
     public float auxTiempoSinCollider;
-
+    public bool spriteApagado;
+    public bool spriteArriba;
+    public bool spriteAbajo;
 
     public float WaitFor = 5;
 
@@ -90,6 +92,8 @@ public class PlataformaDash : MonoBehaviour
         }
         if (subiendo1)
         {
+            this.GetComponentInChildren<Animator>().SetBool("Subiendo", true);
+            this.GetComponentInChildren<Animator>().SetBool("Bajando", false);
             if (this.transform.position.y < puntoArriba.transform.position.y)
             {
                 this.transform.position = this.transform.position + ((Vector3.up * velocidadSubida1) * Time.deltaTime);
@@ -104,6 +108,8 @@ public class PlataformaDash : MonoBehaviour
         }
         if (arriba == true)
         {
+            this.GetComponentInChildren<Animator>().SetBool("Subiendo", false);
+            this.GetComponentInChildren<Animator>().SetBool("Bajando", false);
             if (auxtiempoEsperaP1 > 0)
             {
                 auxtiempoEsperaP1 -= Time.deltaTime;
@@ -117,6 +123,8 @@ public class PlataformaDash : MonoBehaviour
         }
         if (subiendo2)
         {
+            this.GetComponentInChildren<Animator>().SetBool("Subiendo", true);
+            this.GetComponentInChildren<Animator>().SetBool("Bajando", false);
             if (this.transform.position.y < puntoArribaTodo.transform.position.y)
             {
                 this.transform.position = this.transform.position + ((Vector3.up * velocidadSubida2) * Time.deltaTime);
@@ -131,6 +139,8 @@ public class PlataformaDash : MonoBehaviour
         }
         if (arribadeltodo == true)
         {
+            this.GetComponentInChildren<Animator>().SetBool("Subiendo", false);
+            this.GetComponentInChildren<Animator>().SetBool("Bajando", false);
             if (auxtiempoEsperaP2 > 0)
             {
                 auxtiempoEsperaP2 -= Time.deltaTime;
@@ -144,12 +154,17 @@ public class PlataformaDash : MonoBehaviour
         }
         if (bajando)
         {
+           
             if (this.transform.position.y > puntoAbajo.transform.position.y)
             {
+                this.GetComponentInChildren<Animator>().SetBool("Subiendo", false);
+                this.GetComponentInChildren<Animator>().SetBool("Bajando", true);
                 this.transform.position = this.transform.position - ((Vector3.up * velocidadBajada) * Time.deltaTime);
             }
             else
             {
+                this.GetComponentInChildren<Animator>().SetBool("Subiendo", false);
+                this.GetComponentInChildren<Animator>().SetBool("Bajando", false);
                 activado = false;
                 abajo = true;
                 arribadeltodo = false; arriba = false; subiendo1 = false; subiendo2 = false;playerporencimaunavez = false;bajando = false;
@@ -166,10 +181,10 @@ public class PlataformaDash : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            print("AAAAAAAAAAAAAAAAAA");
-            if (player.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f)
+          
+            if (player.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f&&activado==false)
             {
-                print("EEEEEEEEEEEEEEEEEE");
+               
                 collideractivado = false;
                 activado = true;
                 abajo = false;
