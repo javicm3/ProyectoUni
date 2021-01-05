@@ -9,7 +9,7 @@ public class Polea : MonoBehaviour
 
     public GameObject CoSube;
     public GameObject CoCae;
-
+    public bool seRompe;
     public float massCae = 10f;
     public float grav = 10f;
 
@@ -17,19 +17,30 @@ public class Polea : MonoBehaviour
 
     void Update()
     {
-        if(CoSube == null)
+        if (CoSube == null)
             return;
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<ControllerPersonaje>().estoyDasheando)
+        if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f)
         {
-            CoCae.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            CoCae.GetComponent<Rigidbody2D>().mass = massCae;
-            CoCae.GetComponent<Rigidbody2D>().gravityScale = grav;
-            CoSube.GetComponent<BoxCollider2D>().enabled = false;
-            CoSube.GetComponent<Rigidbody2D>().AddForce(transform.up * impulse);
+            if (CoCae!=null)
+            {
+                CoCae.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                CoCae.GetComponent<Rigidbody2D>().mass = massCae;
+                CoCae.GetComponent<Rigidbody2D>().gravityScale = grav;
+            }
+
+            if (CoSube != null)
+            {
+                CoSube.GetComponent<BoxCollider2D>().enabled = false;
+                CoSube.GetComponent<Rigidbody2D>().AddForce(transform.up * impulse);
+            }
+            if (seRompe)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

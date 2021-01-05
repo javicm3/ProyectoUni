@@ -8,7 +8,8 @@ public class VidaPlayer : MonoBehaviour
 {
     public float dañoenemigoEmbestida = 1;
     public float dañopinchos = 1;
-    public float dañoAgua = 1;
+    public float dañoAgua = 4;
+    public float dañoCascada = 1;
     public float dañoColliderMuerte = 4;
     public float vidaMax = 4f;
     public float vidaActual;
@@ -50,6 +51,7 @@ public class VidaPlayer : MonoBehaviour
 
 
     }
+    
     public void RecibirDaño(float daño, Vector3 puntoimpacto, Vector3 puntocontacto)
     {
 
@@ -103,18 +105,27 @@ public class VidaPlayer : MonoBehaviour
         {
             direccion = (puntoimpacto - (puntocontacto + new Vector3(0, -0.6f, 0))).normalized;
         }
-
+       
         //direccion = new Vector3(direccion.x * 3, direccion.y);
-        this.transform.position = this.transform.position + new Vector3(-direccion.x * 1.6f, 0.8f, 0);
+        //this.transform.position = this.transform.position + new Vector3(-direccion.x * 1.6f, 0.8f, 0);
         //invulnerable = true;
         this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         //this.GetComponent<CharacterController2D>().dashing = true;
-
-        this.GetComponent<Rigidbody2D>().AddForce(-direccion * 7, ForceMode2D.Impulse);
+       
+        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(-(puntocontacto - puntoimpacto).x, (puntocontacto - puntoimpacto).y).normalized* 35, ForceMode2D.Impulse);
+        this.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
     }
     // Update is called once per frame
     void Update()
     {
+        if (auxcdTrasdaño > 0.5f)
+        {
+            this.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
+        }
+        else
+        {
+            this.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
+        }
         if (SceneManager.GetActiveScene().name != "Lobby")
         {
             if (Input.GetKeyDown(KeyCode.P))
@@ -203,6 +214,12 @@ public class VidaPlayer : MonoBehaviour
             //}
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañopinchos, collision.gameObject.transform.position, collision.contacts[0].point);
         }
+
+        if (collision.gameObject.tag == "CascadaGoo")
+        {
+          
+            this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoCascada, collision.gameObject.transform.position, collision.contacts[0].point);
+        }
         if (collision.gameObject.tag == "ColliderMuerte")
         {
             //if (this.GetComponent<Movimiento>().cayendoS == true)
@@ -255,6 +272,11 @@ public class VidaPlayer : MonoBehaviour
             //        this.GetComponent<Movimiento>().cayendoS = false;
             //    }
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañopinchos, collision.gameObject.transform.position, collision.contacts[0].point);
+        }
+        if (collision.gameObject.tag == "CascadaGoo")
+        {
+
+            this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoCascada, collision.gameObject.transform.position, collision.contacts[0].point);
         }
         if (collision.gameObject.tag == "Agua")
         {

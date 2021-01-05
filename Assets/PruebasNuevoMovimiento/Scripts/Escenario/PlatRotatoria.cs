@@ -66,7 +66,7 @@ public class PlatRotatoria : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        print(collision.gameObject.name + "NOMBRE");
+
         if (collision.gameObject.name == player.gameObject.name)
         {
             collision.transform.SetParent(this.transform.parent, true);

@@ -206,6 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1306719878085166147, guid: 6bbee1429f57f6c44976d50e5f8fd8f7, type: 3}
+    - {fileID: 386806, guid: 6bbee1429f57f6c44976d50e5f8fd8f7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6bbee1429f57f6c44976d50e5f8fd8f7, type: 3}
 --- !u!1 &386805 stripped
 GameObject:
@@ -227,9 +228,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BindingMode: 1
   m_FollowOffset: {x: 0, y: 0, z: -10}
-  m_XDamping: 0
-  m_YDamping: 0
-  m_ZDamping: 0
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
   m_PitchDamping: 0
   m_YawDamping: 0
   m_RollDamping: 0
@@ -312,6 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoSube: {fileID: 0}
   CoCae: {fileID: 712874259}
+  seRompe: 0
   massCae: 10
   grav: 10
 --- !u!212 &4194603
@@ -4354,6 +4356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoSube: {fileID: 0}
   CoCae: {fileID: 583890795}
+  seRompe: 0
   massCae: 10
   grav: 10
 --- !u!212 &239747865
@@ -7203,6 +7206,9 @@ MonoBehaviour:
   velocidadBajada: 5
   tiempoSinCollider: 1
   auxTiempoSinCollider: 0
+  spriteApagado: 0
+  spriteArriba: 0
+  spriteAbajo: 0
   WaitFor: 5
 --- !u!212 &380246522
 SpriteRenderer:
@@ -9085,6 +9091,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoSube: {fileID: 0}
   CoCae: {fileID: 1462097530}
+  seRompe: 1
   massCae: 10
   grav: 10
 --- !u!212 &486081628
@@ -14457,6 +14464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoSube: {fileID: 1437791660}
   CoCae: {fileID: 944795770}
+  seRompe: 0
   massCae: 10
   grav: 10
 --- !u!212 &666149893
@@ -22804,6 +22812,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoSube: {fileID: 0}
   CoCae: {fileID: 894714350}
+  seRompe: 0
   massCae: 10
   grav: 10
 --- !u!212 &1252469760
@@ -23140,6 +23149,9 @@ MonoBehaviour:
   velocidadBajada: 5
   tiempoSinCollider: 1
   auxTiempoSinCollider: 0
+  spriteApagado: 0
+  spriteArriba: 0
+  spriteAbajo: 0
   WaitFor: 5
 --- !u!212 &1255029152
 SpriteRenderer:
@@ -24796,6 +24808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CoSube: {fileID: 0}
   CoCae: {fileID: 1728042949}
+  seRompe: 0
   massCae: 10
   grav: 10
 --- !u!212 &1332535612
@@ -26852,6 +26865,7 @@ GameObject:
   - component: {fileID: 1462097533}
   - component: {fileID: 1462097532}
   - component: {fileID: 1462097531}
+  - component: {fileID: 1462097535}
   m_Layer: 0
   m_Name: Contrapeso
   m_TagString: Untagged
@@ -26970,6 +26984,19 @@ Transform:
   m_Father: {fileID: 217577974}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1462097535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462097530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd08d4cf64ccb574c91db47270c89809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seRompe: 1
 --- !u!1 &1462574367 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1306719878907334302, guid: 6bbee1429f57f6c44976d50e5f8fd8f7,
@@ -36031,6 +36058,9 @@ MonoBehaviour:
   velocidadBajada: 5
   tiempoSinCollider: 1
   auxTiempoSinCollider: 0
+  spriteApagado: 0
+  spriteArriba: 0
+  spriteAbajo: 0
   WaitFor: 100
 --- !u!212 &2020877403
 SpriteRenderer:
@@ -37626,6 +37656,9 @@ MonoBehaviour:
   velocidadBajada: 5
   tiempoSinCollider: 1
   auxTiempoSinCollider: 0
+  spriteApagado: 0
+  spriteArriba: 0
+  spriteAbajo: 0
   WaitFor: 5
 --- !u!212 &2072836712
 SpriteRenderer:
