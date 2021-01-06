@@ -28,11 +28,9 @@ namespace InControl
 				Major = 1,
 				Minor = 4,
 				Patch = 4,
-<<<<<<< HEAD
+
 				Build = 5746
-=======
-				Build = 5767
->>>>>>> AntesDeMaster
+
 			};
 		}
 
