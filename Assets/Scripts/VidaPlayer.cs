@@ -25,6 +25,7 @@ public class VidaPlayer : MonoBehaviour
     ControllerPersonaje cc;
     Animator animCC;
     Movimiento mov;
+    public bool reiniciando;
     //public AudioClip dañoPlayer;
     //public AudioClip muertePlayer;
     //public AudioSource source;
@@ -64,15 +65,23 @@ public class VidaPlayer : MonoBehaviour
 
             AplicarFuerza(puntoimpacto, puntocontacto);
             vidaActual -= daño;
+            if (vidaActual < 0 && reiniciando == false)
+            {
+                vidaActual = 0;
+            }
             auxcdTrasdaño += cdTrasDaño;
-            if (vidaActual <= 0)
+            if (vidaActual == 0)
             {
                 //this.GetComponentInChildren<Animator>().SetTrigger("Die");
                 //source.PlayOneShot(muertePlayer);
                 FindObjectOfType<NewAudioManager>().Play("PlayerDeath");
                 //if (this.GetComponent<AudioManager>().sonidosUnaVez.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().morir);
-                GameManager.Instance.MuertePJ();
+                //GameManager.Instance.MuertePJ();
                 animCC.SetTrigger("Die");
+                cc.movimientoBloqueado = true;
+                reiniciando = true;
+                Invoke("IraCheckpoint",1f);
+                vidaActual = -1;
             }
             else
             {
@@ -96,6 +105,31 @@ public class VidaPlayer : MonoBehaviour
 
 
     }
+    void IraCheckpoint()
+    {
+        Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
+        foreach(Checkpoint check in checkpoints)
+        {
+            if (check.ultimoCheck == true)
+            {
+                this.transform.position = check.gameObject.transform.position;
+                vidaActual = vidaMax;
+                this.GetComponent<ManagerEnergia>().actualEnergy = 0;
+                cc.movimientoBloqueado = false;
+                reiniciando = false;
+                break;
+            }
+        }
+        if(reiniciando)
+        {
+            this.transform.position = GameObject.FindGameObjectWithTag("InicioNivel").gameObject.transform.position;
+            vidaActual = vidaMax;
+            this.GetComponent<ManagerEnergia>().actualEnergy = 0;
+            cc.movimientoBloqueado = false;
+            reiniciando = false;
+        }
+       
+    }
     public void AplicarFuerza(Vector3 puntoimpacto, Vector3 puntocontacto)
     {
         print("fuerzaAplicadaq");
@@ -114,9 +148,10 @@ public class VidaPlayer : MonoBehaviour
         //invulnerable = true;
         this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         //this.GetComponent<CharacterController2D>().dashing = true;
-       
-        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(-(puntocontacto - puntoimpacto).x, (puntocontacto - puntoimpacto).y).normalized* 35, ForceMode2D.Impulse);
-        this.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
+         this.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
+        this.GetComponent<Rigidbody2D>().AddForce(new Vector2(-(puntocontacto - this.transform.position).x, -(puntocontacto - this.transform.position).y).normalized* 35, ForceMode2D.Impulse);
+        print("FUERSITA" + new Vector2(- (puntocontacto - this.transform.position).x, -(puntocontacto - this.transform.position).y).normalized * 35);
+      
     }
     // Update is called once per frame
     void Update()
@@ -125,17 +160,17 @@ public class VidaPlayer : MonoBehaviour
         {
             barraVida.GetComponent<Image>().fillAmount = vidaActual / vidaMax;
         }
-        if (auxcdTrasdaño > 0.5f)
+        if (auxcdTrasdaño > 0.2f)
         {
             this.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
         }
-        else
+        else if (auxcdTrasdaño > 0.0f)
         {
             this.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
         }
         if (SceneManager.GetActiveScene().name != "Lobby")
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.K))
             {
                vidaMax = 10000;
                 vidaActual = 10000;
@@ -224,8 +259,8 @@ public class VidaPlayer : MonoBehaviour
 
         if (collision.gameObject.tag == "CascadaGoo")
         {
+          if(this.GetComponent<ControllerPersonaje>().auxCdDash<0.2f)  this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoCascada, collision.gameObject.transform.position, collision.contacts[0].point);
           
-            this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoCascada, collision.gameObject.transform.position, collision.contacts[0].point);
         }
         if (collision.gameObject.tag == "ColliderMuerte")
         {
@@ -283,7 +318,7 @@ public class VidaPlayer : MonoBehaviour
         if (collision.gameObject.tag == "CascadaGoo")
         {
 
-            this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoCascada, collision.gameObject.transform.position, collision.contacts[0].point);
+            if (this.GetComponent<ControllerPersonaje>().auxCdDash < 0.2f) this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoCascada, collision.gameObject.transform.position, collision.contacts[0].point);
         }
         if (collision.gameObject.tag == "Agua")
         {

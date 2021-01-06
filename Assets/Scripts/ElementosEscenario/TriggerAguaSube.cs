@@ -1,21 +1,21 @@
-﻿using Cinemachine;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
-public class AñadirQuitarObjetos : MonoBehaviour
+public class TriggerAguaSube : MonoBehaviour
 {
     CinemachineVirtualCamera cinemakina;
     CinemachineTargetGroup targetGroup;
     [Header("TIPOS")]
-    public bool añadirObjetos=false;
+    public bool añadirObjetos = false;
     public bool quitarObjetos = false;
     public bool dejarSoloPlayer = false;
     public bool enfocarObjetoSolo = false;
     public bool enfocarVariosObjetos = false;
     public bool enfocarSecuenciaObjetos = false;
     public bool seDestruyeTrasTocarlo = false;
-    public bool bloqueaMovimiento = false;
+    public bool bloqueaMovimiento=true;
     [Header("Timers y Objetos")]
     [Header("Un objeto enfocado x tiempo")]
     public GameObject objetoEnfocadoSolo;
@@ -39,6 +39,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
     bool timerVariosInicio = false;
     bool timerSecuencialInicio = false;
     public int coeficienteInicialSecuencia = 0;
+    public GameObject aguaSube;
     // Start is called before the first frame update
     void Start()
     {
@@ -119,12 +120,17 @@ public class AñadirQuitarObjetos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player.GetComponent<VidaPlayer>().reiniciando)
+        {
+            this.GetComponent<Collider2D>().enabled = true;
+        }
         if (timerSoloInicio)
         {
             auxTiempoEnfoqueSolo -= Time.deltaTime;
             if (auxTiempoEnfoqueSolo <= 0)
             {
                 auxTiempoEnfoqueSolo = 0;
+             
                 DejarSoloPlayer();
                 timerSoloInicio = false;
             }
@@ -168,7 +174,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
             if (i == 0)
             {
                 targetGroup.m_Targets[0].target = objetoEnfocadoSolo.transform;
-
+             
                 //targetGroup.m_Targets[0].radius=radioEnfoqueObjSolo;
             }
             else
@@ -223,6 +229,18 @@ public class AñadirQuitarObjetos : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            if (bloqueaMovimiento)
+            {
+   player.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
+            player.GetComponent<ControllerPersonaje>().rb.velocity = Vector3.zero;
+            }
+         
+        
+            if (aguaSube != null)
+            {
+                aguaSube.GetComponent<AguaSube>().iniciado = true;
+               
+            }
             if (dejarSoloPlayer)
             {
                 DejarSoloPlayer();
@@ -250,12 +268,10 @@ public class AñadirQuitarObjetos : MonoBehaviour
             {
                 EnfocarSecuenciaObj();
             }
-            if (bloqueaMovimiento)
-            {
-                player.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
-                player.GetComponent<ControllerPersonaje>().rb.velocity = Vector3.zero;
-            }
-            if (seDestruyeTrasTocarlo) Destroy(this.gameObject);
+
+            if (seDestruyeTrasTocarlo) this.GetComponent<Collider2D>().enabled = false;
         }
     }
 }
+
+

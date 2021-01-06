@@ -38,7 +38,7 @@ public class ManagerEnergia : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             maxEnergy = 10000;
             actualEnergy = 10000;
