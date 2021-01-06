@@ -34,6 +34,7 @@ public class PlataformaDash : MonoBehaviour
     public Animator animatorFlechas;
     public Animator animatorEngranajes;
     public float WaitFor = 5;
+    public BoxCollider2D collidereliminado;
 
     void Start()
     {
@@ -48,19 +49,19 @@ public class PlataformaDash : MonoBehaviour
 
         if (collideractivado)
         {
-            if (this.GetComponent<BoxCollider2D>().enabled == false)
+            if (collidereliminado.enabled == false)
             {
-                this.GetComponent<BoxCollider2D>().enabled = true;
+                collidereliminado.enabled = true;
             }
 
         }
         else
         {
 
-            if (this.GetComponent<BoxCollider2D>().enabled == true)
+            if (collidereliminado.enabled == true)
             {
 
-                this.GetComponent<BoxCollider2D>().enabled = false;
+                collidereliminado.enabled = false;
             }
             auxTiempoSinCollider -= Time.deltaTime;
             if (auxTiempoSinCollider <= 0)
@@ -74,7 +75,7 @@ public class PlataformaDash : MonoBehaviour
         {
             if (collideractivado == true)
             {
-                if (player.transform.position.y > this.transform.position.y)
+                if (player.transform.position.y > this.transform.position.y-2)
                 {
                     playerporencimaunavez = true;
                 }
@@ -82,7 +83,7 @@ public class PlataformaDash : MonoBehaviour
                 {
                     if (playerporencimaunavez == true)
                     {
-                        if (player.transform.position.y < this.transform.position.y && player.GetComponent<ControllerPersonaje>().grounded == true) {
+                        if (player.transform.position.y < this.transform.position.y-3 && player.GetComponent<ControllerPersonaje>().grounded == true) {
                             Bajar();
                         }
 
@@ -185,8 +186,10 @@ public class PlataformaDash : MonoBehaviour
         bajando = true;
         arribadeltodo = false; arriba = false; subiendo1 = false; subiendo2 = false;
     }
-    private void OnCollisionStay2D(Collision2D collision)
+     void OnTriggerStay2D(Collider2D collision)
+ 
     {
+        print(collision.gameObject.tag + "hh" + collision.gameObject.name);
         if (collision.gameObject.tag == "Player")
         {
           

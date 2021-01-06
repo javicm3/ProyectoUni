@@ -24,8 +24,11 @@ public class MenuPausa : MonoBehaviour
         controllerAndInput = controllerAndInput.gameObject.GetComponent<ControllerPersonaje>();
         playerAnim = controllerAndInput.gameObject.GetComponentInChildren<Animator>();
         pi = controllerAndInput.gameObject.GetComponent<PlayerInput>();
-        menuPausa.SetActive(false);
-        anim = menuPausa.GetComponent<Animator>();
+        if (menuPausa != null)
+        {
+            menuPausa.SetActive(false);
+            anim = menuPausa.GetComponent<Animator>();
+        }
         paused = false;
         ptosPausa = GameObject.FindGameObjectsWithTag("Pausa");
         for (int i = 0; i < ptosPausa.Length; i++)
