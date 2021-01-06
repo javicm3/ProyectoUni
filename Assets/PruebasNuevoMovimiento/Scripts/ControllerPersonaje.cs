@@ -3556,8 +3556,10 @@ public class ControllerPersonaje : MonoBehaviour
             {
 
                 boss.GetComponent<BossPath>().cmpRuta.pausaConTrigger = false;
+
             }
         }
+       
     }
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
