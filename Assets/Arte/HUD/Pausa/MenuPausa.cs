@@ -5,12 +5,12 @@ using Cinemachine;
 
 public class MenuPausa : MonoBehaviour
 {
-    public GameObject menuPausa;
+    GameObject menuPausa;
     Animator anim;
     Animator playerAnim;
     GameObject[] ptosPausa;
     public bool paused;
-    public ControllerPersonaje controllerAndInput;
+    ControllerPersonaje controllerAndInput;
     PlayerInput pi;
     float gravedadNormal;
     GameObject targetGroup;
@@ -18,6 +18,8 @@ public class MenuPausa : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        menuPausa = GameObject.Find("MenuPausa");
+        controllerAndInput = GameObject.Find("Player").GetComponent<ControllerPersonaje>();
         gravedadNormal = controllerAndInput.gameObject.GetComponent<Rigidbody2D>().gravityScale;
         controllerAndInput = controllerAndInput.gameObject.GetComponent<ControllerPersonaje>();
         playerAnim = controllerAndInput.gameObject.GetComponentInChildren<Animator>();
