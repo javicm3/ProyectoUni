@@ -18,7 +18,7 @@ public class ManagerEnergia : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //if (GameObject.Find("EnergyBar").gameObject != null) barraEnergia = GameObject.Find("EnergyBar").gameObject;
+        if (GameObject.Find("EnergyBar").gameObject != null) barraEnergia = GameObject.Find("EnergyBar").gameObject;
         actualEnergy = 0;
         cc = GetComponent<ControllerPersonaje>();
     }
@@ -43,7 +43,7 @@ public class ManagerEnergia : MonoBehaviour
             maxEnergy = 10000;
             actualEnergy = 10000;
         }
-        //barraEnergia.GetComponent<Image>().fillAmount = actualEnergy / maxEnergy;
+        barraEnergia.GetComponent<Image>().fillAmount = actualEnergy / maxEnergy;
         if (cc.grounded)
         {
             if (actualEnergy < maxEnergy)

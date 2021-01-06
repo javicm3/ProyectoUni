@@ -13,7 +13,8 @@ public class VidaPlayer : MonoBehaviour
     public float dañoColliderMuerte = 4;
     public float vidaMax = 4f;
     public float vidaActual;
-    public Image[] spritesvida;
+    //public Image[] spritesvida;
+    GameObject barraVida;
     Color colorinicial;
     public float cdTrasDaño = 1f;
     float auxcdTrasdaño;
@@ -32,6 +33,7 @@ public class VidaPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         if (SceneManager.GetActiveScene().name != "Lobby")
         {
             //spritesvida[0] = GameObject.Find("Vida0").GetComponent<Image>();
@@ -39,6 +41,7 @@ public class VidaPlayer : MonoBehaviour
             //spritesvida[2] = GameObject.Find("Vida2").GetComponent<Image>();
             //spritesvida[3] = GameObject.Find("Vida3").GetComponent<Image>();
             //colorinicial = spritesvida[0].GetComponent<Image>().color;
+            if (GameObject.Find("LifeBar").gameObject != null) barraVida = GameObject.Find("LifeBar").gameObject;
         }
         auxcdinvuln = cdInvulnAtaq;
         //cc = this.GetComponent<CharacterController2D>();
@@ -79,7 +82,7 @@ public class VidaPlayer : MonoBehaviour
                 //if(this.GetComponent<AudioManager>().sonidosUnaVez.isPlaying==false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().daño);
                 animCC.SetTrigger("Daño");
             }
-
+        
 
 
 
@@ -118,6 +121,10 @@ public class VidaPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(barraVida != null)
+        {
+            barraVida.GetComponent<Image>().fillAmount = vidaActual / vidaMax;
+        }
         if (auxcdTrasdaño > 0.5f)
         {
             this.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
