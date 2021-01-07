@@ -33,7 +33,8 @@ public class IrANivel : MonoBehaviour
         {
 
             if (nivelDestino == "ND-1")
-            { textoEstrellasCogidas.text = "Estrellas"+ GameManager.Instance.estrellasCogidosNivel0.Count.ToString()+"/"+ GameManager.Instance.estrellasMaxNv[0];
+            {
+                textoEstrellasCogidas.text = "Estrellas" + GameManager.Instance.estrellasCogidosNivel0.Count.ToString() + "/" + GameManager.Instance.estrellasMaxNv[0];
                 textoColeccionablesCogidos.text = "Coleccionables" + GameManager.Instance.coleccionablesCogidosNivel0.Count.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[0];
             }
             if (nivelDestino == "ND-2")
@@ -48,15 +49,23 @@ public class IrANivel : MonoBehaviour
             }
 
             cartel.enabled = true;
-            textoEstrellas.text = "Necesitas"+requisitoEstrellas.ToString();
-            if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
+            textoEstrellas.text = "Necesitas" + requisitoEstrellas.ToString();
+            if (nivelDestino == "NL-0")
             {
-                if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
-                {
-                    Activar(nivelDestino);
-                }
-
+                Activar(nivelDestino);
             }
+            else
+            {
+                if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
+                {
+                    if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
+                    {
+                        Activar(nivelDestino);
+                    }
+
+                }
+            }
+
 
 
         }

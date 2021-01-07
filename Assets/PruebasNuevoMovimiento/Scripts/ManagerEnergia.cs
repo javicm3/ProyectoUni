@@ -43,7 +43,7 @@ public class ManagerEnergia : MonoBehaviour
             maxEnergy = 10000;
             actualEnergy = 10000;
         }
-        barraEnergia.GetComponent<Image>().fillAmount = actualEnergy / maxEnergy;
+       if(barraEnergia!=null) barraEnergia.GetComponent<Image>().fillAmount = actualEnergy / maxEnergy;
         if (cc.grounded)
         {
             if (actualEnergy < maxEnergy)
