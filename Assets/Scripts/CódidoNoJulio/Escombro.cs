@@ -7,7 +7,7 @@ public class Escombro : MonoBehaviour
     //setear gravedad a 4 poniendo el rb en dynamic
 
     Rigidbody2D rb;
-    public string tag;
+    public string tagCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,7 @@ public class Escombro : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == tag)
+        if (col.gameObject.tag == tagCollider)
         {
             rb.isKinematic = false;
         }
