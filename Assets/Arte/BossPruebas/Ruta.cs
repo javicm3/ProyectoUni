@@ -17,6 +17,8 @@ public class Ruta : MonoBehaviour
     public float rotacion;
     public bool pausaConTrigger;
 
+    public bool disparo;
+
 
     private void OnDrawGizmos()
     {

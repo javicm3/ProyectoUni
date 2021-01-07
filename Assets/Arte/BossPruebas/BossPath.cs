@@ -65,6 +65,10 @@ public class BossPath : MonoBehaviour
             Quaternion target = Quaternion.Euler(0, 0, cmpRuta.rotacion);
             cuerpoGusano.transform.rotation = Quaternion.Slerp(transform.rotation, target, 10000 * Time.deltaTime);
         }
+        else if (cmpRuta.disparo)
+        {
+            cmpRuta.GetComponent<DisparosBOSS>().Disparar();
+        }
         else
         {
             coroutineAllowed = false;
