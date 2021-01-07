@@ -6,12 +6,23 @@ public class Contrapeso : MonoBehaviour
 {
     [SerializeField] bool contraPesoRompible;
     Animator animacionRompiendo;
+    float startx;
+    public bool subiendo;
+    public float velocidadSubida;
 
     private void Start()
     {
+        startx = this.transform.position.x;
         animacionRompiendo = this.gameObject.GetComponent<Animator>();
     }
-
+    private void Update()
+    {
+        if (subiendo)
+        {
+        GetComponent<Rigidbody2D>().velocity = (Vector2.up *velocidadSubida );
+        }
+        this.transform.position = new Vector2(startx, this.transform.position.y);
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (contraPesoRompible)
@@ -20,6 +31,7 @@ public class Contrapeso : MonoBehaviour
             {
 
                 animacionRompiendo.Play("ContrapesoRompiendo");
+
             }
         }
         

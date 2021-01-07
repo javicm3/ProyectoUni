@@ -148,7 +148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1607740009260465735
 Transform:
   m_ObjectHideFlags: 0
@@ -320,6 +320,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contraPesoRompible: 1
+  subiendo: 0
+  velocidadSubida: 0
 --- !u!1 &8485527402541973367
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,9 +375,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animCuerda: {fileID: 54309236912535564}
   animGancho: {fileID: 8226852372167057718}
-  CoSube: {fileID: 0}
-  CoCae: {fileID: 8510844032007684361}
-  seRompe: 0
+  escombroPrimero: {fileID: 8510844032007684361}
+  primerovaArriba: 0
+  velocidadPrimeroArriba: 5
+  escombroSegundo: {fileID: 7849563910688791676}
+  segundovaArriba: 0
+  velocidadSegundoArriba: 5
   massCae: 10
   grav: 10
 --- !u!61 &8485527402541973368
@@ -438,6 +443,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contraPesoRompible: 1
+  subiendo: 0
+  velocidadSubida: 0
 --- !u!1001 &8012309943166186033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -645,7 +652,7 @@ PrefabInstance:
     - target: {fileID: 1814360208769708856, guid: 62a86b68b420a14438c77650bf72848a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1814360208769708858, guid: 62a86b68b420a14438c77650bf72848a,
         type: 3}
