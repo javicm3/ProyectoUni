@@ -700,7 +700,8 @@ public class GameManager : MonoBehaviour
                 actualColeccionablesCogidosNivel0.Add(coleccionableCogido.name);
                 coleccionablesActNv[(int)actualLevel] += 1;
                 ActualizarActualColeccionables(actualLevel);
-                coleccionableCogido.GetComponent<SpriteRenderer>().enabled = false;
+                coleccionableCogido.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
+                coleccionableCogido.GetComponentInChildren<ParticleSystem>().gameObject.SetActive(false);
                 coleccionableCogido.GetComponent<Collider2D>().enabled = false;
                 if (GameObject.FindGameObjectWithTag("Player") != null)
                 {
@@ -719,7 +720,8 @@ public class GameManager : MonoBehaviour
                 actualColeccionablesCogidosNivel1.Add(coleccionableCogido.name);
                 coleccionablesActNv[(int)actualLevel] += 1;
                 ActualizarActualColeccionables(actualLevel);
-                coleccionableCogido.GetComponent<SpriteRenderer>().enabled = false;
+                coleccionableCogido.GetComponentInChildren<MeshRenderer>().gameObject.SetActive( false);
+                coleccionableCogido.GetComponentInChildren<ParticleSystem>().gameObject.SetActive(false);
                 coleccionableCogido.GetComponent<Collider2D>().enabled = false;
                 if (GameObject.FindGameObjectWithTag("Player") != null)
                 {
@@ -738,7 +740,8 @@ public class GameManager : MonoBehaviour
                 actualColeccionablesCogidosNivel2.Add(coleccionableCogido.name);
                 coleccionablesActNv[(int)actualLevel] += 1;
                 ActualizarActualColeccionables(actualLevel);
-                coleccionableCogido.GetComponent<SpriteRenderer>().enabled = false;
+                coleccionableCogido.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
+                coleccionableCogido.GetComponentInChildren<ParticleSystem>().gameObject.SetActive(false);
                 coleccionableCogido.GetComponent<Collider2D>().enabled = false;
                 if (GameObject.FindGameObjectWithTag("Player") != null)
                 {
