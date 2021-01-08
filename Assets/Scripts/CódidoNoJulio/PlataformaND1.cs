@@ -9,23 +9,39 @@ public class PlataformaND1 : MonoBehaviour
     public Transform pos1, pos2;
     public Transform startPos;
     public float tiempoParada = 2;
+ public   float auxtiempoParada;
     public static bool vuelta = false;
 
-    Vector3 nextPos;
+   public Vector3 nextPos;
 
     // Start is called before the first frame update
     void Start()
     {
         nextPos = startPos.position;
+        auxtiempoParada = tiempoParada;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if(transform.position == pos2.position)
+        if (FindObjectOfType<VidaPlayer>().reiniciando)
         {
-            StartCoroutine(Scuttle());     
+
+        
+        
+          
+            vuelta = false;
+            this.transform.position = startPos.position;
+            transform.gameObject.SetActive(false);
+        }
+        if (transform.position == startPos.position)
+        {
+            auxtiempoParada -= Time.deltaTime;
+            if (auxtiempoParada <= 0)
+            {
+                nextPos = pos1.position;
+                vuelta = true;
+            }
         }
 
         if (this.transform.position == pos1.position)
@@ -34,13 +50,32 @@ public class PlataformaND1 : MonoBehaviour
             if (vuelta == true)
             {
                 nextPos = pos2.position;
-                transform.parent.gameObject.SetActive(false);
+                //if (FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent != null) FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent = null;
+               
+                //vuelta = false;
+                //this.transform.position = startPos.position;
+                //transform.gameObject.SetActive(false);
+
+            }
+        }
+        if (this.transform.position == pos2.position)
+        {
+            //nextPos = pos2.position;
+            if (vuelta == true)
+            {
+                nextPos = pos2.position;
+                if (FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent != null) FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent = null;
+
+                vuelta = false;
+                this.transform.position = startPos.position;
+                transform.gameObject.SetActive(false);
+
             }
         }
 
         transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
     }
-
+    
     private void OndDrawGizmos()
     {
         Gizmos.DrawLine(pos1.position, pos2.position);
@@ -49,7 +84,27 @@ public class PlataformaND1 : MonoBehaviour
     public IEnumerator Scuttle()
     {
         yield return new WaitForSeconds(tiempoParada);
-        nextPos = pos1.position;
-        vuelta = true;
+       
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (collision.gameObject.transform.parent = FindObjectOfType<ControllerPersonaje>().gameObject.transform)
+            {
+                collision.gameObject.transform.parent = this.transform;
+            }
+        }
+
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (collision.gameObject.transform.parent ==this.transform)
+            {
+                collision.gameObject.transform.parent = null;
+            }
+        }
     }
 }

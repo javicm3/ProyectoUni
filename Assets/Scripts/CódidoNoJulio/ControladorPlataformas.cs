@@ -9,7 +9,7 @@ public class ControladorPlataformas : MonoBehaviour
 
     public GameObject[] objetosActivados;
     public float tiempoEntrePlataformas = 0.4f;
-    
+
     public AudioClip clip;
     public AudioSource source;
     public Canvas cartel;
@@ -22,13 +22,33 @@ public class ControladorPlataformas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if ((FindObjectOfType<VidaPlayer>().reiniciando))
+        {
+            if (this.GetComponent<SpriteRenderer>().sprite == activado)
+            {
+                this.GetComponent<SpriteRenderer>().sprite = apagado;
+            }
+        }
     }
     public void Activar()
     {
-        PlataformaND1.vuelta = false;        
+        //PlataformaND1.vuelta = false;
+       
         StartCoroutine(ScuttleV2());
+        foreach (GameObject go in objetosActivados)
+        {
+            go.SetActive(true);
+            if (go.GetComponent<PlataformaND1>() != null) {
+
+                go.GetComponent<PlataformaND1>().transform.position = go.GetComponent<PlataformaND1>().startPos.position;
+
+                go.GetComponent<PlataformaND1>().nextPos = go.GetComponent<PlataformaND1>().startPos.transform.position;
+                go.GetComponent<PlataformaND1>().auxtiempoParada = go.GetComponent<PlataformaND1>().tiempoParada;
+            }
+
+        }
         source.PlayOneShot(clip);
+        this.GetComponent<SpriteRenderer>().sprite = activado;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -37,11 +57,11 @@ public class ControladorPlataformas : MonoBehaviour
         {
             if (this.GetComponent<SpriteRenderer>().sprite == apagado)
             {
-                cartel.enabled = true;
-                if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
-                {
-                    Activar();
-                }
+                //cartel.enabled = true;
+                //if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
+                //{
+                Activar();
+                //}
             }
             else
             {
@@ -62,7 +82,7 @@ public class ControladorPlataformas : MonoBehaviour
         foreach (GameObject go in objetosActivados)
         {
             go.SetActive(true);
-            print("squalo");
+
             yield return new WaitForSeconds(tiempoEntrePlataformas);
         }
     }
