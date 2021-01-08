@@ -16,8 +16,8 @@ public class Polea : MonoBehaviour
     public bool segundovaArriba = false;
     public float velocidadSegundoArriba = 5;
     //public bool seRompe;
-    public float massCae = 10f;
-    public float grav = 10f;
+    public float massCae = 20f;
+    public float grav = 20f;
 
     float impulse = 1000f;
 
