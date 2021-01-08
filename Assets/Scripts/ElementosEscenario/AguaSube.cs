@@ -11,6 +11,9 @@ public class AguaSube : MonoBehaviour
     public Transform posicionFuera;
     public int posicionActual = 0;
     GameObject player;
+
+    public Transform VerdaderaPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,7 @@ public class AguaSube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(velocidades[posicionActual] + "uwu" + posicionActual);
         if (player.GetComponent<VidaPlayer>().reiniciando)
         {
             if (this.transform.position != posicionFuera.transform.position)
@@ -38,7 +42,7 @@ public class AguaSube : MonoBehaviour
             this.transform.position = new Vector2(player.transform.position.x, this.transform.position.y);
             if (posicionActual == 0)
             {
-                if (this.transform.position.y < alturas[posicionActual].transform.position.y)
+                if (VerdaderaPos.position.y < alturas[posicionActual].transform.position.y)
                 {
                     this.transform.position = this.transform.position + velocidades[posicionActual] * Vector3.up* Time.deltaTime;
                 }
@@ -50,7 +54,7 @@ public class AguaSube : MonoBehaviour
             }
             else
             {
-                if (this.transform.position.y < alturas[posicionActual-1].transform.position.y)
+                if (VerdaderaPos.position.y < alturas[posicionActual].transform.position.y)
                 {
                     this.transform.position = this.transform.position + velocidades[posicionActual] * Vector3.up*Time.deltaTime;
                 }

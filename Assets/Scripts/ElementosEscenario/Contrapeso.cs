@@ -12,6 +12,7 @@ public class Contrapeso : MonoBehaviour
 
     private void Start()
     {
+        Physics2D.IgnoreLayerCollision(8, 4);
         startx = this.transform.position.x;
         animacionRompiendo = this.gameObject.GetComponent<Animator>();
     }
