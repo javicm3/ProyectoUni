@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1051599838690423673}
   - component: {fileID: 1053275223305169987}
-  - component: {fileID: 6954825087616560419}
   - component: {fileID: 5045152309140109276}
   - component: {fileID: 4435925543307723840}
   - component: {fileID: 2291637618364057594}
+  - component: {fileID: 4645633827825220382}
   m_Layer: 12
   m_Name: NuevoActivador
   m_TagString: Activador
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1838123621
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 16e10a48c2228ed4fa95ba2db98056e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -87,28 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6954825087616560419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5188450088900188902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f2ec1a89359c4e42ba2ef74d6f335e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activado: {fileID: 21300000, guid: 3971fa109e54a7c4ca0209d380b118e6, type: 3}
-  apagado: {fileID: 21300000, guid: 16e10a48c2228ed4fa95ba2db98056e4, type: 3}
-  objetosDestruidos: []
-  objetosActivados: []
-  puertaTemporizadorActivada: {fileID: 0}
-  abridorDePuertaPermanente: 0
-  abrePuertas: 1
-  clip: {fileID: 8300000, guid: bd3b9be2c935b86458cf5f8767b71d29, type: 3}
-  source: {fileID: 2291637618364057594}
-  cartel: {fileID: 880344501442349080}
 --- !u!50 &5045152309140109276
 Rigidbody2D:
   serializedVersion: 4
@@ -143,7 +121,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.00034581125, y: -0.14159751}
+  m_Offset: {x: 0.084625244, y: 1.5675645}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -154,7 +132,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.77819216, y: 2.8963919}
+  m_Size: {x: 8.502258, y: 6.3147154}
   m_EdgeRadius: 0
 --- !u!82 &2291637618364057594
 AudioSource:
@@ -252,6 +230,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4645633827825220382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5188450088900188902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa620f42da0dca4abc73686a350e2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activado: {fileID: 21300000, guid: 3971fa109e54a7c4ca0209d380b118e6, type: 3}
+  apagado: {fileID: 21300000, guid: 16e10a48c2228ed4fa95ba2db98056e4, type: 3}
+  objetosActivados:
+  - {fileID: 0}
+  tiempoEntrePlataformas: 0.4
+  clip: {fileID: 8300000, guid: b66d6610803a47441aa04af6316a1ec4, type: 3}
+  source: {fileID: 2291637618364057594}
+  cartel: {fileID: 880344501442349080}
 --- !u!1 &6290759603298458540
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +371,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.17784482}
+  m_Offset: {x: -0.065460205, y: 1.6576648}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -384,7 +382,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2.772562}
+  m_Size: {x: 8.298401, y: 6.4435816}
   m_EdgeRadius: 0
 --- !u!1 &8148755838626026212
 GameObject:
