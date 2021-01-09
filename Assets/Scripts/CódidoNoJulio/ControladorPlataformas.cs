@@ -9,23 +9,75 @@ public class ControladorPlataformas : MonoBehaviour
 
     public GameObject[] objetosActivados;
     public float tiempoEntrePlataformas = 0.4f;
+    public bool secuenciaPlat = false;
 
+    public float auxTiempoEntre;
     public AudioClip clip;
     public AudioSource source;
     public Canvas cartel;
+    public bool activadoBool;
+    public int posicionArray = 0;
     // Start is called before the first frame update
     void Start()
     {
+        posicionArray = 0;
         cartel.enabled = false;
+        auxTiempoEntre = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (secuenciaPlat)
+        {
+
+
+            if (activadoBool == true)
+            {
+                auxTiempoEntre -= Time.deltaTime;
+                if (objetosActivados != null)
+                {
+                    if (auxTiempoEntre <= 0)
+                    {
+                        if (objetosActivados[posicionArray] != null)
+                        {
+                            objetosActivados[posicionArray].SetActive(true);
+                            if (objetosActivados[posicionArray].GetComponent<PlataformaND1>() != null)
+                            {
+                                print("no null componente platf");
+                                objetosActivados[posicionArray].GetComponent<PlataformaND1>().transform.position = objetosActivados[posicionArray].GetComponent<PlataformaND1>().startPos.position;
+
+                                objetosActivados[posicionArray].GetComponent<PlataformaND1>().nextPos = objetosActivados[posicionArray].GetComponent<PlataformaND1>().startPos.transform.position;
+                                objetosActivados[posicionArray].GetComponent<PlataformaND1>().auxtiempoParada = objetosActivados[posicionArray].GetComponent<PlataformaND1>().tiempoParada;
+                                if (posicionArray < objetosActivados.Length-1)
+                                {
+
+
+                                    posicionArray++;
+                                    auxTiempoEntre = tiempoEntrePlataformas;
+                                }
+                                else
+                                {
+                                    activadoBool = false;
+                                }
+
+
+                            }
+                        }
+
+                    }
+
+
+                }
+
+            }
+        }
         if ((FindObjectOfType<VidaPlayer>().reiniciando))
         {
             if (this.GetComponent<SpriteRenderer>().sprite == activado)
             {
+                posicionArray = 0;
+                activadoBool = false;
                 this.GetComponent<SpriteRenderer>().sprite = apagado;
             }
         }
@@ -33,19 +85,30 @@ public class ControladorPlataformas : MonoBehaviour
     public void Activar()
     {
         //PlataformaND1.vuelta = false;
-       
-        StartCoroutine(ScuttleV2());
-        foreach (GameObject go in objetosActivados)
+        posicionArray = 0;
+        //StartCoroutine(ScuttleV2());
+        activadoBool = true;
+        if (!secuenciaPlat)
         {
-            go.SetActive(true);
-            if (go.GetComponent<PlataformaND1>() != null) {
+            foreach (GameObject go in objetosActivados)
+            {
 
-                go.GetComponent<PlataformaND1>().transform.position = go.GetComponent<PlataformaND1>().startPos.position;
+                if (go != null)
+                {
 
-                go.GetComponent<PlataformaND1>().nextPos = go.GetComponent<PlataformaND1>().startPos.transform.position;
-                go.GetComponent<PlataformaND1>().auxtiempoParada = go.GetComponent<PlataformaND1>().tiempoParada;
+                    go.SetActive(true);
+                    if (go.GetComponent<PlataformaND1>() != null)
+                    {
+
+                        go.GetComponent<PlataformaND1>().transform.position = go.GetComponent<PlataformaND1>().startPos.position;
+
+                        go.GetComponent<PlataformaND1>().nextPos = go.GetComponent<PlataformaND1>().startPos.transform.position;
+                        go.GetComponent<PlataformaND1>().auxtiempoParada = go.GetComponent<PlataformaND1>().tiempoParada;
+                    }
+
+                }
+
             }
-
         }
         source.PlayOneShot(clip);
         this.GetComponent<SpriteRenderer>().sprite = activado;
@@ -79,11 +142,15 @@ public class ControladorPlataformas : MonoBehaviour
 
     public IEnumerator ScuttleV2()
     {
-        foreach (GameObject go in objetosActivados)
+        if (objetosActivados != null)
         {
-            go.SetActive(true);
+            foreach (GameObject go in objetosActivados)
+            {
+                if (go != null) go.SetActive(true);
 
-            yield return new WaitForSeconds(tiempoEntrePlataformas);
+                yield return new WaitForSeconds(tiempoEntrePlataformas);
+            }
         }
+
     }
 }

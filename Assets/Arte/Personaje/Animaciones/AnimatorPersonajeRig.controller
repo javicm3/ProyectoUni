@@ -607,6 +607,28 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &-5842363385544519163
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 5763323884691154777}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.8
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-5724036393501208852
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -834,7 +856,7 @@ AnimatorStateMachine:
     m_Position: {x: 1755, y: 245, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4761946254955484012}
-    m_Position: {x: 1790, y: 310, z: 0}
+    m_Position: {x: 1680, y: -150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4873899314324678553}
     m_Position: {x: 2019.571, y: 566.61163, z: 0}
@@ -1006,7 +1028,8 @@ AnimatorState:
   m_Name: Entrar Escenario (Voltereta)
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: []
+  m_Transitions:
+  - {fileID: -5842363385544519163}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0

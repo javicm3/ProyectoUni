@@ -20,6 +20,11 @@ public class Checkpoint : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+         Checkpoint[] checks=   FindObjectsOfType<Checkpoint>();
+            foreach(Checkpoint go in checks)
+            {
+                go.ultimoCheck = false;
+            }
             ultimoCheck = true;
         }
     }

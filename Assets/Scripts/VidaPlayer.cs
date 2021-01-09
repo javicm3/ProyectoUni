@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class VidaPlayer : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class VidaPlayer : MonoBehaviour
     Animator animCC;
     Movimiento mov;
     public bool reiniciando;
+    public CinemachineTargetGroup targetGroup;
     //public AudioClip dañoPlayer;
     //public AudioClip muertePlayer;
     //public AudioSource source;
@@ -51,7 +53,7 @@ public class VidaPlayer : MonoBehaviour
         animCC = GetComponentInChildren<Animator>();
         vidaActual = vidaMax;
         auxcdTrasdaño = 0;
-
+        targetGroup = FindObjectOfType<CinemachineTargetGroup>();
 
 
     }
@@ -80,6 +82,23 @@ public class VidaPlayer : MonoBehaviour
                 animCC.SetTrigger("Die");
                 cc.movimientoBloqueado = true;
                 reiniciando = true;
+                if (FindObjectOfType<CinemachineTargetGroup>() != null)
+                {
+                    for (int i = 0; i < targetGroup.m_Targets.Length; i++)
+                    {
+                        if (i == 0) { targetGroup.m_Targets[0].target = this.transform; }
+                        else
+                        {
+                            if (targetGroup.m_Targets[i].target != null)
+                            {
+                                targetGroup.m_Targets[i].target = null;
+
+                            }
+                        }
+                    }
+                  
+                    FindObjectOfType<CameraZoom>().soloplayer = true;
+                }
                 if (SceneManager.GetActiveScene().name == "ND-3")
                 {
                     GameManager.Instance.MuertePJ();
