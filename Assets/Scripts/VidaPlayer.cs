@@ -81,6 +81,7 @@ public class VidaPlayer : MonoBehaviour
                 //GameManager.Instance.MuertePJ();
                 animCC.SetTrigger("Die");
                 cc.movimientoBloqueado = true;
+                cc.combateBloqueado = true;
                 reiniciando = true;
                 if (FindObjectOfType<CinemachineTargetGroup>() != null)
                 {
@@ -143,6 +144,7 @@ public class VidaPlayer : MonoBehaviour
                 vidaActual = vidaMax;
                 this.GetComponent<ManagerEnergia>().actualEnergy = 0;
                 cc.movimientoBloqueado = false;
+                cc.combateBloqueado = false;
                 reiniciando = false;
                 break;
             }
@@ -153,6 +155,7 @@ public class VidaPlayer : MonoBehaviour
             vidaActual = vidaMax;
             this.GetComponent<ManagerEnergia>().actualEnergy = 0;
             cc.movimientoBloqueado = false;
+            cc.combateBloqueado = false;
             reiniciando = false;
         }
 

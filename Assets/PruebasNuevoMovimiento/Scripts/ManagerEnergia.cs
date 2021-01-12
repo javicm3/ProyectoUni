@@ -12,6 +12,7 @@ public class ManagerEnergia : MonoBehaviour
     public float energiaSumadaBouncer = 10;
     public float energiaDashAbajo = 15f;
     public float energiaDisparo = 25f;
+    public float energiaxSegCombate = 5f;
     GameObject barraEnergia;
     ControllerPersonaje cc;
     public float indiceMultiplicador = 2;
@@ -38,6 +39,11 @@ public class ManagerEnergia : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if (cc.haciendoCombate == true)
+        //{
+        //    actualEnergy -= energiaxSegCombate*Time.deltaTime;
+        //    if (actualEnergy <= 0) actualEnergy = 0;
+        //}
         if (Input.GetKeyDown(KeyCode.K))
         {
             maxEnergy = 10000;

@@ -69,6 +69,7 @@ public class ControllerPersonaje : MonoBehaviour
     public float fuerzaCambioSentidoAire = 120f;
 
     [Header("Salto")]
+    public bool saltoInmediato = false;
     public float fuerzaSaltoMax = 11;
     public float fuerzaSaltoMin = 4;
     public float fSaltoInicial = 7;
@@ -98,20 +99,30 @@ public class ControllerPersonaje : MonoBehaviour
     public Transform puntoCheckBorde;
 
 
-    [Header("Chispazo")]
-    public bool saltoInmediato = false;
+    [Header("Combate")]
+
     public GameObject ultimoEnemigoDetectado;
-    public float distanciaChispazo = 10f;
-    public Vector3 destinoChispazo;
-    public bool haciendoChispazo = false;
-    public bool puedeSalirChispazo = false;
-    public float tiempoAntesChispazo = 1f;
-    public float auxTiempoChispazo;
-    public bool unavezSalirChispazo = false;
-    public float fuerzaSalidaChispazo = 500f;
-    public float fuerzaAcercarseChispazo = 500f;
-    public bool chispazoPerdido = false;
-    public float fuerzaChispazoPerdido = 200f;
+    public float distanciaCombate = 10f;
+    public Vector3 destinoCombate;
+    public bool haciendoCombate = false;
+    public LayerMask maskCombate;
+    public List<GameObject> enemigosPasados;
+    public float velocidadCombate = 10f;
+    GameObject enemigoSeleccionado = null;
+    GameObject ultimoEnemigoPasado;
+    public Vector3 direccionCombate;
+    public Vector3 velocidadCombateUltima;
+    [Range(0.0f, 1f)]
+
+    public float salirCombate;
+    //public bool puedeSalirChispazo = false;
+    //public float tiempoAntesChispazo = 1f;
+    //public float auxTiempoChispazo;
+    //public bool unavezSalirChispazo = false;
+    //public float fuerzaSalidaChispazo = 500f;
+    //public float fuerzaAcercarseChispazo = 500f;
+    //public bool chispazoPerdido = false;
+    //public float fuerzaChispazoPerdido = 200f;
 
     [Header("SaltoParedYOtrasVariables")]
     public bool tocando;
@@ -125,7 +136,8 @@ public class ControllerPersonaje : MonoBehaviour
     bool entradochispazo = false;
     bool unavezSaltoDobleTrasPared = false;
     public bool enemigoCerca = false;
-    GameObject enemigoSeleccionado = null;
+
+
 
     [Header("Loops")]
     float tiempoTrasSaltoLoop = 0.3f;
@@ -140,6 +152,7 @@ public class ControllerPersonaje : MonoBehaviour
     public bool grounded;
     public bool tieneGravedad;
     public bool dashEnCaida;
+    public bool combateBloqueado;
     public bool movimientoBloqueado;
     public bool dashBloqueado;
     public bool saltoBloqueado = true;
@@ -190,6 +203,7 @@ public class ControllerPersonaje : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        enemigosPasados = new List<GameObject>();
         joystick = InputManager.ActiveDevice;
         //controles = new PlayerControls();
         //controles.Gameplay.Salto.performed += ctx => saltoPulsado = true;
@@ -215,7 +229,7 @@ public class ControllerPersonaje : MonoBehaviour
     void Start()
     {
 
-        auxTiempoChispazo = tiempoAntesChispazo;
+        //auxTiempoChispazo = tiempoAntesChispazo;
         auxpared = maxTiempoPared;
         auxtiempoMaxSuelo = tiempoCOYOTE;
         auxdash = tiempoDasheo;
@@ -277,8 +291,205 @@ public class ControllerPersonaje : MonoBehaviour
         animCC.SetFloat("SpeedY", rb.velocity.y);
         animCC.SetBool("Grounded", grounded);
         animCC.SetFloat("SpeedX", Mathf.Abs(rb.velocity.x));
-        DetectarEnemigos();
-        Chispazo();
+       
+        //DetectarEnemigos();
+        //Chispazo();
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(this.transform.position, distanciaCombate);
+    }
+    public void Combate()
+    {
+        if (enemigoCerca)
+        {
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+
+
+
+                Collider2D[] hitCirculo = Physics2D.OverlapCircleAll(this.transform.position, distanciaCombate);
+
+
+
+                float mejorDistancia = 900000f;
+
+                foreach (Collider2D col in hitCirculo)
+                {
+
+                    if (col != null)
+                    {
+
+
+                        if (col.gameObject.tag == "EnemigoDetectar")
+                        {
+                            if (!enemigosPasados.Contains(col.gameObject))
+                            {
+                                if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
+                                {
+                                    enemigoSeleccionado = col.gameObject;
+                                    mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
+                                }
+                            }
+
+
+
+                        }
+                    }
+                }
+                if (!enemigosPasados.Contains(enemigoSeleccionado.gameObject))
+                {
+                    ultimoEnemigoDetectado = enemigoSeleccionado;
+                }
+                else
+                {
+                    ultimoEnemigoDetectado = null;
+                }
+
+                if (ultimoEnemigoDetectado != null)
+                {
+
+                    RaycastHit2D hit = Physics2D.Raycast(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position, Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) * 1.3f, capasEnemigos);
+
+                    Debug.DrawRay(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position);
+                    if (hit.collider != null)
+                    {
+                        //print(hit.collider.name);
+                        if (hit.collider.tag == "EnemigoDetectar")
+                        {
+
+                            if (Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) < distanciaCombate)
+                            {
+                                print("Chispazo");
+
+                                if (haciendoCombate == false)
+                                {
+                                    if (ultimoEnemigoDetectado.transform/*.parent.GetChild(0)*/ != null)
+                                    {
+                                        destinoCombate = ultimoEnemigoDetectado.transform./*.parent.GetChild(0).transform.*/position;
+                                    }
+                                    else
+                                    {
+                                        //destinoCombate = ultimoEnemigoDetectado.transform.position;
+                                    }
+
+                                }
+                                //if (ultimoEnemigoDetectado.transform.parent.GetChild(1) != null) ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<Collider2D>().isTrigger = true;
+                                //if (haciendoChispazo == false) 
+
+                                haciendoCombate = true;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+        if (haciendoCombate)
+        {
+            movimientoBloqueado = true;
+            saltoBloqueado = true;
+            dashBloqueado = true;
+            rb.gravityScale = 0;
+            if (ultimoEnemigoDetectado != null)
+            {
+                if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) > 1)
+                {
+                    direccionCombate = (ultimoEnemigoDetectado.transform.position - this.transform.position).normalized;
+                    direccionCombate = new Vector3(direccionCombate.x, direccionCombate.y, 0);
+                    //if(Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) > 8)
+                    //{
+                    //    rb.velocity = direccionCombate * velocidadCombate*1.3f;
+                    //}
+                    //else if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) > 6)
+                    //{
+                    //    rb.velocity = direccionCombate * velocidadCombate;
+                    //}
+                    //if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) > 3)
+                    //{
+                    //    rb.velocity = direccionCombate * velocidadCombate*0.7f;
+                    //}
+                    //if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) >= 1)
+                    //{
+                    //    rb.velocity = direccionCombate * velocidadCombate*0.3f;
+                    //}
+                    rb.velocity = direccionCombate * velocidadCombate * Mathf.Clamp(Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) , 0.1f, distanciaCombate)*0.1f;
+                    print("SPEEEEEEEEED" + Mathf.Clamp(Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position), 10, distanciaCombate) * 0.1f);
+                    velocidadCombateUltima = direccionCombate * velocidadCombate;
+                }
+                else
+                {
+                    if (enemigosPasados.Contains(ultimoEnemigoDetectado) == false)
+                    {
+                        if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) <= 1)
+                        {
+
+
+
+
+                            //direccionCombate = (ultimoEnemigoDetectado.transform.position -this.transform.position).normalized;
+
+                            //direccionCombate = new Vector3(direccionCombate.x, direccionCombate.y, 0);
+                            //velocidadCombateUltima = direccionCombate * velocidadCombate;
+                            rb.velocity = velocidadCombateUltima ;
+                            if (this.transform.position != ultimoEnemigoDetectado.transform.position)
+                            {
+                                this.transform.position = ultimoEnemigoDetectado.transform.position;
+
+                            }
+
+
+                            //RESETEAR ENEMIGO
+                            enemigosPasados.Add(ultimoEnemigoDetectado);
+                            constantegravedad = 1;
+                            ultimoEnemigoPasado = ultimoEnemigoDetectado;
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                if (rb.gravityScale == 0)
+                {
+                    rb.gravityScale = originalgravity;
+                }
+                rb.velocity = Vector2.zero;
+                rb.AddForce(velocidadCombateUltima*salirCombate, ForceMode2D.Impulse);
+                haciendoCombate = false;
+                movimientoBloqueado = false;
+                saltoBloqueado = false;
+                dashBloqueado = false;
+                direccionCombate = Vector3.zero;
+                velocidadCombateUltima = Vector3.zero;
+
+            }
+
+
+
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            if (rb.gravityScale == 0)
+            {
+                rb.gravityScale = originalgravity;
+            }
+            if (enemigosPasados.Count >= 0)
+            {
+
+                //rb.velocity = Vector2.zero;
+                rb.AddForce(velocidadCombateUltima* salirCombate, ForceMode2D.Impulse);
+                haciendoCombate = false;
+                movimientoBloqueado = false;
+                saltoBloqueado = false;
+                dashBloqueado = false;
+                enemigosPasados.Clear();
+                direccionCombate = Vector3.zero;
+                velocidadCombateUltima = Vector3.zero;
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -303,404 +514,405 @@ public class ControllerPersonaje : MonoBehaviour
         {
             AplicarGravedad();
         }
+       if(!combateBloqueado) Combate();
     }
-    public void DetectarEnemigos()
-    {
-        ////DE TECTAR ENEMIGOS AL PASAR RATON
-        //Vector3 pz2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //pz2.z = 0;
-        //Vector3 direction = pz2 - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), direction, 10000, capasEnemigos);
-        //Debug.DrawRay(Input.mousePosition, direction);
-
-
-        //if (hit != false)
-        //{
-
-        //    if (hit.collider.tag == "Enemigo")
-        //    {
-        //        if (haciendoChispazo == false) ultimoEnemigoDetectado = hit.collider.gameObject;
-        //    }
-        //    else
-        //    {
-        //        if (haciendoChispazo == false) ultimoEnemigoDetectado = null;
-        //    }
-
-        //}
-        //else
-        //{
-        //    if (haciendoChispazo == false) ultimoEnemigoDetectado = null;
-        //}
-    }
-    public void PonerCollider()
-    {
-        ultimoenemigo2.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = false;
-    }
-    public void Chispazo()
-    {
-        if (ultimoEnemigoDetectado != null)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                RaycastHit2D hit = Physics2D.Raycast(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position, Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) * 1.3f, capasEnemigos);
-
-                Debug.DrawRay(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position);
-                if (hit.collider != null)
-                {
-                    //print(hit.collider.name);
-                    if (hit.collider.tag == "Enemigo")
-                    {
-                        //print("ENEMIGODETECTASR");
-                        if (Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) < distanciaChispazo)
-                        {
-                            //print("Chispazo");
-
-                            if (haciendoChispazo == false) destinoChispazo = ultimoEnemigoDetectado.transform.parent.GetChild(0).transform.position;
-                            ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
-                            //if (haciendoChispazo == false) 
-                            haciendoChispazo = true;
-                        }
-                    }
-                }
-
-            }
-        }
-        else
-        {
-            if (enemigoCerca)
-            {
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    Collider2D[] resultados = new Collider2D[15];
-                    if (pInput.personajeInvertido == false)
-                    {
-                        //RaycastHit2D[] hitCirculo= Physics2D.CircleCast(this.transform.position,distanciaChispazo,Vector2.zero,0,hitCirculo)
-
-                        int enemigos = Physics2D.OverlapCircleNonAlloc(this.transform.position, distanciaChispazo, resultados);
-                        float mejorDistancia = 900000f;
-
-                        foreach (Collider2D col in resultados)
-                        {
-
-                            if (col != null)
-                            {
-
-
-                                if (col.gameObject.tag == "Enemigo")
-                                {
-                                    if (col.gameObject.transform.position.x > this.transform.position.x)
-                                    {
-                                        if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
-                                        {
-                                            enemigoSeleccionado = col.gameObject;
-                                            mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (enemigoSeleccionado == null)
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            if (enemigoSeleccionado.transform.position.x > this.transform.position.x)
-                                            {
-
-                                            }
-                                            else
-                                            {
-                                                if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
-                                                {
-                                                    enemigoSeleccionado = col.gameObject;
-                                                    mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-
-                        int enemigos = Physics2D.OverlapCircleNonAlloc(this.transform.position, distanciaChispazo, resultados);
-                        float mejorDistancia = 900000f;
-
-                        foreach (Collider2D col in resultados)
-                        {
-
-                            if (col != null)
-                            {
-
-
-                                if (col.tag == "Enemigo")
-                                {
-                                    if (col.gameObject.transform.position.x < this.transform.position.x)
-                                    {
-                                        if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
-                                        {
-                                            enemigoSeleccionado = col.gameObject;
-                                            mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (enemigoSeleccionado == null)
-                                        {
-
-                                        }
-                                        else
-                                        {
-                                            if (enemigoSeleccionado.transform.position.x < this.transform.position.x)
-                                            {
-
-                                            }
-                                            else
-                                            {
-                                                if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
-                                                {
-                                                    enemigoSeleccionado = col.gameObject;
-                                                    mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    //print("Chispazo2");
-
-                    ultimoEnemigoDetectado = enemigoSeleccionado;
-                    if (ultimoEnemigoDetectado != null)
-                    {
-                        RaycastHit2D hit = Physics2D.Raycast(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position, Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) * 1.3f, capasEnemigos);
-                        if (hit.collider != null)
-                        {
-                            //print(hit.collider.name);
-                            if (hit.collider.tag == "Enemigo")
-                            {
-                                if (Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) < distanciaChispazo)
-                                {
-                                    if (haciendoChispazo == false) destinoChispazo = ultimoEnemigoDetectado.transform.parent.GetChild(0).transform.position;
-                                    ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
-                                    //if (haciendoChispazo == false) 
-                                    haciendoChispazo = true;
-                                }
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-
-        if (haciendoChispazo)
-        {
-            if (!puedeSalirChispazo)
-            {
-
-
-                if (unavezSalirChispazo == true)
-                {
-                    unavezSalirChispazo = false;
-                    saltoBloqueado = false;
-                    movimientoBloqueado = false;
-                }
-                else
-                {
-
-
-
-                    Vector2 direccion = transform.position - destinoChispazo;
-
-                    float distancia = Vector2.Distance(transform.position, destinoChispazo);
-
-                    float fuerzaRealAtraccion;
-                    fuerzaRealAtraccion = fuerzaAcercarseChispazo + distancia * 100;
-
-                    if (chispazoPerdido == false)
-                    {
-                        AnularGravedad();
-                        if (distancia <= 2f)
-                        {
-                            ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
-
-                            constantegravedad = 1;
-                            dashEnCaida = false;
-                            animCC.SetBool("cayendo", dashEnCaida);
-                            dashBloqueado = true;
-                            dashCaidaBloqueado = true;
-
-
-                            if (tiempoAntesChispazo > 0)
-                            {
-                                ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
-                                saltoDobleHecho = false;
-                                rb.velocity = Vector2.zero;
-                                puedeSalirChispazo = true;
-                                this.transform.position = destinoChispazo;
-
-                            }
-                            else
-                            {
-                                ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = false;
-                                //print("EEEEEEEEEE");
-                                tiempoAntesChispazo = auxTiempoChispazo;
-                                puedeSalirChispazo = false;
-                                chispazoPerdido = true;
-                                haciendoChispazo = false;
-                                PermitirGravedad();
-                            }
-
-
-
-
-                        }
-                        else if (distancia > 2f)
-                        {
-
-                            if (chispazoPerdido == false)
-                            {
-                                if (entradochispazo == false)
-                                {
-                                    entradochispazo = true;
-                                    rb.velocity = Vector2.zero;
-                                }
-                                ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
-                                puedeSalirChispazo = false;
-
-                                rb.AddForce(-direccion.normalized * fuerzaRealAtraccion * Time.deltaTime);
-                            }
-                            else
-                            {
-                                ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = false;
-                            }
-
-                        }
-                        else if (distancia > 3f)
-                        {
-                            ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = false;
-                        }
-                    }
-                }
-
-            }
-            else
-            {
-                tiempoAntesChispazo -= Time.deltaTime;
-                movimientoBloqueado = true;
-                saltoBloqueado = true;
-                if (tiempoAntesChispazo > 0)
-                {
-                    if (ultimoEnemigoDetectado != null) ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
-                    saltoDobleHecho = false;
-                    rb.velocity = Vector2.zero;
-                    puedeSalirChispazo = true;
-                    this.transform.position = destinoChispazo;
-
-                }
-                else
-                {
-                    //print("EEEEEEEEEE");
-                    tiempoAntesChispazo = auxTiempoChispazo;
-                    puedeSalirChispazo = false;
-                    chispazoPerdido = true;
-
-                    ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = false;
-                    rb.AddForce(new Vector2(0, 1) * fuerzaChispazoPerdido); PermitirGravedad();
-
-                    unavezSalirChispazo = true;
-                    entradochispazo = false;
-                    dashBloqueado = false;
-                    dashCaidaBloqueado = false;
-
-                    saltoBloqueado = false;
-                    movimientoBloqueado = false;
-
-                    haciendoChispazo = false;
-
-                }
-
-
-
-                Vector3 pz2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                pz2.z = 0;
-
-                Vector2 direccion2 = (pz2 - this.transform.position).normalized;
-
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    //print("reboto");
-                    puedeSalirChispazo = false;
-
-                    entradochispazo = false;
-                    rb.AddForce(new Vector2(direccion2.normalized.x, direccion2.normalized.y) * fuerzaSalidaChispazo);
-
-                    if (new Vector2(direccion2.normalized.x, direccion2.normalized.y).x < 0)
-                    {
-                        //print("OEOEOEOEOE" + (new Vector2(direccion2.normalized.x, direccion2.normalized.y).x));
-                        pInput.personajeInvertido = true;
-                        transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
-                    }
-                    else
-                    {
-                        //print("AAAAAAA" + (new Vector2(direccion2.normalized.x, direccion2.normalized.y).x));
-                        pInput.personajeInvertido = false;
-                        transform.Find("Cuerpo").localScale = new Vector2(1, 1);
-                    }
-                    ultimoenemigo2 = ultimoEnemigoDetectado;
-                    ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
-                    Invoke("PonerCollider", 0.5f);
-                    unavezSalirChispazo = true;
-
-                    dashBloqueado = false;
-                    dashCaidaBloqueado = false;
-                    tiempoAntesChispazo = auxTiempoChispazo;
-                    saltoBloqueado = false;
-                    movimientoBloqueado = false;
-                    PermitirGravedad();
-
-                    Vector3 pz3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    pz3.z = 0;
-                    Vector3 direction = pz3 - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), direction, 10000, capasEnemigos);
-                    Debug.DrawRay(Input.mousePosition, direction);
-
-
-                    if (hit != false)
-                    {
-                        //print(hit.collider.name);
-                        if (hit.collider.tag == "Enemigo")
-                        {
-                            ultimoEnemigoDetectado = hit.collider.gameObject;
-                            destinoChispazo = ultimoEnemigoDetectado.transform.parent.GetChild(0).transform.position;
-                        }
-                        else
-                        {
-                            chispazoPerdido = true;
-                            haciendoChispazo = false;
-                        }
-                    }
-                    else
-                    {
-                        chispazoPerdido = true;
-                        haciendoChispazo = false;
-                    }
-
-
-                }
-            }
-
-        }
-        else
-        {
-            unavezSalirChispazo = false;
-            chispazoPerdido = false;
-        }
-    }
+    //public void DetectarEnemigos()
+    //{
+    //    //DE TECTAR ENEMIGOS AL PASAR RATON
+    //    Vector3 pz2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //    pz2.z = 0;
+    //    Vector3 direction = pz2 - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //    RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), direction, 10000, capasEnemigos);
+    //    Debug.DrawRay(Input.mousePosition, direction);
+
+
+    //    if (hit != false)
+    //    {
+
+    //        if (hit.collider.tag == "Enemigo")
+    //        {
+    //            if (haciendoChispazo == false) ultimoEnemigoDetectado = hit.collider.gameObject;
+    //        }
+    //        else
+    //        {
+    //            if (haciendoChispazo == false) ultimoEnemigoDetectado = null;
+    //        }
+
+    //    }
+    //    else
+    //    {
+    //        //if (haciendoChispazo == false) ultimoEnemigoDetectado = null;
+    //    }
+    //}
+    //public void PonerCollider()
+    //{
+    //    ultimoenemigo2.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = false;
+    //}
+    //public void Chispazo()
+    //{
+    //    if (ultimoEnemigoDetectado != null)
+    //    {
+    //        if (Input.GetKey(KeyCode.LeftControl))
+    //        {
+    //            RaycastHit2D hit = Physics2D.Raycast(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position, Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) * 1.3f, capasEnemigos);
+
+    //            Debug.DrawRay(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position);
+    //            if (hit.collider != null)
+    //            {
+    //                //print(hit.collider.name);
+    //                if (hit.collider.tag == "Enemigo")
+    //                {
+    //                    //print("ENEMIGODETECTASR");
+    //                    if (Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) < distanciaChispazo)
+    //                    {
+    //                        //print("Chispazo");
+
+    //                        if (haciendoChispazo == false) destinoChispazo = ultimoEnemigoDetectado.transform.parent.GetChild(0).transform.position;
+    //                        ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
+    //                        //if (haciendoChispazo == false) 
+    //                        haciendoChispazo = true;
+    //                    }
+    //                }
+    //            }
+
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (enemigoCerca)
+    //        {
+    //            if (Input.GetKey(KeyCode.LeftControl))
+    //            {
+    //                Collider2D[] resultados = new Collider2D[15];
+    //                if (pInput.personajeInvertido == false)
+    //                {
+    //                    //RaycastHit2D[] hitCirculo= Physics2D.CircleCast(this.transform.position,distanciaChispazo,Vector2.zero,0,hitCirculo)
+
+    //                    int enemigos = Physics2D.OverlapCircleNonAlloc(this.transform.position, distanciaChispazo, resultados);
+    //                    float mejorDistancia = 900000f;
+
+    //                    foreach (Collider2D col in resultados)
+    //                    {
+
+    //                        if (col != null)
+    //                        {
+
+
+    //                            if (col.gameObject.tag == "Enemigo")
+    //                            {
+    //                                if (col.gameObject.transform.position.x > this.transform.position.x)
+    //                                {
+    //                                    if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
+    //                                    {
+    //                                        enemigoSeleccionado = col.gameObject;
+    //                                        mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
+    //                                    }
+    //                                }
+    //                                else
+    //                                {
+    //                                    if (enemigoSeleccionado == null)
+    //                                    {
+
+    //                                    }
+    //                                    else
+    //                                    {
+    //                                        if (enemigoSeleccionado.transform.position.x > this.transform.position.x)
+    //                                        {
+
+    //                                        }
+    //                                        else
+    //                                        {
+    //                                            if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
+    //                                            {
+    //                                                enemigoSeleccionado = col.gameObject;
+    //                                                mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
+    //                                            }
+    //                                        }
+    //                                    }
+    //                                }
+    //                            }
+    //                        }
+    //                    }
+    //                }
+    //                else
+    //                {
+
+    //                    int enemigos = Physics2D.OverlapCircleNonAlloc(this.transform.position, distanciaChispazo, resultados);
+    //                    float mejorDistancia = 900000f;
+
+    //                    foreach (Collider2D col in resultados)
+    //                    {
+
+    //                        if (col != null)
+    //                        {
+
+
+    //                            if (col.tag == "Enemigo")
+    //                            {
+    //                                if (col.gameObject.transform.position.x < this.transform.position.x)
+    //                                {
+    //                                    if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
+    //                                    {
+    //                                        enemigoSeleccionado = col.gameObject;
+    //                                        mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
+    //                                    }
+    //                                }
+    //                                else
+    //                                {
+    //                                    if (enemigoSeleccionado == null)
+    //                                    {
+
+    //                                    }
+    //                                    else
+    //                                    {
+    //                                        if (enemigoSeleccionado.transform.position.x < this.transform.position.x)
+    //                                        {
+
+    //                                        }
+    //                                        else
+    //                                        {
+    //                                            if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
+    //                                            {
+    //                                                enemigoSeleccionado = col.gameObject;
+    //                                                mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
+    //                                            }
+    //                                        }
+    //                                    }
+    //                                }
+    //                            }
+    //                        }
+    //                    }
+    //                }
+    //                //print("Chispazo2");
+
+    //                ultimoEnemigoDetectado = enemigoSeleccionado;
+    //                if (ultimoEnemigoDetectado != null)
+    //                {
+    //                    RaycastHit2D hit = Physics2D.Raycast(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position, Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) * 1.3f, capasEnemigos);
+    //                    if (hit.collider != null)
+    //                    {
+    //                        //print(hit.collider.name);
+    //                        if (hit.collider.tag == "Enemigo")
+    //                        {
+    //                            if (Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) < distanciaChispazo)
+    //                            {
+    //                                if (haciendoChispazo == false) destinoChispazo = ultimoEnemigoDetectado.transform.parent.GetChild(0).transform.position;
+    //                                ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
+    //                                //if (haciendoChispazo == false) 
+    //                                haciendoChispazo = true;
+    //                            }
+    //                        }
+    //                    }
+    //                }
+
+    //            }
+    //        }
+    //    }
+
+    //    if (haciendoChispazo)
+    //    {
+    //        if (!puedeSalirChispazo)
+    //        {
+
+
+    //            if (unavezSalirChispazo == true)
+    //            {
+    //                unavezSalirChispazo = false;
+    //                saltoBloqueado = false;
+    //                movimientoBloqueado = false;
+    //            }
+    //            else
+    //            {
+
+
+
+    //                Vector2 direccion = transform.position - destinoChispazo;
+
+    //                float distancia = Vector2.Distance(transform.position, destinoChispazo);
+
+    //                float fuerzaRealAtraccion;
+    //                fuerzaRealAtraccion = fuerzaAcercarseChispazo + distancia * 100;
+
+    //                if (chispazoPerdido == false)
+    //                {
+    //                    AnularGravedad();
+    //                    if (distancia <= 2f)
+    //                    {
+    //                        ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
+
+    //                        constantegravedad = 1;
+    //                        dashEnCaida = false;
+    //                        animCC.SetBool("cayendo", dashEnCaida);
+    //                        dashBloqueado = true;
+    //                        dashCaidaBloqueado = true;
+
+
+    //                        if (tiempoAntesChispazo > 0)
+    //                        {
+    //                            ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
+    //                            saltoDobleHecho = false;
+    //                            rb.velocity = Vector2.zero;
+    //                            puedeSalirChispazo = true;
+    //                            this.transform.position = destinoChispazo;
+
+    //                        }
+    //                        else
+    //                        {
+    //                            ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = false;
+    //                            //print("EEEEEEEEEE");
+    //                            tiempoAntesChispazo = auxTiempoChispazo;
+    //                            puedeSalirChispazo = false;
+    //                            chispazoPerdido = true;
+    //                            haciendoChispazo = false;
+    //                            PermitirGravedad();
+    //                        }
+
+
+
+
+    //                    }
+    //                    else if (distancia > 2f)
+    //                    {
+
+    //                        if (chispazoPerdido == false)
+    //                        {
+    //                            if (entradochispazo == false)
+    //                            {
+    //                                entradochispazo = true;
+    //                                rb.velocity = Vector2.zero;
+    //                            }
+    //                            ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
+    //                            puedeSalirChispazo = false;
+
+    //                            rb.AddForce(-direccion.normalized * fuerzaRealAtraccion * Time.deltaTime);
+    //                        }
+    //                        else
+    //                        {
+    //                            ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = false;
+    //                        }
+
+    //                    }
+    //                    else if (distancia > 3f)
+    //                    {
+    //                        ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = false;
+    //                    }
+    //                }
+    //            }
+
+    //        }
+    //        else
+    //        {
+    //            tiempoAntesChispazo -= Time.deltaTime;
+    //            movimientoBloqueado = true;
+    //            saltoBloqueado = true;
+    //            if (tiempoAntesChispazo > 0)
+    //            {
+    //                if (ultimoEnemigoDetectado != null) ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
+    //                saltoDobleHecho = false;
+    //                rb.velocity = Vector2.zero;
+    //                puedeSalirChispazo = true;
+    //                this.transform.position = destinoChispazo;
+
+    //            }
+    //            else
+    //            {
+    //                //print("EEEEEEEEEE");
+    //                tiempoAntesChispazo = auxTiempoChispazo;
+    //                puedeSalirChispazo = false;
+    //                chispazoPerdido = true;
+
+    //                ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = false;
+    //                rb.AddForce(new Vector2(0, 1) * fuerzaChispazoPerdido); PermitirGravedad();
+
+    //                unavezSalirChispazo = true;
+    //                entradochispazo = false;
+    //                dashBloqueado = false;
+    //                dashCaidaBloqueado = false;
+
+    //                saltoBloqueado = false;
+    //                movimientoBloqueado = false;
+
+    //                haciendoChispazo = false;
+
+    //            }
+
+
+
+    //            Vector3 pz2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //            pz2.z = 0;
+
+    //            Vector2 direccion2 = (pz2 - this.transform.position).normalized;
+
+    //            if (Input.GetKey(KeyCode.LeftControl))
+    //            {
+    //                //print("reboto");
+    //                puedeSalirChispazo = false;
+
+    //                entradochispazo = false;
+    //                rb.AddForce(new Vector2(direccion2.normalized.x, direccion2.normalized.y) * fuerzaSalidaChispazo);
+
+    //                if (new Vector2(direccion2.normalized.x, direccion2.normalized.y).x < 0)
+    //                {
+    //                    //print("OEOEOEOEOE" + (new Vector2(direccion2.normalized.x, direccion2.normalized.y).x));
+    //                    pInput.personajeInvertido = true;
+    //                    transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+    //                }
+    //                else
+    //                {
+    //                    //print("AAAAAAA" + (new Vector2(direccion2.normalized.x, direccion2.normalized.y).x));
+    //                    pInput.personajeInvertido = false;
+    //                    transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+    //                }
+    //                ultimoenemigo2 = ultimoEnemigoDetectado;
+    //                ultimoEnemigoDetectado.transform.parent.GetChild(1).GetComponent<BoxCollider2D>().isTrigger = true;
+    //                Invoke("PonerCollider", 0.5f);
+    //                unavezSalirChispazo = true;
+
+    //                dashBloqueado = false;
+    //                dashCaidaBloqueado = false;
+    //                tiempoAntesChispazo = auxTiempoChispazo;
+    //                saltoBloqueado = false;
+    //                movimientoBloqueado = false;
+    //                PermitirGravedad();
+
+    //                Vector3 pz3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //                pz3.z = 0;
+    //                Vector3 direction = pz3 - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    //                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), direction, 10000, capasEnemigos);
+    //                Debug.DrawRay(Input.mousePosition, direction);
+
+
+    //                if (hit != false)
+    //                {
+    //                    //print(hit.collider.name);
+    //                    if (hit.collider.tag == "Enemigo")
+    //                    {
+    //                        ultimoEnemigoDetectado = hit.collider.gameObject;
+    //                        destinoChispazo = ultimoEnemigoDetectado.transform.parent.GetChild(0).transform.position;
+    //                    }
+    //                    else
+    //                    {
+    //                        chispazoPerdido = true;
+    //                        haciendoChispazo = false;
+    //                    }
+    //                }
+    //                else
+    //                {
+    //                    chispazoPerdido = true;
+    //                    haciendoChispazo = false;
+    //                }
+
+
+    //            }
+    //        }
+
+    //    }
+    //    else
+    //    {
+    //        unavezSalirChispazo = false;
+    //        chispazoPerdido = false;
+    //    }
+    //}
     public void AnularGravedad()
     {
         rb.gravityScale = 0;
@@ -713,6 +925,7 @@ public class ControllerPersonaje : MonoBehaviour
 
         tieneGravedad = true;
     }
+
     void DetectarPared()
     {
 
@@ -1331,7 +1544,7 @@ public class ControllerPersonaje : MonoBehaviour
                     //    this.rb.velocity = new Vector2(-velocidadWorld.x,this.rb.velocity.y- velocidadWorld.y);
                     //}
                 }
-                else if (Mathf.Abs(this.rb.velocity.x) >= velMaxima )
+                else if (Mathf.Abs(this.rb.velocity.x) >= velMaxima)
                 {
                     AnimatorClipInfo[] animInfo = animCC.GetCurrentAnimatorClipInfo(0);
                     if (animInfo[0].clip != null)
@@ -2059,7 +2272,7 @@ public class ControllerPersonaje : MonoBehaviour
         {
             tiempoPulsadoEspacio = tiempoSaltoCompleto + 0.5f;
             auxdash -= Time.deltaTime;
-           
+
             if (auxdash > 0)
             {
 
@@ -2148,7 +2361,7 @@ public class ControllerPersonaje : MonoBehaviour
                         }
                     }
                 }
-             
+
 
 
                 //}
@@ -3559,7 +3772,7 @@ public class ControllerPersonaje : MonoBehaviour
 
             }
         }
-       
+
     }
     //private void OnCollisionEnter2D(Collision2D collision)
     //{

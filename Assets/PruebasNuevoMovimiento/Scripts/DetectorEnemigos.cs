@@ -13,14 +13,15 @@ public class DetectorEnemigos : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.tag == "Enemigo")
+        if (col.tag == "EnemigoDetectar")
         {
+
             padre.enemigoCerca = true;
         }
     }
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.tag == "Enemigo")
+        if (col.tag == "EnemigoDetectar")
         {
             padre.enemigoCerca = false;
         }

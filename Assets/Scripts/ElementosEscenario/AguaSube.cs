@@ -24,7 +24,7 @@ public class AguaSube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(velocidades[posicionActual] + "uwu" + posicionActual);
+
         if (player.GetComponent<VidaPlayer>().reiniciando)
         {
             if (this.transform.position != posicionFuera.transform.position)
