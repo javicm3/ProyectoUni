@@ -10,7 +10,7 @@ public class PlataformaND1 : MonoBehaviour
     public Transform startPos;
     public float tiempoParada = 2;
     public float auxtiempoParada;
-    public  bool vuelta = false;
+    public bool vuelta = false;
     public bool verticales = false;
     public Vector3 nextPos;
 
@@ -27,7 +27,7 @@ public class PlataformaND1 : MonoBehaviour
         if (verticales)
         {
             auxtiempoParada -= Time.deltaTime;
-            if ((auxtiempoParada <= 0)&& (vuelta = false))
+            if ((auxtiempoParada <= 0) && (vuelta = false))
             {
                 nextPos = pos1.position;
                 vuelta = true;
@@ -43,13 +43,13 @@ public class PlataformaND1 : MonoBehaviour
             this.transform.position = startPos.position;
             transform.gameObject.SetActive(false);
         }
-        if (transform.position == startPos.position)
+        if (Vector2.Distance(this.transform.position,startPos.position)<=0.05)
         {
             if (!verticales)
             {
- auxtiempoParada -= Time.deltaTime;
+                auxtiempoParada -= Time.deltaTime;
             }
-           
+
             if (auxtiempoParada <= 0)
             {
                 nextPos = pos1.position;
@@ -57,23 +57,23 @@ public class PlataformaND1 : MonoBehaviour
             }
         }
 
-        if (this.transform.position == pos1.position)
+        if ((Vector2.Distance(this.transform.position, pos1.position) <= 0.05))
         {
             if (!verticales)
             {
 
-          
-            //nextPos = pos2.position;
-            if (vuelta == true)
-            {
-                nextPos = pos2.position;
-                //if (FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent != null) FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent = null;
 
-                //vuelta = false;
-                //this.transform.position = startPos.position;
-                //transform.gameObject.SetActive(false);
+                //nextPos = pos2.position;
+                if (vuelta == true)
+                {
+                    nextPos = pos2.position;
+                    //if (FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent != null) FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent = null;
 
-            }
+                    //vuelta = false;
+                    //this.transform.position = startPos.position;
+                    //transform.gameObject.SetActive(false);
+
+                }
             }
             else
             {
@@ -81,7 +81,7 @@ public class PlataformaND1 : MonoBehaviour
                 transform.gameObject.SetActive(false);
             }
         }
-        if (this.transform.position == pos2.position)
+        if (Vector2.Distance(this.transform.position, pos2.position) <= 0.05)
         {
             //nextPos = pos2.position;
             if (!verticales)
@@ -102,11 +102,11 @@ public class PlataformaND1 : MonoBehaviour
                 if (vuelta == true)
                 {
                     nextPos = pos1.position;
-                   
+
 
                     vuelta = false;
                     this.transform.position = startPos.position;
-                   
+
 
                 }
             }
