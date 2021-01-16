@@ -10,7 +10,7 @@ public class ControladorPlataformas : MonoBehaviour
     public GameObject[] objetosActivados;
     public float tiempoEntrePlataformas = 0.4f;
     public bool secuenciaPlat = false;
-
+    public bool seDesactivaConPlatf = false;
     public float auxTiempoEntre;
     public AudioClip clip;
     public AudioSource source;
@@ -28,6 +28,8 @@ public class ControladorPlataformas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+      
         if (secuenciaPlat)
         {
 
@@ -49,7 +51,7 @@ public class ControladorPlataformas : MonoBehaviour
 
                                 objetosActivados[posicionArray].GetComponent<PlataformaND1>().nextPos = objetosActivados[posicionArray].GetComponent<PlataformaND1>().startPos.transform.position;
                                 objetosActivados[posicionArray].GetComponent<PlataformaND1>().auxtiempoParada = objetosActivados[posicionArray].GetComponent<PlataformaND1>().tiempoParada;
-                                if (posicionArray < objetosActivados.Length-1)
+                                if (posicionArray < objetosActivados.Length - 1)
                                 {
 
 
@@ -79,6 +81,22 @@ public class ControladorPlataformas : MonoBehaviour
                 posicionArray = 0;
                 activadoBool = false;
                 this.GetComponent<SpriteRenderer>().sprite = apagado;
+            }
+        }
+        if ((seDesactivaConPlatf) && (this.GetComponent<SpriteRenderer>().sprite == activado))
+        {
+            bool hayActivos = false;
+            foreach (GameObject go in objetosActivados)
+            {
+                if (go.activeSelf) hayActivos = true;
+            }
+            if (hayActivos == false)
+            {
+
+                posicionArray = 0;
+                activadoBool = false;
+                this.GetComponent<SpriteRenderer>().sprite = apagado;
+
             }
         }
     }

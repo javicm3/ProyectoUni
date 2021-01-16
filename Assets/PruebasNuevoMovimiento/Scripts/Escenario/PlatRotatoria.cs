@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class PlatRotatoria : MonoBehaviour
 {
- 
 
 
 
-       public float auxtiempoEntreGiros = 2f;
-    public float tiempoentreGiros = 2f;
+
+    public float auxtiempoEntreGiros = 2f;
+    public float tiempoEntreGirosSiPlatArriba = 2f;
+    public float tiempoEntreGirosSiPinchosArriba = 2f;
+    float tiempoEntreGiros;
     public float velocidadRotacion = 30f;
     float rotacioninicialZ;
-    float aux;
+    public float aux;
     public AudioClip clip;
     public AudioSource source;
     public GameObject player;
-   
+    bool ladopinchos = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,13 +28,15 @@ public class PlatRotatoria : MonoBehaviour
         aux = rotacioninicialZ;
         source = this.GetComponent<AudioSource>();
         source.clip = clip;
+        tiempoEntreGiros = tiempoEntreGirosSiPinchosArriba;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (tiempoentreGiros >= auxtiempoEntreGiros)
+     
+        if (auxtiempoEntreGiros <= tiempoEntreGiros)
         {
             //rotacioninicial = this.transform.rotation;
             //this.transform.rotation = this.transform.rotation + new Quaternion(0, 0, 5, 0);
@@ -45,24 +50,41 @@ public class PlatRotatoria : MonoBehaviour
             }
             else
             {
+
                 GetComponent<AudioSource>().Stop();
                 aux -= 180;
-                auxtiempoEntreGiros += tiempoentreGiros;
+                ladopinchos = !ladopinchos;
+                if (ladopinchos)
+                {
+                    auxtiempoEntreGiros += tiempoEntreGirosSiPlatArriba;
+                }
+                else if (!ladopinchos)
+                {
+                    auxtiempoEntreGiros+= tiempoEntreGirosSiPinchosArriba;
+                }
+
+
+
             }
 
 
 
         }
-        else {
-            GetComponent<AudioSource>().Stop();
+        else
+        {
             auxtiempoEntreGiros -= Time.deltaTime;
+            GetComponent<AudioSource>().Stop();
+       
         }
+
+
+
 
     }
     public IEnumerator PararAudio(float tiempo)
     {
         yield return new WaitForSeconds(tiempo);
-       
+
     }
     private void OnCollisionStay2D(Collision2D collision)
     {

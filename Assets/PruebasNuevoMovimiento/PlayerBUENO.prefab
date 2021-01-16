@@ -832,6 +832,7 @@ MonoBehaviour:
   energiaSumadaBouncer: 10
   energiaDashAbajo: 15
   energiaDisparo: 25
+  energiaxSegCombate: 5
   indiceMultiplicador: 0.3
 --- !u!114 &2098227749811648903
 MonoBehaviour:
@@ -870,6 +871,7 @@ MonoBehaviour:
   fuerzaAtraccionLoop: 2000
   fuerzaCambioSentido: 70
   fuerzaCambioSentidoAire: 150
+  saltoInmediato: 0
   fuerzaSaltoMax: 1100
   fuerzaSaltoMin: 32
   fSaltoInicial: 25
@@ -892,19 +894,18 @@ MonoBehaviour:
   auxCdDash: 0
   distanciaBorde: 0.4
   puntoCheckBorde: {fileID: 2098227750635680118}
-  saltoInmediato: 0
   ultimoEnemigoDetectado: {fileID: 0}
-  distanciaChispazo: 20.59
-  destinoChispazo: {x: 0, y: 0, z: 0}
-  haciendoChispazo: 0
-  puedeSalirChispazo: 0
-  tiempoAntesChispazo: 2
-  auxTiempoChispazo: 0
-  unavezSalirChispazo: 0
-  fuerzaSalidaChispazo: 1200
-  fuerzaAcercarseChispazo: 12000
-  chispazoPerdido: 0
-  fuerzaChispazoPerdido: 400
+  distanciaCombate: 25
+  destinoCombate: {x: 0, y: 0, z: 0}
+  haciendoCombate: 0
+  maskCombate:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  enemigosPasados: []
+  velocidadCombate: 100
+  direccionCombate: {x: 0, y: 0, z: 0}
+  velocidadCombateUltima: {x: 0, y: 0, z: 0}
+  salirCombate: 0.6
   tocando: 0
   detectorPared: {fileID: 403763208141738246}
   tiempoTrasSaltoPared: 0.25
@@ -922,6 +923,7 @@ MonoBehaviour:
   grounded: 1
   tieneGravedad: 1
   dashEnCaida: 0
+  combateBloqueado: 0
   movimientoBloqueado: 0
   dashBloqueado: 0
   saltoBloqueado: 0
@@ -1347,6 +1349,7 @@ MonoBehaviour:
   cdInvulnAtaq: 1
   auxcdinvuln: 0
   reiniciando: 0
+  targetGroup: {fileID: 0}
 --- !u!114 &144540137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2152,7 +2155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &116341277562412765
 Transform:
   m_ObjectHideFlags: 0
@@ -3531,7 +3534,7 @@ PrefabInstance:
     - target: {fileID: 2246513588721592366, guid: 5a987ed0306a59f4ba5f48479e162833,
         type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: 0.022685438
+      value: 0.02267018
       objectReference: {fileID: 0}
     - target: {fileID: 2246513588721592366, guid: 5a987ed0306a59f4ba5f48479e162833,
         type: 3}
@@ -3541,7 +3544,7 @@ PrefabInstance:
     - target: {fileID: 2246513588721592366, guid: 5a987ed0306a59f4ba5f48479e162833,
         type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.37421596
+      value: 0.37423122
       objectReference: {fileID: 0}
     - target: {fileID: 2246513588721592366, guid: 5a987ed0306a59f4ba5f48479e162833,
         type: 3}
@@ -3641,7 +3644,7 @@ PrefabInstance:
     - target: {fileID: 4174671785910634046, guid: 5a987ed0306a59f4ba5f48479e162833,
         type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: -0.021975249
+      value: -0.022005767
       objectReference: {fileID: 0}
     - target: {fileID: 4174671785910634046, guid: 5a987ed0306a59f4ba5f48479e162833,
         type: 3}
@@ -3776,7 +3779,7 @@ PrefabInstance:
     - target: {fileID: 7397844174602759102, guid: 5a987ed0306a59f4ba5f48479e162833,
         type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: -0.104644686
+      value: -0.104659945
       objectReference: {fileID: 0}
     - target: {fileID: 7397844174602759102, guid: 5a987ed0306a59f4ba5f48479e162833,
         type: 3}
@@ -3786,7 +3789,7 @@ PrefabInstance:
     - target: {fileID: 7397844174602759102, guid: 5a987ed0306a59f4ba5f48479e162833,
         type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.3206457
+      value: 0.32063043
       objectReference: {fileID: 0}
     - target: {fileID: 7397844174602759102, guid: 5a987ed0306a59f4ba5f48479e162833,
         type: 3}
