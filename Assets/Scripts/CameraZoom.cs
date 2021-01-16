@@ -21,7 +21,7 @@ public class CameraZoom : MonoBehaviour
     public GameObject targetGroup;
     public float maxZoom;
     public float minZoom;
-    float maxDistance;
+    public float maxDistance;
     public float maxPaneoHorizontal = 10;
     public float maxPaneoVertical = 5;
     public float velocidadPaneoHorizontal = 10;
@@ -31,6 +31,7 @@ public class CameraZoom : MonoBehaviour
     bool pausado = false;
     public GameObject pausaZoom;
     GameObject player;
+    public bool limitarDistancia = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -122,6 +123,9 @@ public class CameraZoom : MonoBehaviour
             {
                 if (soloplayer == true)
                 {
+                    if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target != null) { targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].weight = 12;
+                        targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].radius = 10;
+                    }
 
                     startsize = auxstartsize;
                     if (cinemakina.m_Lens.OrthographicSize < startsize && pausado == true)
@@ -135,18 +139,18 @@ public class CameraZoom : MonoBehaviour
                     }
                     if (this.GetComponent<PlayerInput>().inputHorizontal != 0 && this.GetComponent<ControllerPersonaje>().ultimaNormal.y > 0.7f)
                     {
-                      
+
                         if (Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x) > 15)
                         {
-                          
+
 
                             if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) < maxPaneoHorizontal + 2)
                             {
-                              
+
 
                                 if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) < maxPaneoHorizontal)
                                 {
-                                   
+
                                     if (Mathf.Sign(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) != this.GetComponent<PlayerInput>().inputHorizontal)
                                     {
 
@@ -292,7 +296,7 @@ public class CameraZoom : MonoBehaviour
                         tiempoSinInput = 0;
                         if (cinemakina.m_Lens.OrthographicSize < finalsize)
                         {
-                            cinemakina.m_Lens.OrthographicSize =  cinemakina.m_Lens.OrthographicSize + Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * indiceMultiplicador * Mathf.Clamp(cc.rb.velocity.x, 1, 1.3f) * Time.deltaTime, 0, 7);
+                            cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize + Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * indiceMultiplicador * Mathf.Clamp(cc.rb.velocity.x, 1, 1.3f) * Time.deltaTime, 0, 7);
 
                         }
 
@@ -371,10 +375,22 @@ public class CameraZoom : MonoBehaviour
                     if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping <= 3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping += 10 * Time.deltaTime;
                     if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping <= 3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping += 10 * Time.deltaTime;
                     if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping <= 3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping += 10 * Time.deltaTime;
-                    maxDistance = DistanciaMaxima();
+                    if (limitarDistancia)
+                    {
+
+                    }
+                    else
+                    {
+                        maxDistance = DistanciaMaxima();
+                    }
+
                     if (cinemakina.m_Lens.OrthographicSize < maxDistance * 0.6f && cinemakina.m_Lens.OrthographicSize < maxZoom)
                     {
                         cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize + indiceMultiplicadorZoom * Time.deltaTime;
+                    }
+                    else if(cinemakina.m_Lens.OrthographicSize > maxDistance * 0.8f)
+                    {
+                        cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize - indiceMultiplicadorZoom * Time.deltaTime;
                     }
                 }
             }
