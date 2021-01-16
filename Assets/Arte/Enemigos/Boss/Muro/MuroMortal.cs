@@ -39,6 +39,18 @@ public class MuroMortal : MonoBehaviour
             anim.SetBool("InicioBoss", false);
             anim.SetBool("Paron1", true);
         }
+        else if (seccion == 3 && puedeContar == true)
+        {
+            //seccionAux = 2;
+            anim.SetBool("InicioBoss", false);
+            anim.SetBool("Paron2", true);
+        }
+        else if (seccion == 4 && puedeContar == true)
+        {
+            //seccionAux = 2;
+            anim.SetBool("InicioBoss", false);
+            anim.SetBool("Paron3", true);
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

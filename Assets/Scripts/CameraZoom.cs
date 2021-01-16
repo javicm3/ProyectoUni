@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraZoom : MonoBehaviour
 {
+    string escenaActual;
     CinemachineVirtualCamera cinemakina;
     public float startsize = 13;
     public float finalsize = 19;
@@ -41,6 +43,7 @@ public class CameraZoom : MonoBehaviour
         cinemakina = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
         cc = GameObject.FindObjectOfType<ControllerPersonaje>();
         player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
+        escenaActual = SceneManager.GetActiveScene().name;
     }
     float DistanciaMaxima()
     {
@@ -123,10 +126,22 @@ public class CameraZoom : MonoBehaviour
             {
                 if (soloplayer == true)
                 {
-                    if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target != null) { targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].weight = 12;
-                        targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].radius = 10;
+                    if (escenaActual != "ND-3")
+                    {
+                        if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target != null)
+                        {
+                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].weight = 12;
+                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].radius = 10;
+                        }
                     }
-
+                    else
+                    {
+                        if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target != null)
+                        {
+                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].weight = 1;
+                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].radius = 1;
+                        }
+                    }
                     startsize = auxstartsize;
                     if (cinemakina.m_Lens.OrthographicSize < startsize && pausado == true)
                     {
@@ -388,7 +403,7 @@ public class CameraZoom : MonoBehaviour
                     {
                         cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize + indiceMultiplicadorZoom * Time.deltaTime;
                     }
-                    else if(cinemakina.m_Lens.OrthographicSize > maxDistance * 0.8f)
+                    else if (cinemakina.m_Lens.OrthographicSize > maxDistance * 0.8f)
                     {
                         cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize - indiceMultiplicadorZoom * Time.deltaTime;
                     }
