@@ -189,7 +189,7 @@ public class PlataformaDash : MonoBehaviour
      void OnTriggerStay2D(Collider2D collision)
  
     {
-        print(collision.gameObject.tag + "hh" + collision.gameObject.name);
+        //print(collision.gameObject.tag + "hh" + collision.gameObject.name);
         if (collision.gameObject.tag == "Player")
         {
           

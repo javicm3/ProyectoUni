@@ -46,7 +46,7 @@ public class ControladorPlataformas : MonoBehaviour
                             objetosActivados[posicionArray].SetActive(true);
                             if (objetosActivados[posicionArray].GetComponent<PlataformaND1>() != null)
                             {
-                                print("no null componente platf");
+                                //print("no null componente platf");
                                 objetosActivados[posicionArray].GetComponent<PlataformaND1>().transform.position = objetosActivados[posicionArray].GetComponent<PlataformaND1>().startPos.position;
 
                                 objetosActivados[posicionArray].GetComponent<PlataformaND1>().nextPos = objetosActivados[posicionArray].GetComponent<PlataformaND1>().startPos.transform.position;

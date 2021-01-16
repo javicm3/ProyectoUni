@@ -132,12 +132,12 @@ PrefabInstance:
     - target: {fileID: 1306719878907334300, guid: 6bbee1429f57f6c44976d50e5f8fd8f7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 570
+      value: -241.5
       objectReference: {fileID: 0}
     - target: {fileID: 1306719878907334300, guid: 6bbee1429f57f6c44976d50e5f8fd8f7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -153
+      value: 5.8
       objectReference: {fileID: 0}
     - target: {fileID: 1306719878907334300, guid: 6bbee1429f57f6c44976d50e5f8fd8f7,
         type: 3}
@@ -167,7 +167,7 @@ PrefabInstance:
     - target: {fileID: 1306719878907334300, guid: 6bbee1429f57f6c44976d50e5f8fd8f7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1306719878907334300, guid: 6bbee1429f57f6c44976d50e5f8fd8f7,
         type: 3}
@@ -449,6 +449,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 1
+  distanciaMaxLimite: 25
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -489,7 +491,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9551463
 GameObject:
@@ -533,7 +535,7 @@ Transform:
   - {fileID: 1335869951}
   - {fileID: 522072135}
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &14169442 stripped
 Transform:
@@ -620,7 +622,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 139
+  m_RootOrder: 140
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &32646735
 GameObject:
@@ -721,7 +723,7 @@ RectTransform:
   - {fileID: 919149271}
   - {fileID: 1625274400}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -854,7 +856,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 60
+  m_RootOrder: 61
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &40910581
 PrefabInstance:
@@ -1017,6 +1019,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -1403,7 +1410,7 @@ Transform:
   m_LocalScale: {x: 1.5832, y: 1.5832, z: 1.5832}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 92
+  m_RootOrder: 93
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &53934650
 GameObject:
@@ -1635,7 +1642,7 @@ Transform:
   - {fileID: 1922758807}
   - {fileID: 1706267212}
   m_Father: {fileID: 0}
-  m_RootOrder: 47
+  m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &55338104
 GameObject:
@@ -1877,6 +1884,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &69541226 stripped
@@ -1972,6 +1984,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -2111,7 +2128,7 @@ Transform:
   - {fileID: 708361375}
   - {fileID: 345464529}
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &78727894
 GameObject:
@@ -2191,6 +2208,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -2278,6 +2297,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -2387,7 +2408,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 140
+  m_RootOrder: 141
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &93846766
 GameObject:
@@ -2533,7 +2554,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 83
+  m_RootOrder: 84
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &94382307
 GameObject:
@@ -2614,7 +2635,7 @@ Transform:
   m_LocalScale: {x: 0.9633657, y: 0.9633657, z: 0.9633657}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 81
+  m_RootOrder: 82
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 19.738}
 --- !u!1001 &94759668
 PrefabInstance:
@@ -2741,7 +2762,7 @@ PrefabInstance:
     - target: {fileID: 5162818277808207090, guid: 61c42918b3df9144fb2043dfa0a9f9fc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 23
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 5162818277808207090, guid: 61c42918b3df9144fb2043dfa0a9f9fc,
         type: 3}
@@ -2985,7 +3006,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 85
+  m_RootOrder: 86
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &109757680
 GameObject:
@@ -3065,6 +3086,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -3369,6 +3392,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (36)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &124533839 stripped
@@ -3414,7 +3442,7 @@ Transform:
   - {fileID: 899393930}
   - {fileID: 230548563}
   m_Father: {fileID: 0}
-  m_RootOrder: 38
+  m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &127212288
 GameObject:
@@ -3522,7 +3550,7 @@ Transform:
   m_LocalScale: {x: 1.5582, y: 1.5582, z: 1.5582}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 125
+  m_RootOrder: 126
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &128263984
 PrefabInstance:
@@ -3605,6 +3633,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (51)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -3692,6 +3725,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -3784,6 +3819,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (48)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &130587351 stripped
@@ -3873,6 +3913,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -4093,7 +4138,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 59
+  m_RootOrder: 60
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &146231802
 PrefabInstance:
@@ -4334,6 +4379,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (29)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!1001 &154063162
@@ -4494,7 +4544,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 130
+  m_RootOrder: 131
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &161620098
 PrefabInstance:
@@ -4716,7 +4766,7 @@ Transform:
   - {fileID: 525844314}
   - {fileID: 800240200}
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &181702715
 PrefabInstance:
@@ -4950,8 +5000,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auxtiempoEntreGiros: 0
-  tiempoentreGiros: 0
+  tiempoEntreGirosSiPlatArriba: 2
+  tiempoEntreGirosSiPinchosArriba: 2
   velocidadRotacion: 5
+  aux: 0
   clip: {fileID: 8300000, guid: b66d6610803a47441aa04af6316a1ec4, type: 3}
   source: {fileID: 0}
   player: {fileID: 0}
@@ -5401,7 +5453,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 98
+  m_RootOrder: 99
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &194975146
 PrefabInstance:
@@ -5583,6 +5635,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -5960,6 +6017,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &215195646 stripped
@@ -6079,7 +6141,7 @@ Transform:
   m_LocalScale: {x: 2.3682227, y: 2.3682227, z: 2.3682227}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 75
+  m_RootOrder: 76
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &219783760
 PrefabInstance:
@@ -6162,6 +6224,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -6256,7 +6323,7 @@ Transform:
   m_LocalScale: {x: 2.823, y: 2.823, z: 2.823}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 105
+  m_RootOrder: 106
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 24.703001}
 --- !u!1001 &228684797
 PrefabInstance:
@@ -6339,6 +6406,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (39)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -6932,7 +7004,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 96
+  m_RootOrder: 97
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &243275622
 PrefabInstance:
@@ -7088,7 +7160,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 74
+  m_RootOrder: 75
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 177.67601}
 --- !u!1 &250051222
 GameObject:
@@ -7232,8 +7304,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auxtiempoEntreGiros: 0
-  tiempoentreGiros: 0
+  tiempoEntreGirosSiPlatArriba: 2
+  tiempoEntreGirosSiPinchosArriba: 2
   velocidadRotacion: 5
+  aux: 0
   clip: {fileID: 8300000, guid: b66d6610803a47441aa04af6316a1ec4, type: 3}
   source: {fileID: 0}
   player: {fileID: 0}
@@ -7369,6 +7443,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &251369335 stripped
@@ -7458,6 +7537,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -7689,6 +7773,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -8083,8 +8169,8 @@ SpriteShapeRenderer:
   - {fileID: 0}
   - {fileID: 0}
   m_LocalAABB:
-    m_Center: {x: 32.05797, y: 5.914629, z: -0.00029999999}
-    m_Extent: {x: 49.12758, y: 5.914629, z: 0.00029999999}
+    m_Center: {x: 32.05797, y: 5.9146285, z: -0.00029999999}
+    m_Extent: {x: 49.12758, y: 5.9146285, z: 0.00029999999}
 --- !u!4 &285811609
 Transform:
   m_ObjectHideFlags: 0
@@ -8097,7 +8183,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 158
+  m_RootOrder: 159
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &289166258
 PrefabInstance:
@@ -8321,7 +8407,7 @@ Transform:
   m_LocalScale: {x: 1.5832, y: 1.5832, z: 1.5832}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 93
+  m_RootOrder: 94
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 103.036}
 --- !u!1 &303177324
 GameObject:
@@ -8577,7 +8663,7 @@ Transform:
   m_LocalScale: {x: 1.1224, y: 1.1224, z: 1.1224}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 172
+  m_RootOrder: 173
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 89.894005}
 --- !u!1 &314452165
 GameObject:
@@ -8658,7 +8744,7 @@ Transform:
   m_LocalScale: {x: 3.8325047, y: 5.697943, z: 2.823}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 110
+  m_RootOrder: 111
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 338.154}
 --- !u!1 &318701459
 GameObject:
@@ -8802,8 +8888,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auxtiempoEntreGiros: 0
-  tiempoentreGiros: 0
+  tiempoEntreGirosSiPlatArriba: 2
+  tiempoEntreGirosSiPinchosArriba: 2
   velocidadRotacion: 5
+  aux: 0
   clip: {fileID: 8300000, guid: b66d6610803a47441aa04af6316a1ec4, type: 3}
   source: {fileID: 0}
   player: {fileID: 0}
@@ -9008,6 +9096,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!1 &327111305
@@ -9089,7 +9182,7 @@ Transform:
   m_LocalScale: {x: 0.82586, y: 0.82586, z: 0.82586}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 78
+  m_RootOrder: 80
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 8.186001}
 --- !u!1001 &330628775
 PrefabInstance:
@@ -9256,6 +9349,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -9427,6 +9525,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &335251263 stripped
@@ -9514,7 +9617,7 @@ Transform:
   m_LocalScale: {x: 1.1224, y: 1.1224, z: 1.1224}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 71
+  m_RootOrder: 72
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 92.316}
 --- !u!4 &345464529 stripped
 Transform:
@@ -10005,6 +10108,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &358426401 stripped
@@ -10269,6 +10377,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (36)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &369144158 stripped
@@ -10359,6 +10472,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &373695473 stripped
@@ -10395,7 +10513,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: 34
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &380246519
 GameObject:
@@ -10652,6 +10770,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -10692,7 +10812,7 @@ Transform:
   m_LocalScale: {x: 2.1414561, y: 2.1414561, z: 2.1414561}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 46
+  m_RootOrder: 47
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &399696645
 GameObject:
@@ -10722,7 +10842,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 43
+  m_RootOrder: 44
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &404544963
 GameObject:
@@ -10781,7 +10901,7 @@ Transform:
   - {fileID: 445493940}
   - {fileID: 1689261028}
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &405706956
 PrefabInstance:
@@ -11102,7 +11222,7 @@ Transform:
   m_LocalScale: {x: 1, y: 2.3178, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 106
+  m_RootOrder: 107
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -165.69301}
 --- !u!1 &412301978
 GameObject:
@@ -11219,6 +11339,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &413943285 stripped
@@ -11308,6 +11433,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -11549,6 +11679,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -11637,6 +11769,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -11884,7 +12018,7 @@ Transform:
   m_LocalScale: {x: 1.7026, y: 1.7026, z: 1.7026}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 76
+  m_RootOrder: 77
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &446876855
 PrefabInstance:
@@ -12135,6 +12269,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &454021206 stripped
@@ -12214,7 +12353,7 @@ PrefabInstance:
     - target: {fileID: 6901472983899463193, guid: 288cc005415338f4195fed44dbb5a2c7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 26
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 6901472983899463193, guid: 288cc005415338f4195fed44dbb5a2c7,
         type: 3}
@@ -12322,7 +12461,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 135
+  m_RootOrder: 137
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &459077895
 PrefabInstance:
@@ -12662,6 +12801,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (42)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -13066,7 +13210,7 @@ Transform:
   m_LocalScale: {x: 1.1224, y: 1.1224, z: 1.1224}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 68
+  m_RootOrder: 69
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &473145010
 PrefabInstance:
@@ -13374,6 +13518,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -14150,6 +14296,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -14239,7 +14387,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 148
+  m_RootOrder: 149
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &522072134
 GameObject:
@@ -14549,7 +14697,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 77
+  m_RootOrder: 78
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -8.529}
 --- !u!1 &531790513
 GameObject:
@@ -14630,7 +14778,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 151
+  m_RootOrder: 152
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &535719929 stripped
 Transform:
@@ -14720,6 +14868,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!1 &536756165
@@ -14750,7 +14903,7 @@ Transform:
   m_LocalScale: {x: 0.83033925, y: 1.2223864, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &537835278
 PrefabInstance:
@@ -14909,6 +15062,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &538223040 stripped
@@ -14996,7 +15154,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 51
+  m_RootOrder: 52
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &541732485
 GameObject:
@@ -15077,7 +15235,7 @@ Transform:
   m_LocalScale: {x: 0.82586, y: 0.82586, z: 0.82586}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 112
+  m_RootOrder: 114
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1.2110001}
 --- !u!1001 &544441029
 PrefabInstance:
@@ -15160,6 +15318,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -15368,6 +15531,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -16050,7 +16215,7 @@ Transform:
   - {fileID: 135078503}
   - {fileID: 1513873442}
   m_Father: {fileID: 0}
-  m_RootOrder: 57
+  m_RootOrder: 58
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &568869731
 PrefabInstance:
@@ -16322,6 +16487,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -18328,6 +18498,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (31)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &579435225 stripped
@@ -18414,6 +18589,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -18590,6 +18767,135 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 955762582}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &593850794
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 274766010786937149, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.040657967
+      objectReference: {fileID: 0}
+    - target: {fileID: 274766010786937149, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9991732
+      objectReference: {fileID: 0}
+    - target: {fileID: 274766012010754549, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.024830874
+      objectReference: {fileID: 0}
+    - target: {fileID: 274766012010754549, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99969167
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707414481292422904, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -204.72028
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707414481292422904, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.955469
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707414481292422904, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707414481292422904, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707414481292422904, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707414481292422904, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707414481292422904, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707414481292422904, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707414481292422904, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707414481292422904, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707414481292422904, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936057921550054347, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.50498015
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936057921550054347, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.86313105
+      objectReference: {fileID: 0}
+    - target: {fileID: 5061117063691806041, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7016768
+      objectReference: {fileID: 0}
+    - target: {fileID: 5061117063691806041, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.71249545
+      objectReference: {fileID: 0}
+    - target: {fileID: 7938139931995177971, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7628883
+      objectReference: {fileID: 0}
+    - target: {fileID: 7938139931995177971, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.64653033
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095855839800886590, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemigoPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 9061274923209017140, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.45162597
+      objectReference: {fileID: 0}
+    - target: {fileID: 9061274923209017140, guid: 5f4eca851d7a00f47bc50beb99c0ec30,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8922074
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5f4eca851d7a00f47bc50beb99c0ec30, type: 3}
 --- !u!1 &593928898
 GameObject:
   m_ObjectHideFlags: 0
@@ -18618,7 +18924,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 34
+  m_RootOrder: 35
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &598409654
 PrefabInstance:
@@ -18701,6 +19007,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -18982,7 +19293,7 @@ Transform:
   m_LocalScale: {x: 1.1224, y: 1.1224, z: 1.1224}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 70
+  m_RootOrder: 71
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &611156790
 PrefabInstance:
@@ -19229,7 +19540,7 @@ Transform:
   m_LocalScale: {x: 0.82586, y: 0.82586, z: 0.82586}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 111
+  m_RootOrder: 112
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1.2110001}
 --- !u!1 &625154427
 GameObject:
@@ -19397,7 +19708,7 @@ Transform:
   m_LocalScale: {x: 1.5582, y: 1.5582, z: 1.5582}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 150
+  m_RootOrder: 151
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &630316708
 PrefabInstance:
@@ -19548,7 +19859,7 @@ Transform:
   m_LocalScale: {x: 0.83033925, y: 1.2223864, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &637756525
 PrefabInstance:
@@ -19631,6 +19942,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -19727,6 +20043,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (35)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -20080,7 +20401,7 @@ Transform:
   m_LocalScale: {x: 3.7282, y: 3.7282, z: 3.7282}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 109
+  m_RootOrder: 110
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &648042035
 GameObject:
@@ -20300,7 +20621,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 94
+  m_RootOrder: 95
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &650215983
 GameObject:
@@ -20716,7 +21037,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 161
+  m_RootOrder: 162
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &661679841
 PrefabInstance:
@@ -20768,7 +21089,7 @@ PrefabInstance:
     - target: {fileID: 6794323916514155276, guid: c7a3270dff64f014c8fb5d81edf4ce4b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 118
+      value: 119
       objectReference: {fileID: 0}
     - target: {fileID: 6794323916514155276, guid: c7a3270dff64f014c8fb5d81edf4ce4b,
         type: 3}
@@ -20923,7 +21244,7 @@ Transform:
   m_LocalScale: {x: 1.5832, y: 1.5832, z: 1.5832}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 116
+  m_RootOrder: 118
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 143.796}
 --- !u!1 &666149889
 GameObject:
@@ -21167,7 +21488,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 133
+  m_RootOrder: 135
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &681086535
 GameObject:
@@ -21354,6 +21675,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!1 &685197814
@@ -21435,7 +21761,7 @@ Transform:
   m_LocalScale: {x: 1, y: 2.3178, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 107
+  m_RootOrder: 108
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -38.392002}
 --- !u!1001 &687676983
 PrefabInstance:
@@ -21518,6 +21844,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (39)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -21609,6 +21940,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (27)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!1 &692458298
@@ -21639,7 +21975,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 35
+  m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &693284490
 GameObject:
@@ -21921,6 +22257,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -21963,7 +22301,7 @@ Transform:
   - {fileID: 1916137404}
   - {fileID: 1961427754}
   m_Father: {fileID: 0}
-  m_RootOrder: 44
+  m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &701787331 stripped
 GameObject:
@@ -22627,7 +22965,7 @@ PrefabInstance:
     - target: {fileID: 1514979308262772733, guid: 87ba523dc299965409ce555c8aefb907,
         type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 1514979308262772733, guid: 87ba523dc299965409ce555c8aefb907,
         type: 3}
@@ -22704,7 +23042,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 37
+  m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &757333408
 GameObject:
@@ -23305,7 +23643,7 @@ Transform:
   m_LocalScale: {x: 8.2276, y: 8.2276, z: 8.2276}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 108
+  m_RootOrder: 109
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 2.196}
 --- !u!1 &793937104
 GameObject:
@@ -23385,6 +23723,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -23573,6 +23913,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &806872330 stripped
@@ -23754,7 +24099,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 152
+  m_RootOrder: 153
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &809217442
 GameObject:
@@ -23835,7 +24180,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 137
+  m_RootOrder: 139
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &812369874
 GameObject:
@@ -24045,6 +24390,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &830696806 stripped
@@ -24132,7 +24482,7 @@ Transform:
   m_LocalScale: {x: 8.2276, y: 8.2276, z: 8.2276}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 104
+  m_RootOrder: 105
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 2.196}
 --- !u!1 &835663865
 GameObject:
@@ -24204,7 +24554,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 141
+  m_RootOrder: 142
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &841023647
 PrefabInstance:
@@ -24261,7 +24611,7 @@ PrefabInstance:
     - target: {fileID: 4429325827180498829, guid: 143c49649f2bd2f44995b6e0c881ad9e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 4429325827180498829, guid: 143c49649f2bd2f44995b6e0c881ad9e,
         type: 3}
@@ -24359,7 +24709,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &842983147
 GameObject:
@@ -24796,6 +25146,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &845869821 stripped
@@ -25157,8 +25512,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auxtiempoEntreGiros: 0
-  tiempoentreGiros: 0
+  tiempoEntreGirosSiPlatArriba: 2
+  tiempoEntreGirosSiPinchosArriba: 2
   velocidadRotacion: 5
+  aux: 0
   clip: {fileID: 8300000, guid: b66d6610803a47441aa04af6316a1ec4, type: 3}
   source: {fileID: 0}
   player: {fileID: 0}
@@ -25487,6 +25844,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -25641,7 +26000,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 89
+  m_RootOrder: 90
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &891556107
 PrefabInstance:
@@ -26132,7 +26491,7 @@ Transform:
   m_LocalScale: {x: 0.7500003, y: 0.7500003, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 41
+  m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &899393930 stripped
 Transform:
@@ -26238,7 +26597,7 @@ Transform:
   m_Children:
   - {fileID: 681417249}
   m_Father: {fileID: 0}
-  m_RootOrder: 42
+  m_RootOrder: 43
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &907730140
 GameObject:
@@ -26319,11 +26678,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907730140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 570, y: -153, z: -10}
+  m_LocalPosition: {x: -241.5, y: 5.8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &907730144
 MonoBehaviour:
@@ -26467,6 +26826,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -26701,11 +27062,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919349846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 570, y: -153, z: 0}
+  m_LocalPosition: {x: -241.5, y: 5.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &920717938
 GameObject:
@@ -26816,7 +27177,7 @@ Transform:
   m_LocalScale: {x: 0.2531202, y: 0.2531202, z: 0.2531202}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 145
+  m_RootOrder: 146
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &927639244 stripped
 GameObject:
@@ -27019,7 +27380,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 86
+  m_RootOrder: 88
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &935148794 stripped
 GameObject:
@@ -27168,7 +27529,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 61
+  m_RootOrder: 62
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &940812298
 GameObject:
@@ -27203,7 +27564,7 @@ Transform:
   - {fileID: 1201057948}
   - {fileID: 1710796904}
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &943801668
 GameObject:
@@ -27471,6 +27832,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (52)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &946638064 stripped
@@ -27560,6 +27926,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (47)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -28102,6 +28473,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -28193,6 +28566,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -28328,7 +28706,7 @@ Transform:
   m_LocalScale: {x: 1.5832, y: 1.5832, z: 1.5832}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 90
+  m_RootOrder: 91
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &989064532
 PrefabInstance:
@@ -28569,7 +28947,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 95
+  m_RootOrder: 96
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &997044507
 GameObject:
@@ -28649,6 +29027,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -28746,6 +29126,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &999887459 stripped
@@ -28790,7 +29175,7 @@ Transform:
   - {fileID: 2091455007}
   - {fileID: 653509721}
   m_Father: {fileID: 0}
-  m_RootOrder: 48
+  m_RootOrder: 49
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1004958837
 GameObject:
@@ -28822,7 +29207,7 @@ Transform:
   - {fileID: 1418993166}
   - {fileID: 1529204674}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1006994704
 PrefabInstance:
@@ -28905,6 +29290,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -29071,6 +29461,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (41)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1007513396 stripped
@@ -29166,6 +29561,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -29342,6 +29742,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1031097664 stripped
@@ -29512,6 +29917,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (40)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1041133877 stripped
@@ -29599,7 +30009,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 52
+  m_RootOrder: 53
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1047639408
 PrefabInstance:
@@ -29818,7 +30228,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 156
+  m_RootOrder: 157
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1049108140
 GameObject:
@@ -30287,7 +30697,7 @@ Transform:
   m_LocalScale: {x: 1.5832, y: 1.5832, z: 1.5832}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 91
+  m_RootOrder: 92
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 103.036}
 --- !u!1001 &1056351431
 PrefabInstance:
@@ -30449,7 +30859,7 @@ Transform:
   m_LocalScale: {x: 1.5582, y: 1.5582, z: 1.5582}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 124
+  m_RootOrder: 125
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1056761006
 BoxCollider2D:
@@ -30556,7 +30966,7 @@ Transform:
   m_LocalScale: {x: 0.7472, y: 0.7472, z: 0.7472}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 146
+  m_RootOrder: 147
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1069161297
 PrefabInstance:
@@ -30639,6 +31049,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -31290,7 +31705,7 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 167
+  m_RootOrder: 168
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1080007152
 GameObject:
@@ -31436,7 +31851,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 88
+  m_RootOrder: 89
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1088428840
 GameObject:
@@ -31592,6 +32007,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -31786,7 +32206,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 154
+  m_RootOrder: 155
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1099903728
 PrefabInstance:
@@ -32022,7 +32442,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 127
+  m_RootOrder: 128
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1101792094
 PrefabInstance:
@@ -32216,6 +32636,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -32308,6 +32730,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (32)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1103319188 stripped
@@ -32397,6 +32824,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -33160,7 +33592,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 149
+  m_RootOrder: 150
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &1123814211
 GameObject:
@@ -33240,6 +33672,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -33376,7 +33810,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 62
+  m_RootOrder: 63
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1137250341
 PrefabInstance:
@@ -33540,6 +33974,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1147457142 stripped
@@ -33629,6 +34068,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -33834,7 +34278,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 131
+  m_RootOrder: 132
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1162568833
 BoxCollider2D:
@@ -33941,7 +34385,7 @@ Transform:
   m_LocalScale: {x: 0.82586, y: 0.82586, z: 0.82586}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 114
+  m_RootOrder: 116
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1.2110001}
 --- !u!1001 &1165093026
 PrefabInstance:
@@ -34264,6 +34708,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (27)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -34628,7 +35077,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 163
+  m_RootOrder: 164
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1198828038
 PrefabInstance:
@@ -34963,6 +35412,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (45)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1203589157 stripped
@@ -35050,7 +35504,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 169
+  m_RootOrder: 171
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1207343355
 PrefabInstance:
@@ -35133,6 +35587,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -35217,6 +35676,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -35542,6 +36006,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -36035,6 +36501,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (24)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!1 &1255029147
@@ -36442,7 +36913,7 @@ Transform:
   - {fileID: 1811022081}
   - {fileID: 1643617513}
   m_Father: {fileID: 0}
-  m_RootOrder: 40
+  m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1272014175
 GameObject:
@@ -36523,7 +36994,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 49
+  m_RootOrder: 50
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1273862557
 GameObject:
@@ -36801,6 +37272,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -37050,6 +37523,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (53)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1280725151 stripped
@@ -37200,8 +37678,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auxtiempoEntreGiros: 0
-  tiempoentreGiros: 0
+  tiempoEntreGirosSiPlatArriba: 2
+  tiempoEntreGirosSiPinchosArriba: 2
   velocidadRotacion: 5
+  aux: 0
   clip: {fileID: 8300000, guid: b66d6610803a47441aa04af6316a1ec4, type: 3}
   source: {fileID: 0}
   player: {fileID: 0}
@@ -37333,6 +37813,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -37425,6 +37907,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -37568,7 +38055,7 @@ Transform:
   - {fileID: 73535411}
   - {fileID: 2016917560}
   m_Father: {fileID: 0}
-  m_RootOrder: 45
+  m_RootOrder: 46
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1298867441
 GameObject:
@@ -37649,7 +38136,7 @@ Transform:
   m_LocalScale: {x: 1.1224, y: 1.1224, z: 1.1224}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 58
+  m_RootOrder: 59
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1305432853
 PrefabInstance:
@@ -37732,6 +38219,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (34)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -38211,6 +38703,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (31)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!1 &1310382077
@@ -38339,7 +38836,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 65
+  m_RootOrder: 66
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1310570902
 GameObject:
@@ -38905,6 +39402,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -39167,7 +39666,7 @@ Transform:
   m_LocalScale: {x: 1.5971, y: 1.5971, z: 1.5971}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 123
+  m_RootOrder: 124
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 11.1310005}
 --- !u!1 &1366476206
 GameObject:
@@ -39248,7 +39747,7 @@ Transform:
   m_LocalScale: {x: 2.1603398, y: 2.1603398, z: 2.1603398}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 67
+  m_RootOrder: 68
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1380515691
 PrefabInstance:
@@ -39453,12 +39952,12 @@ PrefabInstance:
     - target: {fileID: 298204914467547018, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.9983416
+      value: 0.9983403
       objectReference: {fileID: 0}
     - target: {fileID: 298204914467547018, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.057568163
+      value: -0.057591688
       objectReference: {fileID: 0}
     - target: {fileID: 2098227749811648899, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
@@ -39473,12 +39972,12 @@ PrefabInstance:
     - target: {fileID: 2098227749811648925, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 570
+      value: -241.5
       objectReference: {fileID: 0}
     - target: {fileID: 2098227749811648925, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -153
+      value: 5.8
       objectReference: {fileID: 0}
     - target: {fileID: 2098227749811648925, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
@@ -39508,7 +40007,7 @@ PrefabInstance:
     - target: {fileID: 2098227749811648925, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2098227749811648925, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
@@ -39528,37 +40027,37 @@ PrefabInstance:
     - target: {fileID: 2379820608565678441, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.015384116
+      value: 0.0154298125
       objectReference: {fileID: 0}
     - target: {fileID: 2379820608565678441, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.9998817
+      value: -0.99988097
       objectReference: {fileID: 0}
     - target: {fileID: 3526300100394504968, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.058392614
+      value: 0.05835422
       objectReference: {fileID: 0}
     - target: {fileID: 3526300100394504968, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99829376
+      value: 0.99829596
       objectReference: {fileID: 0}
     - target: {fileID: 3526300100394504968, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 39606.695
+      value: 39606.69
       objectReference: {fileID: 0}
     - target: {fileID: 3983924307704520546, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0044133062
+      value: -0.0044096103
       objectReference: {fileID: 0}
     - target: {fileID: 3983924307704520546, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99999034
+      value: 0.9999903
       objectReference: {fileID: 0}
     - target: {fileID: 3983924307704520546, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
@@ -39568,77 +40067,77 @@ PrefabInstance:
     - target: {fileID: 4854134491693337422, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.039908227
+      value: 0.039927006
       objectReference: {fileID: 0}
     - target: {fileID: 4854134491693337422, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9992033
+      value: 0.9992026
       objectReference: {fileID: 0}
     - target: {fileID: 4854134491693337422, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -28435.426
+      value: -28435.424
       objectReference: {fileID: 0}
     - target: {fileID: 4906488384967237755, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.28846964
+      value: 0.28856027
       objectReference: {fileID: 0}
     - target: {fileID: 4906488384967237755, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.95748913
+      value: 0.9574618
       objectReference: {fileID: 0}
     - target: {fileID: 5106296631185802045, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.12732
+      value: 0.12732889
       objectReference: {fileID: 0}
     - target: {fileID: 5106296631185802045, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.9918617
+      value: -0.99186057
       objectReference: {fileID: 0}
     - target: {fileID: 5342904259920324611, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.4418701
+      value: 0.44186205
       objectReference: {fileID: 0}
     - target: {fileID: 5342904259920324611, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8970791
+      value: 0.89708304
       objectReference: {fileID: 0}
     - target: {fileID: 5481617233709508979, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.97245675
+      value: 0.9724437
       objectReference: {fileID: 0}
     - target: {fileID: 5481617233709508979, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.23308344
+      value: 0.23313813
       objectReference: {fileID: 0}
     - target: {fileID: 5609892010309016234, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.35338554
+      value: 0.35332516
       objectReference: {fileID: 0}
     - target: {fileID: 5609892010309016234, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9354778
+      value: 0.93550056
       objectReference: {fileID: 0}
     - target: {fileID: 7074314225550134700, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.28419665
+      value: -0.2842228
       objectReference: {fileID: 0}
     - target: {fileID: 7074314225550134700, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.95876604
+      value: 0.9587583
       objectReference: {fileID: 0}
     - target: {fileID: 7315377025922757247, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
@@ -39820,6 +40319,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -39989,7 +40490,7 @@ Transform:
   m_LocalScale: {x: 1.5024, y: 1.5024, z: 1.5024}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 147
+  m_RootOrder: 148
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1390704624
 PrefabInstance:
@@ -40439,7 +40940,7 @@ Transform:
   m_LocalScale: {x: 1.1224, y: 1.1224, z: 1.1224}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 54
+  m_RootOrder: 56
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1414797227
 GameObject:
@@ -40743,7 +41244,7 @@ PrefabInstance:
     - target: {fileID: 8249293303626093797, guid: e1a772c3dc57fe543adf5351577354be,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8249293303626093797, guid: e1a772c3dc57fe543adf5351577354be,
         type: 3}
@@ -41002,6 +41503,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -41415,6 +41918,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1456269833 stripped
@@ -41706,7 +42214,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 33
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1472075258
 PrefabInstance:
@@ -42017,7 +42525,7 @@ Transform:
   m_LocalScale: {x: 0.34674, y: 0.34674, z: 0.34674}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 142
+  m_RootOrder: 143
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 7.0230002}
 --- !u!1001 &1482329003
 PrefabInstance:
@@ -42100,6 +42608,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -42507,7 +43020,7 @@ Transform:
   m_LocalScale: {x: 2.1603398, y: 2.1603398, z: 2.1603398}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 171
+  m_RootOrder: 172
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1512598385 stripped
 Transform:
@@ -42676,7 +43189,7 @@ PrefabInstance:
     - target: {fileID: 6794323916514155276, guid: c7a3270dff64f014c8fb5d81edf4ce4b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 119
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 6794323916514155276, guid: c7a3270dff64f014c8fb5d81edf4ce4b,
         type: 3}
@@ -42783,6 +43296,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -42872,7 +43387,7 @@ Transform:
   m_LocalScale: {x: 0.9633657, y: 0.9633657, z: 0.9633657}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 82
+  m_RootOrder: 83
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1.393}
 --- !u!1001 &1522441691
 PrefabInstance:
@@ -42955,6 +43470,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -43629,7 +44149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 160
+  m_RootOrder: 161
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1534664082
 PrefabInstance:
@@ -43937,7 +44457,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 129
+  m_RootOrder: 130
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1559666906
 PrefabInstance:
@@ -44093,7 +44613,7 @@ PrefabInstance:
     - target: {fileID: 8065412078083788165, guid: 3cb1dd4e5ff1d844290db42efe27e643,
         type: 3}
       propertyPath: m_RootOrder
-      value: 25
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 8065412078083788165, guid: 3cb1dd4e5ff1d844290db42efe27e643,
         type: 3}
@@ -44203,6 +44723,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -44340,7 +44865,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 168
+  m_RootOrder: 169
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1564974002
 PrefabInstance:
@@ -44504,6 +45029,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1565076913 stripped
@@ -44593,6 +45123,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (34)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -44821,7 +45356,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 84
+  m_RootOrder: 85
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1572761825
 GameObject:
@@ -44937,8 +45472,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: ccb7a9b4b492c2f448db7e6c2798089b, type: 3}
   - {fileID: 21300000, guid: 1858b09430f225d4ba7fa9aa9ed159ba, type: 3}
   m_LocalAABB:
-    m_Center: {x: -4.1792703, y: -5.4409, z: -0.00005}
-    m_Extent: {x: 4.1792703, y: 10.78638, z: 0.00005}
+    m_Center: {x: -4.1792707, y: -5.4409, z: -0.00005}
+    m_Extent: {x: 4.1792707, y: 10.78638, z: 0.00005}
 --- !u!4 &1572761828
 Transform:
   m_ObjectHideFlags: 0
@@ -45299,7 +45834,7 @@ Transform:
   m_LocalScale: {x: 1.1224, y: 1.1224, z: 1.1224}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 56
+  m_RootOrder: 57
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1589729916
 GameObject:
@@ -45712,7 +46247,7 @@ Transform:
   - {fileID: 223836034}
   - {fileID: 535719929}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1600861006
 GameObject:
@@ -45840,7 +46375,7 @@ Transform:
   m_LocalScale: {x: 1.1681249, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 66
+  m_RootOrder: 67
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1604596683
 GameObject:
@@ -45970,7 +46505,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 157
+  m_RootOrder: 158
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1606736226
 GameObject:
@@ -46249,6 +46784,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (43)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1611406401 stripped
@@ -46415,7 +46955,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 153
+  m_RootOrder: 154
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1620521388
 GameObject:
@@ -46496,7 +47036,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 165
+  m_RootOrder: 166
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1624947672
 GameObject:
@@ -46674,7 +47214,7 @@ Transform:
   m_LocalScale: {x: 0.9633657, y: 0.9633657, z: 0.9633657}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 80
+  m_RootOrder: 81
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -28.946001}
 --- !u!1 &1631153125
 GameObject:
@@ -46755,7 +47295,7 @@ Transform:
   m_LocalScale: {x: 5.4283, y: 5.4283, z: 5.4283}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 103
+  m_RootOrder: 104
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 47.475002}
 --- !u!4 &1643617513 stripped
 Transform:
@@ -46842,7 +47382,7 @@ Transform:
   m_LocalScale: {x: 0.9633657, y: 0.9633657, z: 0.9633657}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 121
+  m_RootOrder: 122
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1.393}
 --- !u!1 &1651340741
 GameObject:
@@ -46986,8 +47526,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auxtiempoEntreGiros: 0
-  tiempoentreGiros: 0
+  tiempoEntreGirosSiPlatArriba: 2
+  tiempoEntreGirosSiPinchosArriba: 2
   velocidadRotacion: 5
+  aux: 0
   clip: {fileID: 8300000, guid: b66d6610803a47441aa04af6316a1ec4, type: 3}
   source: {fileID: 0}
   player: {fileID: 0}
@@ -47321,7 +47863,7 @@ PrefabInstance:
     - target: {fileID: 1148247948058153983, guid: 62543f20f3ba1f5498a874a45d8edb02,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1148247948058153983, guid: 62543f20f3ba1f5498a874a45d8edb02,
         type: 3}
@@ -47433,6 +47975,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -47677,6 +48221,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1675917231 stripped
@@ -47844,7 +48393,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 162
+  m_RootOrder: 163
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1681578781
 PrefabInstance:
@@ -47891,7 +48440,7 @@ PrefabInstance:
     - target: {fileID: 1371323700860681365, guid: b483b2b6641ac6448b8ec5d01cc42314,
         type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 1371323700860681365, guid: b483b2b6641ac6448b8ec5d01cc42314,
         type: 3}
@@ -48101,6 +48650,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (49)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -48927,8 +49481,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: ccb7a9b4b492c2f448db7e6c2798089b, type: 3}
   - {fileID: 21300000, guid: 1858b09430f225d4ba7fa9aa9ed159ba, type: 3}
   m_LocalAABB:
-    m_Center: {x: 472.09286, y: -16.717064, z: -0.00105005}
-    m_Extent: {x: 482.51575, y: 36.2877, z: 0.00105005}
+    m_Center: {x: 472.09286, y: -16.717064, z: -0.0010500499}
+    m_Extent: {x: 482.51575, y: 36.2877, z: 0.0010500499}
 --- !u!4 &1699431021
 Transform:
   m_ObjectHideFlags: 0
@@ -48941,7 +49495,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 72
+  m_RootOrder: 73
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1705354230
 PrefabInstance:
@@ -49024,6 +49578,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -49406,6 +49965,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -49896,7 +50457,7 @@ Transform:
   m_LocalScale: {x: 0.9633657, y: 0.9633657, z: 0.9633657}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 122
+  m_RootOrder: 123
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1.393}
 --- !u!1001 &1742856311
 PrefabInstance:
@@ -50023,7 +50584,7 @@ PrefabInstance:
     - target: {fileID: 6794323916514155276, guid: c7a3270dff64f014c8fb5d81edf4ce4b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 120
+      value: 121
       objectReference: {fileID: 0}
     - target: {fileID: 6794323916514155276, guid: c7a3270dff64f014c8fb5d81edf4ce4b,
         type: 3}
@@ -50229,6 +50790,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -50578,6 +51144,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1809641837 stripped
@@ -50668,6 +51239,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (58)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1811022081 stripped
@@ -50757,6 +51333,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -51039,6 +51620,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (54)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1827150798 stripped
@@ -51129,6 +51715,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (55)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &1835352025 stripped
@@ -51182,7 +51773,7 @@ PrefabInstance:
     - target: {fileID: 6550845848743605969, guid: 74a2d7ffa84c9374c9c2333bce6718e8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6550845848743605969, guid: 74a2d7ffa84c9374c9c2333bce6718e8,
         type: 3}
@@ -51292,6 +51883,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (44)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -51443,7 +52039,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 50
+  m_RootOrder: 51
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1850842200
 GameObject:
@@ -51523,6 +52119,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -51658,7 +52256,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 126
+  m_RootOrder: 127
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1855764410
 PrefabInstance:
@@ -51819,7 +52417,7 @@ Transform:
   m_LocalScale: {x: 0.2981964, y: 0.2981964, z: 0.2981964}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 143
+  m_RootOrder: 144
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -7.1900005}
 --- !u!1 &1863814235
 GameObject:
@@ -52341,7 +52939,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 159
+  m_RootOrder: 160
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1882620852
 PrefabInstance:
@@ -52499,6 +53097,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -52663,6 +53266,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (38)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -53020,6 +53628,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -53437,7 +54047,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 164
+  m_RootOrder: 165
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1922758806
 PrefabInstance:
@@ -53669,7 +54279,7 @@ Transform:
   m_LocalScale: {x: 0.34674, y: 0.34674, z: 0.34674}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 144
+  m_RootOrder: 145
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 2.8130002}
 --- !u!1001 &1929955548
 PrefabInstance:
@@ -53752,6 +54362,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -53914,7 +54529,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 53
+  m_RootOrder: 54
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1945520117
 PrefabInstance:
@@ -54474,7 +55089,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 155
+  m_RootOrder: 156
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1969023618
 PrefabInstance:
@@ -54628,6 +55243,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -54748,7 +55365,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 166
+  m_RootOrder: 167
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2001236973
 PrefabInstance:
@@ -54831,6 +55448,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -54919,7 +55541,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 132
+  m_RootOrder: 133
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2003976553
 GameObject:
@@ -55046,7 +55668,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 99
+  m_RootOrder: 101
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1001 &2004155066
 PrefabInstance:
@@ -55284,6 +55906,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -55371,6 +55995,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -55549,6 +56175,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -55853,7 +56481,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 63
+  m_RootOrder: 64
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2019629276
 PrefabInstance:
@@ -55936,6 +56564,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -56248,7 +56881,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 64
+  m_RootOrder: 65
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2021877085
 GameObject:
@@ -56375,7 +57008,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 97
+  m_RootOrder: 98
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2023002676
 GameObject:
@@ -56562,6 +57195,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -57405,6 +58040,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (50)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &2046318471 stripped
@@ -57494,6 +58134,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (40)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -57783,6 +58428,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &2055099160 stripped
@@ -58037,6 +58687,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda2 (46)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!4 &2060316337 stripped
@@ -58124,7 +58779,7 @@ Transform:
   m_LocalScale: {x: 1.5971, y: 1.5971, z: 1.5971}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 101
+  m_RootOrder: 103
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 11.1310005}
 --- !u!1001 &2060862269
 PrefabInstance:
@@ -58545,7 +59200,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 73
+  m_RootOrder: 74
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2078649291
 GameObject:
@@ -58711,7 +59366,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 128
+  m_RootOrder: 129
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &2081973817
 GameObject:
@@ -58803,7 +59458,7 @@ EdgeCollider2D:
   - {x: -170.07591, y: -2.4593642}
   - {x: -163.548, y: -1.4794545}
   - {x: -157.0555, y: -0.48216194}
-  - {x: -150.79393, y: 0.49709022}
+  - {x: -150.79393, y: 0.49709025}
   - {x: -144.95895, y: 1.4228778}
   - {x: -139.74622, y: 2.2597768}
   - {x: -135.3513, y: 2.9723625}
@@ -59158,7 +59813,7 @@ PrefabInstance:
     - target: {fileID: 9009889609920826251, guid: b8e27e57502a3e24a94e9d9b316db146,
         type: 3}
       propertyPath: m_RootOrder
-      value: 24
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 9009889609920826251, guid: b8e27e57502a3e24a94e9d9b316db146,
         type: 3}
@@ -59264,6 +59919,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (25)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -59521,6 +60181,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (30)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!1001 &2098061591
@@ -59604,6 +60269,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -59719,6 +60389,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moneda (32)
       objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
 --- !u!1001 &2109218727
@@ -59802,6 +60477,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Moneda2 (28)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7512098673015773879, guid: a15b25524bab0964b8460f428e639e03,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a15b25524bab0964b8460f428e639e03, type: 3}
@@ -59972,6 +60652,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -60059,6 +60741,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -60099,7 +60783,7 @@ Transform:
   - {fileID: 908423942}
   - {fileID: 1071472266}
   m_Father: {fileID: 0}
-  m_RootOrder: 39
+  m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2139086049
 GameObject:
@@ -60179,6 +60863,8 @@ MonoBehaviour:
   enfocarSecuenciaObjetos: 0
   seDestruyeTrasTocarlo: 0
   bloqueaMovimiento: 0
+  limitaDistanciaMax: 0
+  distanciaMaxLimite: 50
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -60239,7 +60925,7 @@ PrefabInstance:
     - target: {fileID: 2647286195902808863, guid: f421140cfe3f05a4485e73cded069a50,
         type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2647286195902808863, guid: f421140cfe3f05a4485e73cded069a50,
         type: 3}
@@ -60724,7 +61410,7 @@ Transform:
   m_LocalScale: {x: 1.1224, y: 1.1224, z: 1.1224}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 69
+  m_RootOrder: 70
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &53979105790687691
 PrefabInstance:
@@ -62028,7 +62714,7 @@ PrefabInstance:
     - target: {fileID: 8905436630628857468, guid: 7bd0f7ffef81da048866310278e4964c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -259.153
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8905436630628857468, guid: 7bd0f7ffef81da048866310278e4964c,
         type: 3}
@@ -62053,7 +62739,7 @@ PrefabInstance:
     - target: {fileID: 8905436630628857468, guid: 7bd0f7ffef81da048866310278e4964c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8905436630628857468, guid: 7bd0f7ffef81da048866310278e4964c,
         type: 3}

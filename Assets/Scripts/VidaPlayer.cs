@@ -162,7 +162,7 @@ public class VidaPlayer : MonoBehaviour
     }
     public void AplicarFuerza(Vector3 puntoimpacto, Vector3 puntocontacto)
     {
-        print("fuerzaAplicadaq");
+        //print("fuerzaAplicadaq");
         Vector3 direccion = (puntoimpacto - (puntocontacto + new Vector3(0, 0.6f, 0))).normalized;
         if (this.GetComponent<ControllerPersonaje>().grounded == false)
         {
@@ -180,7 +180,7 @@ public class VidaPlayer : MonoBehaviour
         //this.GetComponent<CharacterController2D>().dashing = true;
         this.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
         this.GetComponent<Rigidbody2D>().AddForce(new Vector2(-(puntocontacto - this.transform.position).x, -(puntocontacto - this.transform.position).y).normalized * 35, ForceMode2D.Impulse);
-        print("FUERSITA" + new Vector2(-(puntocontacto - this.transform.position).x, -(puntocontacto - this.transform.position).y).normalized * 35);
+        //print("FUERSITA" + new Vector2(-(puntocontacto - this.transform.position).x, -(puntocontacto - this.transform.position).y).normalized * 35);
 
     }
     // Update is called once per frame
