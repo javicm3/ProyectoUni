@@ -269,7 +269,6 @@ public class VidaPlayer : MonoBehaviour
         }
         if (collision.gameObject.tag == "Boss")
         {
-            print("muerecabron");
             GetComponent<VidaPlayer>().RecibirDaño(GetComponent<VidaPlayer>().vidaActual, collision.gameObject.transform.position, this.transform.position);
             //this.transform.position = new Vector3(this.transform.position.x - 0.1f, this.transform.position.y + 0.2f, 0);
         }
@@ -316,7 +315,10 @@ public class VidaPlayer : MonoBehaviour
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoAgua, collision.gameObject.transform.position, collision.contacts[0].point);
             this.transform.position = new Vector3(this.transform.position.x - 0.1f, this.transform.position.y + 0.2f, 0);
         }
-
+        if(collision.gameObject.tag == "Boss")
+        {
+            GetComponent<VidaPlayer>().RecibirDaño(GetComponent<VidaPlayer>().vidaActual, collision.gameObject.transform.position, this.transform.position);
+        }
         //if (collision.gameObject.tag == "EnemigoEmbestida")
         //{
 

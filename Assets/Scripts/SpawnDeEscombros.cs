@@ -38,11 +38,17 @@ public class SpawnDeEscombros : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        plataformaActiva = true;
+        if(collider.tag == "Player")
+        {
+            plataformaActiva = true;
+        }
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        plataformaActiva = false;
+        if (collider.tag == "Player")
+        {
+            plataformaActiva = false;
+        }
     }
 }

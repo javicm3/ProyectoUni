@@ -35,7 +35,6 @@ public class AvisoBoss : MonoBehaviour
         Vector3 dir = (toPosition - fromPosition).normalized;
         Vector3 angle = dir.z * Vector3.forward;
         arrowSprite.transform.localEulerAngles = angle;
-        print(pointerRectTransform.localEulerAngles);
         //if (isOffScreen)
         //{
         //    RotatePointerTowardsTargetPosition();

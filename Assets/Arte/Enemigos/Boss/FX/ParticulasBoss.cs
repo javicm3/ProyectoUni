@@ -1,11 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class ParticulasBoss : MonoBehaviour
 {
     public GameObject particulas;
-    bool activarParticulas;
+    public bool activarParticulas;
+
+    [Header ("Vibracion Boss")]
+    public float intensidadVibracionBoss = 0.30f;
+    public float velocidadVibracion = 1.3f;
+    public float tiempoVibracion = 0.45f;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +25,15 @@ public class ParticulasBoss : MonoBehaviour
         if(activarParticulas == true)
         {
             particulas.SetActive(true);
+            CinemachineShake.Instance.ShakeCamera(intensidadVibracionBoss, velocidadVibracion, tiempoVibracion);
+            //GameObject.FindObjectOfType<CinemachineVirtualCamera>().GetComponent<CinemachineShake>().ShakeCamera(0.35f, 1.4f);
             particulas.GetComponent<ParticleSystem>().Play();
         }
         else
         {
             //particulas.GetComponent<ParticleSystem>().Stop();
+            //GameObject.Find("CINEMACHINE").GetComponent<CinemachineShake>().StopShake();
+            //GameObject.FindObjectOfType<CinemachineVirtualCamera>().GetComponent<CinemachineShake>().StopShake();
             particulas.SetActive(false);
         }
     }

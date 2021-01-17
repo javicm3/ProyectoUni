@@ -8,6 +8,10 @@ public class Escombro : MonoBehaviour
 
     Rigidbody2D rb;
     public string tagCollider;
+    [Header("Vibracion Boss")]
+    public float intensidadVibracionBoss = 0.10f;
+    public float velocidadVibracion = 1f;
+    public float tiempoVibracion = 0.25f;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +24,7 @@ public class Escombro : MonoBehaviour
         if (col.gameObject.tag == tagCollider)
         {
             rb.isKinematic = false;
+            CinemachineShake.Instance.ShakeCamera(intensidadVibracionBoss, velocidadVibracion, tiempoVibracion);
         }
     }
 

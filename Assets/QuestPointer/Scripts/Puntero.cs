@@ -8,7 +8,6 @@ public class Puntero : MonoBehaviour {
     public Transform boss;
     GameObject player;
     RectTransform rt;
-    Sprite flechaSprite;
     Vector2 bounds;
     
     public float coeficienteCamara;
@@ -21,7 +20,6 @@ public class Puntero : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         rt = GetComponent<RectTransform>();
         canvasPadre = GetComponentInParent<Canvas>();
-        flechaSprite = rt.GetComponent<Image>().sprite;
     }
     private void Update()
     {
