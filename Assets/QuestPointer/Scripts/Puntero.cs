@@ -8,18 +8,20 @@ public class Puntero : MonoBehaviour {
     public Transform boss;
     GameObject player;
     RectTransform rt;
+    Sprite flechaSprite;
     Vector2 bounds;
+    
     public float coeficienteCamara;
     public float posicionPunteroY;
     public float posicionPunteroX;
     Canvas canvasPadre;
-
+    
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rt = GetComponent<RectTransform>();
         canvasPadre = GetComponentInParent<Canvas>();
-        
+        flechaSprite = rt.GetComponent<Image>().sprite;
     }
     private void Update()
     {
@@ -45,13 +47,35 @@ public class Puntero : MonoBehaviour {
 
         // Update the rotation of your arrow
         rt.localEulerAngles = new Vector3(rt.localEulerAngles.x, rt.localEulerAngles.y, angle);
-        
+
         ////transform.position = new Vector3(Mathf.Clamp(boss.transform.position.x, -(Camera.main.aspect*Camera.main.orthographicSize*Camera.main.transform.position.x), Camera.main.aspect * Camera.main.orthographicSize * Camera.main.transform.position.x),0 , 0);
         //transform.position = new Vector3(Mathf.Clamp(boss.transform.position.x, (player.transform.position.x - posicionPunteroX) /** (Camera.main.orthographicSize * coeficienteCamara)*/, (player.transform.position.x + posicionPunteroX)/* * (Camera.main.orthographicSize * coeficienteCamara)*/),
         //    Mathf.Clamp(boss.transform.position.y, (player.transform.position.y - 1) /** (Camera.main.orthographicSize * coeficienteCamara)*/, (player.transform.position.y + posicionPunteroY) /** (Camera.main.orthographicSize * coeficienteCamara)*/), 0);
         //transform.position = new Vector3(Mathf.Clamp(boss.transform.position.x, -(Camera.main.aspect*Camera.main.orthographicSize*Camera.main.transform.position.x), Camera.main.aspect * Camera.main.orthographicSize * Camera.main.transform.position.x),0 , 0);
-        GetComponent<RectTransform>().anchoredPosition = new Vector3(Mathf.Clamp(boss.transform.position.x, -canvasPadre.GetComponent<RectTransform>().rect.width, canvasPadre.GetComponent<RectTransform>().rect.width),
-            Mathf.Clamp(boss.transform.position.y, -canvasPadre.GetComponent<RectTransform>().rect.height, canvasPadre.GetComponent<RectTransform>().rect.height), 0);
+        //GetComponent<RectTransform>().anchoredPosition = new Vector3(Mathf.Clamp(boss.transform.position.x, -canvasPadre.GetComponent<RectTransform>().rect.width, canvasPadre.GetComponent<RectTransform>().rect.width),
+        //    Mathf.Clamp(boss.transform.position.y, -canvasPadre.GetComponent<RectTransform>().rect.height, canvasPadre.GetComponent<RectTransform>().rect.height), 0);
+        Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(boss.position);
+        Vector3 capped = targetPositionScreenPoint;
+        if (capped.x <= 0) capped.x = 35;
+        if (capped.x >= Screen.width) capped.x = Screen.width - 35;
+        if (capped.y <= 0) capped.y = 35;
+        if (capped.y >= Screen.height) capped.y = Screen.height - 35;
+
+        Vector3 pointerWorldPosition = Camera.main.ScreenToWorldPoint(capped);
+
+        rt.position = pointerWorldPosition;
+        rt.localPosition = new Vector3(rt.localPosition.x, rt.localPosition.y, 0);
+
+        
+        bool isOffScreen = targetPositionScreenPoint.x <= 0 || targetPositionScreenPoint.x >= Screen.width || targetPositionScreenPoint.y <= 0 || targetPositionScreenPoint.y >= Screen.height;
+        if (isOffScreen)
+        {
+            GetComponentInChildren<Image>().enabled = true;
+        }
+        else
+        {
+            GetComponentInChildren<Image>().enabled = false;
+        }
         //transform.position = new Vector3(Mathf.Clamp(boss.transform.position.x, -(Camera.main.orthographicSize), Camera.main.orthographicSize), Mathf.Clamp(boss.transform.position.y, -(Camera.main.orthographicSize), Camera.main.orthographicSize), 0);
         //transform.position = Camera.main.WorldToScreenPoint(boss.transform.position);
     }
