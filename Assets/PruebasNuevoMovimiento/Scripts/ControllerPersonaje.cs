@@ -3801,6 +3801,19 @@ public class ControllerPersonaje : MonoBehaviour
         }
 
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "TriggerPausaBoss")
+        {
+            if (boss != null)
+            {
+
+                boss.GetComponent<BossPath>().cmpRuta.pausaConTrigger = false;
+
+            }
+        }
+    }
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
     //    if (collision.gameObject.tag == "Pared")

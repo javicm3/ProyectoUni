@@ -9,7 +9,8 @@ public class Puntero : MonoBehaviour {
     GameObject player;
     RectTransform rt;
     Vector2 bounds;
-    
+
+    public float distanciaBorde;
     public float coeficienteCamara;
     public float posicionPunteroY;
     public float posicionPunteroX;
@@ -54,10 +55,10 @@ public class Puntero : MonoBehaviour {
         //    Mathf.Clamp(boss.transform.position.y, -canvasPadre.GetComponent<RectTransform>().rect.height, canvasPadre.GetComponent<RectTransform>().rect.height), 0);
         Vector3 targetPositionScreenPoint = Camera.main.WorldToScreenPoint(boss.position);
         Vector3 capped = targetPositionScreenPoint;
-        if (capped.x <= 0) capped.x = 35;
-        if (capped.x >= Screen.width) capped.x = Screen.width - 35;
-        if (capped.y <= 0) capped.y = 35;
-        if (capped.y >= Screen.height) capped.y = Screen.height - 35;
+        if (capped.x <= 0) capped.x = distanciaBorde;
+        if (capped.x >= Screen.width) capped.x = Screen.width - distanciaBorde;
+        if (capped.y <= 0) capped.y = distanciaBorde;
+        if (capped.y >= Screen.height) capped.y = Screen.height - distanciaBorde;
 
         Vector3 pointerWorldPosition = Camera.main.ScreenToWorldPoint(capped);
 
