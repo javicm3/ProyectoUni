@@ -403,7 +403,7 @@ public class CameraZoom : MonoBehaviour
                     {
                         cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize + indiceMultiplicadorZoom * Time.deltaTime;
                     }
-                    else if (cinemakina.m_Lens.OrthographicSize > maxDistance * 0.8f)
+                    else if (cinemakina.m_Lens.OrthographicSize > maxDistance * 0.8f && cinemakina.m_Lens.OrthographicSize > startsize)
                     {
                         cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize - indiceMultiplicadorZoom * Time.deltaTime;
                     }

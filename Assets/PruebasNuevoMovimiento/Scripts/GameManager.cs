@@ -114,7 +114,19 @@ public class GameManager : MonoBehaviour
     }
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Level Loaded");
+        if (GameObject.FindGameObjectsWithTag("InicioNivel") != null)
+        {
+            foreach(GameObject go in GameObject.FindGameObjectsWithTag("InicioNivel")){
+                go.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, 0);
+            }
+        }
+        if (GameObject.FindGameObjectsWithTag("Checkpoint") != null)
+        {
+            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Checkpoint"))
+            {
+                go.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, 0);
+            }
+        }
         if (scene.name == "PlayTesting")
         {
             actualLevel = 0;
@@ -412,7 +424,7 @@ public class GameManager : MonoBehaviour
             {
                 textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
 
-                textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
+                textoMaxColecc.text = GameObject.FindGameObjectsWithTag("Coleccionable").Length.ToString();
             }
 
 
@@ -559,7 +571,7 @@ public class GameManager : MonoBehaviour
     {
         if (personajevivo == true)
         {
-            print("muerto");
+            //print("muerto");
             personajevivo = false;
             if (GameObject.Find("Player") != null) GameObject.Find("Player").GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
             if (GameObject.Find("Player") != null) GameObject.Find("Player").GetComponent<ControllerPersonaje>().rb.velocity = Vector2.zero;

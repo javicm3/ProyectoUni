@@ -20,7 +20,7 @@ public class Pinchos : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
-            print("colision pinchos");
+            //print("colision pinchos");
             if (GameObject.Find("Player") != null)
             {
 
