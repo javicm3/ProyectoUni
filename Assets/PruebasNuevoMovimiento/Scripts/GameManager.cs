@@ -120,9 +120,10 @@ public class GameManager : MonoBehaviour
                 go.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, 0);
             }
         }
-        if (GameObject.FindGameObjectsWithTag("Checkpoint") != null)
+        if (GameObject.FindObjectsOfType<Checkpoint>() != null)
         {
-            foreach (GameObject go in GameObject.FindGameObjectsWithTag("Checkpoint"))
+            Checkpoint[] checks= FindObjectsOfType<Checkpoint>();
+            foreach (Checkpoint go in checks)
             {
                 go.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, 0);
             }
