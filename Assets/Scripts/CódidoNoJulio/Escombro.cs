@@ -7,16 +7,18 @@ public class Escombro : MonoBehaviour
     //setear gravedad a 4 poniendo el rb en dynamic
 
     Rigidbody2D rb;
+    public GameObject particulas;
     public string tagCollider;
     [Header("Vibracion Boss")]
     public float intensidadVibracionBoss = 0.10f;
     public float velocidadVibracion = 1f;
     public float tiempoVibracion = 0.25f;
-
+    Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponentInParent<Rigidbody2D>();
+        anim = GetComponentInParent<Animator>();
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -25,6 +27,8 @@ public class Escombro : MonoBehaviour
         {
             rb.isKinematic = false;
             CinemachineShake.Instance.ShakeCamera(intensidadVibracionBoss, velocidadVibracion, tiempoVibracion);
+            particulas.SetActive(false);
+            anim.SetTrigger("Off");
         }
     }
 
