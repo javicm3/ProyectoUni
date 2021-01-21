@@ -21,7 +21,7 @@ public class CascadaGoo : MonoBehaviour
         player = FindObjectOfType<ControllerPersonaje>().gameObject;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         auxTiempoEntreComprobaciones -= Time.deltaTime;
         if (auxTiempoEntreComprobaciones < 0)
@@ -45,7 +45,7 @@ public class CascadaGoo : MonoBehaviour
         }
         if (activado == true)
         {
-            if (player.GetComponent<ControllerPersonaje>().auxCdDash > (1-tiempoTrasDash))
+            if (player.GetComponent<ControllerPersonaje>().auxCdDash-0.1f > (player.GetComponent<ControllerPersonaje>().cooldownDash- tiempoTrasDash))
             {
                 this.GetComponent<BoxCollider2D>().enabled = false;
             }

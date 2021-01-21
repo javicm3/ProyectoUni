@@ -6,7 +6,7 @@ public class MovimientoEnemigoVolador : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] Transform[] puntosPersonaje;
- public   bool arrived = false;
+    public   bool arrived = false;
    public int indexArray;
     public float tiempoStun = 2f;
     public float auxTiempoStun;

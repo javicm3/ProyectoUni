@@ -36,6 +36,8 @@ public class AñadirQuitarObjetos : MonoBehaviour
 
 
     public GameObject[] objAñadir;
+    public float[] pesoObjAñadir;
+    public float[] radioObjAñadir;
     public GameObject[] objQuitar;
     GameObject player;
     bool timerSoloInicio = false;
@@ -75,7 +77,11 @@ public class AñadirQuitarObjetos : MonoBehaviour
                     else
                     {
                         targetGroup.m_Targets[i].target = go.transform;
+                       
+                        if (pesoObjAñadir.Length>0) if (pesoObjAñadir[i-1] != 0) targetGroup.m_Targets[i ].weight = pesoObjAñadir[i-1];
+                        if (radioObjAñadir.Length > 0) if (radioObjAñadir[i - 1] != 0) targetGroup.m_Targets[i].radius = radioObjAñadir[i - 1];
                         break;
+                     
                     }
                 }
             }
@@ -100,6 +106,9 @@ public class AñadirQuitarObjetos : MonoBehaviour
                         if (targetGroup.m_Targets[i].target == go.transform)
                         {
                             targetGroup.m_Targets[i].target = null;
+                            targetGroup.m_Targets[i].weight = 1;
+                            targetGroup.m_Targets[i].radius = 0;
+
                             break;
                         }
 
@@ -124,6 +133,8 @@ public class AñadirQuitarObjetos : MonoBehaviour
             {
                 if (targetGroup.m_Targets[i].target != null)
                 {
+                    targetGroup.m_Targets[i].weight = 1;
+                    targetGroup.m_Targets[i].radius = 0;
                     targetGroup.m_Targets[i].target = null;
 
                 }
