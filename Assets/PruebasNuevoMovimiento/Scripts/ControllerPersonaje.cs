@@ -2602,6 +2602,8 @@ public class ControllerPersonaje : MonoBehaviour
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             dashEnCaida = true;
+                            GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDashCaida, posGround.position, posGround);
+                            GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
                         }
                     }
                     else
@@ -2613,6 +2615,8 @@ public class ControllerPersonaje : MonoBehaviour
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             dashEnCaida = true;
+                            GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDashCaida, posGround.position, posGround);
+                            GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
                         }
                     }
                 }
@@ -2621,6 +2625,7 @@ public class ControllerPersonaje : MonoBehaviour
             else if (grounded)
             {
                 dashEnCaida = false;
+                GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(false);
             }
         }
         else
@@ -2641,6 +2646,8 @@ public class ControllerPersonaje : MonoBehaviour
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                             dashEnCaida = true;
+                            GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDashCaida, posGround.position, posGround);
+                            GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
                         }
                     }
                     else
@@ -2652,6 +2659,9 @@ public class ControllerPersonaje : MonoBehaviour
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                             dashEnCaida = true;
+
+                            GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
+                            
                         }
                     }
                 }
@@ -2660,10 +2670,12 @@ public class ControllerPersonaje : MonoBehaviour
             else if (grounded)
             {
                 dashEnCaida = false;
+                GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(false);
             }
         }
 
         animCC.SetBool("cayendo", dashEnCaida);
+
     }
     void SaltoNormal()
     {
@@ -2799,7 +2811,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                                 //print("saltodoble");
                                 animCC.SetTrigger("DobleSalto");
-                                GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
+                                //GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
                                 saltoDobleHecho = true;
                                 dashEnCaida = false;
                                 estoyDasheando = false;
@@ -2963,7 +2975,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                                 //print("saltodoble");
                                 animCC.SetTrigger("DobleSalto");
-                                GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
+                                //GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
                                 saltoDobleHecho = true;
                                 dashEnCaida = false;
                                 estoyDasheando = false;

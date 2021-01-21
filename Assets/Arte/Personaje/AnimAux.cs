@@ -60,6 +60,10 @@ public class AnimAux : MonoBehaviour
         }
         
     }
+    public void ParticulasDobleSalto()
+    {
+            GetComponentInParent<Particulas>().SpawnParticulas(GetComponentInParent<Particulas>().particulasDobleSalto, suelo.position, suelo);
+    }
     // Update is called once per frame
     void Update()
     {

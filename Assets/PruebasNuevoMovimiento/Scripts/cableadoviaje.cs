@@ -13,7 +13,7 @@ public class cableadoviaje : MonoBehaviour
     public float speedMov = 40;
     public Rigidbody2D m_Rigidbody2D;
     public ControllerPersonaje controllerPersonaje;
-    public SpriteRenderer rendererCuerpo;
+    public GameObject rendererCuerpo;
     public SpriteRenderer rendererViaje;
     public Collider2D colliderNormal;
     public Collider2D colliderViaje;
@@ -24,9 +24,12 @@ public class cableadoviaje : MonoBehaviour
     public GameObject nodoElegido;
     float elapsed;
     PlayerInput Pinput;
+    ParticleSystem ps;
     // Start is called before the first frame update
     void Start()
     {
+        ps = GetComponent<Particulas>().particulasBolaViajeCables.gameObject.GetComponent<ParticleSystem>();
+        ps.gameObject.SetActive(false);
         originalspeed = speedMov;
         originalGravity = m_Rigidbody2D.gravityScale;
         nodos = GameObject.FindGameObjectsWithTag("Nodo");
@@ -37,6 +40,7 @@ public class cableadoviaje : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (viajando)
         {
             controllerPersonaje.saltoBloqueado = true;
@@ -49,8 +53,8 @@ public class cableadoviaje : MonoBehaviour
                 //if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().MoverseCables);
                 m_Rigidbody2D.velocity = Vector2.zero;
                 unavez = true;
-                if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(false);
-                //rendererViaje.enabled = true;
+                if (rendererCuerpo.gameObject != null) rendererCuerpo.gameObject.SetActive(false);
+                rendererViaje.enabled = true;
                 rendererViaje.gameObject.SetActive(true);
                 colliderNormal.enabled = false;
                 GetComponent<VidaPlayer>().enabled = false;
@@ -79,7 +83,11 @@ public class cableadoviaje : MonoBehaviour
                 }*/
 
 
-                rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector2.up, Vector2.left);
+                rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.left);
+                var em = ps.velocityOverLifetime;
+                em.enabled = true;
+                em.x = -8;
+                em.y = 0;
                 for (int i = 0; i < nodos.Length; i++)
                 {
                     if (nodos[i].transform.position.x == nodoActual.transform.position.x && nodos[i].transform.position.y > nodoActual.transform.position.y)
@@ -108,7 +116,11 @@ public class cableadoviaje : MonoBehaviour
                 //}
 
 
-                rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector2.down, Vector2.left);
+                rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.right);
+                var em = ps.velocityOverLifetime;
+                em.enabled = true;
+                em.x = -8;
+                em.y = 0;
                 for (int i = 0; i < nodos.Length; i++)
                 {
                     if (nodos[i].transform.position.x == nodoActual.transform.position.x && nodos[i].transform.position.y < nodoActual.transform.position.y)
@@ -137,7 +149,13 @@ public class cableadoviaje : MonoBehaviour
                 //}
 
 
-                rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector2.right, Vector2.up);
+                rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+
+                var em = ps.velocityOverLifetime;
+                em.enabled = true;
+                em.y = 0;
+                em.x = -8;
+
                 for (int i = 0; i < nodos.Length; i++)
                 {
                     if (nodos[i].transform.position.x > nodoActual.transform.position.x && nodos[i].transform.position.y == nodoActual.transform.position.y)
@@ -168,7 +186,11 @@ public class cableadoviaje : MonoBehaviour
                 //}
 
 
-                rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector2.left, Vector2.up);
+                rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.down);
+                var em = ps.velocityOverLifetime;
+                em.enabled = true;
+                em.x = -8;
+                em.y = 0;
                 for (int i = 0; i < nodos.Length; i++)
                 {
                     if (nodos[i].transform.position.x < nodoActual.transform.position.x && nodos[i].transform.position.y == nodoActual.transform.position.y)
@@ -191,7 +213,8 @@ public class cableadoviaje : MonoBehaviour
             {
                 //transform.position = Vector3.MoveTowards(transform.position, nodoElegido.transform.position, Time.deltaTime * speedMov);
                 controllerPersonaje.rb.velocity = (transform.position - nodoElegido.transform.position).normalized;
-                transform.position = Vector3.MoveTowards(transform.position, nodoElegido.transform.position, Time.deltaTime * speedMov);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(nodoElegido.transform.position.x, nodoElegido.transform.position.y, 0), Time.deltaTime * speedMov);
+                //transform.rotation = Quaternion.Euler(0, 0, 0);
                 GetComponent<Particulas>().particulasViajeCables.SetActive(true);
                 VelocidadViaje();
 
@@ -209,9 +232,10 @@ public class cableadoviaje : MonoBehaviour
                 GetComponent<VidaPlayer>().enabled = true;
                 m_Rigidbody2D.gravityScale = originalGravity;
                 unavez = false;
-                if (rendererCuerpo != null) rendererCuerpo.enabled = true;
+                //if (rendererCuerpo != null) rendererCuerpo.enabled = true;
                 if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
-                //rendererViaje.enabled = false;
+                rendererCuerpo.gameObject.SetActive(true);
+                rendererViaje.enabled = false;
                 rendererViaje.gameObject.SetActive(false);
                 colliderViaje.enabled = false;
                 colliderNormal.enabled = true;
@@ -264,7 +288,7 @@ public class cableadoviaje : MonoBehaviour
                 this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(-2, 0);
                 viajando = false;
             }
-            FindObjectOfType<NewAudioManager>().Play("PlayerCable");
+            //FindObjectOfType<NewAudioManager>().Play("PlayerCable");
 
         }
     }
@@ -298,10 +322,18 @@ public class cableadoviaje : MonoBehaviour
         if (distanciaAlObjetivo == 0)
         {
             GetComponent<Particulas>().particulasViajeCables.SetActive(false);
+
+            GetComponent<Particulas>().particulasBolaViajeCables.gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1);
+            var em = ps.velocityOverLifetime;
+            em.enabled = false;
         }
         else
         {
             GetComponent<Particulas>().particulasViajeCables.SetActive(true);
+
+            GetComponent<Particulas>().particulasBolaViajeCables.gameObject.transform.localScale = new Vector3(1, 1, 1);
+            var em = ps.velocityOverLifetime;
+            em.enabled = true;
 
         }
     }

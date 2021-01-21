@@ -8,6 +8,7 @@ public class Particulas : MonoBehaviour
     public GameObject particulasSalto;
     public GameObject particulasWallJump;
     public GameObject particulasDash;
+    public GameObject particulasDashCaida;
     public GameObject particulasvelMax;
     public GameObject particulasvelMax2;
     public GameObject particulasExplosion;
@@ -16,6 +17,7 @@ public class Particulas : MonoBehaviour
     public GameObject particulasDaño;
     public GameObject particulasDobleSalto;
     public GameObject particulasDobleSaltoInvertido;
+    public GameObject particulasBolaViajeCables;
 
     // Start is called before the first frame update
     void Start()
