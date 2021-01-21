@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class EnemigoEmbestida2 : MonoBehaviour
 {
@@ -10,7 +12,8 @@ public class EnemigoEmbestida2 : MonoBehaviour
         Perseguir,
         Embestir,
         //Idle,
-        Muerte
+        Muerte,
+        Stun
     }
     public bool reciengolpeado = false;
     bool grounded = true;
@@ -21,6 +24,8 @@ public class EnemigoEmbestida2 : MonoBehaviour
     public float rangoAtaque = 3f;
     public float speedembestida = 6f;
     public float speedactualembestida;
+    public float cdEmbestida = 2f;
+    [SerializeField] float auxCdEmbestida;
     public States estado;
     int lastpos;
     public Transform[] puntosPatrulla;
@@ -35,20 +40,57 @@ public class EnemigoEmbestida2 : MonoBehaviour
     public float speed = 2;
     GameObject player;
     Animator anim;
+    public float tiempoStun = 2f;
+    public float auxTiempoStun;
+    public bool stun = false;
+
    
+    public List<Light2D> luces;
+
     // Start is called before the first frame update
     void Start()
     {
         speedactualembestida = speedembestida;
         estado = States.Andar;
         SetRandomPoint();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = FindObjectOfType<ControllerPersonaje>().gameObject;
         anim = GetComponentInChildren<Animator>();
+        Light2D[] hijos = this.GetComponentsInChildren<Light2D>();
+        foreach (Light2D go in hijos)
+        {
+            if (luces != null) luces.Add(go);
+        }
     }
+    public void Stun()
+    {
 
+        stun = true;
+        
+        foreach (Light2D go in luces)
+        {   
+            go.gameObject.SetActive(false);
+          
+        }
+            auxTiempoStun = tiempoStun;
+
+    }
     // Update is called once per frame
     void Update()
     {
+        if (auxCdEmbestida > 0)
+        {
+            auxCdEmbestida -= Time.deltaTime;
+            if (auxCdEmbestida <= 0)
+            {
+                auxCdEmbestida = 0;
+            }
+        }
+        if (stun == true)
+        {
+            estado = States.Stun;
+
+
+        }
         if (reciengolpeado == false)
         {
 
@@ -83,12 +125,37 @@ public class EnemigoEmbestida2 : MonoBehaviour
         {
             cuerpo.transform.localScale = new Vector3(-1, 1, 1);
         }
+        if (estado == States.Stun)
+        {
+
+            anim.SetBool("Idle", true);
+            anim.SetBool("Andar", false);
+            anim.SetBool("Atacar", false);
+            anim.SetBool("Chase", false);
+            if (auxTiempoStun > 0)
+            {
+                auxTiempoStun -= Time.deltaTime;
+                if (auxTiempoStun <= 0)
+                {
+                    auxTiempoStun = 0;
+                    estado = States.Andar;
+                    
+                    foreach (Light2D go in luces)
+                    {
+                        go.gameObject.SetActive(true);
+
+                    }
+                    stun = false;
+                }
+            }
+        }
         if (estado == States.Andar)
         {
-            anim.SetBool("Andar", true);
             anim.SetBool("Idle", false);
             anim.SetBool("Atacar", false);
             anim.SetBool("Chase", false);
+            anim.SetBool("Andar", true);
+
             this.transform.Translate((posicionDestino - this.transform.position).normalized * Time.deltaTime * speed);
             if (posicionDestino.x < this.transform.position.x)
             {
@@ -182,19 +249,19 @@ public class EnemigoEmbestida2 : MonoBehaviour
         {
 
 
-            if ((player.transform.position.y > this.transform.position.y - 1) && (player.transform.position.y < this.transform.position.y + 1))
+            if ((player.transform.position.y > this.transform.position.y - 3) && (player.transform.position.y < this.transform.position.y + 3))
             {
                 if (Vector3.Distance(player.transform.position, this.transform.position) < rangoAtaque)
                 {
                     if (reciengolpeado == false)
                     {
-                        if (mirandoDerecha == true)
+                        if (Mathf.Sign((this.transform.position - player.transform.position).x) <= 0)
                         {
-                            posicionDestino = new Vector3(player.transform.position.x + 6f, this.transform.position.y, this.transform.position.z);
+                            posicionDestino = new Vector3(player.transform.position.x + 8f, this.transform.position.y, this.transform.position.z);
                         }
                         else
                         {
-                            posicionDestino = new Vector3(player.transform.position.x - 6f, this.transform.position.y, this.transform.position.z);
+                            posicionDestino = new Vector3(player.transform.position.x - 8f, this.transform.position.y, this.transform.position.z);
                         }
                         if ((player.transform.position.x < maxPuntoPatrullaIzq.transform.position.x) || (player.transform.position.x > maxPuntoPatrullaDer.transform.position.x))
                         {
@@ -205,8 +272,12 @@ public class EnemigoEmbestida2 : MonoBehaviour
                         }
                         else
                         {
-                            print("estadoembestir");
-                            estado = States.Embestir;
+                            if (auxCdEmbestida <= 0)
+                            {
+                                print("estadoembestir");
+                                auxCdEmbestida = cdEmbestida;
+                                estado = States.Embestir;
+                            }
                         }
 
                     }
@@ -218,13 +289,13 @@ public class EnemigoEmbestida2 : MonoBehaviour
                     {
 
 
-                        if (mirandoDerecha == true)
+                        if (Mathf.Sign((this.transform.position - player.transform.position).x) <= 0)
                         {
-                            posicionDestino = new Vector3(player.transform.position.x + 3.5f, this.transform.position.y, this.transform.position.z);
+                            posicionDestino = new Vector3(player.transform.position.x + 4f, this.transform.position.y, this.transform.position.z);
                         }
                         else
                         {
-                            posicionDestino = new Vector3(player.transform.position.x - 3.5f, this.transform.position.y, this.transform.position.z);
+                            posicionDestino = new Vector3(player.transform.position.x - 4f, this.transform.position.y, this.transform.position.z);
                         }
                         if ((player.transform.position.x < maxPuntoPatrullaIzq.transform.position.x) || (player.transform.position.x > maxPuntoPatrullaDer.transform.position.x))
                         {
@@ -236,7 +307,11 @@ public class EnemigoEmbestida2 : MonoBehaviour
                         else
                         {
                             print("estadoeperseguirr");
-                            estado = States.Perseguir;
+                            if (auxCdEmbestida <= 0)
+                            {
+                                estado = States.Perseguir;
+                            }
+
                         }
                     }
 
@@ -351,7 +426,22 @@ public class EnemigoEmbestida2 : MonoBehaviour
     }
     public void SigPunto()
     {
+        //float dist = 0;
+        //Vector2 dest;
+        //dest = puntosPatrulla[1].position;
+        //foreach (Transform go in puntosPatrulla)
+        //{
+        //    if (Vector2.Distance(this.transform.position, go.position) > dist)
+        //    {
+        //        dist = Vector2.Distance(this.transform.position, go.position);
+        //        dest = go.position;
+        //    }
+        //    else
+        //    {
 
+        //    }
+        //}
+        //posicionDestino = dest;
         if ((lastpos + 1) >= puntosPatrulla.Length)
         {
             lastpos = -1;
@@ -359,6 +449,7 @@ public class EnemigoEmbestida2 : MonoBehaviour
         posicionDestino = new Vector3(puntosPatrulla[lastpos + 1].transform.position.x, this.transform.position.y, this.transform.position.z);
         lastpos += 1;
         aux = Random.Range(mintiempoIdle, maxtiempoIdle);
+        if (auxCdEmbestida > 0) estado = States.Andar;
         //estado = States.Idle;
 
     }
@@ -397,8 +488,15 @@ public class EnemigoEmbestida2 : MonoBehaviour
             //    estado = States.Idle;
 
             //}
+            if (estado == States.Embestir)
+            {
+                if (Vector3.Distance(posicionDestino, this.transform.position) <= 1f)
+                {
+                    SigPunto();
+                }
 
-            if (Vector3.Distance(posicionDestino, this.transform.position) <= 0.3f)
+            }
+            else if (Vector3.Distance(posicionDestino, this.transform.position) <= 0.3f)
             {
                 SetRandomPoint();
                 speedactualembestida = speedembestida;

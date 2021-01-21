@@ -6,9 +6,11 @@ public class MovimientoEnemigoVolador : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] Transform[] puntosPersonaje;
-    bool arrived = false;
-    int indexArray;
-
+ public   bool arrived = false;
+   public int indexArray;
+    public float tiempoStun = 2f;
+    public float auxTiempoStun;
+    public bool stun = false;
     [SerializeField] float tiempoEspera;
 
 
@@ -16,35 +18,63 @@ public class MovimientoEnemigoVolador : MonoBehaviour
     void Start()
     {
         indexArray = 0;
-       
+
     }
 
+    public void Stun()
+    {
+
+        stun = true;
+
+
+        auxTiempoStun = tiempoStun;
+
+    }
     // Update is called once per frame
     void Update()
     {
-
-      
-        if (Vector3.Distance(this.transform.position, puntosPersonaje[indexArray].position) > 1 && !arrived)
+        if (stun == true)
         {
-            this.transform.Translate((puntosPersonaje[indexArray].position - this.transform.position).normalized * Time.deltaTime * speed);
-           
+            if (auxTiempoStun > 0)
+            {
+                auxTiempoStun -= Time.deltaTime;
+                if (auxTiempoStun <= 0)
+                {
+                    auxTiempoStun = 0;
+
+
+
+                    stun = false;
+                }
+            }
         }
         else
         {
-            if (indexArray < puntosPersonaje.Length - 1)
+
+
+
+            if (Vector3.Distance(this.transform.position, puntosPersonaje[indexArray].position) > 1 && !arrived)
             {
-                arrived = true;
-                indexArray++;              
-                StartCoroutine("Wait");
-                
+                this.transform.Translate((puntosPersonaje[indexArray].position - this.transform.position).normalized * Time.deltaTime * speed);
+
             }
             else
             {
-                arrived = true;
-                indexArray = 0;              
-                StartCoroutine("Wait");
-                
+                if (indexArray < puntosPersonaje.Length - 1)
+                {
+                    arrived = true;
+                    indexArray++;
+                    StartCoroutine("Wait");
 
+                }
+                else
+                {
+                    arrived = true;
+                    indexArray = 0;
+                    StartCoroutine("Wait");
+
+
+                }
             }
         }
     }
@@ -55,11 +85,11 @@ public class MovimientoEnemigoVolador : MonoBehaviour
         arrived = false;
     }
 
- 
 
 
 
- 
+
+
 }
 
 
