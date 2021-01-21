@@ -20,10 +20,16 @@ public class CambioTanque : MonoBehaviour
     void Update()
     {
         timer += 1 * Time.deltaTime;
+        if (timer > 2.5f)
+        {
+            NucleoAnim.SetTrigger("Explota");
+        }
         if (timer > tiempoDeCambio)
         {
+            NucleoAnim.SetTrigger("Roto");
             TanqueNormal.SetActive(false);
             TanqueRoto.SetActive(true);
+            
         }
     }
 }

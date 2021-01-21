@@ -27,9 +27,9 @@ public class DesaparecerPersonaje : MonoBehaviour
         if (timer > 15.5f)
         {
             if(Vector2.Distance(transform.position, puntoOrdenador.position) >.5f)
-            this.gameObject.transform.Translate(new Vector3 (puntoOrdenador.position.x,0,0) * 0.08f * Time.deltaTime);
+            this.gameObject.transform.Translate(new Vector3 (puntoOrdenador.position.x,0,0) * 0.2f * Time.deltaTime);
         }
-        if (/*transform.position == new Vector3(puntoOrdenador.position.x, transform.position.y, transform.position.z)*/ timer > 31f)
+        if (/*transform.position == new Vector3(puntoOrdenador.position.x, transform.position.y, transform.position.z)*/ timer > 24.5f)
         {
             PersonajeTrailerAnim.SetTrigger("Idle");
         }
