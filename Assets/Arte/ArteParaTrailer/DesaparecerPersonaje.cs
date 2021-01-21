@@ -24,12 +24,12 @@ public class DesaparecerPersonaje : MonoBehaviour
 
             cuerpo.SetActive(true);
         }
-        if (timer > 15.5f)
+        if (timer > 15f)
         {
             if(Vector2.Distance(transform.position, puntoOrdenador.position) >.5f)
-            this.gameObject.transform.Translate(new Vector3 (puntoOrdenador.position.x,0,0) * 0.2f * Time.deltaTime);
+            this.gameObject.transform.Translate(new Vector3 (puntoOrdenador.position.x,0,0) * 0.3f * Time.deltaTime);
         }
-        if (/*transform.position == new Vector3(puntoOrdenador.position.x, transform.position.y, transform.position.z)*/ timer > 24.5f)
+        if (/*transform.position == new Vector3(puntoOrdenador.position.x, transform.position.y, transform.position.z)*/ timer > 19.5f)
         {
             PersonajeTrailerAnim.SetTrigger("Idle");
         }
