@@ -47,7 +47,6 @@ public class ParticulasBoss : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        print(collision.name);
         if (collision.gameObject.tag == "Boss")
         {
             activarParticulas = true;
