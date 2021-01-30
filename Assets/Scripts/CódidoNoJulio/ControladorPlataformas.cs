@@ -29,7 +29,7 @@ public class ControladorPlataformas : MonoBehaviour
     void Update()
     {
 
-      
+
         if (secuenciaPlat)
         {
 
@@ -51,6 +51,27 @@ public class ControladorPlataformas : MonoBehaviour
 
                                 objetosActivados[posicionArray].GetComponent<PlataformaND1>().nextPos = objetosActivados[posicionArray].GetComponent<PlataformaND1>().startPos.transform.position;
                                 objetosActivados[posicionArray].GetComponent<PlataformaND1>().auxtiempoParada = objetosActivados[posicionArray].GetComponent<PlataformaND1>().tiempoParada;
+                                if (posicionArray < objetosActivados.Length - 1)
+                                {
+
+
+                                    posicionArray++;
+                                    auxTiempoEntre = tiempoEntrePlataformas;
+                                }
+                                else
+                                {
+                                    activadoBool = false;
+                                }
+
+
+                            }
+                            else if (objetosActivados[posicionArray].GetComponent<PlataformaDron>() != null)
+                            {
+                                //print("no null componente platf");
+                                objetosActivados[posicionArray].GetComponent<PlataformaDron>().transform.position = objetosActivados[posicionArray].GetComponent<PlataformaDron>().startPos.position;
+
+                                objetosActivados[posicionArray].GetComponent<PlataformaDron>().nextPos = objetosActivados[posicionArray].GetComponent<PlataformaDron>().startPos.transform.position;
+                                objetosActivados[posicionArray].GetComponent<PlataformaDron>().auxtiempoParada = objetosActivados[posicionArray].GetComponent<PlataformaDron>().tiempoParada;
                                 if (posicionArray < objetosActivados.Length - 1)
                                 {
 
@@ -122,6 +143,15 @@ public class ControladorPlataformas : MonoBehaviour
 
                         go.GetComponent<PlataformaND1>().nextPos = go.GetComponent<PlataformaND1>().startPos.transform.position;
                         go.GetComponent<PlataformaND1>().auxtiempoParada = go.GetComponent<PlataformaND1>().tiempoParada;
+                    }
+                    else if (go.GetComponent<PlataformaND1>() != null)
+                    {
+
+                        go.GetComponent<PlataformaDron>().transform.position = go.GetComponent<PlataformaDron>().startPos.position;
+
+                        go.GetComponent<PlataformaDron>().nextPos = go.GetComponent<PlataformaDron>().startPos.transform.position;
+                        go.GetComponent<PlataformaDron>().auxtiempoParada = go.GetComponent<PlataformaDron>().tiempoParada;
+
                     }
 
                 }

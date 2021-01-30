@@ -34,7 +34,7 @@ public class Nodo : MonoBehaviour
         {
             if (GameObject.FindGameObjectWithTag("Player") != null) if ((Vector2.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, this.transform.position) < 5) && (GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().viajando == false))
                 {
-                    cartel.gameObject.SetActive(true);
+                  if(cartel!=null)  cartel.gameObject.SetActive(true);
 
                     //if (Input.GetButtonDown("Interact")|| GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
                     if (Input.GetButtonDown("Interact") && GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick == null)
