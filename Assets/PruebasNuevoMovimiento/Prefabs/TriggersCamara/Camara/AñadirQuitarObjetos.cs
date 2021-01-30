@@ -8,7 +8,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
     CinemachineVirtualCamera cinemakina;
     CinemachineTargetGroup targetGroup;
     [Header("TIPOS")]
-    public bool añadirObjetos=false;
+    public bool añadirObjetos = false;
     public bool quitarObjetos = false;
     public bool dejarSoloPlayer = false;
     public bool enfocarObjetoSolo = false;
@@ -32,7 +32,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
     public GameObject[] objetosEnfocadosSecuencia;
     public float tiempoEntreEnfoquesSecuencia = 3f;
     float auxTiempoSecuenciaEnfoques;
-  
+
 
 
     public GameObject[] objAñadir;
@@ -77,11 +77,11 @@ public class AñadirQuitarObjetos : MonoBehaviour
                     else
                     {
                         targetGroup.m_Targets[i].target = go.transform;
-                       
-                        if (pesoObjAñadir.Length>0) if (pesoObjAñadir[i-1] != 0) targetGroup.m_Targets[i ].weight = pesoObjAñadir[i-1];
+
+                        if (pesoObjAñadir.Length > 0) if (pesoObjAñadir[i - 1] != 0) targetGroup.m_Targets[i].weight = pesoObjAñadir[i - 1];
                         if (radioObjAñadir.Length > 0) if (radioObjAñadir[i - 1] != 0) targetGroup.m_Targets[i].radius = radioObjAñadir[i - 1];
                         break;
-                     
+
                     }
                 }
             }
@@ -125,7 +125,8 @@ public class AñadirQuitarObjetos : MonoBehaviour
     {
         for (int i = 0; i < targetGroup.m_Targets.Length; i++)
         {
-            if (i == 0) {
+            if (i == 0)
+            {
                 targetGroup.m_Targets[0].target = player.transform;
                 targetGroup.m_Targets[0].weight = 3;
             }
@@ -140,7 +141,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
                 }
             }
         }
-        
+
         player.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
         FindObjectOfType<CameraZoom>().soloplayer = true;
         FindObjectOfType<CameraZoom>().limitarDistancia = false;
@@ -270,16 +271,16 @@ public class AñadirQuitarObjetos : MonoBehaviour
             {
                 DejarSoloPlayer();
             }
-
-            if (añadirObjetos)
-            {
-                AñadirObj();
-            }
             if (quitarObjetos)
             {
                 QuitarObj();
 
             }
+            if (añadirObjetos)
+            {
+                AñadirObj();
+            }
+
 
             if (enfocarObjetoSolo && timerSoloInicio == false)
             {

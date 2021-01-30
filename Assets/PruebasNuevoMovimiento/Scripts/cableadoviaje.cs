@@ -234,7 +234,7 @@ public class cableadoviaje : MonoBehaviour
                 unavez = false;
                 //if (rendererCuerpo != null) rendererCuerpo.enabled = true;
                 if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
-                rendererCuerpo.gameObject.SetActive(true);
+                //rendererCuerpo.gameObject.SetActive(true);
                 rendererViaje.enabled = false;
                 rendererViaje.gameObject.SetActive(false);
                 colliderViaje.enabled = false;
@@ -310,9 +310,9 @@ public class cableadoviaje : MonoBehaviour
             speedMov = originalspeed * 6f;
 
         }
-        else if (distanciaEntreNodos * 0.2 > distanciaAlObjetivo)
+        else if (distanciaEntreNodos * 0.1 > distanciaAlObjetivo)
         {
-            speedMov = originalspeed * 0.4f;
+            speedMov = originalspeed * 0.8f*Mathf.Clamp(distanciaAlObjetivo,0.9f,1.1f);
 
         }
         else

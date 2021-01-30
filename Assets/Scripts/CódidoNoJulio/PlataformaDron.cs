@@ -52,13 +52,13 @@ public class PlataformaDron : MonoBehaviour
             
             if (auxtiempoParada <= 0)
             {
-                GetComponentInChildren<Animator>().SetBool("Activado", false);
+                GetComponentInChildren<Animator>().SetBool("Activado", true);
                 nextPos = pos1.position;
                 vuelta = true;
             }
             else
             {
-                GetComponentInChildren<Animator>().SetBool("Activado", true);
+                GetComponentInChildren<Animator>().SetBool("Activado", false);
             }
         }
 
