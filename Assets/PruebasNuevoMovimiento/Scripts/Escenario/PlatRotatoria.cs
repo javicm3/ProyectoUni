@@ -15,8 +15,8 @@ public class PlatRotatoria : MonoBehaviour
     public float velocidadRotacion = 30f;
     float rotacioninicialZ;
     public float aux;
-    public AudioClip clip;
-    public AudioSource source;
+    //public AudioClip clip;
+    //public AudioSource source;
     public GameObject player;
     bool ladopinchos = false;
 
@@ -26,8 +26,8 @@ public class PlatRotatoria : MonoBehaviour
         player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
         rotacioninicialZ = this.transform.rotation.z;
         aux = rotacioninicialZ;
-        source = this.GetComponent<AudioSource>();
-        source.clip = clip;
+        //source = this.GetComponent<AudioSource>();
+        //source.clip = clip;
         tiempoEntreGiros = tiempoEntreGirosSiPinchosArriba;
         
     }
@@ -44,14 +44,14 @@ public class PlatRotatoria : MonoBehaviour
             {
                 this.transform.Rotate(0, 0, rotacioninicialZ + velocidadRotacion);
 
-                GetComponent<AudioSource>().PlayOneShot(clip);
+                //GetComponent<AudioSource>().PlayOneShot(clip);
                 //StartCoroutine(PararAudio(0.3f));
                 aux += velocidadRotacion;
             }
             else
             {
 
-                GetComponent<AudioSource>().Stop();
+                //GetComponent<AudioSource>().Stop();
                 aux -= 180;
                 ladopinchos = !ladopinchos;
                 if (ladopinchos)
@@ -73,7 +73,7 @@ public class PlatRotatoria : MonoBehaviour
         else
         {
             auxtiempoEntreGiros -= Time.deltaTime;
-            GetComponent<AudioSource>().Stop();
+            //GetComponent<AudioSource>().Stop();
        
         }
 
@@ -81,11 +81,11 @@ public class PlatRotatoria : MonoBehaviour
 
 
     }
-    public IEnumerator PararAudio(float tiempo)
-    {
-        yield return new WaitForSeconds(tiempo);
+    //public IEnumerator PararAudio(float tiempo)
+    //{
+    //    yield return new WaitForSeconds(tiempo);
 
-    }
+    //}
     private void OnCollisionStay2D(Collision2D collision)
     {
 
