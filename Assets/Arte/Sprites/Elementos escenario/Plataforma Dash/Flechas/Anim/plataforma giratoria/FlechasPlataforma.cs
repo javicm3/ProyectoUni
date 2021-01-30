@@ -5,6 +5,7 @@ using UnityEngine;
 public class FlechasPlataforma : MonoBehaviour
 {
     [SerializeField] GameObject scriptPlataforma;
+    public bool abajo = false;
     Animator animPantalla;
     // Start is called before the first frame update
     void Start()
@@ -16,9 +17,17 @@ public class FlechasPlataforma : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (scriptPlataforma.GetComponent<PlataformaND1>().vuelta) 
+        if (scriptPlataforma.GetComponent<PlataformaND1>().vuelta)
         {
-            animPantalla.SetBool("Activado", true);
+            if (abajo == false)
+            {
+                animPantalla.SetBool("Activado", true);
+            }
+            else
+            {
+                animPantalla.SetBool("Activado", false);
+            }
+
 
         }
 

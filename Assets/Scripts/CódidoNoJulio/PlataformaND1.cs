@@ -49,7 +49,7 @@ public class PlataformaND1 : MonoBehaviour
             {
                 auxtiempoParada -= Time.deltaTime;
             }
-
+            if (this.gameObject.GetComponentInChildren<FlechasPlataforma>() != null) this.gameObject.GetComponentInChildren<FlechasPlataforma>().abajo = false;
             if (auxtiempoParada <= 0)
             {
                 nextPos = pos1.position;
@@ -67,6 +67,7 @@ public class PlataformaND1 : MonoBehaviour
                 if (vuelta == true)
                 {
                     nextPos = pos2.position;
+                    if (this.gameObject.GetComponentInChildren<FlechasPlataforma>() != null) this.gameObject.GetComponentInChildren<FlechasPlataforma>().abajo = true;
                     //if (FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent != null) FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent = null;
 
                     //vuelta = false;
