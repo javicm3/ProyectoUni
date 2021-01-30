@@ -317,6 +317,7 @@ public class VidaPlayer : MonoBehaviour
         }
         if(collision.gameObject.tag == "Boss")
         {
+            this.gameObject.transform.parent = null;
             GetComponent<VidaPlayer>().RecibirDaño(GetComponent<VidaPlayer>().vidaActual, collision.gameObject.transform.position, this.transform.position);
         }
         //if (collision.gameObject.tag == "EnemigoEmbestida")
