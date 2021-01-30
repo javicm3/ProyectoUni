@@ -18,6 +18,10 @@ public class AñadirQuitarObjetos : MonoBehaviour
     public bool bloqueaMovimiento = false;
     public bool limitaDistanciaMax = false;
     public float distanciaMaxLimite = 50f;
+    
+    public bool ignorarSiVieneXDerecha = false;
+    public bool ignorarSiVieneXIzquierda = false;
+
     [Header("Timers y Objetos")]
     [Header("Un objeto enfocado x tiempo")]
     public GameObject objetoEnfocadoSolo;
@@ -78,7 +82,14 @@ public class AñadirQuitarObjetos : MonoBehaviour
                     {
                         targetGroup.m_Targets[i].target = go.transform;
 
-                        if (pesoObjAñadir.Length > 0) if (pesoObjAñadir[i - 1] != 0) targetGroup.m_Targets[i].weight = pesoObjAñadir[i - 1];
+                        if (pesoObjAñadir.Length > 0)
+                        {
+                            if (pesoObjAñadir[i - 1] != 0)
+                            {
+                                targetGroup.m_Targets[i].weight = pesoObjAñadir[i - 1];
+
+                            }
+                        }
                         if (radioObjAñadir.Length > 0) if (radioObjAñadir[i - 1] != 0) targetGroup.m_Targets[i].radius = radioObjAñadir[i - 1];
                         break;
 
@@ -267,39 +278,87 @@ public class AñadirQuitarObjetos : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (dejarSoloPlayer)
+            if (collision.gameObject.transform.position.x > this.transform.position.x)
             {
-                DejarSoloPlayer();
-            }
-            if (quitarObjetos)
-            {
-                QuitarObj();
+                if (!ignorarSiVieneXDerecha)
+                {
+                    if (dejarSoloPlayer)
+                    {
+                        DejarSoloPlayer();
+                    }
+                    if (quitarObjetos)
+                    {
+                        QuitarObj();
 
-            }
-            if (añadirObjetos)
-            {
-                AñadirObj();
-            }
+                    }
+                    if (añadirObjetos)
+                    {
+                        AñadirObj();
+                    }
 
 
-            if (enfocarObjetoSolo && timerSoloInicio == false)
-            {
-                EnfocarObjSolo(); ;
+                    if (enfocarObjetoSolo && timerSoloInicio == false)
+                    {
+                        EnfocarObjSolo(); ;
+                    }
+                    if (enfocarVariosObjetos && timerVariosInicio == false)
+                    {
+                        EnfocarVariosObj();
+                    }
+                    if (enfocarSecuenciaObjetos && timerSecuencialInicio == false)
+                    {
+                        EnfocarSecuenciaObj();
+                    }
+                    if (bloqueaMovimiento)
+                    {
+                        player.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
+                        player.GetComponent<ControllerPersonaje>().rb.velocity = Vector3.zero;
+                    }
+                    if (seDestruyeTrasTocarlo) Destroy(this.gameObject);
+                }
+               
             }
-            if (enfocarVariosObjetos && timerVariosInicio == false)
+            else
             {
-                EnfocarVariosObj();
+                if (!ignorarSiVieneXIzquierda)
+                {
+                    if (dejarSoloPlayer)
+                    {
+                        DejarSoloPlayer();
+                    }
+                    if (quitarObjetos)
+                    {
+                        QuitarObj();
+
+                    }
+                    if (añadirObjetos)
+                    {
+                        AñadirObj();
+                    }
+
+
+                    if (enfocarObjetoSolo && timerSoloInicio == false)
+                    {
+                        EnfocarObjSolo(); ;
+                    }
+                    if (enfocarVariosObjetos && timerVariosInicio == false)
+                    {
+                        EnfocarVariosObj();
+                    }
+                    if (enfocarSecuenciaObjetos && timerSecuencialInicio == false)
+                    {
+                        EnfocarSecuenciaObj();
+                    }
+                    if (bloqueaMovimiento)
+                    {
+                        player.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
+                        player.GetComponent<ControllerPersonaje>().rb.velocity = Vector3.zero;
+                    }
+                    if (seDestruyeTrasTocarlo) Destroy(this.gameObject);
+                }
             }
-            if (enfocarSecuenciaObjetos && timerSecuencialInicio == false)
-            {
-                EnfocarSecuenciaObj();
-            }
-            if (bloqueaMovimiento)
-            {
-                player.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
-                player.GetComponent<ControllerPersonaje>().rb.velocity = Vector3.zero;
-            }
-            if (seDestruyeTrasTocarlo) Destroy(this.gameObject);
+
+           
         }
     }
 }
