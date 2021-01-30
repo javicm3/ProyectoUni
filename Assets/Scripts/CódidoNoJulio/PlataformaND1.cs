@@ -91,11 +91,12 @@ public class PlataformaND1 : MonoBehaviour
             //nextPos = pos2.position;
             if (!verticales)
             {
+                if (this.gameObject.GetComponentInChildren<FlechasPlataforma>() != null) this.gameObject.GetComponentInChildren<FlechasPlataforma>().abajo = false;
                 if (vuelta == true)
                 {
                     nextPos = pos2.position;
                     if (FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent != null) FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent = null;
-
+                   
                     vuelta = false;
                     this.transform.position = startPos.position;
                     transform.gameObject.SetActive(false);

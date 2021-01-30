@@ -17,8 +17,7 @@ public class FlechasPlataforma : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (scriptPlataforma.GetComponent<PlataformaND1>().vuelta)
-        {
+      
             if (abajo == false)
             {
                 animPantalla.SetBool("Activado", true);
@@ -29,7 +28,7 @@ public class FlechasPlataforma : MonoBehaviour
             }
 
 
-        }
+        
 
         //if (scriptPlataforma.GetComponent<PlataformaND1>().vuelta && scriptPlataforma.GetComponent<PlataformaND1>().verticales == false)
         //{
