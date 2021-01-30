@@ -246,6 +246,23 @@ public class PlayerInput : MonoBehaviour
                     personajeInvertido = true;
                 }
             }
+            else if ((!cp.grounded) )
+            {
+                if (rb.velocity.x > 0.05f)
+                {
+                    particulasVelMax.localScale = new Vector2(1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = false;
+                }
+                else if (rb.velocity.x < 0.05f)
+                {
+                    particulasVelMax.localScale = new Vector2(-1, 1);
+                    transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
+                    //GetComponent<ControllerPersonaje>().VFX.transform.localScale *= new Vector2(-1, 1);
+                    personajeInvertido = true;
+                }
+            }
 
             /*else if ((inputHorizontal == 0)&& (cp.lastJumpPared == true)){*/
 
