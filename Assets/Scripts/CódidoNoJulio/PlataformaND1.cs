@@ -41,7 +41,11 @@ public class PlataformaND1 : MonoBehaviour
 
             vuelta = false;
             this.transform.position = startPos.position;
-            transform.gameObject.SetActive(false);
+            if (gameObject.GetComponentInChildren<ControllerPersonaje>()!=null)
+            {
+                gameObject.GetComponentInChildren<ControllerPersonaje>().gameObject.transform.parent = null;
+            }
+            this.transform.gameObject.SetActive(false);
         }
         if (Vector2.Distance(this.transform.position,startPos.position)<=0.05)
         {
@@ -144,7 +148,7 @@ public class PlataformaND1 : MonoBehaviour
         {
             if (collision.gameObject.transform.parent == this.transform)
             {
-                collision.gameObject.transform.parent = null;
+                collision.gameObject.transform.parent=null;
             }
         }
     }
