@@ -14,10 +14,12 @@ public class DisparosBOSS : MonoBehaviour
     public float min = -30;
     public float max = 30;
     public Transform puntoDisparo;
+    public Transform puntoParticulas;
     public bool disparando;
     public float auxTiempoEntreBalas;
-   public  int posicionArray = 0;
-   public  int posicionArray2 = 0;
+    public int posicionArray = 0;
+    public int posicionArray2 = 0;
+    public GameObject particulasBoss;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +40,7 @@ public class DisparosBOSS : MonoBehaviour
                 if (auxTiempoEntreBalas <= 0)
                 {
                     Instantiate(balaRapida, puntoDisparo.position, Quaternion.identity);
+                    Instantiate(particulasBoss, puntoParticulas.position, particulasBoss.transform.rotation);
                     balaRapida.GetComponent<BalaBoss>().objetivo = targets[posicionArray].position;
                     auxTiempoEntreBalas += tiempoEntreBalasPrimeras;
                     posicionArray++;
@@ -55,6 +58,7 @@ public class DisparosBOSS : MonoBehaviour
                     {
                         Vector3 objetivoAux = RandomVector2(min,max);
                         Instantiate(bala, puntoDisparo.position, Quaternion.identity);
+                        Instantiate(particulasBoss, puntoParticulas.position, particulasBoss.transform.rotation);
                         bala.GetComponent<BalaBoss>().objetivo = objetivoAux;
                         Instantiate(bala, puntoDisparo.position, Quaternion.identity);
                         bala.GetComponent<BalaBoss>().objetivo = objetivoAux + new Vector3(0, 50, 0);
