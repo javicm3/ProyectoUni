@@ -137,7 +137,7 @@ PrefabInstance:
     - target: {fileID: 1306719878907334300, guid: 6bbee1429f57f6c44976d50e5f8fd8f7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 1306719878907334300, guid: 6bbee1429f57f6c44976d50e5f8fd8f7,
         type: 3}
@@ -451,6 +451,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 1
   distanciaMaxLimite: 45
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -2242,6 +2244,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -2333,6 +2337,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -3148,6 +3154,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -3572,6 +3580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptPlataforma: {fileID: 1238336052}
+  abajo: 0
 --- !u!212 &127064140
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3905,6 +3914,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -5930,7 +5941,7 @@ EdgeCollider2D:
   - {x: -27.506317, y: -16.960846}
   - {x: -27.844349, y: -11.127818}
   - {x: -28.7814, y: -6.10321}
-  - {x: -30.225246, y: -1.8268255}
+  - {x: -30.225246, y: -1.8268256}
   - {x: -32.083633, y: 1.761529}
   - {x: -34.264328, y: 4.7220483}
   - {x: -36.67511, y: 7.114927}
@@ -5942,7 +5953,7 @@ EdgeCollider2D:
   - {x: -50.80605, y: 12.922659}
   - {x: -52.244705, y: 13.027509}
   - {x: -53.17554, y: 13.046275}
-  - {x: -53.506313, y: 13.039154}
+  - {x: -53.506317, y: 13.039154}
   - {x: -53.519646, y: 13.038867}
 --- !u!114 &198548441
 MonoBehaviour:
@@ -6057,8 +6068,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 3153466ae91703a4690a1b9f302bea94, type: 3}
   - {fileID: 21300000, guid: e329881c0c5059249a8bd1a568905874, type: 3}
   m_LocalAABB:
-    m_Center: {x: -26.781635, y: -16.953976, z: -0.00005}
-    m_Extent: {x: 26.781635, y: 32.02692, z: 0.00005}
+    m_Center: {x: -26.781643, y: -16.953976, z: -0.00005}
+    m_Extent: {x: 26.781643, y: 32.02692, z: 0.00005}
 --- !u!1001 &208801197
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8079,6 +8090,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -11024,6 +11037,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -12093,6 +12108,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -12185,6 +12202,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -13980,6 +13999,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -14796,6 +14817,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -16042,6 +16065,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -19179,6 +19204,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -19967,6 +19994,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 1
   distanciaMaxLimite: 100
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -21435,6 +21464,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -23168,6 +23199,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 1
   distanciaMaxLimite: 60
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -24732,6 +24765,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -26993,6 +27028,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -27961,7 +27998,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907730140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -247.5, y: 1.4, z: -10}
+  m_LocalPosition: {x: -247.5, y: 1.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -28111,6 +28148,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -28356,7 +28395,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919349846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -247.5, y: 1.4, z: 0}
+  m_LocalPosition: {x: -247.5, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -29790,6 +29829,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -30362,6 +30403,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -34067,6 +34110,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -35231,6 +35276,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 1
   distanciaMaxLimite: 55
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -35803,6 +35850,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -37762,6 +37811,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -39250,6 +39301,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -39694,6 +39747,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -41964,7 +42019,7 @@ PrefabInstance:
     - target: {fileID: 2098227749811648925, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 2098227749811648925, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
@@ -42308,6 +42363,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -43542,6 +43599,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -45380,6 +45439,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -47614,8 +47675,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: ccb7a9b4b492c2f448db7e6c2798089b, type: 3}
   - {fileID: 21300000, guid: 1858b09430f225d4ba7fa9aa9ed159ba, type: 3}
   m_LocalAABB:
-    m_Center: {x: -4.1792707, y: -5.4409, z: -0.00005}
-    m_Extent: {x: 4.1792707, y: 10.78638, z: 0.00005}
+    m_Center: {x: -4.1792703, y: -5.4409, z: -0.00005}
+    m_Extent: {x: 4.1792703, y: 10.78638, z: 0.00005}
 --- !u!4 &1572761828
 Transform:
   m_ObjectHideFlags: 0
@@ -49041,6 +49102,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 1
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -50225,6 +50288,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 1
   distanciaMaxLimite: 80
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -52239,6 +52304,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -54361,6 +54428,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 1
   distanciaMaxLimite: 45
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -54852,6 +54921,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -56592,6 +56663,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -58214,6 +58287,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -58309,6 +58384,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -58991,6 +59068,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -59082,6 +59161,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -59264,6 +59345,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 1
   distanciaMaxLimite: 100
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -60305,6 +60388,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -63533,6 +63618,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 1
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -64015,6 +64102,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -64106,6 +64195,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []
@@ -64231,6 +64322,8 @@ MonoBehaviour:
   bloqueaMovimiento: 0
   limitaDistanciaMax: 0
   distanciaMaxLimite: 50
+  ignorarSiVieneXDerecha: 0
+  ignorarSiVieneXIzquierda: 0
   objetoEnfocadoSolo: {fileID: 0}
   tiempoVolverEnfoqueSolo: 5
   objetosEnfocados: []

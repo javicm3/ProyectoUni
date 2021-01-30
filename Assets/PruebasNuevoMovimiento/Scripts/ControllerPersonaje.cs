@@ -1541,7 +1541,7 @@ public class ControllerPersonaje : MonoBehaviour
                         bocabajocambiotecla = false;
                     }
                 }
-                if (Math.Sign(pInput.ultimoInputHorizontal) != Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 2)
+                if (Math.Sign(pInput.ultimoInputHorizontal) != Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 1)
                 {
 
                     if (auxCdDash < 0.7f)
@@ -1583,7 +1583,7 @@ public class ControllerPersonaje : MonoBehaviour
                 if ((ultimaNormal.y < -0.0f) && (looping == true))
                 {
 
-                    if (Math.Sign(pInput.ultimoInputHorizontal) == Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 2)
+                    if (Math.Sign(pInput.ultimoInputHorizontal) == Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 1)
                     {
                         bocabajocambiotecla = true;
                         //    if (auxCdDash < 0.7f)
@@ -2676,11 +2676,11 @@ public class ControllerPersonaje : MonoBehaviour
                 speed = capSpeed;
                 if (grounded == false)
                 {
-                    if (ultimaNormal.y == 1&&grounded)
+                    if (ultimaNormal.y == 1 && grounded)
                     {
                         rb.velocity = new Vector2(rb.velocity.x, 0);
                     }
-                    else if(!grounded)
+                    else if (!grounded)
                     {
                         rb.velocity = new Vector2(rb.velocity.x, 0);
                     }
@@ -2869,7 +2869,7 @@ public class ControllerPersonaje : MonoBehaviour
                             dashEnCaida = true;
 
                             GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
-                            
+
                         }
                     }
                 }
@@ -2907,11 +2907,18 @@ public class ControllerPersonaje : MonoBehaviour
                                 if (tengoMaxspeed == false)
                                 {
 
-                                    //rb.velocity = new Vector2(velMaxima * 0.3f, rb.velocity.y);
+                                    rb.velocity = new Vector2(velMaxima * 0.3f, rb.velocity.y);
                                 }
                                 else
                                 {
-                                    rb.velocity = new Vector2(velMaxima, rb.velocity.y);
+                                    if (cambioSentidoReciente == true)
+                                    {
+                                        rb.velocity = new Vector2(velMaxima * 0.3f, rb.velocity.y);
+                                    }
+                                    else
+                                    {
+                                        rb.velocity = new Vector2(velMaxima, rb.velocity.y);
+                                    }
                                 }
 
                             }
@@ -2919,11 +2926,18 @@ public class ControllerPersonaje : MonoBehaviour
                             {
                                 if (tengoMaxspeed == false)
                                 {
-                                    //rb.velocity = new Vector2(-velMaxima * 0.3f, rb.velocity.y);
+                                    rb.velocity = new Vector2(-velMaxima * 0.3f, rb.velocity.y);
                                 }
                                 else
                                 {
-                                    rb.velocity = new Vector2(-velMaxima, rb.velocity.y);
+                                    if (cambioSentidoReciente == true)
+                                    {
+                                        rb.velocity = new Vector2(-velMaxima * 0.3f, rb.velocity.y);
+                                    }
+                                    else
+                                    {
+                                        rb.velocity = new Vector2(-velMaxima, rb.velocity.y);
+                                    }
                                 }
                             }
                             if (saltoInmediato == false)
@@ -3075,7 +3089,15 @@ public class ControllerPersonaje : MonoBehaviour
                                 }
                                 else
                                 {
-                                    rb.velocity = new Vector2(velMaxima, rb.velocity.y);
+                                    if (cambioSentidoReciente == true)
+                                    {
+                                        rb.velocity = new Vector2(velMaxima * 0.3f, rb.velocity.y);
+                                    }
+                                    else
+                                    {
+                                        rb.velocity = new Vector2(velMaxima, rb.velocity.y);
+                                    }
+
                                 }
 
                             }
@@ -3087,7 +3109,14 @@ public class ControllerPersonaje : MonoBehaviour
                                 }
                                 else
                                 {
-                                    rb.velocity = new Vector2(-velMaxima, rb.velocity.y);
+                                    if (cambioSentidoReciente == true)
+                                    {
+                                        rb.velocity = new Vector2(-velMaxima * 0.3f, rb.velocity.y);
+                                    }
+                                    else
+                                    {
+                                        rb.velocity = new Vector2(-velMaxima, rb.velocity.y);
+                                    }
                                 }
                             }
                             if (saltoInmediato == false)
