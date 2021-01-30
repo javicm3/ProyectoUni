@@ -2676,7 +2676,11 @@ public class ControllerPersonaje : MonoBehaviour
                 speed = capSpeed;
                 if (grounded == false)
                 {
-                    if (ultimaNormal.y == 1)
+                    if (ultimaNormal.y == 1&&grounded)
+                    {
+                        rb.velocity = new Vector2(rb.velocity.x, 0);
+                    }
+                    else if(!grounded)
                     {
                         rb.velocity = new Vector2(rb.velocity.x, 0);
                     }

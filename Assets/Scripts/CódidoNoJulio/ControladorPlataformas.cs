@@ -144,7 +144,7 @@ public class ControladorPlataformas : MonoBehaviour
                         go.GetComponent<PlataformaND1>().nextPos = go.GetComponent<PlataformaND1>().startPos.transform.position;
                         go.GetComponent<PlataformaND1>().auxtiempoParada = go.GetComponent<PlataformaND1>().tiempoParada;
                     }
-                    else if (go.GetComponent<PlataformaND1>() != null)
+                    else if (go.GetComponent<PlataformaDron>() != null)
                     {
 
                         go.GetComponent<PlataformaDron>().transform.position = go.GetComponent<PlataformaDron>().startPos.position;

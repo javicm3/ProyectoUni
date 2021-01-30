@@ -43,22 +43,29 @@ public class PlataformaDron : MonoBehaviour
             this.transform.position = startPos.position;
             transform.gameObject.SetActive(false);
         }
-        if (Vector2.Distance(this.transform.position,startPos.position)<=0.05)
+        if (Vector2.Distance(this.transform.position, startPos.position) <= 0.05)
         {
             if (!verticales)
             {
                 auxtiempoParada -= Time.deltaTime;
             }
-            
+
             if (auxtiempoParada <= 0)
             {
-                GetComponentInChildren<Animator>().SetBool("Activado", true);
+                foreach (Animator go in GetComponentsInChildren<Animator>())
+                {
+                   go.SetBool("Activado", false);
+                }
                 nextPos = pos1.position;
                 vuelta = true;
             }
-            else
+            else if (auxtiempoParada > 0.3f)
             {
-                GetComponentInChildren<Animator>().SetBool("Activado", false);
+                foreach (Animator go in GetComponentsInChildren<Animator>())
+                {
+                    go.SetBool("Activado", true);
+                }
+              
             }
         }
 
@@ -84,6 +91,8 @@ public class PlataformaDron : MonoBehaviour
             {
                 this.transform.position = pos1.position;
                 transform.gameObject.SetActive(false);
+                nextPos = startPos.position;
+                auxtiempoParada = tiempoParada;
             }
         }
         if (Vector2.Distance(this.transform.position, pos2.position) <= 0.05)
