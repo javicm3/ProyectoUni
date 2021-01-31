@@ -22,6 +22,7 @@ public class CreadorPuntos : MonoBehaviour
     }
     public void CreatePoints()
     {
+        c = GetComponent<BoxCollider2D>();
         for (int i = 0; i < cantidad; i++)
         {
             float posicionX = Random.Range(c.bounds.min.x, c.bounds.max.x);

@@ -38,7 +38,7 @@ public class PtosPausa : MonoBehaviour
             //new GradientColorKey[] { new GradientColorKey(Color.blue, 0.0f), new GradientColorKey(Color.blue, 1.0f) },
             //new GradientAlphaKey[] { new GradientAlphaKey(Mathf.Clamp(coeficienteTransparencia - 1 / alpha, 0, 0.75f), 0.0f), new GradientAlphaKey(Mathf.Clamp(coeficienteTransparencia - 1 / alpha, 0, 0.75f), 1.0f) }
         );
-        lastFrameVelocity = rb.velocity;
+        lastFrameVelocity = rb.velocity*Time.unscaledDeltaTime;
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Pausa");
 
         for(int i = 0; i < gos.Length; i++)
@@ -73,7 +73,7 @@ public class PtosPausa : MonoBehaviour
     {
         float x = Random.Range(0, 2) == 0 ? -1 : 1;
         float y = Random.Range(0, 2) == 0 ? -1 : 1;
-        rb.velocity = new Vector2(speed * x, speed * y);
+        rb.velocity = new Vector2(speed * x, speed * y)*Time.unscaledDeltaTime;
     }
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -83,7 +83,7 @@ public class PtosPausa : MonoBehaviour
     {
         speed = lastFrameVelocity.magnitude;
         direccion = Vector2.Reflect(lastFrameVelocity.normalized, collisionNormal);
-        rb.velocity = direccion * Mathf.Max(speed, minVelocity);
+        rb.velocity = direccion * Mathf.Max(speed, minVelocity)*Time.unscaledDeltaTime;
     }
 
    

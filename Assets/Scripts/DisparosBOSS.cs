@@ -39,9 +39,9 @@ public class DisparosBOSS : MonoBehaviour
                 auxTiempoEntreBalas -= Time.deltaTime;
                 if (auxTiempoEntreBalas <= 0)
                 {
-                    Instantiate(balaRapida, puntoDisparo.position, Quaternion.identity);
+                     GameObject balad=Instantiate(balaRapida, puntoDisparo.position, Quaternion.identity);
                     Instantiate(particulasBoss, puntoParticulas.position, particulasBoss.transform.rotation);
-                    balaRapida.GetComponent<BalaBoss>().objetivo = targets[posicionArray].position;
+                    balad.GetComponent<BalaBoss>().objetivo = targets[posicionArray].position;
                     auxTiempoEntreBalas += tiempoEntreBalasPrimeras;
                     posicionArray++;
                 }
@@ -57,13 +57,13 @@ public class DisparosBOSS : MonoBehaviour
                     if (auxTiempoEntreBalas <= 0)
                     {
                         Vector3 objetivoAux = RandomVector2(min,max);
-                        Instantiate(bala, puntoDisparo.position, Quaternion.identity);
+                        GameObject balon=Instantiate(bala, puntoDisparo.position, Quaternion.identity);
                         Instantiate(particulasBoss, puntoParticulas.position, particulasBoss.transform.rotation);
-                        bala.GetComponent<BalaBoss>().objetivo = objetivoAux;
-                        Instantiate(bala, puntoDisparo.position, Quaternion.identity);
-                        bala.GetComponent<BalaBoss>().objetivo = objetivoAux + new Vector3(0, 50, 0);
-                        Instantiate(bala, puntoDisparo.position, Quaternion.identity);
-                        bala.GetComponent<BalaBoss>().objetivo = objetivoAux + new Vector3(0, -50, 0);
+                        balon.GetComponent<BalaBoss>().objetivo = objetivoAux;
+                        balon= Instantiate(bala, puntoDisparo.position, Quaternion.identity);
+                        balon.GetComponent<BalaBoss>().objetivo = objetivoAux + new Vector3(0, 50, 0);
+                        balon = Instantiate(bala, puntoDisparo.position, Quaternion.identity);
+                        balon.GetComponent<BalaBoss>().objetivo = objetivoAux + new Vector3(0, -50, 0);
                         auxTiempoEntreBalas += tiempoEntreBalas;
                         posicionArray2++;
                     }

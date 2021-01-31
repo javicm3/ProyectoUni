@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 //using UnityEngine.InputSystem;
 
 public class ControllerPersonaje : MonoBehaviour
-{
+{ 
     string escenaActual;
     public InputDevice joystick;
     [HideInInspector] public Rigidbody2D rb;

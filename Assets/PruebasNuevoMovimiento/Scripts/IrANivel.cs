@@ -55,15 +55,29 @@ public class IrANivel : MonoBehaviour
                 Activar(nivelDestino);
             }
             else
-            {
-                if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
+            {if (GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick != null)
                 {
-                    if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
+                    if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
                     {
-                        Activar(nivelDestino);
-                    }
+                        if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
+                        {
+                            Activar(nivelDestino);
+                        }
 
+                    }
                 }
+                else
+                {
+                    if (Input.GetButtonDown("Interact"))
+                    {
+                        if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
+                        {
+                            Activar(nivelDestino);
+                        }
+
+                    }
+                }
+               
             }
 
 

@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
     }
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
+      
         if (GameObject.FindGameObjectsWithTag("InicioNivel") != null)
         {
             foreach(GameObject go in GameObject.FindGameObjectsWithTag("InicioNivel")){
@@ -193,6 +194,7 @@ public class GameManager : MonoBehaviour
         }
         if (scene.name == "Lobby")
         {
+          
             actualLevel = -1;
             personajevivo = true;
             //coleccionablesActNv[(int)actualLevel] = 0;
@@ -214,6 +216,7 @@ public class GameManager : MonoBehaviour
         }
         if (scene.name == "NL-0")
         {
+          
             actualLevel = -1;
             personajevivo = true;
             //coleccionablesActNv[(int)actualLevel] = 0;

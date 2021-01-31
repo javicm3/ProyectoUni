@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class CameraZoom : MonoBehaviour
 {
     string escenaActual;
-    CinemachineVirtualCamera cinemakina;
+   public CinemachineVirtualCamera cinemakina;
     public float startsize = 13;
     public float finalsize = 19;
     public float auxstartsize;
@@ -30,7 +30,7 @@ public class CameraZoom : MonoBehaviour
     public float velocidadPaneoVertical = 5;
     public float indiceMultiplicadorZoom = 0.2f;
     public bool soloplayer;
-    bool pausado = false;
+   public bool pausado = false;
     GameObject pausaZoom;
     GameObject player;
     public bool limitarDistancia = false;
@@ -99,15 +99,21 @@ public class CameraZoom : MonoBehaviour
         {
             if (GameManager.Instance != null && GameManager.Instance.GetComponent<MenuPausa>().paused)
             {
-
+                cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y = 0;
+                cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = 0;
+              
+               
                 startsize = tamañoCamaraPausa;
                 for (int i = 0; i < targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets.Length; i++)
                 {
                     if (i == 0)
                     {
-                        targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target = pausaZoom.transform;
-                        targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].weight = 10;
-                        targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].radius = 5;
+                        if (pausaZoom != null)
+                        {
+                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target = pausaZoom.transform;
+                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].weight = 10;
+                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].radius = 10;
+                        }
                     }
                     else
                     {
@@ -120,11 +126,16 @@ public class CameraZoom : MonoBehaviour
                 }
                 if (cinemakina.m_Lens.OrthographicSize > startsize)
                 {
+
                     pausado = true;
-                    cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize - indiceMultiplicadorPausa * Time.deltaTime;
                     if (cinemakina.m_Lens.OrthographicSize <= startsize)
                     {
                         cinemakina.m_Lens.OrthographicSize = startsize;
+                      
+                    }
+                    else
+                    {
+                        cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize - indiceMultiplicadorPausa * Time.deltaTime;
                     }
                 }
             }
@@ -149,7 +160,7 @@ public class CameraZoom : MonoBehaviour
                         }
                     }
                     startsize = auxstartsize;
-                    if (cinemakina.m_Lens.OrthographicSize < startsize && pausado == true)
+                    if (cinemakina.m_Lens.OrthographicSize <= startsize && pausado == true)
                     {
                         cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize + indiceMultiplicadorPausa * Time.deltaTime;
                         if (cinemakina.m_Lens.OrthographicSize >= startsize && pausado == true)

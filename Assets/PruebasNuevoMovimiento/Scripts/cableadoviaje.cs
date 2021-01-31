@@ -257,8 +257,9 @@ public class cableadoviaje : MonoBehaviour
             nodoActual = collision.gameObject;
             inputEnabled = true;
             //speedMov = 0;
-            controllerPersonaje.rb.velocity = Vector2.zero;
+          
             Nodo node = collision.gameObject.GetComponent<Nodo>();
+            if (!node.entrada) controllerPersonaje.rb.velocity = Vector2.zero;
             if (node.salida == false && viajando == true)
             {
                 //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().pasarPorNodo);
@@ -313,7 +314,7 @@ public class cableadoviaje : MonoBehaviour
         else if (distanciaEntreNodos * 0.1 > distanciaAlObjetivo)
         {
             speedMov = originalspeed * 0.8f*Mathf.Clamp(distanciaAlObjetivo,0.9f,1.1f);
-
+         
         }
         else
         {
@@ -324,8 +325,12 @@ public class cableadoviaje : MonoBehaviour
             GetComponent<Particulas>().particulasViajeCables.SetActive(false);
 
             GetComponent<Particulas>().particulasBolaViajeCables.gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1);
-            var em = ps.velocityOverLifetime;
+           var em = ps.velocityOverLifetime;
+            em.x = 0;
+            em.y = 0;
+            em.z = 0;
             em.enabled = false;
+           
         }
         else
         {
@@ -342,6 +347,7 @@ public class cableadoviaje : MonoBehaviour
 
         if (collision.gameObject.tag == "Nodo")
         {
+           
 
 
             Nodo node = collision.gameObject.GetComponent<Nodo>();

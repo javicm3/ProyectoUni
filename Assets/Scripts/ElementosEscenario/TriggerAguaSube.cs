@@ -115,6 +115,8 @@ public class TriggerAguaSube : MonoBehaviour
             }
         }
         player.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
+        player.GetComponent<ControllerPersonaje>().saltoBloqueado = false;
+        player.GetComponent<ControllerPersonaje>().dashBloqueado = false;
         FindObjectOfType<CameraZoom>().soloplayer = true;
         player.GetComponentInChildren<ComportamientoHUD>().bloqueado = false;
     }
@@ -233,6 +235,9 @@ public class TriggerAguaSube : MonoBehaviour
             if (bloqueaMovimiento)
             {
    player.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
+           
+                player.GetComponent<ControllerPersonaje>().saltoBloqueado = true;
+                player.GetComponent<ControllerPersonaje>().dashBloqueado = true;
                 player.GetComponentInChildren<ComportamientoHUD>().bloqueado = true;
             player.GetComponent<ControllerPersonaje>().rb.velocity = Vector3.zero;
             }
