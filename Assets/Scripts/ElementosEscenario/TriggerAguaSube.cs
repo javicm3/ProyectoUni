@@ -116,6 +116,7 @@ public class TriggerAguaSube : MonoBehaviour
         }
         player.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
         FindObjectOfType<CameraZoom>().soloplayer = true;
+        player.GetComponentInChildren<ComportamientoHUD>().bloqueado = false;
     }
     // Update is called once per frame
     void Update()
@@ -232,6 +233,7 @@ public class TriggerAguaSube : MonoBehaviour
             if (bloqueaMovimiento)
             {
    player.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
+                player.GetComponentInChildren<ComportamientoHUD>().bloqueado = true;
             player.GetComponent<ControllerPersonaje>().rb.velocity = Vector3.zero;
             }
          

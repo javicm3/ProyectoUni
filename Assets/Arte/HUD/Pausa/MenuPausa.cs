@@ -44,6 +44,7 @@ public class MenuPausa : MonoBehaviour
     void Update()
     {
         ptosPausa = GameObject.FindGameObjectsWithTag("Pausa");
+        //transform.rotation = Quaternion.identity;
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             //if(Time.timeScale == 1)
@@ -65,7 +66,12 @@ public class MenuPausa : MonoBehaviour
             {
                 AbrirMenu();
             }
+            
         }
+    }
+    private void LateUpdate()
+    {
+        
     }
     private void AbrirMenu()
     {

@@ -31,12 +31,13 @@ public class CameraZoom : MonoBehaviour
     public float indiceMultiplicadorZoom = 0.2f;
     public bool soloplayer;
     bool pausado = false;
-    public GameObject pausaZoom;
+    GameObject pausaZoom;
     GameObject player;
     public bool limitarDistancia = false;
     // Start is called before the first frame update
     void Start()
     {
+        pausaZoom = GameObject.Find("ZoomPausa");
         auxfinalsize = finalsize;
         auxstartsize = startsize;
         tiempoSinInput = 0;
@@ -102,7 +103,12 @@ public class CameraZoom : MonoBehaviour
                 startsize = tamañoCamaraPausa;
                 for (int i = 0; i < targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets.Length; i++)
                 {
-                    if (i == 0) { targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target = pausaZoom.transform; }
+                    if (i == 0)
+                    {
+                        targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target = pausaZoom.transform;
+                        targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].weight = 10;
+                        targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].radius = 5;
+                    }
                     else
                     {
                         if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[i].target != null)
