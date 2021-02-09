@@ -12,20 +12,44 @@ public class BalaBoss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        direccion = objetivo - new Vector2(this.transform.position.x,this.transform.position.y);
+        direccion = objetivo - new Vector2(this.transform.position.x, this.transform.position.y);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(this.transform.position,this.transform.position+direccion,velocidadBala*Time.deltaTime);
+        transform.position = Vector2.MoveTowards(this.transform.position, this.transform.position + direccion, velocidadBala * Time.deltaTime);
     }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.tag != "Boss")
+        if (this.gameObject.tag != "balaVolador")
         {
-            Destroy(this.gameObject);
+            if (coll.tag != "Boss")
+            {
+
+                Destroy(this.gameObject);
+            }
+        }
+        else
+        {
+            if (coll.gameObject.layer == 8)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (this.gameObject.tag == "balaVolador")
+        {
+            if (collision.gameObject.tag != "Enemigo")
+            {
+                Destroy(this.gameObject);
+            }
+
         }
     }
 }

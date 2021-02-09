@@ -5,14 +5,14 @@ using UnityEngine;
 public class CascadaGoo : MonoBehaviour
 {
 
-   
+
     public float distancia = 20f;
     public float tiempoEntreComprobaciones = 2f;
     float auxTiempoEntreComprobaciones;
     GameObject player;
     [Range(0.3f, 1.0f)]
     public float tiempoTrasDash = 0.55f;
-   
+
     bool activado = true;
 
     void Start()
@@ -27,8 +27,8 @@ public class CascadaGoo : MonoBehaviour
         if (auxTiempoEntreComprobaciones < 0)
         {
 
-       
-        if (Vector2.Distance(player.transform.position, this.transform.position) < distancia)
+
+            if (Vector2.Distance(player.transform.position, this.transform.position) < distancia)
             {
                 activado = true;
             }
@@ -36,7 +36,7 @@ public class CascadaGoo : MonoBehaviour
             {
                 activado = false;
             }
-           
+
 
         }
         else
@@ -45,7 +45,7 @@ public class CascadaGoo : MonoBehaviour
         }
         if (activado == true)
         {
-            if (player.GetComponent<ControllerPersonaje>().auxCdDash-0.1f > (player.GetComponent<ControllerPersonaje>().cooldownDash- tiempoTrasDash))
+            if (player.GetComponent<ControllerPersonaje>().auxCdDash - 0.1f > (player.GetComponent<ControllerPersonaje>().cooldownDash - tiempoTrasDash))
             {
                 this.GetComponent<BoxCollider2D>().enabled = false;
             }

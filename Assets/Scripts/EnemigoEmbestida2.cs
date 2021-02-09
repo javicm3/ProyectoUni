@@ -43,7 +43,7 @@ public class EnemigoEmbestida2 : MonoBehaviour
     public float tiempoStun = 2f;
     public float auxTiempoStun;
     public bool stun = false;
-
+    public GameObject escudo;
    
     public List<Light2D> luces;
 
@@ -63,7 +63,7 @@ public class EnemigoEmbestida2 : MonoBehaviour
     }
     public void Stun()
     {
-
+        escudo.SetActive(false);
         stun = true;
         
         foreach (Light2D go in luces)
@@ -87,9 +87,14 @@ public class EnemigoEmbestida2 : MonoBehaviour
         }
         if (stun == true)
         {
+           
             estado = States.Stun;
 
 
+        }
+        else
+        {
+            escudo.SetActive(true);
         }
         if (reciengolpeado == false)
         {
@@ -274,7 +279,7 @@ public class EnemigoEmbestida2 : MonoBehaviour
                         {
                             if (auxCdEmbestida <= 0)
                             {
-                                print("estadoembestir");
+
                                 auxCdEmbestida = cdEmbestida;
                                 estado = States.Embestir;
                             }
@@ -306,7 +311,7 @@ public class EnemigoEmbestida2 : MonoBehaviour
                         }
                         else
                         {
-                            print("estadoeperseguirr");
+
                             if (auxCdEmbestida <= 0)
                             {
                                 estado = States.Perseguir;
@@ -516,7 +521,7 @@ public class EnemigoEmbestida2 : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            print("colision"); reciengolpeado = true; Invoke("ResetGolpeo", 2f);
+            reciengolpeado = true; Invoke("ResetGolpeo", 2f);
             SetRandomPoint(); speedactualembestida = speedembestida;
 
         }

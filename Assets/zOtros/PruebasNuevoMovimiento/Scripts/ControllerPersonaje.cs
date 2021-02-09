@@ -103,6 +103,8 @@ public class ControllerPersonaje : MonoBehaviour
 
 
     [Header("Combate")]
+    public float tiempoUsarCombateTrasEscudo = 1;
+    public float auxTiempoUsar;
     public float tiempoTrasSalirCombateInvuln = 1f;
     public float auxtiempoTrasSalirCombateInvuln;
     public float offsetSalidaEnemigoTerrestreY = 35f;
@@ -177,7 +179,7 @@ public class ControllerPersonaje : MonoBehaviour
     public RaycastHit2D derecha;
     public RaycastHit2D izquierda;
     public float tiempoCOYOTE = 0.2f;
-    float originalgravity;
+    public float originalgravity;
     public bool invertirValores = false;
     float auxtiempoMaxSuelo;
     Vector2 speedAntes;
@@ -201,8 +203,8 @@ public class ControllerPersonaje : MonoBehaviour
     //bool saltoPulsado=false;
     //bool saltoSoltado=false;
     //bool dashPulsado=false;
-
-    bool pulsadoChispazo = false;
+ 
+    public bool pulsadoChispazo = false;
     //public Vector2 move;
 
 
@@ -240,6 +242,7 @@ public class ControllerPersonaje : MonoBehaviour
         auxpared = maxTiempoPared;
         auxtiempoMaxSuelo = tiempoCOYOTE;
         auxdash = tiempoDasheo;
+        auxTiempoUsar = tiempoUsarCombateTrasEscudo;
         auxpresalto = tiempoPreSalto;
         rb = this.GetComponent<Rigidbody2D>();
         pInput = this.GetComponent<PlayerInput>();
@@ -254,6 +257,16 @@ public class ControllerPersonaje : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (auxTiempoUsar >= 0)
+        {
+            auxTiempoUsar -= Time.deltaTime;
+            //GameObject.FindObjectOfType<ControllerPersonaje>().combateBloqueado = true;
+        }
+        else
+        {
+            auxTiempoUsar = 0;
+           combateBloqueado = false;
+        }
         //move.x = controles.Gameplay.Movement.ReadValue<float>();
         //print(controles.Gameplay.Movement.ReadValue<float>());
         //print(rb.velocity + "velocidad");
