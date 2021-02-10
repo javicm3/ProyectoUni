@@ -2846,7 +2846,7 @@ public class ControllerPersonaje : MonoBehaviour
             else if (grounded)
             {
                 dashEnCaida = false;
-                GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(false);
+                //GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(false);
             }
         }
         else
@@ -2891,7 +2891,8 @@ public class ControllerPersonaje : MonoBehaviour
             else if (grounded)
             {
                 dashEnCaida = false;
-                GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(false);
+                //GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(false);
+
             }
         }
 
