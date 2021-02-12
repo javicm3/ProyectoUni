@@ -394,6 +394,16 @@ public class ControllerPersonaje : MonoBehaviour
 
                             }
                         }
+                        if (col.GetComponent<EnemigoSaltamontes>() != null)
+                        {
+
+
+                            if (col.GetComponent<EnemigoSaltamontes>().stun == true)
+                            {
+                                puede = false;
+
+                            }
+                        }
                         if (col.GetComponent<MovimientoEnemigoVolador>() != null)
                         {
 
@@ -436,6 +446,20 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                         if (enemigoSeleccionado.GetComponent<EnemigoEmbestida2>().stun == false)
+                        {
+                            ultimoEnemigoDetectado = enemigoSeleccionado;
+
+                        }
+                        else
+                        {
+                            ultimoEnemigoDetectado = null;
+                        }
+                    }
+                    else if (enemigoSeleccionado.GetComponent<EnemigoSaltamontes>() != null)
+                    {
+
+
+                        if (enemigoSeleccionado.GetComponent<EnemigoSaltamontes>().stun == false)
                         {
                             ultimoEnemigoDetectado = enemigoSeleccionado;
 
@@ -521,7 +545,7 @@ public class ControllerPersonaje : MonoBehaviour
             rb.gravityScale = 0;
             if (ultimoEnemigoDetectado != null)
             {
-                if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) > 2f)
+                if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) > 3f)
                 {
                     if (!enemigosPasados.Contains(ultimoEnemigoDetectado))
                     {
@@ -557,7 +581,7 @@ public class ControllerPersonaje : MonoBehaviour
                 {
                     if (enemigosPasados.Contains(ultimoEnemigoDetectado) == false)
                     {
-                        if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) <= 2f)
+                        if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) <= 3f)
                         {
 
                             //if (!enemigosPasados.Contains(ultimoEnemigoDetectado))
@@ -580,6 +604,12 @@ public class ControllerPersonaje : MonoBehaviour
                             if (ultimoEnemigoDetectado.GetComponent<EnemigoEmbestida2>() != null)
                             {
                                 ultimoEnemigoDetectado.GetComponent<EnemigoEmbestida2>().Stun();
+                                Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + offsetSalidaEnemigoTerrestreY);
+                                rb.velocity = resultante * salirCombate;
+                            }
+                            else if(ultimoEnemigoDetectado.GetComponent<EnemigoSaltamontes>() != null)
+                            {
+                                ultimoEnemigoDetectado.GetComponent<EnemigoSaltamontes>().Stun();
                                 Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + offsetSalidaEnemigoTerrestreY);
                                 rb.velocity = resultante * salirCombate;
                             }
@@ -630,6 +660,15 @@ public class ControllerPersonaje : MonoBehaviour
                     {
 
                         ultimoEnemigoPasado.GetComponent<EnemigoEmbestida2>().Stun();
+
+
+                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + offsetSalidaEnemigoTerrestreY);
+                        rb.velocity = resultante * salirCombate;
+                    }
+                    else if(ultimoEnemigoPasado.GetComponent<EnemigoSaltamontes>() != null)
+                    {
+
+                        ultimoEnemigoPasado.GetComponent<EnemigoSaltamontes>().Stun();
 
 
                         Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + offsetSalidaEnemigoTerrestreY);
@@ -699,6 +738,26 @@ public class ControllerPersonaje : MonoBehaviour
                     {
 
                         ultimoEnemigoDetectado.GetComponent<EnemigoEmbestida2>().Stun();
+
+
+                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);
+
+                        rb.velocity = resultante * salirCombate;
+                    }
+                    else if (ultimoEnemigoPasado != null && ultimoEnemigoPasado.GetComponent<EnemigoSaltamontes>() != null)
+                    {
+
+                        ultimoEnemigoPasado.GetComponent<EnemigoSaltamontes>().Stun();
+
+
+                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);
+
+                        rb.velocity = resultante * salirCombate;
+                    }
+                    else if (enemigosPasados.Count == 0 && ultimoEnemigoDetectado.GetComponent<EnemigoSaltamontes>() != null)
+                    {
+
+                        ultimoEnemigoDetectado.GetComponent<EnemigoSaltamontes>().Stun();
 
 
                         Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);

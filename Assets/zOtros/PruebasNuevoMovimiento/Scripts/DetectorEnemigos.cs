@@ -10,7 +10,14 @@ public class DetectorEnemigos : MonoBehaviour
     {
         padre = transform.parent.GetComponent<ControllerPersonaje>();
     }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.tag == "EnemigoDetectar")
+        {
 
+            padre.enemigoCerca = true;
+        }
+    }
     void OnTriggerStay2D(Collider2D col)
     {
         if (col.tag == "EnemigoDetectar")
