@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemigoSaltamontes : MonoBehaviour
 {
     [Header("Tocar")]
+    public GameObject controlador;
     public float tiempoHastaSpawn = 0.5f;
     public float auxTiempoHastaSpawn = 0.5f;
 
@@ -56,6 +57,7 @@ public class EnemigoSaltamontes : MonoBehaviour
     Rigidbody2D rb;
     GameObject player;
     private Vector3 velocityBeforePhysicsUpdate;
+    Color colororiginal;
     void FixedUpdate()
     {
         velocityBeforePhysicsUpdate = rb.velocity;
@@ -69,6 +71,11 @@ public class EnemigoSaltamontes : MonoBehaviour
         auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
         player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
         rb = this.GetComponent<Rigidbody2D>();
+        if (this.GetComponent<SpriteRenderer>() != null)
+        {
+            colororiginal = this.GetComponent<SpriteRenderer>().color;
+        }
+
     }
     public void Stun()
     {
@@ -77,7 +84,18 @@ public class EnemigoSaltamontes : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if ((faseActual == 2) && (estado != States.Stun && estado != States.Desactivado))
+        {
+            if (this.GetComponent<SpriteRenderer>() != null) this.GetComponent<SpriteRenderer>().color = colororiginal;
+            
 
+        }else if (faseActual == 2)
+        {
+            if (controlador.GetComponent<ControladorSaltamontesRespawn>().pequeñosStun == 4)
+            {
+                Destroy(this.gameObject);
+            }
+        }
 
         if (activado == false)
         {
@@ -100,12 +118,12 @@ public class EnemigoSaltamontes : MonoBehaviour
                 ComprobarDistancia();
                 if (velocityBeforePhysicsUpdate.x > 0)
                 {
-                    this.transform.localScale = new Vector3(1, this.transform.localScale.y, this.transform.localScale.z);
+                    this.transform.localScale = new Vector3(1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
                 }
                 else if (velocityBeforePhysicsUpdate.x < 0)
                 {
 
-                    this.transform.localScale = new Vector3(-1, this.transform.localScale.y, this.transform.localScale.z);
+                    this.transform.localScale = new Vector3(-1 * Mathf.Abs(this.transform.localScale.x), this.transform.localScale.y, this.transform.localScale.z);
                 }
             }
 
@@ -119,6 +137,7 @@ public class EnemigoSaltamontes : MonoBehaviour
         }
         else if (estado == States.Movimiento)
         {
+            stun = false;
             auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
             auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
 
@@ -201,18 +220,48 @@ public class EnemigoSaltamontes : MonoBehaviour
         }
         else if (estado == States.Stun)
         {
+            if (faseActual != 2)
+            {
+
+
+            }
+            else
+            {
+                if (this.GetComponent<SpriteRenderer>() != null) this.GetComponent<SpriteRenderer>().color = Color.black;
+
+            }
             auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
             auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
             auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
-            auxTiempoHastaSpawn -= Time.deltaTime;
-            if (auxTiempoHastaSpawn <= 0)
-            {
-                if (faseActual != 2) SpawnEnemigos();
-                auxTiempoHastaSpawn = tiempoHastaSpawn;
-                stun = false;
-                estado = States.Desactivado;
-                this.gameObject.SetActive(false);
 
+            if (auxTiempoHastaSpawn < 0)
+            {
+                auxTiempoHastaSpawn = 0;
+                if (faseActual != 2)
+                {
+                    estado = States.Desactivado;
+                    auxTiempoHastaSpawn = tiempoHastaSpawn;
+                    SpawnEnemigos();
+                    this.gameObject.SetActive(false);
+                    stun = false;
+                }
+                else
+                {
+                   
+                    if (this.GetComponent<SpriteRenderer>() != null) this.GetComponent<SpriteRenderer>().color = Color.black;
+                    controlador.GetComponent<ControladorSaltamontesRespawn>().SumarPeq();
+                    GetComponentInChildren<DañoEnemigos>().gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+                }
+
+                //if(faseActual!=2)
+
+
+
+            }
+            else if (auxTiempoHastaSpawn > 0)
+            {
+                auxTiempoHastaSpawn -= Time.deltaTime;
             }
 
         }
@@ -221,20 +270,22 @@ public class EnemigoSaltamontes : MonoBehaviour
     void SpawnEnemigos()
     {
         GameObject enemigoSpawneado = Instantiate(prefabEnemigoSpawneado, this.transform.Find("PuntoSpawn1").transform.position, Quaternion.identity);
-        enemigoSpawneado.GetComponent<Rigidbody2D>().velocity =( transform.Find("PuntoSpawn1").transform.position - this.transform.position).normalized * fSalidaPequeños;
+        enemigoSpawneado.GetComponent<Rigidbody2D>().velocity = (transform.Find("PuntoSpawn1").transform.position - this.transform.position).normalized * fSalidaPequeños;
         enemigoSpawneado.GetComponent<EnemigoSaltamontes>().pDer = pDer;
         enemigoSpawneado.GetComponent<EnemigoSaltamontes>().pMaxDer = pMaxDer;
         enemigoSpawneado.GetComponent<EnemigoSaltamontes>().pIzq = pIzq;
         enemigoSpawneado.GetComponent<EnemigoSaltamontes>().pMaxIzq = pMaxIzq;
-        enemigoSpawneado.name = (string)("hijo" + Random.Range(0, 10)+"fase"+faseActual+1);
+        enemigoSpawneado.GetComponent<EnemigoSaltamontes>().controlador = controlador;
+        //enemigoSpawneado.name = (string)("hijo" + Random.Range(0, 10)+"fase"+faseActual+1);
 
         enemigoSpawneado = Instantiate(prefabEnemigoSpawneado, this.transform.Find("PuntoSpawn2").transform.position, Quaternion.identity);
-        enemigoSpawneado.GetComponent<Rigidbody2D>().velocity =( transform.Find("PuntoSpawn2").transform.position - this.transform.position).normalized* fSalidaPequeños;
+        enemigoSpawneado.GetComponent<Rigidbody2D>().velocity = (transform.Find("PuntoSpawn2").transform.position - this.transform.position).normalized * fSalidaPequeños;
         enemigoSpawneado.GetComponent<EnemigoSaltamontes>().pDer = pDer;
         enemigoSpawneado.GetComponent<EnemigoSaltamontes>().pMaxDer = pMaxDer;
         enemigoSpawneado.GetComponent<EnemigoSaltamontes>().pIzq = pIzq;
         enemigoSpawneado.GetComponent<EnemigoSaltamontes>().pMaxIzq = pMaxIzq;
-        enemigoSpawneado.name = (string)("hijo" + Random.Range(10, 20) + "fase" + faseActual + 1);
+        enemigoSpawneado.GetComponent<EnemigoSaltamontes>().controlador = controlador;
+        //enemigoSpawneado.name = (string)("hijo" + Random.Range(10, 20) + "fase" + faseActual + 1);
 
 
     }
@@ -340,10 +391,10 @@ public class EnemigoSaltamontes : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(new Vector2(-rb.velocity.x, rb.velocity.y) + "rgerg");
+
         if (collision.gameObject.layer == 8)
         {
-            print("impacto pared" + collision.gameObject.name + collision.contacts[0].normal);
+
             if (collision.contacts[0].normal.x > 0.5f)
             {
                 rb.velocity = new Vector2(-velocityBeforePhysicsUpdate.x, rb.velocity.y);

@@ -69,6 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 925333859593375178}
+  - component: {fileID: 974109010204738828}
   m_Layer: 0
   m_Name: EnemigoSaltamontes
   m_TagString: Untagged
@@ -92,9 +93,26 @@ Transform:
   - {fileID: 925333859467850119}
   - {fileID: 925333859385848771}
   - {fileID: 925333861146421574}
+  - {fileID: 6524541969731077889}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &974109010204738828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925333859593375181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b33476886a8fc44bb83a3396fa0076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  "peque\xF1osStun": 0
+  posicionInicio: {fileID: 6524541969731077889}
+  padreSaltamontes: {fileID: 925333860674677410}
+  "tiempoTrasMatarPeque\xF1os": 2
 --- !u!1 &925333859704432919
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,6 +172,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 925333859593375178}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6978075522028186897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6524541969731077889}
+  m_Layer: 0
+  m_Name: PuntoReinicio
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6524541969731077889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6978075522028186897}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.7, y: -0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 925333859593375178}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7954733241345213744
 PrefabInstance:
@@ -242,8 +290,19 @@ PrefabInstance:
       propertyPath: pMaxDer
       value: 
       objectReference: {fileID: 925333859467850118}
+    - target: {fileID: 7112188227527126943, guid: bbebdd5928bd6024b9638ce6d11ade39,
+        type: 3}
+      propertyPath: controlador
+      value: 
+      objectReference: {fileID: 925333859593375181}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbebdd5928bd6024b9638ce6d11ade39, type: 3}
+--- !u!1 &925333860674677410 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7112188227527126930, guid: bbebdd5928bd6024b9638ce6d11ade39,
+    type: 3}
+  m_PrefabInstance: {fileID: 7954733241345213744}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &925333860674677422 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7112188227527126942, guid: bbebdd5928bd6024b9638ce6d11ade39,

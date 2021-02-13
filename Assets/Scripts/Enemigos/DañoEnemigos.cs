@@ -28,6 +28,7 @@ public class DañoEnemigos : MonoBehaviour
             if (player.GetComponent<ControllerPersonaje>().haciendoCombate == true)
             {
                 //colliderHijo.enabled = false;
+
                 this.GetComponent<Collider2D>().enabled = false;
             }
             else
@@ -48,6 +49,13 @@ public class DañoEnemigos : MonoBehaviour
                     else if (GetComponentInParent<EnemigoEmbestida2>() != null)
                     {
                         if (GetComponentInParent<EnemigoEmbestida2>().stun != true)
+                        {
+                            this.GetComponent<Collider2D>().enabled = true;
+                        }
+                    }
+                    else if (GetComponentInParent<EnemigoSaltamontes>() != null)
+                    {
+                        if (GetComponentInParent<EnemigoSaltamontes>().stun != true)
                         {
                             this.GetComponent<Collider2D>().enabled = true;
                         }
