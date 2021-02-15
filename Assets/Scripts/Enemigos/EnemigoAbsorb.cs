@@ -13,14 +13,22 @@ public class EnemigoAbsorb : MonoBehaviour
     
     States estado;
 
+    LineRenderer lineRend;
+    CircleCollider2D coll;
+
     ManagerEnergia player;
     [SerializeField] float energiaPorSegundo = 10;
     [SerializeField] float tiempoReactivar = 15;
     float tiempoRestante;
 
-    void Start()
+    void Awake()
     {
-        
+        coll = GetComponent<CircleCollider2D>();        
+        lineRend = GetComponent<LineRenderer>();
+        lineRend.SetPosition(0, transform.position);
+        lineRend.enabled = false;
+
+        estado = States.Idle;
     }
 
 
@@ -29,15 +37,21 @@ public class EnemigoAbsorb : MonoBehaviour
         switch (estado)
         {
             case States.Absorber:
-                player.RestarEnergia(energiaPorSegundo * Time.deltaTime); //Instanciar un rayo hasta el personaje para dar feedback de que se le está absorbiendo
-                print("absorber"); 
+                player.RestarEnergia(energiaPorSegundo * Time.deltaTime);
+                lineRend.SetPosition(1, player.transform.position); 
                 break;
 
             case States.Desactivado:
                 tiempoRestante -= Time.deltaTime;
                 if (tiempoRestante<=0)
                 {
-                    estado = States.Idle; //tendría que comprobar si el jugador está en el trigger
+                    if (Vector3.Distance(transform.position, player.transform.position) < coll.radius)
+                    {
+                        estado = States.Absorber;
+                        lineRend.enabled = true;
+                        lineRend.SetPosition(1, player.transform.position);
+                    }
+                    else { estado = States.Idle; }                    
                 }
                 break;
 
@@ -51,6 +65,7 @@ public class EnemigoAbsorb : MonoBehaviour
     {
         estado = States.Desactivado;
         tiempoRestante = tiempoReactivar;
+        lineRend.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -61,6 +76,8 @@ public class EnemigoAbsorb : MonoBehaviour
             { player = collision.transform.GetComponent<ManagerEnergia>(); }
 
             estado = States.Absorber;
+            lineRend.enabled = true;
+            lineRend.SetPosition(1, player.transform.position);
         }
     }
 
@@ -69,6 +86,7 @@ public class EnemigoAbsorb : MonoBehaviour
         if (estado == States.Absorber && collision.tag == "Player")
         {
             estado = States.Idle;
+            lineRend.enabled = false;
         }
     }
 }
