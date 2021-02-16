@@ -27,8 +27,8 @@ namespace InControl
 
 		protected string LastResortRegex;
 
-		public VersionInfo MinUnityVersion { get; protected set; }
-		public VersionInfo MaxUnityVersion { get; protected set; }
+		//public VersionInfo MinUnityVersion { get; protected set; }
+		//public VersionInfo MaxUnityVersion { get; protected set; }
 
 		static HashSet<Type> hideList = new HashSet<Type>();
 
@@ -49,8 +49,8 @@ namespace InControl
 			AnalogMappings = new InputControlMapping[0];
 			ButtonMappings = new InputControlMapping[0];
 
-			MinUnityVersion = new VersionInfo( 3 );
-			MaxUnityVersion = new VersionInfo( int.MaxValue );
+			//MinUnityVersion = new VersionInfo( 3 );
+			//MaxUnityVersion = new VersionInfo( int.MaxValue );
 		}
 
 
@@ -79,10 +79,10 @@ namespace InControl
 		{
 			get
 			{
-				if (!IsSupportedOnThisVersionOfUnity)
-				{
-					return false;
-				}
+				//if (!IsSupportedOnThisVersionOfUnity)
+				//{
+				//	return false;
+				//}
 
 				if (SupportedPlatforms == null || SupportedPlatforms.Length == 0)
 				{
@@ -102,14 +102,14 @@ namespace InControl
 		}
 
 
-		public bool IsSupportedOnThisVersionOfUnity
-		{
-			get
-			{
-				var unityVersion = VersionInfo.UnityVersion();
-				return unityVersion >= MinUnityVersion && unityVersion <= MaxUnityVersion;
-			}
-		}
+		//public bool IsSupportedOnThisVersionOfUnity
+		//{
+		//	get
+		//	{
+		//		var unityVersion = VersionInfo.UnityVersion();
+		//		return unityVersion >= MinUnityVersion && unityVersion <= MaxUnityVersion;
+		//	}
+		//}
 
 
 		public bool IsJoystick

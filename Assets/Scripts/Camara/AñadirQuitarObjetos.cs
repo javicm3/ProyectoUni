@@ -18,7 +18,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
     public bool bloqueaMovimiento = false;
     public bool limitaDistanciaMax = false;
     public float distanciaMaxLimite = 50f;
-    
+
     public bool ignorarSiVieneXDerecha = false;
     public bool ignorarSiVieneXIzquierda = false;
 
@@ -110,6 +110,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
             for (int i = 0; i < targetGroup.m_Targets.Length; i++)
             {
                 if (i == 0) { }
+                else if (i == 1) { }
                 else
                 {
                     if (targetGroup.m_Targets[i].target != null)
@@ -140,6 +141,10 @@ public class AñadirQuitarObjetos : MonoBehaviour
             {
                 targetGroup.m_Targets[0].target = player.transform;
                 targetGroup.m_Targets[0].weight = 3;
+            }
+            else if (i == 1)
+            {
+               
             }
             else
             {
@@ -316,7 +321,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
                     }
                     if (seDestruyeTrasTocarlo) Destroy(this.gameObject);
                 }
-               
+
             }
             else
             {
@@ -358,7 +363,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
                 }
             }
 
-           
+
         }
     }
 }

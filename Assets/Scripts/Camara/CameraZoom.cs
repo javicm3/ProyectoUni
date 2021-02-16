@@ -24,9 +24,13 @@ public class CameraZoom : MonoBehaviour
     public float maxZoom;
     public float minZoom;
     public float maxDistance;
+    public float maxPaneoHorizontalBase = 10;
     public float maxPaneoHorizontal = 10;
+    public float maxPaneoHorizontalConVariosTargets = 0f;
     public float maxPaneoVertical = 5;
+    public float velocidadPaneoHorizontalBase = 10;
     public float velocidadPaneoHorizontal = 10;
+    public float velocidadPaneoHorizVariosTargets = 0f;
     public float velocidadPaneoVertical = 5;
     public float indiceMultiplicadorZoom = 0.2f;
     public bool soloplayer;
@@ -34,9 +38,15 @@ public class CameraZoom : MonoBehaviour
     GameObject pausaZoom;
     GameObject player;
     public bool limitarDistancia = false;
+    public GameObject ceboCamara;
+    float distanciaCebo=15;
+    float distanciaCeboNosolo = 45;
+
     // Start is called before the first frame update
     void Start()
     {
+        maxPaneoHorizontalConVariosTargets = maxPaneoHorizontalBase * 2;
+        velocidadPaneoHorizVariosTargets = 2 * velocidadPaneoHorizontalBase;
         pausaZoom = GameObject.Find("ZoomPausa");
         auxfinalsize = finalsize;
         auxstartsize = startsize;
@@ -65,8 +75,16 @@ public class CameraZoom : MonoBehaviour
 
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        if (soloplayer == true)
+        {
+            ceboCamara.transform.localPosition = Vector2.MoveTowards(ceboCamara.transform.localPosition , distanciaCebo * cc.rb.velocity.normalized,6f*Time.deltaTime);
+        }
+        else
+        {
+            ceboCamara.transform.localPosition = Vector2.MoveTowards(ceboCamara.transform.localPosition, distanciaCeboNosolo * cc.rb.velocity.normalized, 9*Time.deltaTime);
+        }
         //if (GameManager.Instance.personajevivo == true)
         //{
 
@@ -75,6 +93,19 @@ public class CameraZoom : MonoBehaviour
             if (i == 0)
             {
                 if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target == this.gameObject.transform)
+                {
+                    soloplayer = true;
+                    //GameObject.Find("Cubito").GetComponent<SpriteRenderer>().enabled = false;
+                }
+                else
+                {
+                    soloplayer = false;
+                    //GameObject.Find("Cubito").GetComponent<SpriteRenderer>().enabled = true;
+                }
+            }
+            else if (i == 1)
+            {
+                if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[1].target == ceboCamara.gameObject.transform)
                 {
                     soloplayer = true;
                     //GameObject.Find("Cubito").GetComponent<SpriteRenderer>().enabled = false;
@@ -169,144 +200,9 @@ public class CameraZoom : MonoBehaviour
                             pausado = false;
                         }
                     }
-                    if (this.GetComponent<PlayerInput>().inputHorizontal != 0 && this.GetComponent<ControllerPersonaje>().ultimaNormal.y > 0.7f)
-                    {
-
-                        if (Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x) > 15)
-                        {
-
-
-                            if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) < maxPaneoHorizontal + 2)
-                            {
-
-
-                                if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) < maxPaneoHorizontal)
-                                {
-
-                                    if (Mathf.Sign(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) != this.GetComponent<PlayerInput>().inputHorizontal)
-                                    {
-
-                                        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x += this.GetComponent<PlayerInput>().inputHorizontal * velocidadPaneoHorizontal * 2 * Mathf.Clamp(Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x), 0.8f, 1.5f) * Time.deltaTime;
-
-                                    }
-                                    else
-                                    {
-
-                                        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x += this.GetComponent<PlayerInput>().inputHorizontal * velocidadPaneoHorizontal * Mathf.Clamp(Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x), 0.8f, 1.5f) * Time.deltaTime;
-
-                                    }
-                                }
-                                else if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) >= maxPaneoHorizontal && Mathf.Sign(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) == Mathf.Sign(this.GetComponent<PlayerInput>().inputHorizontal))
-                                {
-                                    if (this.GetComponent<PlayerInput>().ultimoInputHorizontal != 0)
-                                    {
-
-                                        if (Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x) > 7)
-                                        {
-
-                                            cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = maxPaneoHorizontal * Mathf.Sign(this.GetComponent<PlayerInput>().ultimoInputHorizontal);
-                                        }
-                                    }
-                                    //if (this.GetComponent<PlayerInput>().ultimoInputHorizontal > 0)
-                                    //{
-                                    //    if (this.GetComponent<ControllerPersonaje>().rb.velocity.x > 7)
-                                    //    {
-                                    //        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = maxPaneoHorizontal;
-                                    //    }
-
-
-                                    //}
-                                    //else if (this.GetComponent<PlayerInput>().ultimoInputHorizontal < 0)
-                                    //{
-                                    //    if (this.GetComponent<ControllerPersonaje>().rb.velocity.x < -7)
-                                    //    {
-                                    //        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = -maxPaneoHorizontal;
-                                    //    }
-
-
-                                    //}
-
-                                }
-                                else if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) >= maxPaneoHorizontal)
-                                {
-                                    if (this.GetComponent<PlayerInput>().ultimoInputHorizontal > 0)
-                                    {
-
-
-                                        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x += velocidadPaneoHorizontal * Mathf.Clamp(Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x), 0.8f, 1.5f) * Time.deltaTime;
-
-
-                                    }
-                                    else if (this.GetComponent<PlayerInput>().ultimoInputHorizontal < 0)
-                                    {
-
-                                        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x -= velocidadPaneoHorizontal * Mathf.Clamp(Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x), 0.8f, 1.5f) * Time.deltaTime;
-
-
-                                    }
-
-                                }
-
-
-
-                                //cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x += this.GetComponent<PlayerInput>().inputHorizontal * velocidadPaneoHorizontal * Time.deltaTime;
-                            }
-                            else
-                            {
-
-                                //cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = maxPaneoHorizontal * Mathf.Sign(this.GetComponent<ControllerPersonaje>().rb.velocity.x);
-                            }
-
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                    else
-                    {
-                        //if (this.GetComponent<ControllerPersonaje>().ultimaNormal.y > 0.7f)
-                        //{
-
-                        if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) > 0.3f)
-                        {
-                            cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x -= velocidadPaneoHorizontal * Time.deltaTime * Mathf.Sign(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x);
-
-                        }
-                        else
-                        {
-                            cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = 0;
-                        }
-
-                    }
-                    if (this.GetComponent<ControllerPersonaje>().rb.velocity.y < -5 && this.GetComponent<ControllerPersonaje>().grounded == false)
-                    {
-
-                        if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y) < maxPaneoVertical)
-                        {
-                            cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y -= (velocidadPaneoVertical * Mathf.Clamp(Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.y), 0.8f, 3)) * Time.deltaTime;
-                        }
-                        else
-                        {
-                            cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y = -maxPaneoVertical;
-                        }
-
-
-                    }
-                    else
-                    {
-                        if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y) > 0.3f)
-                        {
-                            cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y -= velocidadPaneoHorizontal * 2 * Time.deltaTime * Mathf.Sign(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y);
-                        }
-                        else
-                        {
-                            cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y = 0;
-                        }
-
-                    }
-
+                  
                     if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping >= 0.2f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping -= 1 * Time.deltaTime;
+
                     if (this.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f)
                     {
                         if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping < 1f)
@@ -393,20 +289,20 @@ public class CameraZoom : MonoBehaviour
                             if (cinemakina.m_Lens.OrthographicSize > startsize)
                             {
                                 tiempoSinInput += Time.deltaTime * 0.5f;
-                                cinemakina.m_Lens.OrthographicSize -= (Time.deltaTime + tiempoSinInput);
+                                cinemakina.m_Lens.OrthographicSize -= (3*Time.deltaTime + tiempoSinInput);
                             }
                         }
                     }
                     if (cinemakina.m_Lens.OrthographicSize > finalsize + 4)
                     {
-                        cinemakina.m_Lens.OrthographicSize -= (Time.deltaTime * 5);
+                        cinemakina.m_Lens.OrthographicSize -= (Time.deltaTime * 6);
                     }
                 }
                 else
                 {
-                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping <= 3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping += 10 * Time.deltaTime;
-                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping <= 3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping += 10 * Time.deltaTime;
-                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping <= 3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping += 10 * Time.deltaTime;
+                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping <= 1f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping += 5 * Time.deltaTime;
+                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping <= 1.5f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping += 5 * Time.deltaTime;
+                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping <=1f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping += 5 * Time.deltaTime;
                     if (limitarDistancia)
                     {
 
@@ -425,6 +321,152 @@ public class CameraZoom : MonoBehaviour
                         cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize - indiceMultiplicadorZoom * Time.deltaTime;
                     }
                 }
+                if (this.GetComponent<PlayerInput>().inputHorizontal != 0 && this.GetComponent<ControllerPersonaje>().ultimaNormal.y > 0.7f)
+                {
+                    if (soloplayer)
+                    {
+                        maxPaneoHorizontalBase = maxPaneoHorizontal;
+                        velocidadPaneoHorizontalBase = velocidadPaneoHorizontal;
+                    }
+                    else
+                    {
+                        velocidadPaneoHorizontalBase = velocidadPaneoHorizVariosTargets;
+                        //maxPaneoHorizontalBase = maxPaneoHorizontalConVariosTargets;
+                    }
+                    if (Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x) > 15)
+                    {
+
+
+                        if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) < maxPaneoHorizontalBase + 2)
+                        {
+
+
+                            if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) < maxPaneoHorizontalBase)
+                            {
+
+                                if (Mathf.Sign(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) != this.GetComponent<PlayerInput>().inputHorizontal)
+                                {
+
+                                    cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x += this.GetComponent<PlayerInput>().inputHorizontal * velocidadPaneoHorizontalBase * 2 * Mathf.Clamp(Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x), 0.8f, 1.5f) * Time.deltaTime;
+
+                                }
+                                else
+                                {
+
+                                    cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x += this.GetComponent<PlayerInput>().inputHorizontal * velocidadPaneoHorizontalBase * Mathf.Clamp(Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x), 0.8f, 1.5f) * Time.deltaTime;
+
+                                }
+                            }
+                            else if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) >= maxPaneoHorizontalBase && Mathf.Sign(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) == Mathf.Sign(this.GetComponent<PlayerInput>().inputHorizontal))
+                            {
+                                if (this.GetComponent<PlayerInput>().ultimoInputHorizontal != 0)
+                                {
+
+                                    if (Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x) > 7)
+                                    {
+
+                                        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = maxPaneoHorizontalBase * Mathf.Sign(this.GetComponent<PlayerInput>().ultimoInputHorizontal);
+                                    }
+                                }
+                                //if (this.GetComponent<PlayerInput>().ultimoInputHorizontal > 0)
+                                //{
+                                //    if (this.GetComponent<ControllerPersonaje>().rb.velocity.x > 7)
+                                //    {
+                                //        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = maxPaneoHorizontal;
+                                //    }
+
+
+                                //}
+                                //else if (this.GetComponent<PlayerInput>().ultimoInputHorizontal < 0)
+                                //{
+                                //    if (this.GetComponent<ControllerPersonaje>().rb.velocity.x < -7)
+                                //    {
+                                //        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = -maxPaneoHorizontal;
+                                //    }
+
+
+                                //}
+
+                            }
+                            else if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) >= maxPaneoHorizontalBase)
+                            {
+                                if (this.GetComponent<PlayerInput>().ultimoInputHorizontal > 0)
+                                {
+
+
+                                    cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x += velocidadPaneoHorizontalBase * Mathf.Clamp(Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x), 0.8f, 1.5f) * Time.deltaTime;
+
+
+                                }
+                                else if (this.GetComponent<PlayerInput>().ultimoInputHorizontal < 0)
+                                {
+
+                                    cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x -= velocidadPaneoHorizontalBase * Mathf.Clamp(Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.x), 0.8f, 1.5f) * Time.deltaTime;
+
+
+                                }
+
+                            }
+
+
+
+                            //cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x += this.GetComponent<PlayerInput>().inputHorizontal * velocidadPaneoHorizontal * Time.deltaTime;
+                        }
+                        else
+                        {
+
+                            //cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = maxPaneoHorizontal * Mathf.Sign(this.GetComponent<ControllerPersonaje>().rb.velocity.x);
+                        }
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    //if (this.GetComponent<ControllerPersonaje>().ultimaNormal.y > 0.7f)
+                    //{
+
+                    if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x) > 0.15f)
+                    {
+                        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x -= velocidadPaneoHorizontalBase * Time.deltaTime * Mathf.Sign(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x);
+
+                    }
+                    else
+                    {
+                        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = 0;
+                    }
+
+                }
+                if (this.GetComponent<ControllerPersonaje>().rb.velocity.y < -5 && this.GetComponent<ControllerPersonaje>().grounded == false)
+                {
+
+                    if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y) < maxPaneoVertical)
+                    {
+                        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y -= (velocidadPaneoVertical * Mathf.Clamp(Mathf.Abs(this.GetComponent<ControllerPersonaje>().rb.velocity.y), 0.8f, 3)) * Time.deltaTime;
+                    }
+                    else
+                    {
+                        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y = -maxPaneoVertical;
+                    }
+
+
+                }
+                else
+                {
+                    if (Mathf.Abs(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y) > 0.3f)
+                    {
+                        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y -= velocidadPaneoHorizontalBase * 2 * Time.deltaTime * Mathf.Sign(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y);
+                    }
+                    else
+                    {
+                        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y = 0;
+                    }
+
+                }
+
             }
             //      }
             //}
