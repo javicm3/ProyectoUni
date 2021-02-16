@@ -304,9 +304,8 @@ public class ControllerPersonaje : MonoBehaviour
 
 
 
-        if (escenaActual != "ND-1")
+        if (GameManager.Instance.desbloqueadoDash)
         {
-
 
             if (!dashCaidaBloqueado)
             {

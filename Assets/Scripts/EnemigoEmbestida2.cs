@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Experimental.Rendering.Universal;
 
-public class EnemigoEmbestida2 : MonoBehaviour
+public class EnemigoEmbestida2 : EnemigoPadre
 {
     public enum States
     {
@@ -38,15 +38,24 @@ public class EnemigoEmbestida2 : MonoBehaviour
     public bool mirandoDerecha = true;
     public SpriteRenderer cuerpo;
     public float speed = 2;
-    GameObject player;
+
     Animator anim;
     public float tiempoStun = 2f;
     public float auxTiempoStun;
-    public bool stun = false;
-    public GameObject escudo;
-   
-    public List<Light2D> luces;
 
+    public GameObject escudo;
+
+    public List<Light2D> luces;
+    public override void ActivarPrimeraVez()
+    {
+
+        if (Vector2.Distance(this.transform.position, player.transform.position) < distanciaActivacion)
+        {
+            activado = true;
+            estado = States.Andar;
+            //reseter posicion
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -61,164 +70,118 @@ public class EnemigoEmbestida2 : MonoBehaviour
             if (luces != null) luces.Add(go);
         }
     }
-    public void Stun()
+    public override void Stun()
     {
         escudo.SetActive(false);
         stun = true;
-        
+
         foreach (Light2D go in luces)
-        {   
+        {
             go.gameObject.SetActive(false);
-          
+
         }
-            auxTiempoStun = tiempoStun;
+        auxTiempoStun = tiempoStun;
 
     }
-    // Update is called once per frame
-    void Update()
+    public override void Reactivar()
     {
-        if (auxCdEmbestida > 0)
+        estado = States.Andar;
+        stun = false;
+        foreach (Light2D go in luces)
         {
-            auxCdEmbestida -= Time.deltaTime;
-            if (auxCdEmbestida <= 0)
+            go.gameObject.SetActive(true);
+
+        }
+    }
+    // Update is called once per frame
+    protected override void Update()
+    {
+
+        base.Update();
+        if (auxTiempoStun > 0)
+        {
+            auxTiempoStun -= Time.deltaTime;
+            if (auxTiempoStun <= 0)
             {
-                auxCdEmbestida = 0;
+                auxTiempoStun = 0;
+                Reactivar();
+                
             }
         }
-        if (stun == true)
+        if (activado == true)
         {
-           
-            estado = States.Stun;
-
-
-        }
-        else
-        {
-            escudo.SetActive(true);
-        }
-        if (reciengolpeado == false)
-        {
-
-
-            if (this.transform.position.x < maxPuntoPatrullaIzq.transform.position.x)
+            if (auxCdEmbestida > 0)
             {
-                SetRandomPoint();
-                speedactualembestida = speedembestida;
-                estado = States.Andar;
-                reciengolpeado = true; Invoke("ResetGolpeo", 5f);
-            }
-            else if (this.transform.position.x > maxPuntoPatrullaDer.transform.position.x)
-            {
-                SetRandomPoint();
-                speedactualembestida = speedembestida;
-                estado = States.Andar;
-                reciengolpeado = true; Invoke("ResetGolpeo", 5f);
-            }
-        }
-        //if ((this.transform.position.x < puntosPatrulla[0].transform.position.x) || (this.transform.position.x > puntosPatrulla[1].transform.position.x))
-        //{
-        //    SigPunto();
-        //    speedactualembestida = speedembestida;
-        //    estado = States.Andar;
-
-        //}
-        if (mirandoDerecha == true)
-        {
-            cuerpo.transform.localScale = new Vector3(1, 1, 1);
-        }
-        else
-        {
-            cuerpo.transform.localScale = new Vector3(-1, 1, 1);
-        }
-        if (estado == States.Stun)
-        {
-
-            anim.SetBool("Idle", true);
-            anim.SetBool("Andar", false);
-            anim.SetBool("Atacar", false);
-            anim.SetBool("Chase", false);
-            if (auxTiempoStun > 0)
-            {
-                auxTiempoStun -= Time.deltaTime;
-                if (auxTiempoStun <= 0)
+                auxCdEmbestida -= Time.deltaTime;
+                if (auxCdEmbestida <= 0)
                 {
-                    auxTiempoStun = 0;
-                    estado = States.Andar;
-                    
-                    foreach (Light2D go in luces)
-                    {
-                        go.gameObject.SetActive(true);
-
-                    }
-                    stun = false;
+                    auxCdEmbestida = 0;
                 }
             }
-        }
-        if (estado == States.Andar)
-        {
-            anim.SetBool("Idle", false);
-            anim.SetBool("Atacar", false);
-            anim.SetBool("Chase", false);
-            anim.SetBool("Andar", true);
 
-            this.transform.Translate((posicionDestino - this.transform.position).normalized * Time.deltaTime * speed);
-            if (posicionDestino.x < this.transform.position.x)
+
+            if (stun == true)
             {
-                mirandoDerecha = false;
+
+                estado = States.Stun;
+
+
             }
             else
             {
-                mirandoDerecha = true;
+                escudo.SetActive(true);
             }
-            ComprobarDistPunto();
-            ComprobarDistPlayer();
-        }
-        if (reciengolpeado == false)
-        {
-            if (estado == States.Perseguir)
+            if (reciengolpeado == false)
             {
-                anim.SetBool("Idle", false);
+
+
+                if (this.transform.position.x < maxPuntoPatrullaIzq.transform.position.x)
+                {
+                    SetRandomPoint();
+                    speedactualembestida = speedembestida;
+                    estado = States.Andar;
+                    reciengolpeado = true; Invoke("ResetGolpeo", 5f);
+                }
+                else if (this.transform.position.x > maxPuntoPatrullaDer.transform.position.x)
+                {
+                    SetRandomPoint();
+                    speedactualembestida = speedembestida;
+                    estado = States.Andar;
+                    reciengolpeado = true; Invoke("ResetGolpeo", 5f);
+                }
+            }
+            //if ((this.transform.position.x < puntosPatrulla[0].transform.position.x) || (this.transform.position.x > puntosPatrulla[1].transform.position.x))
+            //{
+            //    SigPunto();
+            //    speedactualembestida = speedembestida;
+            //    estado = States.Andar;
+
+            //}
+            if (mirandoDerecha == true)
+            {
+                cuerpo.transform.localScale = new Vector3(1, 1, 1);
+            }
+            else
+            {
+                cuerpo.transform.localScale = new Vector3(-1, 1, 1);
+            }
+            if (estado == States.Stun)
+            {
+
+                anim.SetBool("Idle", true);
                 anim.SetBool("Andar", false);
                 anim.SetBool("Atacar", false);
-                anim.SetBool("Chase", true);
-                this.transform.Translate((posicionDestino - this.transform.position).normalized * Time.deltaTime * speed * 1.1f);
-                if (posicionDestino.x < this.transform.position.x)
-                {
-                    mirandoDerecha = false;
-                }
-                else
-                {
-                    mirandoDerecha = true;
-                }
-                ComprobarDistPlayer();
-
-            }
-            //if (estado == States.Idle)
-            //{
-            //    anim.SetBool("Idle", true);
-            //    anim.SetBool("Andar", false);
-            //    anim.SetBool("Atacar", false);
-            //    anim.SetBool("Chase", false);
-            //    if (aux > 0)
-            //    {
-            //        aux -= Time.deltaTime;
-            //    }
-            //    else aux = 0;
-            //    if (aux == 0)
-            //    {
-            //        estado = States.Andar;
-            //    }
-            //    ComprobarSiEmbestir();
-            //}
-            if (estado == States.Embestir)
-            {
-                anim.SetBool("Atacar", true);
-                anim.SetBool("Idle", false);
-                anim.SetBool("Andar", false);
                 anim.SetBool("Chase", false);
-                speedactualembestida -= Time.deltaTime;
-                if (speedactualembestida <= 0) speedactualembestida = 0;
-                this.transform.Translate((posicionDestino - this.transform.position).normalized * Time.deltaTime * speedactualembestida);
+                
+            }
+            if (estado == States.Andar)
+            {
+                anim.SetBool("Idle", false);
+                anim.SetBool("Atacar", false);
+                anim.SetBool("Chase", false);
+                anim.SetBool("Andar", true);
+
+                this.transform.Translate((posicionDestino - this.transform.position).normalized * Time.deltaTime * speed);
                 if (posicionDestino.x < this.transform.position.x)
                 {
                     mirandoDerecha = false;
@@ -228,24 +191,82 @@ public class EnemigoEmbestida2 : MonoBehaviour
                     mirandoDerecha = true;
                 }
                 ComprobarDistPunto();
+                ComprobarDistPlayer();
+            }
+            if (reciengolpeado == false)
+            {
+                if (estado == States.Perseguir)
+                {
+                    anim.SetBool("Idle", false);
+                    anim.SetBool("Andar", false);
+                    anim.SetBool("Atacar", false);
+                    anim.SetBool("Chase", true);
+                    this.transform.Translate((posicionDestino - this.transform.position).normalized * Time.deltaTime * speed * 1.1f);
+                    if (posicionDestino.x < this.transform.position.x)
+                    {
+                        mirandoDerecha = false;
+                    }
+                    else
+                    {
+                        mirandoDerecha = true;
+                    }
+                    ComprobarDistPlayer();
+
+                }
+                //if (estado == States.Idle)
+                //{
+                //    anim.SetBool("Idle", true);
+                //    anim.SetBool("Andar", false);
+                //    anim.SetBool("Atacar", false);
+                //    anim.SetBool("Chase", false);
+                //    if (aux > 0)
+                //    {
+                //        aux -= Time.deltaTime;
+                //    }
+                //    else aux = 0;
+                //    if (aux == 0)
+                //    {
+                //        estado = States.Andar;
+                //    }
+                //    ComprobarSiEmbestir();
+                //}
+                if (estado == States.Embestir)
+                {
+                    anim.SetBool("Atacar", true);
+                    anim.SetBool("Idle", false);
+                    anim.SetBool("Andar", false);
+                    anim.SetBool("Chase", false);
+                    speedactualembestida -= Time.deltaTime;
+                    if (speedactualembestida <= 0) speedactualembestida = 0;
+                    this.transform.Translate((posicionDestino - this.transform.position).normalized * Time.deltaTime * speedactualembestida);
+                    if (posicionDestino.x < this.transform.position.x)
+                    {
+                        mirandoDerecha = false;
+                    }
+                    else
+                    {
+                        mirandoDerecha = true;
+                    }
+                    ComprobarDistPunto();
+
+                }
 
             }
+            else if (estado != States.Andar)
+            {
+                anim.SetBool("Idle", true);
+                anim.SetBool("Andar", false);
+                anim.SetBool("Atacar", false);
+                anim.SetBool("Chase", false);
+            }
+            else
+            {
+                anim.SetBool("Idle", false);
+                anim.SetBool("Andar", true);
+                anim.SetBool("Atacar", false);
+                anim.SetBool("Chase", false);
 
-        }
-        else if (estado != States.Andar)
-        {
-            anim.SetBool("Idle", true);
-            anim.SetBool("Andar", false);
-            anim.SetBool("Atacar", false);
-            anim.SetBool("Chase", false);
-        }
-        else
-        {
-            anim.SetBool("Idle", false);
-            anim.SetBool("Andar", true);
-            anim.SetBool("Atacar", false);
-            anim.SetBool("Chase", false);
-
+            }
         }
     }
     void ComprobarDistPlayer()

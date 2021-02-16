@@ -64,12 +64,12 @@ public class Respawn : MonoBehaviour
     }
     void GuardarDatos()
     {
-        if (GameManager.Instance.tempMoneda1 == true) GameManager.Instance.pickMoneda1 = true;
-        if (GameManager.Instance.tempMoneda2 == true) GameManager.Instance.pickMoneda2 = true;
-        if (GameManager.Instance.tempMoneda3 == true) GameManager.Instance.pickMoneda3 = true;
+        //if (GameManager.Instance.tempMoneda1 == true) GameManager.Instance.pickMoneda1 = true;
+        //if (GameManager.Instance.tempMoneda2 == true) GameManager.Instance.pickMoneda2 = true;
+        //if (GameManager.Instance.tempMoneda3 == true) GameManager.Instance.pickMoneda3 = true;
         GameManager.Instance.futureSpawn = this.transform.position;
-        GameManager.Instance.currentRespawn = this.gameObject.transform.position;
-        GameManager.Instance.lastcoleccionablesneed = GameManager.Instance.coleccionablesneed;
+        //GameManager.Instance.currentRespawn = this.gameObject.transform.position;
+        //GameManager.Instance.lastcoleccionablesneed = GameManager.Instance.coleccionablesneed;
 
     }
     private void OnTriggerEnter2D(Collider2D collision)

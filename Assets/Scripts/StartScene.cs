@@ -39,7 +39,7 @@ public class StartScene : MonoBehaviour
                     go.GetComponent<Image>().color = Color.white;
                 }
             }
-            actualtiempo =GameManager.Instance.tiemponivel1;
+            //actualtiempo =GameManager.Instance.tiemponivel1;
         }
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
@@ -67,7 +67,7 @@ public class StartScene : MonoBehaviour
                     go.GetComponent<Image>().color = Color.white;
                 }
             }
-            actualtiempo = GameManager.Instance.tiemponivel2;
+            //actualtiempo = GameManager.Instance.tiemponivel2;
         }
         if (SceneManager.GetActiveScene().buildIndex == 3)
         {
@@ -95,7 +95,7 @@ public class StartScene : MonoBehaviour
                     go.GetComponent<Image>().color = Color.white;
                 }
             }
-            actualtiempo = GameManager.Instance.tiemponivel3;
+            //actualtiempo = GameManager.Instance.tiemponivel3;
         }
         if (SceneManager.GetActiveScene().buildIndex == 4)
         {
@@ -123,7 +123,7 @@ public class StartScene : MonoBehaviour
                     go.GetComponent<Image>().color = Color.white;
                 }
             }
-            actualtiempo = GameManager.Instance.tiemponivel4;
+            //actualtiempo = GameManager.Instance.tiemponivel4;
         }
         if (SceneManager.GetActiveScene().buildIndex == 5)
         {
@@ -151,14 +151,14 @@ public class StartScene : MonoBehaviour
                     go.GetComponent<Image>().color = Color.white;
                 }
             }
-            actualtiempo = GameManager.Instance.tiemponivel5;
+            //actualtiempo = GameManager.Instance.tiemponivel5;
         }
        
         textotiempo = GameObject.Find("TextoTiempo").GetComponent<Text>();
-        GameManager.Instance.monedasImage = GameObject.FindGameObjectsWithTag("ImageMoneda");
+        //GameManager.Instance.monedasImage = GameObject.FindGameObjectsWithTag("ImageMoneda");
    
         
-        GameManager.Instance.actualMonedas = 0;
+        //GameManager.Instance.actualMonedas = 0;
         GameManager.Instance.personajevivo = true;
     }
 

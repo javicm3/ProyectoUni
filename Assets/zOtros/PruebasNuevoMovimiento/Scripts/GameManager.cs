@@ -7,29 +7,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("COSAS ANTERIORES IGNORAR")]
-    public float tiemponivel1;
-    public float tiemponivel2;
-    public float tiemponivel3;
-    public float tiemponivel4;
-    public float tiemponivel5;
-
-    bool sepuede = true;
-    public float actualMonedas = 0;
-    public GameObject[] monedasImage;
-    [Header("CosasGuardadasNivelPrueba")]
-    public Vector3 currentRespawn;
-
-    public GameObject moneda1;
-    public GameObject moneda2;
-    public GameObject moneda3;
-    public float lastcoleccionablesneed = 3;
-    public bool tempMoneda1 = false;
-    public bool tempMoneda2 = false;
-    public bool tempMoneda3 = false;
-    public bool pickMoneda1 = false;
-    public bool pickMoneda2 = false;
-    public bool pickMoneda3 = false;
+   
+   
     [Header("FINGuardadasNivelPrueba")]
     public bool personajevivo = true;
     public Vector3 futureSpawn;
@@ -84,6 +63,7 @@ public class GameManager : MonoBehaviour
     public Text textoActualEstrellas;
     public Text textoMaxEstrellas;
 
+    public bool desbloqueadoDash=true;
 
     [Header(" FIN COSAS ANTERIORES IGNORAR")]
 
@@ -567,8 +547,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void NextScene(string nextlvl)
-    {
+    { 
         SceneManager.LoadScene(nextlvl, LoadSceneMode.Single);
+    
     }
 
     public void MuertePJ()

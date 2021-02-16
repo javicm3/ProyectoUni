@@ -15,7 +15,7 @@ public class VidaPlayer : MonoBehaviour
     public float vidaMax = 4f;
     public float vidaActual;
     public float dañoBalaVolador = 1;
-   
+
     //public Image[] spritesvida;
     GameObject barraVida;
     Color colorinicial;
@@ -38,7 +38,7 @@ public class VidaPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
+
         if (SceneManager.GetActiveScene().name != "Lobby")
         {
             //spritesvida[0] = GameObject.Find("Vida0").GetComponent<Image>();
@@ -61,8 +61,9 @@ public class VidaPlayer : MonoBehaviour
     }
 
     public void RecibirDaño(float daño, Vector3 puntoimpacto, Vector3 puntocontacto)
-    {
-
+    {//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de abajo
+        daño = 55;
+        //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de arriba
         if (auxcdTrasdaño <= 0)
         {
             //if ((this.GetComponent<Movimiento>().cayendoS == false) && (this.GetComponent<CharacterController2D>().dashing == false) && (this.GetComponent<CharacterController2D>().justdashed == false) && (recienAtacado == false))
@@ -73,10 +74,10 @@ public class VidaPlayer : MonoBehaviour
             {
                 vidaActual = 0;
             }
-          
- auxcdTrasdaño += cdTrasDaño;
-          
-           
+
+            auxcdTrasdaño += cdTrasDaño;
+
+
             if (vidaActual == 0)
             {
                 //this.GetComponentInChildren<Animator>().SetTrigger("Die");
@@ -92,7 +93,14 @@ public class VidaPlayer : MonoBehaviour
                 {
                     for (int i = 0; i < targetGroup.m_Targets.Length; i++)
                     {
-                        if (i == 0) { targetGroup.m_Targets[0].target = this.transform; }
+                        if (i == 0)
+                        {
+                            targetGroup.m_Targets[0].target = this.transform;
+                        }
+                        else if (i == 1)
+                        {
+                            targetGroup.m_Targets[1].target = this.GetComponent<CameraZoom>().ceboCamara.transform;
+                        }
                         else
                         {
                             if (targetGroup.m_Targets[i].target != null)
@@ -102,7 +110,7 @@ public class VidaPlayer : MonoBehaviour
                             }
                         }
                     }
-                  
+
                     FindObjectOfType<CameraZoom>().soloplayer = true;
                 }
                 if (SceneManager.GetActiveScene().name == "ND-3")
@@ -300,7 +308,7 @@ public class VidaPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "balaVolador")
         {
-            
+
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoBalaVolador, collision.gameObject.transform.position, collision.contacts[0].point);
         }
         if (collision.gameObject.tag == "Pinchos")
@@ -343,7 +351,7 @@ public class VidaPlayer : MonoBehaviour
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoAgua, collision.gameObject.transform.position, collision.contacts[0].point);
             this.transform.position = new Vector3(this.transform.position.x - 0.1f, this.transform.position.y + 0.2f, 0);
         }
-        if(collision.gameObject.tag == "Boss")
+        if (collision.gameObject.tag == "Boss")
         {
             this.gameObject.transform.parent = null;
             GetComponent<VidaPlayer>().RecibirDaño(GetComponent<VidaPlayer>().vidaActual, collision.gameObject.transform.position, this.transform.position);
@@ -363,7 +371,7 @@ public class VidaPlayer : MonoBehaviour
         //        this.GetComponent<ControllerPersonaje>().velocidadCombateUltima = Vector3.zero;
         //        this.GetComponent<ControllerPersonaje>().combateBloqueado = true;
         //        auxTiempoUsar = tiempoUsarCombateTrasEscudo;
-               
+
         //        GetComponent<VidaPlayer>().RecibirDaño(0, (new Vector2(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y - 1)), (new Vector2(this.transform.gameObject.transform.position.x, this.transform.gameObject.transform.position.y - 1)));
         //    }
         //    else
@@ -371,7 +379,7 @@ public class VidaPlayer : MonoBehaviour
         //        print("dañooo");
         //        GetComponent<VidaPlayer>().RecibirDaño(1, (new Vector2(collision.gameObject.transform.position.x, collision.gameObject.transform.position.y - 1)), (new Vector2(this.transform.gameObject.transform.position.x, this.transform.gameObject.transform.position.y - 1)));
         //    }
-          
+
         //}
         //if (collision.gameObject.tag == "EnemigoEmbestida")
         //{

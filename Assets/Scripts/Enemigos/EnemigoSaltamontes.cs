@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemigoSaltamontes : MonoBehaviour
+public class EnemigoSaltamontes : EnemigoPadre
 {
     [Header("Tocar")]
     public GameObject controlador;
@@ -23,7 +23,7 @@ public class EnemigoSaltamontes : MonoBehaviour
 
 
     public float distanciaAlSuelo = 1f;
-    public float distanciaActivacion = 40f;
+  
     public float distanciaAtacar = 15f;
     public float distanciaPerseguir = 27f;[Space(5)]
     public GameObject pIzq;
@@ -52,10 +52,10 @@ public class EnemigoSaltamontes : MonoBehaviour
     float auxtiempoEntreSaltosAndar;
     float auxtiempoEntreSaltosPerseguir;
     float auxtiempoEntreSaltosAtacar;
-    bool activado = false;
-    public bool stun = false;
+
+
     Rigidbody2D rb;
-    GameObject player;
+    //GameObject player;
     private Vector3 velocityBeforePhysicsUpdate;
     Color colororiginal;
     void FixedUpdate()
@@ -69,7 +69,7 @@ public class EnemigoSaltamontes : MonoBehaviour
         auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
         auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
         auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
-        player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
+        //player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
         rb = this.GetComponent<Rigidbody2D>();
         if (this.GetComponent<SpriteRenderer>() != null)
         {
@@ -77,37 +77,56 @@ public class EnemigoSaltamontes : MonoBehaviour
         }
 
     }
-    public void Stun()
+    public override void Stun()
     {
         stun = true;
     }
-    // Update is called once per frame
-    void Update()
+    public override void Reactivar()
     {
-        if ((faseActual == 2) && (estado != States.Stun && estado != States.Desactivado))
-        {
-            if (this.GetComponent<SpriteRenderer>() != null) this.GetComponent<SpriteRenderer>().color = colororiginal;
-            
+        //controlador.GetComponent<>
+    }
+    public override void ActivarPrimeraVez()
+    {
 
-        }else if (faseActual == 2)
+        if (Vector2.Distance(this.transform.position, player.transform.position) < distanciaActivacion)
         {
-            if (controlador.GetComponent<ControladorSaltamontesRespawn>().pequeñosStun == 4)
-            {
-                Destroy(this.gameObject);
-            }
+            activado = true;
+            estado = States.Movimiento;
+            //reseter posicion
         }
+    }
+    // Update is called once per frame
+     protected override void Update()
+    {
+        base.Update();
+      
 
-        if (activado == false)
+
+        //if (activado == false)
+        //{
+
+        //    if (Vector2.Distance(this.transform.position, player.transform.position) < distanciaActivacion)
+        //    {
+        //        activado = true;
+        //        estado = States.Movimiento;
+        //        //reseter posicion
+        //    }
+        //}
+        if (activado)
         {
-
-            if (Vector2.Distance(this.transform.position, player.transform.position) < distanciaActivacion)
+            if ((faseActual == 2) && (estado != States.Stun && estado != States.Desactivado))
             {
-                activado = true;
-                estado = States.Movimiento;
+                if (this.GetComponent<SpriteRenderer>() != null) this.GetComponent<SpriteRenderer>().color = colororiginal;
+
+
             }
-        }
-        else
-        {
+            else if (faseActual == 2)
+            {
+                if (controlador.GetComponent<ControladorSaltamontesRespawn>().pequeñosStun == 4)
+                {
+                    Destroy(this.gameObject);
+                }
+            }
             if (stun)
             {
                 estado = States.Stun;
@@ -128,144 +147,144 @@ public class EnemigoSaltamontes : MonoBehaviour
             }
 
 
-        }
-        if (estado == States.Desactivado)
-        {
-            auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
-            auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
-            auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
-        }
-        else if (estado == States.Movimiento)
-        {
-            stun = false;
-            auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
-            auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
 
-            if (grounded)
+            if (estado == States.Desactivado)
             {
-                if (auxtiempoEntreSaltosAndar > 0)
-                {
+                auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
+                auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
+                auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
+            }
+            else if (estado == States.Movimiento)
+            {
+                stun = false;
+                auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
+                auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
 
-                    auxtiempoEntreSaltosAndar -= Time.deltaTime;
+                if (grounded)
+                {
+                    if (auxtiempoEntreSaltosAndar > 0)
+                    {
+
+                        auxtiempoEntreSaltosAndar -= Time.deltaTime;
+
+                    }
+                    else
+                    {
+                        auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
+                        Saltar(fHorizMov, fVerticalMov);
+                    }
+                }
+            }
+            else if (estado == States.Perseguir)
+            {
+                if (player.transform.position.x > this.transform.position.x)
+                {
+                    mirandoDerecha = true;
+                    direccionDerecha = true;
 
                 }
                 else
                 {
-                    auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
-                    Saltar(fHorizMov, fVerticalMov);
+                    mirandoDerecha = false;
+                    direccionDerecha = false;
                 }
-            }
-        }
-        else if (estado == States.Perseguir)
-        {
-            if (player.transform.position.x > this.transform.position.x)
-            {
-                mirandoDerecha = true;
-                direccionDerecha = true;
-
-            }
-            else
-            {
-                mirandoDerecha = false;
-                direccionDerecha = false;
-            }
-            auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
-            auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
-            if (grounded)
-            {
-                if (auxtiempoEntreSaltosPerseguir > 0)
+                auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
+                auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
+                if (grounded)
                 {
+                    if (auxtiempoEntreSaltosPerseguir > 0)
+                    {
 
-                    auxtiempoEntreSaltosPerseguir -= Time.deltaTime;
+                        auxtiempoEntreSaltosPerseguir -= Time.deltaTime;
+
+                    }
+                    else
+                    {
+                        auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
+                        Saltar(fHorizPerseg, fVerticalPerseg);
+                    }
+                }
+
+            }
+            else if (estado == States.Atacar)
+            {
+                if (player.transform.position.x > this.transform.position.x)
+                {
+                    mirandoDerecha = true;
+                    direccionDerecha = true;
 
                 }
                 else
                 {
-                    auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
-                    Saltar(fHorizPerseg, fVerticalPerseg);
+                    mirandoDerecha = false;
+                    direccionDerecha = false;
                 }
-            }
-
-        }
-        else if (estado == States.Atacar)
-        {
-            if (player.transform.position.x > this.transform.position.x)
-            {
-                mirandoDerecha = true;
-                direccionDerecha = true;
-
-            }
-            else
-            {
-                mirandoDerecha = false;
-                direccionDerecha = false;
-            }
-            auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
-            auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
-            if (grounded)
-            {
-                if (auxtiempoEntreSaltosAtacar > 0)
+                auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
+                auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
+                if (grounded)
                 {
+                    if (auxtiempoEntreSaltosAtacar > 0)
+                    {
 
-                    auxtiempoEntreSaltosAtacar -= Time.deltaTime;
+                        auxtiempoEntreSaltosAtacar -= Time.deltaTime;
 
+                    }
+                    else
+                    {
+                        auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
+
+                        Saltar(Mathf.Clamp(Vector2.Distance(this.transform.position, player.transform.position), fHorizAtaqueMin, fHorizAtaqueMax), fVerticalAtaque);
+                    }
                 }
-                else
-                {
-                    auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
-
-                    Saltar(Mathf.Clamp(Vector2.Distance(this.transform.position, player.transform.position), fHorizAtaqueMin, fHorizAtaqueMax), fVerticalAtaque);
-                }
             }
-        }
-        else if (estado == States.Stun)
-        {
-            if (faseActual != 2)
+            else if (estado == States.Stun)
             {
-
-
-            }
-            else
-            {
-                if (this.GetComponent<SpriteRenderer>() != null) this.GetComponent<SpriteRenderer>().color = Color.black;
-
-            }
-            auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
-            auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
-            auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
-
-            if (auxTiempoHastaSpawn < 0)
-            {
-                auxTiempoHastaSpawn = 0;
                 if (faseActual != 2)
                 {
-                    estado = States.Desactivado;
-                    auxTiempoHastaSpawn = tiempoHastaSpawn;
-                    SpawnEnemigos();
-                    this.gameObject.SetActive(false);
-                    stun = false;
+
+
                 }
                 else
                 {
-                   
                     if (this.GetComponent<SpriteRenderer>() != null) this.GetComponent<SpriteRenderer>().color = Color.black;
-                    controlador.GetComponent<ControladorSaltamontesRespawn>().SumarPeq();
-                    GetComponentInChildren<DañoEnemigos>().gameObject.GetComponent<BoxCollider2D>().enabled = false;
 
                 }
+                auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
+                auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
+                auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
 
-                //if(faseActual!=2)
+                if (auxTiempoHastaSpawn < 0)
+                {
+                    auxTiempoHastaSpawn = 0;
+                    if (faseActual != 2)
+                    {
+                        estado = States.Desactivado;
+                        auxTiempoHastaSpawn = tiempoHastaSpawn;
+                        SpawnEnemigos();
+                        this.gameObject.SetActive(false);
+                        stun = false;
+                    }
+                    else
+                    {
+
+                        if (this.GetComponent<SpriteRenderer>() != null) this.GetComponent<SpriteRenderer>().color = Color.black;
+                        controlador.GetComponent<ControladorSaltamontesRespawn>().SumarPeq();
+                        GetComponentInChildren<DañoEnemigos>().gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+                    }
+
+                    //if(faseActual!=2)
 
 
+
+                }
+                else if (auxTiempoHastaSpawn > 0)
+                {
+                    auxTiempoHastaSpawn -= Time.deltaTime;
+                }
 
             }
-            else if (auxTiempoHastaSpawn > 0)
-            {
-                auxTiempoHastaSpawn -= Time.deltaTime;
-            }
-
         }
-
     }
     void SpawnEnemigos()
     {
