@@ -104,11 +104,21 @@ public class TriggerAguaSube : MonoBehaviour
     {
         for (int i = 0; i < targetGroup.m_Targets.Length; i++)
         {
-            if (i == 0) { targetGroup.m_Targets[0].target = player.transform; }
+            if (i == 0)
+            {
+                targetGroup.m_Targets[0].target = player.transform;
+
+            }
+            else if (i == 1)
+            {
+                targetGroup.m_Targets[1].target = player.GetComponent<CameraZoom>().ceboCamara.transform;
+            }
             else
             {
                 if (targetGroup.m_Targets[i].target != null)
                 {
+                    targetGroup.m_Targets[i].weight = 1;
+                    targetGroup.m_Targets[i].radius = 0;
                     targetGroup.m_Targets[i].target = null;
 
                 }
