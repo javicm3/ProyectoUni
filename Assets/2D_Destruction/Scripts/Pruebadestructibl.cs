@@ -17,7 +17,7 @@ public class Pruebadestructibl : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f)
             {
-                scriptDestruir.explode();
+                scriptDestruir.explode(3);
             }
         }
     }

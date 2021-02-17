@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 
+[RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class Explodable : MonoBehaviour
 {
     public System.Action<List<GameObject>> OnFragmentsGenerated;
-
+    
     public bool allowRuntimeFragmentation = false;
     public int extraPoints = 0;
     public int subshatterSteps = 0;
@@ -28,7 +29,7 @@ public class Explodable : MonoBehaviour
     /// <summary>
     /// Creates fragments if necessary and destroys original gameobject
     /// </summary>
-    public void explode()
+    public void explode(float tiempoFrag)
     {
         //if fragments were not created before runtime then create them now
         if (fragments.Count == 0 && allowRuntimeFragmentation)
@@ -42,12 +43,14 @@ public class Explodable : MonoBehaviour
             {
                 frag.transform.parent = null;
                 frag.SetActive(true);
+                frag.layer = LayerMask.NameToLayer("IgnorePlayer");
+                Destroy(frag, tiempoFrag);
             }
         }
         //if fragments exist destroy the original
         if (fragments.Count > 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
     /// <summary>
