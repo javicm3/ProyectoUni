@@ -50,7 +50,18 @@ public class Particulas : MonoBehaviour
             }
 
         }
-        else if(parent == null)
+        else if (particulas == particulasvelMax)
+        {
+           GameObject part= Instantiate(particulas, posicion, Quaternion.identity);
+            part.gameObject.SetActive(true);
+
+        }
+        else if (particulas == particulasvelMax2)
+        {
+            GameObject part = Instantiate(particulas, posicion, Quaternion.identity);
+            part.gameObject.SetActive(true);
+        }
+        else if (parent == null)
         {
             Instantiate(particulas, posicion, Quaternion.identity);
         }

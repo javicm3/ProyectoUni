@@ -65,16 +65,18 @@ public class AñadirQuitarObjetos : MonoBehaviour
         }
         foreach (GameObject go in objAñadir)
         {
+            int num = 0;
             for (int i = 0; i < targetGroup.m_Targets.Length; i++)
             {
-                if (i == 0) { }
+                if (i<= 1) { if (targetGroup.m_Targets[i].target != null) num++; }
                 else
                 {
                     if (targetGroup.m_Targets[i].target != null)
                     {
-
+                        num++;
                         if (targetGroup.m_Targets[i].target == go.transform)
                         {
+                            
                             break;
                         }
                     }
@@ -84,13 +86,13 @@ public class AñadirQuitarObjetos : MonoBehaviour
 
                         if (pesoObjAñadir.Length > 0)
                         {
-                            if (pesoObjAñadir[i - 1] != 0)
+                            if (pesoObjAñadir[i - num] != 0)
                             {
-                                targetGroup.m_Targets[i].weight = pesoObjAñadir[i - 1];
+                                targetGroup.m_Targets[i].weight = pesoObjAñadir[i - num];
 
                             }
                         }
-                        if (radioObjAñadir.Length > 0) if (radioObjAñadir[i - 1] != 0) targetGroup.m_Targets[i].radius = radioObjAñadir[i - 1];
+                        if (radioObjAñadir.Length > 0) if (radioObjAñadir[i - num] != 0) targetGroup.m_Targets[i].radius = radioObjAñadir[i - num];
                         break;
 
                     }
@@ -140,11 +142,11 @@ public class AñadirQuitarObjetos : MonoBehaviour
             if (i == 0)
             {
                 targetGroup.m_Targets[0].target = player.transform;
-                targetGroup.m_Targets[0].weight = 3;
+                
             }
             else if (i == 1)
             {
-               
+                targetGroup.m_Targets[1].target = player.GetComponent<CameraZoom>().ceboCamara.transform;
             }
             else
             {

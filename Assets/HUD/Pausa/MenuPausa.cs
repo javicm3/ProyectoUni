@@ -25,27 +25,27 @@ public class MenuPausa : MonoBehaviour
     }
     private void Start()
     {
-        if (SceneManager.GetActiveScene().name!= "PantallaInicio")
+        if (SceneManager.GetActiveScene().name != "PantallaInicio")
         {
             menuPausa = GameObject.Find("MenuPausa");
-        controllerAndInput = GameObject.Find("Player").GetComponent<ControllerPersonaje>();
-        gravedadNormal = controllerAndInput.gameObject.GetComponent<Rigidbody2D>().gravityScale;
-        controllerAndInput = controllerAndInput.gameObject.GetComponent<ControllerPersonaje>();
-        playerAnim = controllerAndInput.gameObject.GetComponentInChildren<Animator>();
-        pi = controllerAndInput.gameObject.GetComponent<PlayerInput>();
-        if (menuPausa != null)
-        {
-            menuPausa.SetActive(false);
-            anim = menuPausa.GetComponent<Animator>();
-        }
-        paused = false;
-        ptosPausa = GameObject.FindGameObjectsWithTag("Pausa");
-        for (int i = 0; i < ptosPausa.Length; i++)
-        {
-            Destroy(ptosPausa[i]);
-        }
-        targetGroup = GameObject.FindObjectOfType<CinemachineTargetGroup>().gameObject;
-        player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
+            controllerAndInput = GameObject.Find("Player").GetComponent<ControllerPersonaje>();
+            gravedadNormal = controllerAndInput.gameObject.GetComponent<Rigidbody2D>().gravityScale;
+            controllerAndInput = controllerAndInput.gameObject.GetComponent<ControllerPersonaje>();
+            playerAnim = controllerAndInput.gameObject.GetComponentInChildren<Animator>();
+            pi = controllerAndInput.gameObject.GetComponent<PlayerInput>();
+            if (menuPausa != null)
+            {
+                menuPausa.SetActive(false);
+                anim = menuPausa.GetComponent<Animator>();
+            }
+            paused = false;
+            ptosPausa = GameObject.FindGameObjectsWithTag("Pausa");
+            for (int i = 0; i < ptosPausa.Length; i++)
+            {
+                Destroy(ptosPausa[i]);
+            }
+            targetGroup = GameObject.FindObjectOfType<CinemachineTargetGroup>().gameObject;
+            player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
         }
     }
     public void InicioScript()
@@ -159,6 +159,7 @@ public class MenuPausa : MonoBehaviour
         for (int i = 0; i < targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets.Length; i++)
         {
             if (i == 0) { targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target = player.transform; }
+            else if (i == 1) { targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[1].target = player.GetComponent<CameraZoom>().ceboCamara.transform; }
             else
             {
                 if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[i].target != null)
