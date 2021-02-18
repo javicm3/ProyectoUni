@@ -44,6 +44,7 @@ public class Explodable : MonoBehaviour
                 frag.transform.parent = null;
                 frag.SetActive(true);
                 frag.layer = LayerMask.NameToLayer("IgnorePlayer");
+                frag.GetComponent<MeshRenderer>().sortingLayerName = "Interactuable";
                 Destroy(frag, tiempoFrag);
             }
         }
