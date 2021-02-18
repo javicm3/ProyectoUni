@@ -20,7 +20,7 @@ namespace InControl
 				"."			
 			};
 
-			MinUnityVersion = new VersionInfo( 5 );
+			//MinUnityVersion = new VersionInfo( 5 );
 
 			ButtonMappings = new[] {
 				new InputControlMapping {

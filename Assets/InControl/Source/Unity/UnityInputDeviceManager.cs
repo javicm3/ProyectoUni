@@ -118,33 +118,33 @@ namespace InControl
 			}
 
 			// PS4 controller works properly as of Unity 4.5
-			if (InputManager.UnityVersion <= new VersionInfo( 4, 5 ))
-			{
-				if (Application.platform == RuntimePlatform.OSXEditor ||
-				    Application.platform == RuntimePlatform.OSXPlayer 
-				   /* Application.platform == RuntimePlatform.OSXWebPlayer*/)
-				{
-					if (unityJoystickName == "Unknown Wireless Controller")
-					{
-						// Ignore PS4 controller in Bluetooth mode on Mac since it connects but does nothing.
-						return;
-					}
-				}
-			}
+			//if (InputManager.UnityVersion <= new VersionInfo( 4, 5 ))
+			//{
+			//	if (Application.platform == RuntimePlatform.OSXEditor ||
+			//	    Application.platform == RuntimePlatform.OSXPlayer 
+			//	   /* Application.platform == RuntimePlatform.OSXWebPlayer*/)
+			//	{
+			//		if (unityJoystickName == "Unknown Wireless Controller")
+			//		{
+			//			// Ignore PS4 controller in Bluetooth mode on Mac since it connects but does nothing.
+			//			return;
+			//		}
+			//	}
+			//}
 
 			// As of Unity 4.6.3p1, empty strings on windows represent disconnected devices.
-			if (InputManager.UnityVersion >= new VersionInfo( 4, 6, 3 ))
-			{
-				if (Application.platform == RuntimePlatform.WindowsEditor ||
-				    Application.platform == RuntimePlatform.WindowsPlayer 
-				  /*  Application.platform == RuntimePlatform.WindowsWebPlayer*/)
-				{
-					if (String.IsNullOrEmpty( unityJoystickName ))
-					{
-						return;
-					}
-				}
-			}
+			//if (InputManager.UnityVersion >= new VersionInfo( 4, 6, 3 ))
+			//{
+			//	if (Application.platform == RuntimePlatform.WindowsEditor ||
+			//	    Application.platform == RuntimePlatform.WindowsPlayer 
+			//	  /*  Application.platform == RuntimePlatform.WindowsWebPlayer*/)
+			//	{
+			//		if (String.IsNullOrEmpty( unityJoystickName ))
+			//		{
+			//			return;
+			//		}
+			//	}
+			//}
 
 			var matchedDeviceProfile = deviceProfiles.Find( config => config.HasJoystickName( unityJoystickName ) );
 

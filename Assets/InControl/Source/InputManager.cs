@@ -12,7 +12,7 @@ namespace InControl
 {
 	public class InputManager
 	{
-		public static readonly VersionInfo Version = VersionInfo.InControlVersion();
+		//public static readonly VersionInfo Version = VersionInfo.InControlVersion();
 
 		public static event Action OnSetup;
 		public static event Action<ulong,float> OnUpdate;
@@ -39,7 +39,7 @@ namespace InControl
 
 		static ulong currentTick;
 
-		static VersionInfo? unityVersion;
+		//static VersionInfo? unityVersion;
 
 
 		/// <summary>
@@ -419,18 +419,18 @@ namespace InControl
 		}
 
 
-		public static VersionInfo UnityVersion
-		{
-			get
-			{
-				if (!unityVersion.HasValue)
-				{
-					unityVersion = VersionInfo.UnityVersion();
-				}
+		//public static VersionInfo UnityVersion
+		//{
+		//	get
+		//	{
+		//		if (!unityVersion.HasValue)
+		//		{
+		//			unityVersion = VersionInfo.UnityVersion();
+		//		}
 
-				return unityVersion.Value;
-			}
-		}
+		//		return unityVersion.Value;
+		//	}
+		//}
 	}
 }
 

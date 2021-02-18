@@ -20,7 +20,7 @@ namespace InControl
 				"GameStick Controller"
 			};
 
-			MaxUnityVersion = new VersionInfo( 4, 9 );
+			//MaxUnityVersion = new VersionInfo( 4, 9 );
 
 			ButtonMappings = new[] {
 				new InputControlMapping {

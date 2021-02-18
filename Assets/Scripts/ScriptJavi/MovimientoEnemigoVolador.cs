@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovimientoEnemigoVolador : MonoBehaviour
+public class MovimientoEnemigoVolador : EnemigoPadre
 {
     [SerializeField] float speed;
     [SerializeField] Transform[] puntosPersonaje;
-    public   bool arrived = false;
-   public int indexArray;
+    public bool arrived = false;
+    public int indexArray;
     public float tiempoStun = 2f;
     public float auxTiempoStun;
-    public bool stun = false;
+
     [SerializeField] float tiempoEspera;
 
 
@@ -20,8 +20,17 @@ public class MovimientoEnemigoVolador : MonoBehaviour
         indexArray = 0;
 
     }
+    public override void ActivarPrimeraVez()
+    {
 
-    public void Stun()
+        if (Vector2.Distance(this.transform.position, player.transform.position) < distanciaActivacion)
+        {
+            activado = true;
+           
+            //reseter posicion
+        }
+    }
+    public override void Stun()
     {
 
         stun = true;
@@ -31,57 +40,62 @@ public class MovimientoEnemigoVolador : MonoBehaviour
 
     }
     // Update is called once per frame
-    void Update()
+    public override void Reactivar()
     {
-        if (stun == true)
-        {
-            if (auxTiempoStun > 0)
-            {
-                auxTiempoStun -= Time.deltaTime;
-                if (auxTiempoStun <= 0)
-                {
-                    auxTiempoStun = 0;
-
-
-
-                    stun = false;
-                }
-            }
-        }
-        else
+        auxTiempoStun = 0;
+        stun = false;
+    }
+    protected override void Update()
+    {
+        base.Update();
+        if (activado == true)
         {
 
-
-
-            if (Vector3.Distance(this.transform.position, puntosPersonaje[indexArray].position) > 1 && !arrived)
+            if (stun == true)
             {
-                if(puntosPersonaje[indexArray].position.x < this.transform.position.x)
+                if (auxTiempoStun > 0)
                 {
-                    this.transform.localScale= new Vector3(-1,1,1);
+                    auxTiempoStun -= Time.deltaTime;
+                    if (auxTiempoStun <= 0)
+                    {
+                        Reactivar();
+                    }
                 }
-                else
-                {
-                    this.transform.localScale = new Vector3(1, 1, 1);
-                }
-                this.transform.Translate((puntosPersonaje[indexArray].position - this.transform.position).normalized * Time.deltaTime * speed);
-
             }
             else
             {
-                if (indexArray < puntosPersonaje.Length - 1)
+
+
+                if (Vector3.Distance(this.transform.position, puntosPersonaje[indexArray].position) > 1 && !arrived)
                 {
-                    arrived = true;
-                    indexArray++;
-                    StartCoroutine("Wait");
+                    if (puntosPersonaje[indexArray].position.x < this.transform.position.x)
+                    {
+                        this.transform.localScale = new Vector3(-1, 1, 1);
+                    }
+                    else
+                    {
+                        this.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    this.transform.Translate((puntosPersonaje[indexArray].position - this.transform.position).normalized * Time.deltaTime * speed);
 
                 }
                 else
                 {
-                    arrived = true;
-                    indexArray = 0;
-                    StartCoroutine("Wait");
+                    if (indexArray < puntosPersonaje.Length - 1)
+                    {
+                        arrived = true;
+                        indexArray++;
+                        StartCoroutine("Wait");
+
+                    }
+                    else
+                    {
+                        arrived = true;
+                        indexArray = 0;
+                        StartCoroutine("Wait");
 
 
+                    }
                 }
             }
         }
