@@ -109,9 +109,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 494ebaf808c978e4581a3732d45b1a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   controlador: {fileID: 0}
-  tiempoHastaSpawn: -0.05
-  auxTiempoHastaSpawn: -0.05
+  tiempoHastaSpawn: 0.5
+  auxTiempoHastaSpawn: 0.5
   fVerticalMov: 40
   fHorizMov: 8
   tiempoEntreSaltosAndar: 1
@@ -123,7 +128,6 @@ MonoBehaviour:
   fHorizAtaqueMax: 10
   tiempoEntreSaltosAtacar: 0.5
   distanciaAlSuelo: 1.3
-  distanciaActivacion: 40
   distanciaAtacar: 15
   distanciaPerseguir: 27
   pIzq: {fileID: 0}
@@ -141,7 +145,6 @@ MonoBehaviour:
   "fSalidaPeque\xF1os": 25
   faseActual: 0
   estado: 3
-  stun: 0
 --- !u!61 &7112188227527126929
 BoxCollider2D:
   m_ObjectHideFlags: 0

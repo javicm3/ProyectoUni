@@ -39,8 +39,8 @@ public class CameraZoom : MonoBehaviour
     GameObject player;
     public bool limitarDistancia = false;
     public GameObject ceboCamara;
-    float distanciaCebo = 15;
-    float distanciaCeboNosolo = 45;
+    public float distanciaCebo = 15;
+   public  float distanciaCeboNosolo = 45;
 
     // Start is called before the first frame update
     void Start()
