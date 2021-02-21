@@ -116,7 +116,7 @@ public class VueltaLobby : MonoBehaviour
 
             cartel.enabled = true;
 
-            if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
+            if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
             {
                 GuardarDatos();
                 Activar(nivelDestino);

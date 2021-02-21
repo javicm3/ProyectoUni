@@ -57,7 +57,7 @@ public class IrANivel : MonoBehaviour
             else
             {if (GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick != null)
                 {
-                    if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
+                    if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
                     {
                         if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
                         {
