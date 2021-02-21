@@ -18,10 +18,12 @@ public class AtaquesBoss : MonoBehaviour
     public float tiempoSpawnRayoHorizontal;
     public float duracionRayoHorizontal;
     public float tiempoDisparos;
+    public float desviacionDisparos;
+    public float desviacionDiagonal = 30;
     GameObject vert1;
     GameObject vert2;
+    GameObject dia1;
     GameObject horizontal1;
-    Transform posicionDisparo;
 
     public Material materialHorzOff;
     public Material materialHorzOn;
@@ -66,6 +68,10 @@ public class AtaquesBoss : MonoBehaviour
         {
             StartCoroutine(DisparosBoss());
         }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            StartCoroutine(RayoDiagonal());
+        }
         //vert1.transform.Translate(Vector3.right * Time.deltaTime * speedRayosVert);
         //vert2.transform.Translate(Vector3.left * Time.deltaTime * speedRayosVert);
 
@@ -92,14 +98,22 @@ public class AtaquesBoss : MonoBehaviour
             disparo1 = Instantiate(disparoLaser, puntoDisparo.position, Quaternion.identity);
             disparo1.transform.parent = null;
             Vector3 direccionLaser = (player.transform.position - puntoDisparo.position).normalized;
-            disparo1.transform.forward = direccionLaser;
+            //disparo1.transform.LookAt(player.transform.position);
+            //Vector3 targetPos = player.transform.position;
+            float angle = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
+            disparo1.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            //disparo1.transform.forward = Vector3.down + direccionLaser;
             yield return new WaitForSeconds(tiempoDisparos);
 
             //segundo rayo random
             disparo2 = Instantiate(disparoLaser, puntoDisparo);
             disparo2.transform.parent = null;
-            direccionLaser = ((player.transform.position + new Vector3(Random.Range(-3, 3), 0, 0)) - puntoDisparo.position).normalized;
-            disparo2.transform.forward = direccionLaser;
+            direccionLaser = (player.transform.position - puntoDisparo.position).normalized;
+            
+            angle = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
+            angle = angle + Random.Range(-desviacionDisparos, desviacionDisparos);
+            disparo2.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             yield return new WaitForSeconds(tiempoDisparos);
             numDisparosAux++;
             StartCoroutine(DisparosBoss());
@@ -108,5 +122,23 @@ public class AtaquesBoss : MonoBehaviour
         {
             numDisparosAux = 0;
         }
+        
+    }
+    IEnumerator RayoDiagonal()
+    {
+        dia1 = Instantiate(rayoVert, puntoDisparo.position, Quaternion.identity);
+        //vert2 = Instantiate(rayoVert, posicionDisparo.position, Quaternion.identity);
+        Vector3 direccionLaser = (player.transform.position - puntoDisparo.position).normalized;
+        float angle1 = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
+        dia1.transform.rotation = Quaternion.AngleAxis(angle1 + desviacionDiagonal, Vector3.forward);
+        
+        RaycastHit2D hit = Physics2D.Raycast(puntoDisparo.position, dia1.transform.right, Mathf.Infinity, layerMask: 8);
+        dia1.GetComponent<LineRenderer>().SetPosition(0, puntoDisparo.position);
+        if(hit.collider != null)
+        {
+            dia1.GetComponent<LineRenderer>().SetPosition(1, hit.point);
+        }
+        
+        yield return new WaitForSeconds(1);
     }
 }

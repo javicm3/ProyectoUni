@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisparoLaser : MonoBehaviour
+public class LaserVertical : MonoBehaviour
 {
-    public float velocidadBalas;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,10 +13,13 @@ public class DisparoLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.right * velocidadBalas * Time.deltaTime);
+        
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(this.gameObject);
+        if(collision.tag == "Boss")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
