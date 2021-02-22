@@ -308,7 +308,15 @@ public class ControllerPersonaje : MonoBehaviour
         if (!movParedBloq) ComprobarParedes();
 
 
+        if (escenaActual != "ND-1")
+        {
 
+
+            if (!dashBloqueado)
+            {
+                Dash();
+            }
+        }
         if (GameManager.Instance.desbloqueadoDash)
         {
 
@@ -361,15 +369,7 @@ public class ControllerPersonaje : MonoBehaviour
         }
         GirarPersonaje();
         MovimientoPared();
-        if (escenaActual != "ND-1")
-        {
-
-
-            if (!dashBloqueado)
-            {
-                Dash();
-            }
-        }
+       
 
 
 
@@ -422,7 +422,7 @@ public class ControllerPersonaje : MonoBehaviour
         }
         if (enemigoCerca)
         {
-            if (Input.GetKey(KeyCode.LeftControl))
+            if ((joystick!=null && joystick.RightTrigger.IsPressed)||Input.GetKey(KeyCode.LeftControl))
             {
                 pulsadoChispazo = true;
 
@@ -787,7 +787,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if ((joystick != null && joystick.RightTrigger.WasReleased) || Input.GetKeyUp(KeyCode.LeftControl))
         {
             //if (movimientoBloqueado == true)
             //{
@@ -1504,7 +1504,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                 rb.velocity = new Vector2(0, rb.velocity.y);
-                if (pInput.inputVertical < -0.8f || pInput.inputVertical > 0.8f)
+                if ((joystick!=null && Mathf.Abs(joystick.LeftStickY)>0.8f)||(joystick==null&&(pInput.inputVertical < -0.8f || pInput.inputVertical > 0.8f)))
                 {
                     if (tocandoizquierda)
                     {
@@ -1515,6 +1515,7 @@ public class ControllerPersonaje : MonoBehaviour
                         transform.Find("Cuerpo").localScale = new Vector2(1, 1);
                     }
                     rb.velocity = new Vector2(0, pInput.inputVertical * speedpared * Time.deltaTime);
+                    animCC.SetFloat("MovimientoPared", Mathf.Abs(pInput.inputVertical));
                     //print("velocidad pared" + rb.velocity);
                 }
                 else
@@ -1529,10 +1530,10 @@ public class ControllerPersonaje : MonoBehaviour
                     }
                     rb.velocity = new Vector2(0, 0);
                     //print("velocidad pared" + rb.velocity + "suelto");
-
+                    animCC.SetFloat("MovimientoPared", 0);
                 }
+               
 
-                animCC.SetFloat("MovimientoPared", Mathf.Abs(pInput.inputVertical));
 
                 //if (Input.GetButtonDown("Jump"))
                 if (joystick != null)
@@ -2527,7 +2528,7 @@ public class ControllerPersonaje : MonoBehaviour
             //if (Input.GetButtonDown("Dash") && mEnergy.actualEnergy > mEnergy.energiaDash && pInput.inputVertical!=-1)
             if (joystick != null)
             {
-                if ((joystick.Action2.WasPressed || Input.GetButtonDown("Dash")) && mEnergy.actualEnergy > mEnergy.energiaDash && pInput.inputVertical != -1)
+                if ((joystick.Action3.WasPressed || Input.GetButtonDown("Dash")) && mEnergy.actualEnergy > mEnergy.energiaDash &&  (Mathf.Abs(joystick.LeftStick.X) > 0.3f||pInput.inputVertical>-1))
                 {
                     //if (dashPulsado && mEnergy.actualEnergy > mEnergy.energiaDash)
                     //{
@@ -2947,7 +2948,7 @@ public class ControllerPersonaje : MonoBehaviour
         if (joystick != null)
         {
             //if (!grounded && pegadoPared == false && (pInput.inputVertical == -1 || (joystick.Action2.WasPressed || Input.GetButtonDown("Dash"))))
-            if (!grounded && pInput.inputVertical == -1 && pegadoPared == false && joystick.LeftStickY == 0 || (joystick.Action2.WasPressed && pInput.inputVertical == -1 && Mathf.Abs(joystick.LeftStick.X) <= 1f/*|| Input.GetButtonDown("Dash")*/))
+            if (!grounded && pInput.inputVertical == -1 && pegadoPared == false && joystick.LeftStickY == 0 || (joystick.Action3.WasPressed && pInput.inputVertical == -1 /*&& joystick.LeftStick.Y <=-0.7f*/ && Mathf.Abs(joystick.LeftStick.X) <0.3f/*|| Input.GetButtonDown("Dash")*/))
             {
                 if (dashEnCaida == false)
                 {
@@ -3437,8 +3438,9 @@ public class ControllerPersonaje : MonoBehaviour
                             }
                         }
                     }
-                    else
+                    else if (pInput.inputHorizontal > 0)
                     {
+                        
                         if (tengoMaxspeed == false)
                         {
                             rb.velocity = new Vector2(velMaxima * 0.4f, rb.velocity.y);
@@ -3452,6 +3454,26 @@ public class ControllerPersonaje : MonoBehaviour
                             else
                             {
                                 rb.velocity = new Vector2(velMaxima, rb.velocity.y);
+                            }
+
+                        }
+                    }
+                    else if (pInput.inputHorizontal == 0)
+                    {
+
+                        if (tengoMaxspeed == false)
+                        {
+                            rb.velocity = new Vector2(0, rb.velocity.y);
+                        }
+                        else
+                        {
+                            if (cambioSentidoReciente == false)
+                            {
+                                rb.velocity = new Vector2(0, rb.velocity.y);
+                            }
+                            else
+                            {
+                                rb.velocity = new Vector2(0, rb.velocity.y);
                             }
 
                         }
