@@ -8,6 +8,8 @@ public class AtaquesBoss : MonoBehaviour
     public GameObject rayoVert;
     public GameObject rayoHoriz;
     public GameObject disparoLaser;
+    public GameObject rayoDiagonal1;
+    public GameObject rayoDiagonal2;
 
     public Transform posRayoVert1;
     public Transform posRayoVert2;
@@ -20,6 +22,8 @@ public class AtaquesBoss : MonoBehaviour
     public float tiempoDisparos;
     public float desviacionDisparos;
     public float desviacionDiagonal = 30;
+    public float velocidadDiagonal;
+    public LayerMask layerM;
     GameObject vert1;
     GameObject vert2;
     GameObject dia1;
@@ -30,10 +34,20 @@ public class AtaquesBoss : MonoBehaviour
     GameObject player;
     public float numeroDisparos;
     float numDisparosAux = 0;
+    Quaternion rotationLaser1;
+    Quaternion rotationLaser2;
+    float duracionDiagonales;
+    bool diagonales;
+    bool pillarDireccionDiagonal;
+    Vector3 direccionLaser;
+    Vector3 rot1;
+    Vector3 rot2;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        duracionDiagonales = 0;
+        pillarDireccionDiagonal = true;
     }
 
     // Update is called once per frame
@@ -72,8 +86,17 @@ public class AtaquesBoss : MonoBehaviour
         {
             StartCoroutine(RayoDiagonal());
         }
-        //vert1.transform.Translate(Vector3.right * Time.deltaTime * speedRayosVert);
-        //vert2.transform.Translate(Vector3.left * Time.deltaTime * speedRayosVert);
+
+
+        UpdateDiagonalLaser();
+        //if (diagonales)
+        //{
+        //    Vector3 direccionLaser = player.transform.position - puntoDisparo.position;
+        //    float angle = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
+        //    rotationLaser1.eulerAngles = Vector3.Lerp(rotationLaser1.eulerAngles, new Vector3(0, 0, angle - desviacionDiagonal), Time.deltaTime * velocidadDiagonal);
+        //    rotationLaser2.eulerAngles = Vector3.Lerp(rotationLaser2.eulerAngles, new Vector3(0, 0, angle + desviacionDiagonal), Time.deltaTime * velocidadDiagonal);
+        //    float t = velocidadDiagonal * Time.deltaTime
+        //}
 
 
     }
@@ -98,12 +121,8 @@ public class AtaquesBoss : MonoBehaviour
             disparo1 = Instantiate(disparoLaser, puntoDisparo.position, Quaternion.identity);
             disparo1.transform.parent = null;
             Vector3 direccionLaser = (player.transform.position - puntoDisparo.position).normalized;
-            //disparo1.transform.LookAt(player.transform.position);
-            //Vector3 targetPos = player.transform.position;
             float angle = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
             disparo1.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-            //disparo1.transform.forward = Vector3.down + direccionLaser;
             yield return new WaitForSeconds(tiempoDisparos);
 
             //segundo rayo random
@@ -126,19 +145,83 @@ public class AtaquesBoss : MonoBehaviour
     }
     IEnumerator RayoDiagonal()
     {
-        dia1 = Instantiate(rayoVert, puntoDisparo.position, Quaternion.identity);
-        //vert2 = Instantiate(rayoVert, posicionDisparo.position, Quaternion.identity);
-        Vector3 direccionLaser = (player.transform.position - puntoDisparo.position).normalized;
-        float angle1 = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
-        dia1.transform.rotation = Quaternion.AngleAxis(angle1 + desviacionDiagonal, Vector3.forward);
-        
-        RaycastHit2D hit = Physics2D.Raycast(puntoDisparo.position, dia1.transform.right, Mathf.Infinity, layerMask: 8);
-        dia1.GetComponent<LineRenderer>().SetPosition(0, puntoDisparo.position);
-        if(hit.collider != null)
+        rayoDiagonal1.SetActive(true);
+        rayoDiagonal2.SetActive(true);
+        diagonales = false;
+
+        direccionLaser = player.transform.position - puntoDisparo.position;
+        float angle = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
+
+        rotationLaser1.eulerAngles = new Vector3(0, 0, angle + desviacionDiagonal);
+        rotationLaser2.eulerAngles = new Vector3(0, 0, angle - desviacionDiagonal);
+
+        yield return new WaitForSeconds(1);
+        duracionDiagonales = 0;
+        diagonales = true;
+        //rotationLaser1.eulerAngles = Vector3.Lerp(new Vector3(0, 0, angle + desviacionDiagonal), new Vector3(0, 0, angle - desviacionDiagonal), Time.deltaTime * velocidadDiagonal);
+        //rotationLaser2.eulerAngles = Vector3.Lerp(new Vector3(0, 0, angle - desviacionDiagonal), new Vector3(0, 0, angle + desviacionDiagonal), Time.deltaTime * velocidadDiagonal);
+
+        yield return new WaitForSeconds(3);
+        diagonales = false;
+        rayoDiagonal1.SetActive(false);
+        rayoDiagonal2.SetActive(false);
+        pillarDireccionDiagonal = true;
+    }
+    void UpdateDiagonalLaser()
+    {
+        if (rayoDiagonal1.gameObject.activeSelf)
         {
-            dia1.GetComponent<LineRenderer>().SetPosition(1, hit.point);
+            RaycastHit2D hit = Physics2D.Raycast(puntoDisparo.position, rayoDiagonal1.transform.right, Mathf.Infinity, layerM);
+            rayoDiagonal1.GetComponent<LineRenderer>().SetPosition(0, puntoDisparo.position);
+            if (hit)
+            {
+                rayoDiagonal1.GetComponent<LineRenderer>().SetPosition(1, hit.point);
+            }
+
+            RaycastHit2D hit2 = Physics2D.Raycast(puntoDisparo.position, rayoDiagonal2.transform.right, Mathf.Infinity, layerM);
+            rayoDiagonal2.GetComponent<LineRenderer>().SetPosition(0, puntoDisparo.position);
+            if (hit2)
+            {
+                rayoDiagonal2.GetComponent<LineRenderer>().SetPosition(1, hit2.point);
+            }
+
+            rayoDiagonal1.transform.rotation = rotationLaser1;
+            rayoDiagonal2.transform.rotation = rotationLaser2;
+            if (diagonales)
+            {
+                MoverDiagonales();
+            }
+            
+        }
+    }
+    void MoverDiagonales()
+    {
+        
+        float angle = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
+        print(angle);
+       
+        if (pillarDireccionDiagonal)
+        {
+            rot1 = rotationLaser1.eulerAngles;
+            rot2 = rotationLaser2.eulerAngles;
+            pillarDireccionDiagonal = false;
+        }
+        print("1: " + rot1);
+        print("2: " + rot2);
+        
+        
+        if(angle >= -90 && angle <= 90)
+        {
+            
+            rotationLaser1.eulerAngles = Vector3.Lerp(rotationLaser1.eulerAngles, rot2, Time.deltaTime * velocidadDiagonal);
+            rotationLaser2.eulerAngles = Vector3.Lerp(rotationLaser2.eulerAngles, rot1, Time.deltaTime * velocidadDiagonal);
+        }
+        else
+        {
+            rotationLaser1.eulerAngles = Vector3.Lerp(rotationLaser1.eulerAngles, rot2, Time.deltaTime * velocidadDiagonal);
+            rotationLaser2.eulerAngles = Vector3.Lerp(rotationLaser2.eulerAngles, rot1, Time.deltaTime * velocidadDiagonal);
         }
         
-        yield return new WaitForSeconds(1);
+
     }
 }
