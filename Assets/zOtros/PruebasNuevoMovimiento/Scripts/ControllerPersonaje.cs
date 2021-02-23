@@ -1345,7 +1345,7 @@ public class ControllerPersonaje : MonoBehaviour
 
             if (derecha.collider.tag == "Pared")
             {
-
+                print("wewewewe");
                 rb.AddForce(new Vector2(1, 0) * 30 * Time.deltaTime);
                 tocandoderecha = true;
                 if ((!grounded) && (!looping)) pegadoPared = true;
@@ -1410,6 +1410,7 @@ public class ControllerPersonaje : MonoBehaviour
             tocandoizquierda = false;
             pegadoPared = false;
         }
+        
         if (pegadoPared)
         {
             //if (pInput.inputVertical != 0)
@@ -1467,7 +1468,10 @@ public class ControllerPersonaje : MonoBehaviour
                 if (auxtiempoTrasSaltoPared <= 0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             }
         }
-
+        if (!tocandoizquierda && !tocandoderecha && pegadoPared)
+        {
+            pegadoPared = false;
+        }
 
     }
     void MovimientoPared()
