@@ -10,6 +10,7 @@ public class AtaquesBoss : MonoBehaviour
     public GameObject disparoLaser;
     public GameObject rayoDiagonal1;
     public GameObject rayoDiagonal2;
+    public GameObject drones;
 
     public Transform posRayoVert1;
     public Transform posRayoVert2;
@@ -23,6 +24,8 @@ public class AtaquesBoss : MonoBehaviour
     public float desviacionDisparos;
     public float desviacionDiagonal = 30;
     public float velocidadDiagonal;
+    public float tiempoAparicionDiagonales = 1;
+    public float tiempoBarridoDiagonales = 3;
     public LayerMask layerM;
     GameObject vert1;
     GameObject vert2;
@@ -40,13 +43,14 @@ public class AtaquesBoss : MonoBehaviour
     bool diagonales;
     bool pillarDireccionDiagonal;
     Vector3 direccionLaser;
-    Vector3 rot1;
-    Vector3 rot2;
+    Quaternion rot1;
+    Quaternion rot2;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         duracionDiagonales = 0;
+        drones.SetActive(false);
         pillarDireccionDiagonal = true;
     }
 
@@ -86,17 +90,14 @@ public class AtaquesBoss : MonoBehaviour
         {
             StartCoroutine(RayoDiagonal());
         }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            drones.SetActive(true);
+        }
 
 
         UpdateDiagonalLaser();
-        //if (diagonales)
-        //{
-        //    Vector3 direccionLaser = player.transform.position - puntoDisparo.position;
-        //    float angle = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
-        //    rotationLaser1.eulerAngles = Vector3.Lerp(rotationLaser1.eulerAngles, new Vector3(0, 0, angle - desviacionDiagonal), Time.deltaTime * velocidadDiagonal);
-        //    rotationLaser2.eulerAngles = Vector3.Lerp(rotationLaser2.eulerAngles, new Vector3(0, 0, angle + desviacionDiagonal), Time.deltaTime * velocidadDiagonal);
-        //    float t = velocidadDiagonal * Time.deltaTime
-        //}
+        
 
 
     }
@@ -155,13 +156,11 @@ public class AtaquesBoss : MonoBehaviour
         rotationLaser1.eulerAngles = new Vector3(0, 0, angle + desviacionDiagonal);
         rotationLaser2.eulerAngles = new Vector3(0, 0, angle - desviacionDiagonal);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(tiempoAparicionDiagonales);
         duracionDiagonales = 0;
         diagonales = true;
-        //rotationLaser1.eulerAngles = Vector3.Lerp(new Vector3(0, 0, angle + desviacionDiagonal), new Vector3(0, 0, angle - desviacionDiagonal), Time.deltaTime * velocidadDiagonal);
-        //rotationLaser2.eulerAngles = Vector3.Lerp(new Vector3(0, 0, angle - desviacionDiagonal), new Vector3(0, 0, angle + desviacionDiagonal), Time.deltaTime * velocidadDiagonal);
-
-        yield return new WaitForSeconds(3);
+        
+        yield return new WaitForSeconds(tiempoBarridoDiagonales);
         diagonales = false;
         rayoDiagonal1.SetActive(false);
         rayoDiagonal2.SetActive(false);
@@ -196,32 +195,15 @@ public class AtaquesBoss : MonoBehaviour
     }
     void MoverDiagonales()
     {
-        
-        float angle = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
-        print(angle);
-       
         if (pillarDireccionDiagonal)
         {
-            rot1 = rotationLaser1.eulerAngles;
-            rot2 = rotationLaser2.eulerAngles;
+            rot1 = rotationLaser1;
+            rot2 = rotationLaser2;
             pillarDireccionDiagonal = false;
         }
-        print("1: " + rot1);
-        print("2: " + rot2);
+        rotationLaser1 = Quaternion.Slerp(rotationLaser1, rot2, Time.deltaTime * velocidadDiagonal);
+        rotationLaser2 = Quaternion.Slerp(rotationLaser2, rot1, Time.deltaTime * velocidadDiagonal);
         
-        
-        if(angle >= -90 && angle <= 90)
-        {
-            
-            rotationLaser1.eulerAngles = Vector3.Lerp(rotationLaser1.eulerAngles, rot2, Time.deltaTime * velocidadDiagonal);
-            rotationLaser2.eulerAngles = Vector3.Lerp(rotationLaser2.eulerAngles, rot1, Time.deltaTime * velocidadDiagonal);
-        }
-        else
-        {
-            rotationLaser1.eulerAngles = Vector3.Lerp(rotationLaser1.eulerAngles, rot2, Time.deltaTime * velocidadDiagonal);
-            rotationLaser2.eulerAngles = Vector3.Lerp(rotationLaser2.eulerAngles, rot1, Time.deltaTime * velocidadDiagonal);
-        }
-        
-
     }
+    
 }
