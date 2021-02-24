@@ -29,17 +29,8 @@ public class VueltaLobby : MonoBehaviour
             }
         }
 
-        foreach (string go in GameManager.Instance.NivelActual.actualEstrellasCogidas)
-        {
-            if (!GameManager.Instance.NivelActual.estrellasCogidas.Contains(go))
-            {
-                GameManager.Instance.NivelActual.estrellasCogidas.Add(go);
-            }
-            if (!GameManager.Instance.totalEstrellas.Contains(go))
-            {
-                GameManager.Instance.totalEstrellas.Add(go);
-            }
-        }
+        GameManager.Instance.NivelActual.completado = true;
+
 
         GameManager.Instance.UltimoCheck = null;
     }

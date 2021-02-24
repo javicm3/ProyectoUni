@@ -44,16 +44,13 @@ public class GameManager : MonoBehaviour
     float actualcoleccionables = 0;
     public bool puedoDisparar = false;
     [Header("NUEVAS VARIABLES")]
-    public float actualLevel = 0;
+    //public float actualLevel = 0;
     public float[] coleccionablesMaxNv;
-    public float[] estrellasMaxNv;
     public List<string> totalColeccionables;
-    public List<string> totalEstrellas;
     public GameObject PanelColeccionables;
     public Text textoActualColecc;
     public Text textoMaxColecc;
-    public Text textoActualEstrellas;
-    public Text textoMaxEstrellas;
+
 
     public bool desbloqueadoDash=true;
 
@@ -128,29 +125,18 @@ public class GameManager : MonoBehaviour
             if (personajevivo == false)//Esto no se por que lo hacia Julio
             {
                 nivelActual.actualColeccionablesCogidos.Clear();
-                nivelActual.actualEstrellasCogidas.Clear();
             }
 
-            print("el metodo se esta ejecutando y coleccionables cogidos: " + nivelActual.coleccionablesCogidos.Count + " um: " + nivelActual.actualColeccionablesCogidos.Count);
             foreach (string go in nivelActual.coleccionablesCogidos)
             {
                 Destroy(GameObject.Find(go.ToString()));
                 print("destroy " + go);
             }
 
-            foreach (string go in nivelActual.estrellasCogidas)
-            {
-                Destroy(GameObject.Find(go.ToString()));
-            }
 
             textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
             textoActualColecc.text = nivelActual.coleccionablesCogidos.Count.ToString();
             GameObject.Find("Maximo").GetComponent<Text>().text = nivelActual.maxColeccionables.ToString();
-
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = nivelActual.estrellasCogidas.Count.ToString();
-            GameObject.Find("MaximoEstrella").GetComponent<Text>().text = nivelActual.maxEstrellas.ToString();
-     
 
             personajevivo = true;
 
@@ -160,7 +146,7 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
-        else if(scene.name=="NL-0") //- - - - MIRAR EN LA ESCENA COMO ESTÁ
+        else if(scene.name=="NL-0") 
         {
             //actualLevel = -1;
             personajevivo = true;
@@ -170,14 +156,8 @@ public class GameManager : MonoBehaviour
             //textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
             //textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
 
-
-            GameObject.Find("ActualEstrella").GetComponent<Text>().text = totalEstrellas.Count.ToString();
-            //textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            //textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
         }
     }
-
-
 
 
 
@@ -193,6 +173,8 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
         DontDestroyOnLoad(gameObject);
+
+        SistemaGuardado.Incializar();
     }
 
     public void ReiniciarEscena()
@@ -265,22 +247,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void CogerEstrellaNivel(GameObject estrella)
-    {
-        if (actualLevel == 0)
-        {
-            if (!nivelActual.actualEstrellasCogidas.Contains(estrella.name))
-            {
-                nivelActual.actualEstrellasCogidas.Add(estrella.name);
-                textoActualEstrellas.text = nivelActual.actualEstrellasCogidas.ToString();
-                estrella.GetComponent<SpriteRenderer>().enabled = false;
-                estrella.GetComponent<Collider2D>().enabled = false;
-
-                NAM.Play("Stars"); //COMPROBAR SI ESTO DA ERROR              
-            }
-        }
-    }
-
     public void CogerColeccionableNivel(GameObject coleccionable)
     {
         if (!nivelActual.actualColeccionablesCogidos.Contains(coleccionable.name))
@@ -332,7 +298,6 @@ public class GameManager : MonoBehaviour
                             break;
                     }
                     nivelActual.maxColeccionables = (int)coleccionablesMaxNv[i];
-                    nivelActual.maxEstrellas = (int)estrellasMaxNv[i];
                     break;
                 }
             }
@@ -348,18 +313,18 @@ public class GameManager : MonoBehaviour
             nivelActual = nuevoNivel;
         }
     }
+
 }
 
+[System.Serializable]
 public class LevelInfo
 {
     public string nombreNivel;
+    public bool completado = false;
 
     public List<string> coleccionablesCogidos = new List<string>();
     public List<string> actualColeccionablesCogidos = new List<string>(); 
 
-    public List<string> estrellasCogidas = new List<string>();
-    public List<string> actualEstrellasCogidas = new List<string>();
-
     public int maxColeccionables;
-    public int maxEstrellas;
 }
+

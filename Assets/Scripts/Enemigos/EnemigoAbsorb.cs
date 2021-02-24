@@ -121,7 +121,7 @@ public class EnemigoAbsorb : EnemigoPadre
             if (!enemigoActivado)//Disparar al jugador
             {
                 GameObject bala= Instantiate(proyectil, transform.position, transform.rotation);
-                bala.GetComponent<Rigidbody2D>().AddForce(playerEnergy.transform.position-transform.position, ForceMode2D.Impulse); //Esto me hace cero de caso asique crearé una bala
+                bala.GetComponent<Rigidbody2D>().AddForce((playerEnergy.transform.position-transform.position).normalized * velProyectil, ForceMode2D.Impulse); //Esto me hace cero de caso asique crearé una bala
             }
         }
     }

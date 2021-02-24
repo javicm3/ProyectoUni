@@ -4378,12 +4378,7 @@ public class ControllerPersonaje : MonoBehaviour
             GameManager.Instance.CogerColeccionableNivel(collision.gameObject);
 
         }
-        if (collision.tag == "Estrella")
-        {
 
-            GameManager.Instance.CogerEstrellaNivel(collision.gameObject);
-
-        }
         if (collision.tag == "TriggerPausaBoss")
         {
             if (boss != null)
