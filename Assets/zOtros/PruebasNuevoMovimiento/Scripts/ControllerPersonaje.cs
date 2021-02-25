@@ -220,6 +220,8 @@ public class ControllerPersonaje : MonoBehaviour
     {
         enemigosPasados = new List<GameObject>();
         joystick = InputManager.ActiveDevice;
+        if (joystick.Name == "NullInputDevice") joystick = null;
+
         //controles = new PlayerControls();
         //controles.Gameplay.Salto.performed += ctx => saltoPulsado = true;
         //controles.Gameplay.Salto.canceled += ctx =>
@@ -318,7 +320,7 @@ public class ControllerPersonaje : MonoBehaviour
         if (!movParedBloq) ComprobarParedes();
 
 
-        if (escenaActual != "ND-1")
+        if (GameManager.Instance.desbloqueadoDash)
         {
 
 
@@ -1530,7 +1532,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                 rb.velocity = new Vector2(0, rb.velocity.y);
-                if ((joystick!=null && Mathf.Abs(joystick.LeftStickY)>0.8f)||(joystick==null&&(pInput.inputVertical < -0.8f || pInput.inputVertical > 0.8f)))
+                if ((joystick!=null && Mathf.Abs(joystick.LeftStickY)>0.8f)||(joystick==null&& Mathf.Abs(pInput.inputVertical) > 0.0f))
                 {
                     if (tocandoizquierda)
                     {
@@ -1546,6 +1548,8 @@ public class ControllerPersonaje : MonoBehaviour
                 }
                 else
                 {
+                    if (joystick != null) {  print("NO PULSO"); }
+                  
                     if (tocandoizquierda)
                     {
                         transform.Find("Cuerpo").localScale = new Vector2(1, 1);
