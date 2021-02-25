@@ -611,6 +611,7 @@ GameObject:
   m_Component:
   - component: {fileID: 140302730}
   - component: {fileID: 140302729}
+  - component: {fileID: 140302731}
   m_Layer: 0
   m_Name: Boss2
   m_TagString: Untagged
@@ -647,7 +648,7 @@ MonoBehaviour:
   - {fileID: 134556569}
   - {fileID: 354837609}
   puntoDisparo: {fileID: 2108361785}
-  speedRayosVert: 0.1
+  speedRayosVert: 0.4
   tiempoSpawnRayoHorizontal: 0.5
   duracionRayoHorizontal: 1
   tiempoDisparos: 0.4
@@ -680,6 +681,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &140302731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140302728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 923f61ba35aaf4c4d8dd5e83fb8f7b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ataqueTerminado: 0
+  brazosCortados: 0
+  bossActivo: 0
+  tiempoStunFase1: 3
+  tiempoStunFase2: 3
+  tiempoStunFase3: 3
+  tiempoStunFase4: 23
+  ataquesFase1: 4
+  ataquesFase2: 4
+  ataquesFase3: 4
+  acumulacion: 0
+  tiempoParadaActual: 0
 --- !u!1 &149259093
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,6 +832,7 @@ MonoBehaviour:
   pareja: {fileID: 1225064940}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &211735587
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1114,6 +1140,7 @@ MonoBehaviour:
   pareja: {fileID: 1705638949}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &294471324
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1347,6 +1374,7 @@ MonoBehaviour:
   pareja: {fileID: 2030940550}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &332892815
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2153,6 +2181,7 @@ MonoBehaviour:
   pareja: {fileID: 1230014424}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &538595933
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2632,6 +2661,7 @@ MonoBehaviour:
   pareja: {fileID: 2082235826}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &819957881
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2830,6 +2860,7 @@ MonoBehaviour:
   pareja: {fileID: 1200602199}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &835631276
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3698,6 +3729,7 @@ MonoBehaviour:
   pareja: {fileID: 2144311353}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &1112081948
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3896,6 +3928,7 @@ MonoBehaviour:
   pareja: {fileID: 835631273}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &1200602202
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4094,6 +4127,7 @@ MonoBehaviour:
   pareja: {fileID: 211735584}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &1225064943
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4292,6 +4326,7 @@ MonoBehaviour:
   pareja: {fileID: 538595930}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &1230014427
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4842,6 +4877,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc69a99d4c31fc4080b7caef02654f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  escenasSinColeccionables:
+  - PantallaInicio
+  - NL-0
   personajevivo: 1
   futureSpawn: {x: 0, y: 0, z: 0}
   maxScore1: 0
@@ -4854,7 +4892,6 @@ MonoBehaviour:
   monedasNecesariasDisparo: 3
   coleccionablesneed: 3
   puedoDisparar: 0
-  actualLevel: 0
   coleccionablesMaxNv:
   - 81
   - 0
@@ -4866,66 +4903,10 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  coleccionablesActNv:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  estrellasMaxNv:
-  - 7
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  estrellasActNv:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  coleccionablesCogidosNivel0: []
-  actualColeccionablesCogidosNivel0: []
-  estrellasCogidosNivel0: []
-  actualEstrellasCogidosNivel0: []
-  coleccionablesCogidosNivel1: []
-  actualColeccionablesCogidosNivel1: []
-  estrellasCogidosNivel1: []
-  actualEstrellasCogidosNivel1: []
-  coleccionablesCogidosNivel2: []
-  actualColeccionablesCogidosNivel2: []
-  estrellasCogidosNivel2: []
-  actualEstrellasCogidosNivel2: []
-  estrellasCogidosNivel3: []
-  actualEstrellasCogidosNivel3: []
-  coleccionablesCogidosNivel3: []
-  actualColeccionablesCogidosNivel3: []
-  estrellasCogidosNivel4: []
-  actualEstrellasCogidosNivel4: []
-  coleccionablesCogidosNivel4: []
-  actualColeccionablesCogidosNivel4: []
   totalColeccionables: []
-  totalEstrellas: []
   PanelColeccionables: {fileID: 1256354621}
   textoActualColecc: {fileID: 231699238}
   textoMaxColecc: {fileID: 757333410}
-  textoActualEstrellas: {fileID: 448597334}
-  textoMaxEstrellas: {fileID: 1430744511}
   desbloqueadoDash: 1
 --- !u!4 &1414797229
 Transform:
@@ -5427,6 +5408,7 @@ MonoBehaviour:
   pareja: {fileID: 1964074199}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &1593170097
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5941,6 +5923,7 @@ MonoBehaviour:
   pareja: {fileID: 294471321}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &1705638952
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6535,6 +6518,7 @@ MonoBehaviour:
   pareja: {fileID: 1593170094}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &1964074202
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6884,6 +6868,7 @@ MonoBehaviour:
   pareja: {fileID: 332892812}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &2030940553
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7082,6 +7067,7 @@ MonoBehaviour:
   pareja: {fileID: 819957878}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &2082235829
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7504,6 +7490,7 @@ MonoBehaviour:
   pareja: {fileID: 1112081945}
   rangoProbabilidadLaser: 8
   tiempoLaser: 1
+  tiempoAviso: 1
 --- !u!212 &2144311356
 SpriteRenderer:
   m_ObjectHideFlags: 0
