@@ -44,6 +44,7 @@ public class EscudoScript : MonoBehaviour
                 collision.gameObject.GetComponent<ControllerPersonaje>().velocidadCombateUltima = Vector3.zero; collision.gameObject.GetComponent<ControllerPersonaje>().saltoBloqueado = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().dashBloqueado = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().haciendoCombate = false;
+                collision.gameObject.GetComponent<PlayerInput>().inputHorizBlock = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().pulsadoChispazo = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().auxTiempoUsar = collision.gameObject.GetComponent<ControllerPersonaje>().tiempoUsarCombateTrasEscudo;
@@ -80,6 +81,7 @@ public class EscudoScript : MonoBehaviour
                 collision.gameObject.GetComponent<ControllerPersonaje>().haciendoCombate = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().saltoBloqueado = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().dashBloqueado = false;
+                collision.gameObject.GetComponent<PlayerInput>().inputHorizBlock = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().pulsadoChispazo = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().auxTiempoUsar = collision.gameObject.GetComponent<ControllerPersonaje>().tiempoUsarCombateTrasEscudo;
