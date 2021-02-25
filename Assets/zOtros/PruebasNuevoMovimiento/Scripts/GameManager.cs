@@ -19,9 +19,12 @@ public class GameManager : MonoBehaviour
     Checkpoint ultimoCheck;
     public Checkpoint UltimoCheck { get => ultimoCheck; set => ultimoCheck = value; }
 
+    ListaHabilidades habilidades = new ListaHabilidades(); 
+    public ListaHabilidades Habilidades { get => habilidades; set => habilidades = value; }
 
     NewAudioManager NAM;
     
+    //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
     [Header("FINGuardadasNivelPrueba")]
     public bool personajevivo = true;
@@ -52,7 +55,7 @@ public class GameManager : MonoBehaviour
     public Text textoMaxColecc;
 
 
-    public bool desbloqueadoDash=true;
+    //public bool desbloqueadoDash=true;
 
     [Header(" FIN COSAS ANTERIORES IGNORAR")]
 
@@ -326,5 +329,14 @@ public class LevelInfo
     public List<string> actualColeccionablesCogidos = new List<string>(); 
 
     public int maxColeccionables;
+}
+
+[System.Serializable]
+public class ListaHabilidades
+{
+    public bool dash = false;
+    public bool chispazo = false;
+    public bool movParedes = false;
+    public bool movCables = false;
 }
 

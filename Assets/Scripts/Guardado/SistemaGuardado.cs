@@ -19,34 +19,49 @@ public class SistemaGuardado : MonoBehaviour
     {
         string json;
 
-        if (File.Exists(Carpeta_Guardado + "save_ListaNiveles.txt"))
+        if (File.Exists(Carpeta_Guardado + "save_DatosGM.txt"))
         {
-            json = File.ReadAllText(Carpeta_Guardado + "save_ListaNiveles.txt");
+            json = File.ReadAllText(Carpeta_Guardado + "save_DatosGM.txt");
 
-            ListaNivelGuardadoJSON lista = JsonUtility.FromJson<ListaNivelGuardadoJSON>(json);
+            DataGuardadoJSON datos = JsonUtility.FromJson<DataGuardadoJSON>(json);
 
+            //Cargar lista de niveles (coleccionables y bool completado)
             GameManager.Instance.ListaNiveles.Clear();
-            foreach (LevelInfo level in lista.listaNivel)
+            foreach (LevelInfo level in datos.listaNivel)
             {
                 GameManager.Instance.ListaNiveles.Add(level);
-            }            
+            }
+
+
+            //Cargar booleanos de las habilidades
+            GameManager.Instance.Habilidades.dash = datos.habilidades.dash;
+            GameManager.Instance.Habilidades.chispazo = datos.habilidades.chispazo;
+            GameManager.Instance.Habilidades.movParedes = datos.habilidades.movParedes;
+            GameManager.Instance.Habilidades.movCables = datos.habilidades.movCables;
+
+            print(GameManager.Instance.Habilidades.movParedes);
+
+            //En el lobby no se cambia el numero al guardar pero en principio da igual porque no se deberá cargar la partida ahi
         }
     }
 
     public static void Guardar()
     {
-        ListaNivelGuardadoJSON lista = new ListaNivelGuardadoJSON();
-        lista.listaNivel = GameManager.Instance.ListaNiveles;
+        DataGuardadoJSON datosGuardado = new DataGuardadoJSON();
+        datosGuardado.listaNivel = GameManager.Instance.ListaNiveles;
+        datosGuardado.habilidades = GameManager.Instance.Habilidades;
 
-        string listaNiveles = JsonUtility.ToJson(lista);
-        File.WriteAllText(Carpeta_Guardado + "save_ListaNiveles.txt", listaNiveles);
+        string datos = JsonUtility.ToJson(datosGuardado);
+        File.WriteAllText(Carpeta_Guardado + "save_DatosGM.txt", datos);
+
+        ListaHabilidades habilidades = GameManager.Instance.Habilidades;
     }
-
 }
 
 
 [System.Serializable]
-public class ListaNivelGuardadoJSON
+public class DataGuardadoJSON
 {
     public List<LevelInfo> listaNivel;
+    public ListaHabilidades habilidades;
 }
