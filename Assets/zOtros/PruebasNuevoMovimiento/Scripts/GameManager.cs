@@ -7,8 +7,22 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-   
-   
+    //V A R I A B L E S   N U E V A S   P A U L A
+
+    //COMENTARIO: Por cada nivel que se añade, para setear las estrellas y coleccionables max hay que añadir un case en el swich del void CheckLevelList() (abajo del todo) (ahora está puesto hasta el 7 por si acaso)
+
+    List<LevelInfo> listaNiveles = new List<LevelInfo>();
+    public List<LevelInfo> ListaNiveles { get => listaNiveles; }
+    LevelInfo nivelActual;
+    public LevelInfo NivelActual { get => nivelActual; }
+    public string[] escenasSinColeccionables = new string[] { "PantallaInicio", "NL-0" };
+    Checkpoint ultimoCheck;
+    public Checkpoint UltimoCheck { get => ultimoCheck; set => ultimoCheck = value; }
+
+
+    NewAudioManager NAM;
+    
+
     [Header("FINGuardadasNivelPrueba")]
     public bool personajevivo = true;
     public Vector3 futureSpawn;
@@ -30,38 +44,13 @@ public class GameManager : MonoBehaviour
     float actualcoleccionables = 0;
     public bool puedoDisparar = false;
     [Header("NUEVAS VARIABLES")]
-    public float actualLevel = 0;
+    //public float actualLevel = 0;
     public float[] coleccionablesMaxNv;
-    public float[] coleccionablesActNv;
-    public float[] estrellasMaxNv;
-    public float[] estrellasActNv;
-    public List<string> coleccionablesCogidosNivel0;
-    public List<string> actualColeccionablesCogidosNivel0;
-    public List<string> estrellasCogidosNivel0;
-    public List<string> actualEstrellasCogidosNivel0;
-    public List<string> coleccionablesCogidosNivel1;
-    public List<string> actualColeccionablesCogidosNivel1;
-    public List<string> estrellasCogidosNivel1;
-    public List<string> actualEstrellasCogidosNivel1;
-    public List<string> coleccionablesCogidosNivel2;
-    public List<string> actualColeccionablesCogidosNivel2;
-    public List<string> estrellasCogidosNivel2;
-    public List<string> actualEstrellasCogidosNivel2;
-    public List<string> estrellasCogidosNivel3;
-    public List<string> actualEstrellasCogidosNivel3;
-    public List<string> coleccionablesCogidosNivel3;
-    public List<string> actualColeccionablesCogidosNivel3;
-    public List<string> estrellasCogidosNivel4;
-    public List<string> actualEstrellasCogidosNivel4;
-    public List<string> coleccionablesCogidosNivel4;
-    public List<string> actualColeccionablesCogidosNivel4;
     public List<string> totalColeccionables;
-    public List<string> totalEstrellas;
     public GameObject PanelColeccionables;
     public Text textoActualColecc;
     public Text textoMaxColecc;
-    public Text textoActualEstrellas;
-    public Text textoMaxEstrellas;
+
 
     public bool desbloqueadoDash=true;
 
@@ -81,6 +70,9 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
+
+
+
     void OnEnable()
     {
         //Tell our 'OnLevelFinishedLoading' function to start listening for a scene change as soon as this script is enabled.
@@ -92,12 +84,14 @@ public class GameManager : MonoBehaviour
         //Tell our 'OnLevelFinishedLoading' function to stop listening for a scene change as soon as this script is disabled. Remember to always have an unsubscription for every delegate you subscribe to!
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
+
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
       
         if (GameObject.FindGameObjectsWithTag("InicioNivel") != null)
         {
-            foreach(GameObject go in GameObject.FindGameObjectsWithTag("InicioNivel")){
+            foreach(GameObject go in GameObject.FindGameObjectsWithTag("InicioNivel"))
+            {
                 go.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, 0);
             }
         }
@@ -109,422 +103,63 @@ public class GameManager : MonoBehaviour
                 go.transform.position = new Vector3(go.transform.position.x, go.transform.position.y, 0);
             }
         }
-        if (scene.name == "PlayTesting")
+        //////////////////////////////////////////////////////////////////////////////////////////
+             //- - - - - - - - E S T O Y   T R A B A J A N D O   A Q U Í  - - - - - - - - 
+        //////////////////////////////////////////////////////////////////////////////////////////
+
+        //Hay que comprobar si hay que hacer algo en el menú o el lobby para marcar que nivel es de aguna forma
+
+        bool tieneColeccionables = true;
+        foreach (string nombreEscena in escenasSinColeccionables)
         {
-            actualLevel = 0;
-            personajevivo = true;
-            coleccionablesActNv[(int)actualLevel] = 0;
-            coleccionablesCogidosNivel0.Clear();
-            estrellasActNv[(int)actualLevel] = 0;
-            estrellasCogidosNivel0.Clear();
-
-            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-            textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-            textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
-            textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
-
-
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
-            textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
-
+            if (nombreEscena == scene.name)
+            {
+                tieneColeccionables = false;
+            }
         }
-        if (scene.name == "UltimoPlayTestin")
+        if (tieneColeccionables)
         {
-            actualLevel = 0;
-            personajevivo = true;
-            coleccionablesActNv[(int)actualLevel] = 0;
-            coleccionablesCogidosNivel0.Clear();
-            estrellasActNv[(int)actualLevel] = 0;
-            estrellasCogidosNivel0.Clear();
+            CheckLevelList(scene.name);//Dentro de este método se seteea el nivel actual
+            UltimoCheck = null;
+
+            if (personajevivo == false)//Esto no se por que lo hacia Julio
+            {
+                nivelActual.actualColeccionablesCogidos.Clear();
+            }
+
+            foreach (string go in nivelActual.coleccionablesCogidos)
+            {
+                Destroy(GameObject.Find(go.ToString()));
+                print("destroy " + go);
+            }
+
 
             textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-            textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-            textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
-            textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
+            textoActualColecc.text = nivelActual.coleccionablesCogidos.Count.ToString();
+            GameObject.Find("Maximo").GetComponent<Text>().text = nivelActual.maxColeccionables.ToString();
 
+            personajevivo = true;
 
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
-            textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
-
+            if (GameObject.FindGameObjectWithTag("Player") != null) //Julio hacia este if antes de buscar el audio manager asique lo haré igual
+            {
+                NAM = FindObjectOfType<NewAudioManager>();
+                return;
+            }
         }
-        if (scene.name == "UltimoPlaytestin")
+        else if(scene.name=="NL-0") 
         {
-            actualLevel = 0;
+            //actualLevel = -1;
             personajevivo = true;
-            coleccionablesActNv[(int)actualLevel] = 0;
-            coleccionablesCogidosNivel0.Clear();
-            estrellasActNv[(int)actualLevel] = 0;
-            estrellasCogidosNivel0.Clear();
-
-            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-            textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-            textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
-            textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
 
 
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
-            textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
-
-        }
-        if (scene.name == "Lobby")
-        {
-          
-            actualLevel = -1;
-            personajevivo = true;
-            //coleccionablesActNv[(int)actualLevel] = 0;
-            //coleccionablesCogidosNivel0.Clear();
-            //estrellasActNv[(int)actualLevel] = 0;
-            //estrellasCogidosNivel0.Clear();
-
-            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
+            GameObject.Find("Actual").GetComponent<Text>().text = totalColeccionables.Count.ToString();
             //textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-            textoActualColecc.text = totalColeccionables.Count.ToString();
             //textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
 
-
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            //textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = totalEstrellas.Count.ToString();
-            //textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
-
         }
-        if (scene.name == "NL-0")
-        {
-          
-            actualLevel = -1;
-            personajevivo = true;
-            //coleccionablesActNv[(int)actualLevel] = 0;
-            //coleccionablesCogidosNivel0.Clear();
-            //estrellasActNv[(int)actualLevel] = 0;
-            //estrellasCogidosNivel0.Clear();
-
-            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-            //textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-            textoActualColecc.text = totalColeccionables.Count.ToString();
-            //textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
-
-
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            //textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = totalEstrellas.Count.ToString();
-            //textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
-
-        }
-        if (scene.name == "PlayGround")
-        {
-            actualLevel = 0;
-
-            coleccionablesActNv[(int)actualLevel] = coleccionablesCogidosNivel0.Count;
-            if (personajevivo == false)
-            {
-                actualColeccionablesCogidosNivel0.Clear();
-                foreach (string go in coleccionablesCogidosNivel0)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in coleccionablesCogidosNivel0)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            estrellasActNv[(int)actualLevel] = estrellasCogidosNivel0.Count;
-            if (personajevivo == false)
-            {
-                actualEstrellasCogidosNivel0.Clear();
-                foreach (string go in estrellasCogidosNivel0)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in estrellasCogidosNivel0)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-
-            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-            textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-            textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
-            textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
-
-
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
-            textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
-            personajevivo = true;
-        }
-        if (scene.name == "NivelSemana26")
-        {
-            actualLevel = 4;
-
-            coleccionablesActNv[(int)actualLevel] = coleccionablesCogidosNivel4.Count;
-            if (personajevivo == false)
-            {
-                actualColeccionablesCogidosNivel4.Clear();
-                foreach (string go in coleccionablesCogidosNivel4)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in coleccionablesCogidosNivel4)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            estrellasActNv[(int)actualLevel] = estrellasCogidosNivel4.Count;
-            if (personajevivo == false)
-            {
-                actualEstrellasCogidosNivel4.Clear();
-                foreach (string go in estrellasCogidosNivel4)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in estrellasCogidosNivel4)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-
-            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-            textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-            textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
-            textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
-
-
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
-            textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
-            personajevivo = true;
-        }
-        if (scene.name == "ND-1")
-        {
-            actualLevel = 0;
-
-            coleccionablesActNv[(int)actualLevel] = coleccionablesCogidosNivel0.Count;
-            if (personajevivo == false)
-            {
-                actualColeccionablesCogidosNivel0.Clear();
-                foreach (string go in coleccionablesCogidosNivel0)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in coleccionablesCogidosNivel0)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            estrellasActNv[(int)actualLevel] = estrellasCogidosNivel0.Count;
-            if (personajevivo == false)
-            {
-                actualEstrellasCogidosNivel0.Clear();
-                foreach (string go in estrellasCogidosNivel0)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in estrellasCogidosNivel0)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-
-            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-            textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-            textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
-            textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
-
-
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
-            textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
-            personajevivo = true;
-        }
-        if (scene.name == "ND-2")
-        {
-            actualLevel = 1;
-
-            coleccionablesActNv[(int)actualLevel] = coleccionablesCogidosNivel1.Count;
-            if (personajevivo == false)
-            {
-                actualColeccionablesCogidosNivel1.Clear();
-                foreach (string go in coleccionablesCogidosNivel1)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in coleccionablesCogidosNivel1)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            estrellasActNv[(int)actualLevel] = estrellasCogidosNivel1.Count;
-            if (personajevivo == false)
-            {
-                actualEstrellasCogidosNivel1.Clear();
-                foreach (string go in estrellasCogidosNivel0)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in estrellasCogidosNivel1)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            if (GameObject.Find("Actual") != null)
-            {
-                textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-                textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
-            }
-            if (GameObject.Find("Maximo") != null)
-            {
-                textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-
-                textoMaxColecc.text = GameObject.FindGameObjectsWithTag("Coleccionable").Length.ToString();
-            }
-
-
-            if (GameObject.Find("ActualEstrella") != null)
-            {
-                textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-                textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
-            }
-            if (GameObject.Find("MaximoEstrella") != null)
-            {
-                textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-
-                textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
-            }
-            personajevivo = true;
-        }
-        if (scene.name == "NIVEL 1")
-        {
-            actualLevel = 1;
-
-            coleccionablesActNv[(int)actualLevel] = coleccionablesCogidosNivel1.Count;
-            if (personajevivo == false)
-            {
-                actualColeccionablesCogidosNivel1.Clear();
-                foreach (string go in coleccionablesCogidosNivel1)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in coleccionablesCogidosNivel1)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            estrellasActNv[(int)actualLevel] = estrellasCogidosNivel1.Count;
-            if (personajevivo == false)
-            {
-                actualEstrellasCogidosNivel1.Clear();
-                foreach (string go in estrellasCogidosNivel0)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in estrellasCogidosNivel1)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-
-            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-            textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-            textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
-            textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
-
-
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
-            textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
-            personajevivo = true;
-        }
-        if (scene.name == "ND-3")
-        {
-            actualLevel = 2;
-
-            coleccionablesActNv[(int)actualLevel] = coleccionablesCogidosNivel2.Count;
-            if (personajevivo == false)
-            {
-                actualColeccionablesCogidosNivel2.Clear();
-                foreach (string go in coleccionablesCogidosNivel2)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in coleccionablesCogidosNivel2)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            estrellasActNv[(int)actualLevel] = estrellasCogidosNivel2.Count;
-            if (personajevivo == false)
-            {
-                actualEstrellasCogidosNivel2.Clear();
-                foreach (string go in estrellasCogidosNivel2)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-            else
-            {
-                foreach (string go in estrellasCogidosNivel2)
-                {
-                    Destroy(GameObject.Find(go.ToString()));
-                }
-            }
-
-            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-            textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
-            textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
-            textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
-
-
-            textoActualEstrellas = GameObject.Find("ActualEstrella").GetComponent<Text>();
-            textoMaxEstrellas = GameObject.Find("MaximoEstrella").GetComponent<Text>();
-            textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
-            textoMaxEstrellas.text = estrellasMaxNv[(int)actualLevel].ToString();
-            personajevivo = true;
-        }
-
     }
+
+
 
 
     void Awake()
@@ -538,12 +173,14 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
         DontDestroyOnLoad(gameObject);
+
+        SistemaGuardado.Incializar();
     }
+
     public void ReiniciarEscena()
     {
         personajevivo = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
     }
 
     public void NextScene(string nextlvl)
@@ -552,7 +189,7 @@ public class GameManager : MonoBehaviour
     
     }
 
-    public void MuertePJ()
+    public void MuertePJ() //- - - - - - MIRAR SI TIENE ALGO QUE VER CON LOS CHECKPOINTS
     {
         if (personajevivo == true)
         {
@@ -569,6 +206,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
     public IEnumerator Tiemporeiniciar(float tiempo)
     {
         SpriteRenderer[] renderers;
@@ -595,13 +233,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         ReiniciarEscena();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.Escape))
@@ -613,152 +245,86 @@ public class GameManager : MonoBehaviour
             ReiniciarEscena();
         }
     }
-    public void CogerEstrellaNivel(GameObject estrellaCogida)
+
+
+    public void CogerColeccionableNivel(GameObject coleccionable)
+    {
+        if (!nivelActual.actualColeccionablesCogidos.Contains(coleccionable.name))
+        {
+            nivelActual.actualColeccionablesCogidos.Add(coleccionable.name);
+            textoActualColecc.text = nivelActual.actualColeccionablesCogidos.Count.ToString();
+
+            coleccionable.AddComponent<Moneda>().Desactivar();           
+
+            NAM.Play("Points");
+        }
+    }
+
+
+    void CheckLevelList(string nombreEscena)
     {
 
+        bool nivelEnLista = false;
 
-        if (actualLevel == 0)
+        if (listaNiveles!=null)
         {
-            if (!actualEstrellasCogidosNivel0.Contains(estrellaCogida.name))
+            foreach (LevelInfo level in listaNiveles)
             {
-
-                actualEstrellasCogidosNivel0.Add(estrellaCogida.name);
-                estrellasActNv[(int)actualLevel] += 1;
-                ActualizarActualEstrellas(actualLevel);
-                estrellaCogida.GetComponent<SpriteRenderer>().enabled = false;
-                estrellaCogida.GetComponent<Collider2D>().enabled = false;
-                if (GameObject.FindGameObjectWithTag("Player") != null)
+                if (level.nombreNivel == nombreEscena)
                 {
-                    FindObjectOfType<NewAudioManager>().Play("Stars");
-                    return;
-                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
+                    nivelEnLista = true;
+                    nivelActual = level;
+
+                    int i = 0;
+                    switch (nombreEscena)
+                    {
+                        case "ND-1":
+                            i = 0;
+                            break;
+                        case "ND-2":
+                            i = 1;
+                            break;
+                        case "ND-3":
+                            i = 2;
+                            break;
+                        case "ND-5":
+                            i = 3;
+                            break;
+                        case "ND-6":
+                            i = 4;
+                            break;
+                        case "ND-7":
+                            i = 5;
+                            break;
+                    }
+                    nivelActual.maxColeccionables = (int)coleccionablesMaxNv[i];
+                    break;
                 }
             }
-
         }
-        if (actualLevel == 1)
+
+
+        if (!nivelEnLista)//Añadir el nivel a la lista
         {
-            if (!actualEstrellasCogidosNivel1.Contains(estrellaCogida.name))
-            {
-
-                actualEstrellasCogidosNivel1.Add(estrellaCogida.name);
-                estrellasActNv[(int)actualLevel] += 1;
-                ActualizarActualEstrellas(actualLevel);
-                estrellaCogida.GetComponent<SpriteRenderer>().enabled = false;
-                estrellaCogida.GetComponent<Collider2D>().enabled = false;
-                if (GameObject.FindGameObjectWithTag("Player") != null)
-                {
-                    FindObjectOfType<NewAudioManager>().Play("Stars");
-                    return;
-                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
-                }
-            }
-
+            LevelInfo nuevoNivel = new LevelInfo();
+            nuevoNivel.nombreNivel = nombreEscena;
+            //- - - - - - - - - - - - - - - - - - - Decidir si busco todos los coleccionables del nivel o no :3
+            listaNiveles.Add(nuevoNivel);
+            nivelActual = nuevoNivel;
         }
-        if (actualLevel == 2)
-        {
-            if (!actualEstrellasCogidosNivel2.Contains(estrellaCogida.name))
-            {
-
-                actualEstrellasCogidosNivel2.Add(estrellaCogida.name);
-                estrellasActNv[(int)actualLevel] += 1;
-                ActualizarActualEstrellas(actualLevel);
-                estrellaCogida.GetComponent<SpriteRenderer>().enabled = false;
-                estrellaCogida.GetComponent<Collider2D>().enabled = false;
-                if (GameObject.FindGameObjectWithTag("Player") != null)
-                {
-                    FindObjectOfType<NewAudioManager>().Play("Stars");
-                    return;
-                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().estrella);
-                }
-            }
-
-        }
-
     }
-    public void ActualizarActualEstrellas(float lvl)
-    {
 
-
-
-        textoActualEstrellas.text = estrellasActNv[(int)actualLevel].ToString();
-
-
-    }
-    public void CogerColeccionableNivel(GameObject coleccionableCogido)
-    {
-
-
-        if (actualLevel == 0)
-        {
-            if (!actualColeccionablesCogidosNivel0.Contains(coleccionableCogido.name))
-            {
-
-                actualColeccionablesCogidosNivel0.Add(coleccionableCogido.name);
-                coleccionablesActNv[(int)actualLevel] += 1;
-                ActualizarActualColeccionables(actualLevel);
-                coleccionableCogido.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
-                coleccionableCogido.GetComponentInChildren<ParticleSystem>().gameObject.SetActive(false);
-                coleccionableCogido.GetComponent<Collider2D>().enabled = false;
-                if (GameObject.FindGameObjectWithTag("Player") != null)
-                {
-                    FindObjectOfType<NewAudioManager>().Play("Points");
-                    return;
-                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
-                }
-            }
-
-        }
-        if (actualLevel == 1)
-        {
-            if (!actualColeccionablesCogidosNivel1.Contains(coleccionableCogido.name))
-            {
-
-                actualColeccionablesCogidosNivel1.Add(coleccionableCogido.name);
-                coleccionablesActNv[(int)actualLevel] += 1;
-                ActualizarActualColeccionables(actualLevel);
-                coleccionableCogido.GetComponentInChildren<MeshRenderer>().gameObject.SetActive( false);
-                coleccionableCogido.GetComponentInChildren<ParticleSystem>().gameObject.SetActive(false);
-                coleccionableCogido.GetComponent<Collider2D>().enabled = false;
-                if (GameObject.FindGameObjectWithTag("Player") != null)
-                {
-                    FindObjectOfType<NewAudioManager>().Play("Points");
-                    return;
-                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
-                }
-            }
-
-        }
-        if (actualLevel == 2)
-        {
-            if (!actualColeccionablesCogidosNivel2.Contains(coleccionableCogido.name))
-            {
-
-                actualColeccionablesCogidosNivel2.Add(coleccionableCogido.name);
-                coleccionablesActNv[(int)actualLevel] += 1;
-                ActualizarActualColeccionables(actualLevel);
-                coleccionableCogido.GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
-                coleccionableCogido.GetComponentInChildren<ParticleSystem>().gameObject.SetActive(false);
-                coleccionableCogido.GetComponent<Collider2D>().enabled = false;
-                if (GameObject.FindGameObjectWithTag("Player") != null)
-                {
-                    FindObjectOfType<NewAudioManager>().Play("Points");
-                    return;
-                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().coleccionable);
-
-                }
-            }
-
-        }
-
-    }
-    public void ActualizarActualColeccionables(float lvl)
-    {
-
-
-
-        if (textoActualColecc.gameObject != null) textoActualColecc.text = coleccionablesActNv[(int)actualLevel].ToString();
-
-
-    }
 }
+
+[System.Serializable]
+public class LevelInfo
+{
+    public string nombreNivel;
+    public bool completado = false;
+
+    public List<string> coleccionablesCogidos = new List<string>();
+    public List<string> actualColeccionablesCogidos = new List<string>(); 
+
+    public int maxColeccionables;
+}
+

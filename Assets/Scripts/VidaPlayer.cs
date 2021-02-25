@@ -62,7 +62,7 @@ public class VidaPlayer : MonoBehaviour
 
     public void RecibirDaño(float daño, Vector3 puntoimpacto, Vector3 puntocontacto)
     {//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de abajo
-        daño = 55;
+        if(daño!=0)daño = 55;
         //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de arriba
         if (auxcdTrasdaño <= 0)
         {
@@ -146,9 +146,23 @@ public class VidaPlayer : MonoBehaviour
 
 
     }
-    void IraCheckpoint()
+    void IraCheckpoint()//CREO QUE ESTO NO SE ESTÁ USANDO
     {
-        Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
+       
+        if (GameManager.Instance.UltimoCheck!=null)
+        {
+            Checkpoint check = GameManager.Instance.UltimoCheck;
+            this.transform.position = check.transform.position;
+            vidaActual = vidaMax;
+            this.GetComponent<ManagerEnergia>().actualEnergy = 0;
+            cc.movimientoBloqueado = false;
+            cc.combateBloqueado = false;
+            reiniciando = false;
+
+            check.CargarColeccionables();
+        }
+
+        /*Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
         foreach (Checkpoint check in checkpoints)
         {
             if (check.ultimoCheck == true)
@@ -161,7 +175,8 @@ public class VidaPlayer : MonoBehaviour
                 reiniciando = false;
                 break;
             }
-        }
+        }*/
+
         if (reiniciando)
         {
             this.transform.position = GameObject.FindGameObjectWithTag("InicioNivel").gameObject.transform.position;
@@ -308,7 +323,6 @@ public class VidaPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "balaVolador")
         {
-
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoBalaVolador, collision.gameObject.transform.position, collision.contacts[0].point);
         }
         if (collision.gameObject.tag == "Pinchos")

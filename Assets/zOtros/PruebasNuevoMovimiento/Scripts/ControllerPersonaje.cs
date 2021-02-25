@@ -120,6 +120,8 @@ public class ControllerPersonaje : MonoBehaviour
     GameObject ultimoEnemigoPasado;
     public Vector3 direccionCombate;
     public Vector3 velocidadCombateUltima;
+    public float tiempoTrasSalirCombate = 0.3f;
+    float auxTiempoTrasSalirCombate;
     [Range(0.0f, 1f)]
 
     public float salirCombate;
@@ -292,7 +294,15 @@ public class ControllerPersonaje : MonoBehaviour
             movParedBloq = false;
             auxtiempoTrasSaltoPared = 0;
         }
-
+        if (auxTiempoTrasSalirCombate > 0)
+        {
+            auxTiempoTrasSalirCombate -= Time.deltaTime;
+            if (auxTiempoTrasSalirCombate <= 0)
+            {
+                AnularCombate();
+                auxTiempoTrasSalirCombate = 0;
+            }
+        }
         if (grounded)
         {
             dashBloqueado = false;
@@ -308,7 +318,15 @@ public class ControllerPersonaje : MonoBehaviour
         if (!movParedBloq) ComprobarParedes();
 
 
+        if (escenaActual != "ND-1")
+        {
 
+
+            if (!dashBloqueado)
+            {
+                Dash();
+            }
+        }
         if (GameManager.Instance.desbloqueadoDash)
         {
 
@@ -317,7 +335,7 @@ public class ControllerPersonaje : MonoBehaviour
                 DashEnCaida();
             }
         }
-        if (!combateBloqueado) Combate();
+       
         animCC.SetFloat("SpeedY", rb.velocity.y);
         animCC.SetBool("Grounded", grounded);
         animCC.SetFloat("SpeedX", Mathf.Abs(rb.velocity.x));
@@ -327,7 +345,7 @@ public class ControllerPersonaje : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
+        if (!combateBloqueado) Combate();
         DetectarSuelo();
 
         if (grounded && tengoMaxspeed)
@@ -361,15 +379,7 @@ public class ControllerPersonaje : MonoBehaviour
         }
         GirarPersonaje();
         MovimientoPared();
-        if (escenaActual != "ND-1")
-        {
-
-
-            if (!dashBloqueado)
-            {
-                Dash();
-            }
-        }
+       
 
 
 
@@ -414,6 +424,13 @@ public class ControllerPersonaje : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(this.transform.position, distanciaCombate);
     }
+    void AnularCombate()
+    {
+        movimientoBloqueado = false;
+        saltoBloqueado = false;
+        dashBloqueado = false;
+        pInput.inputHorizBlock = false;
+    }
     public void Combate()
     {
         if (haciendoCombate == false)
@@ -422,7 +439,7 @@ public class ControllerPersonaje : MonoBehaviour
         }
         if (enemigoCerca)
         {
-            if (Input.GetKey(KeyCode.LeftControl))
+            if ((joystick!=null && joystick.RightTrigger.IsPressed)||Input.GetKey(KeyCode.LeftControl))
             {
                 pulsadoChispazo = true;
 
@@ -456,7 +473,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                             if (col.GetComponent<EnemigoSaltamontes>().stun == true)
                             {
-                                print("LOG1");
+                                //print("LOG1");
                                 puede = false;
 
                             }
@@ -474,12 +491,12 @@ public class ControllerPersonaje : MonoBehaviour
                         if (enemigosPasados.Contains(col.gameObject))
                         {
                             puede = false;
-                            print("LOG2");
+                            //print("LOG2");
                         }
                         else
                         {
 
-                            print("LOG2FALLo" + col.gameObject);
+                            //print("LOG2FALLo" + col.gameObject);
 
                         }
 
@@ -490,7 +507,7 @@ public class ControllerPersonaje : MonoBehaviour
                             if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
                             {
                                 enemigoSeleccionado = col.gameObject;
-                                print("LOG3enemigoselec" + enemigoSeleccionado);
+                                //print("LOG3enemigoselec" + enemigoSeleccionado);
                                 mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
                             }
 
@@ -531,7 +548,7 @@ public class ControllerPersonaje : MonoBehaviour
                             if (enemigoSeleccionado.GetComponent<EnemigoSaltamontes>().stun == false)
                             {
                                 ultimoEnemigoDetectado = enemigoSeleccionado;
-                                print("LOG4" + enemigoSeleccionado + "enemselect no pasado");
+                                //print("LOG4" + enemigoSeleccionado + "enemselect no pasado");
                             }
                             else
                             {
@@ -584,7 +601,7 @@ public class ControllerPersonaje : MonoBehaviour
                                     if (ultimoEnemigoDetectado.transform/*.parent.GetChild(0)*/ != null)
                                     {
                                         destinoCombate = ultimoEnemigoDetectado.transform./*.parent.GetChild(0).transform.*/position;
-                                        print("LOG5" + destinoCombate);
+                                        //print("LOG5" + destinoCombate);
                                         haciendoCombate = true;
                                     }
                                     else
@@ -598,7 +615,7 @@ public class ControllerPersonaje : MonoBehaviour
                                     if (ultimoEnemigoDetectado.transform/*.parent.GetChild(0)*/ != null)
                                     {
                                         destinoCombate = ultimoEnemigoDetectado.transform./*.parent.GetChild(0).transform.*/position;
-                                        print("LOG5552" + destinoCombate);
+                                        //print("LOG5552" + destinoCombate);
                                         haciendoCombate = true;
                                     }
                                 }
@@ -619,14 +636,15 @@ public class ControllerPersonaje : MonoBehaviour
         if (haciendoCombate)
         {
             auxtiempoTrasSalirCombateInvuln = tiempoTrasSalirCombateInvuln;
+            pInput.inputHorizBlock = true;
             movimientoBloqueado = true;
             saltoBloqueado = true;
             dashBloqueado = true;
             rb.gravityScale = 0;
             if (ultimoEnemigoDetectado != null)
             {
-                print("LOGultnonull");
-                if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) > 1.5f)
+                //print("LOGultnonull");
+                if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) > 2f)
                 {
                     if (!enemigosPasados.Contains(ultimoEnemigoDetectado))
                     {
@@ -652,7 +670,7 @@ public class ControllerPersonaje : MonoBehaviour
                     //}
                     if (pulsadoChispazo == true)
                     {
-                        print("LOGdireccioncombatepulsado" + direccionCombate + direccionCombate * velocidadCombate * 0.8f * Mathf.Clamp(Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position), 0.8f, distanciaCombate * 0.7f) * 0.15f);
+                        //print("LOGdireccioncombatepulsado" + direccionCombate + direccionCombate * velocidadCombate * 0.8f * Mathf.Clamp(Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position), 0.8f, distanciaCombate * 0.7f) * 0.15f);
                         rb.velocity = direccionCombate + direccionCombate * velocidadCombate * 0.8f * Mathf.Clamp(Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position), 0.8f, distanciaCombate * 0.7f) * 0.15f;
                     }
 
@@ -661,10 +679,10 @@ public class ControllerPersonaje : MonoBehaviour
                 }
                 else
                 {
-                    print("LOGcerca");
+                    //print("LOGcerca");
                     if (enemigosPasados.Contains(ultimoEnemigoDetectado) == false)
                     {
-                        if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) <= 1.5f)
+                        if (Vector3.Distance(ultimoEnemigoDetectado.transform.position, this.transform.position) <= 2f)
                         {
 
                             //if (!enemigosPasados.Contains(ultimoEnemigoDetectado))
@@ -689,24 +707,27 @@ public class ControllerPersonaje : MonoBehaviour
                                 ultimoEnemigoDetectado.GetComponent<EnemigoEmbestida2>().Stun();
                                 Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + offsetSalidaEnemigoTerrestreY);
                                 rb.velocity = resultante * salirCombate;
+                                print("RESULTANTE" + resultante * salirCombate);
                             }
                             else if (ultimoEnemigoDetectado.GetComponent<EnemigoSaltamontes>() != null)
                             {
                                 ultimoEnemigoDetectado.GetComponent<EnemigoSaltamontes>().Stun();
-                                Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + offsetSalidaEnemigoTerrestreY);
+                                Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y );
                                 rb.velocity = resultante * salirCombate;
+                                print("RESULTANTE" + resultante * salirCombate);
                             }
                             else if (ultimoEnemigoDetectado.GetComponent<MovimientoEnemigoVolador>() != null)
                             {
                                 ultimoEnemigoDetectado.GetComponent<MovimientoEnemigoVolador>().Stun();
-                                Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + offsetSalidaEnemigoVoladorY);
-                                rb.velocity = resultante * salirCombate;
+                                Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y /*+ offsetSalidaEnemigoVoladorY*/);
+                                rb.velocity = resultante* salirCombate;
+                                print("RESULTANTE" + resultante * salirCombate);
                             }
                             else
                             {
                                 if (velocidadCombateUltima != Vector3.zero) rb.velocity = velocidadCombateUltima;
                             }
-                            print("LOGAÑADIR" + ultimoEnemigoDetectado);
+                            //print("LOGAÑADIR" + ultimoEnemigoDetectado);
 
                             enemigosPasados.Add(ultimoEnemigoDetectado);
                             //RESETEAR ENEMIGO
@@ -721,7 +742,7 @@ public class ControllerPersonaje : MonoBehaviour
             }
             else
             {
-                print("LOGenemigonull");
+                //print("LOGenemigonull");
                 if (rb.gravityScale == 0)
                 {
                     rb.gravityScale = originalgravity;
@@ -736,15 +757,15 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                 haciendoCombate = false;
-                print("LOGhaciendocomb" + haciendoCombate);
+                //print("LOGhaciendocomb" + haciendoCombate);
 
-                movimientoBloqueado = false;
-                saltoBloqueado = false;
-                dashBloqueado = false;
+          
                 if (velocidadCombateUltima != Vector3.zero)
                 {
-                    rb.velocity = Vector2.zero;
+                    //rb.velocity = Vector2.zero;
                     //rb.AddForce(velocidadCombateUltima * salirCombate, ForceMode2D.Impulse);
+                   
+                    auxTiempoTrasSalirCombate = tiempoTrasSalirCombate;
                     if (ultimoEnemigoPasado.GetComponent<EnemigoEmbestida2>() != null)
                     {
 
@@ -753,6 +774,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                         Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + offsetSalidaEnemigoTerrestreY);
                         rb.velocity = resultante * salirCombate;
+                        print("RESULTANTEw" + resultante * salirCombate);
                     }
                     else if (ultimoEnemigoPasado.GetComponent<EnemigoSaltamontes>() != null)
                     {
@@ -760,8 +782,9 @@ public class ControllerPersonaje : MonoBehaviour
                         ultimoEnemigoPasado.GetComponent<EnemigoSaltamontes>().Stun();
 
 
-                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + offsetSalidaEnemigoTerrestreY);
+                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y );
                         rb.velocity = resultante * salirCombate;
+                        print("RESULTANTEw" + resultante * salirCombate);
                     }
                     else if (ultimoEnemigoPasado.GetComponent<MovimientoEnemigoVolador>() != null)
                     {
@@ -769,8 +792,9 @@ public class ControllerPersonaje : MonoBehaviour
                         ultimoEnemigoPasado.GetComponent<MovimientoEnemigoVolador>().Stun();
 
 
-                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + offsetSalidaEnemigoVoladorY);
+                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y /*+ offsetSalidaEnemigoVoladorY*/);
                         rb.velocity = resultante * salirCombate;
+                        print("RESULTANTEw" + resultante * salirCombate);
                     }
                     else
                     {
@@ -779,6 +803,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                 }
+             
                 direccionCombate = Vector3.zero;
                 velocidadCombateUltima = Vector3.zero;
 
@@ -787,7 +812,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if ((joystick != null && joystick.RightTrigger.WasReleased) || Input.GetKeyUp(KeyCode.LeftControl))
         {
             //if (movimientoBloqueado == true)
             //{
@@ -804,14 +829,11 @@ public class ControllerPersonaje : MonoBehaviour
                 if (!enemigosPasados.Contains(ultimoEnemigoDetectado)) enemigosPasados.Add(ultimoEnemigoDetectado);
 
 
-
-                movimientoBloqueado = false;
-                saltoBloqueado = false;
-                dashBloqueado = false;
+                auxTiempoTrasSalirCombate = tiempoTrasSalirCombate;
                 //if (pulsadoChispazo == true) { }
                 if (velocidadCombateUltima != Vector3.zero)
                 {
-                    rb.velocity = Vector2.zero;
+                    //rb.velocity = Vector2.zero;
                     //rb.AddForce(velocidadCombateUltima * salirCombate, ForceMode2D.Impulse);
                     if (ultimoEnemigoPasado != null && ultimoEnemigoPasado.GetComponent<EnemigoEmbestida2>() != null)
                     {
@@ -839,7 +861,7 @@ public class ControllerPersonaje : MonoBehaviour
                         ultimoEnemigoPasado.GetComponent<EnemigoSaltamontes>().Stun();
 
 
-                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);
+                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y );
 
                         rb.velocity = resultante * salirCombate;
                     }
@@ -849,7 +871,7 @@ public class ControllerPersonaje : MonoBehaviour
                         ultimoEnemigoDetectado.GetComponent<EnemigoSaltamontes>().Stun();
 
 
-                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);
+                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y );
 
                         rb.velocity = resultante * salirCombate;
                     }
@@ -859,7 +881,7 @@ public class ControllerPersonaje : MonoBehaviour
                         ultimoEnemigoPasado.GetComponent<MovimientoEnemigoVolador>().Stun();
 
 
-                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);
+                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y);
                         rb.velocity = resultante * salirCombate;
                     }
                     else if (enemigosPasados.Count == 0 && ultimoEnemigoDetectado.GetComponent<MovimientoEnemigoVolador>() != null)
@@ -868,7 +890,7 @@ public class ControllerPersonaje : MonoBehaviour
                         ultimoEnemigoDetectado.GetComponent<MovimientoEnemigoVolador>().Stun();
 
 
-                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);
+                        Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y );
                         rb.velocity = resultante * salirCombate;
                     }
                     else
@@ -1345,7 +1367,7 @@ public class ControllerPersonaje : MonoBehaviour
 
             if (derecha.collider.tag == "Pared")
             {
-
+                print("wewewewe");
                 rb.AddForce(new Vector2(1, 0) * 30 * Time.deltaTime);
                 tocandoderecha = true;
                 if ((!grounded) && (!looping)) pegadoPared = true;
@@ -1410,6 +1432,7 @@ public class ControllerPersonaje : MonoBehaviour
             tocandoizquierda = false;
             pegadoPared = false;
         }
+        
         if (pegadoPared)
         {
             //if (pInput.inputVertical != 0)
@@ -1467,7 +1490,10 @@ public class ControllerPersonaje : MonoBehaviour
                 if (auxtiempoTrasSaltoPared <= 0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             }
         }
-
+        if (!tocandoizquierda && !tocandoderecha && pegadoPared)
+        {
+            pegadoPared = false;
+        }
 
     }
     void MovimientoPared()
@@ -1504,7 +1530,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                 rb.velocity = new Vector2(0, rb.velocity.y);
-                if (pInput.inputVertical < -0.8f || pInput.inputVertical > 0.8f)
+                if ((joystick!=null && Mathf.Abs(joystick.LeftStickY)>0.8f)||(joystick==null&&(pInput.inputVertical < -0.8f || pInput.inputVertical > 0.8f)))
                 {
                     if (tocandoizquierda)
                     {
@@ -1515,6 +1541,7 @@ public class ControllerPersonaje : MonoBehaviour
                         transform.Find("Cuerpo").localScale = new Vector2(1, 1);
                     }
                     rb.velocity = new Vector2(0, pInput.inputVertical * speedpared * Time.deltaTime);
+                    animCC.SetFloat("MovimientoPared", Mathf.Abs(pInput.inputVertical));
                     //print("velocidad pared" + rb.velocity);
                 }
                 else
@@ -1529,10 +1556,10 @@ public class ControllerPersonaje : MonoBehaviour
                     }
                     rb.velocity = new Vector2(0, 0);
                     //print("velocidad pared" + rb.velocity + "suelto");
-
+                    animCC.SetFloat("MovimientoPared", 0);
                 }
+               
 
-                animCC.SetFloat("MovimientoPared", Mathf.Abs(pInput.inputVertical));
 
                 //if (Input.GetButtonDown("Jump"))
                 if (joystick != null)
@@ -2527,7 +2554,7 @@ public class ControllerPersonaje : MonoBehaviour
             //if (Input.GetButtonDown("Dash") && mEnergy.actualEnergy > mEnergy.energiaDash && pInput.inputVertical!=-1)
             if (joystick != null)
             {
-                if ((joystick.Action2.WasPressed || Input.GetButtonDown("Dash")) && mEnergy.actualEnergy > mEnergy.energiaDash && pInput.inputVertical != -1)
+                if ((joystick.Action3.WasPressed || Input.GetButtonDown("Dash")) && mEnergy.actualEnergy > mEnergy.energiaDash &&  (Mathf.Abs(joystick.LeftStick.X) > 0.3f||pInput.inputVertical>-1))
                 {
                     //if (dashPulsado && mEnergy.actualEnergy > mEnergy.energiaDash)
                     //{
@@ -2947,7 +2974,7 @@ public class ControllerPersonaje : MonoBehaviour
         if (joystick != null)
         {
             //if (!grounded && pegadoPared == false && (pInput.inputVertical == -1 || (joystick.Action2.WasPressed || Input.GetButtonDown("Dash"))))
-            if (!grounded && pInput.inputVertical == -1 && pegadoPared == false && joystick.LeftStickY == 0 || (joystick.Action2.WasPressed && pInput.inputVertical == -1 && Mathf.Abs(joystick.LeftStick.X) <= 1f/*|| Input.GetButtonDown("Dash")*/))
+            if (!grounded && pInput.inputVertical == -1 && pegadoPared == false && joystick.LeftStickY == 0 || (joystick.Action3.WasPressed && pInput.inputVertical == -1 /*&& joystick.LeftStick.Y <=-0.7f*/ && Mathf.Abs(joystick.LeftStick.X) <0.3f/*|| Input.GetButtonDown("Dash")*/))
             {
                 if (dashEnCaida == false)
                 {
@@ -3437,8 +3464,9 @@ public class ControllerPersonaje : MonoBehaviour
                             }
                         }
                     }
-                    else
+                    else if (pInput.inputHorizontal > 0)
                     {
+                        
                         if (tengoMaxspeed == false)
                         {
                             rb.velocity = new Vector2(velMaxima * 0.4f, rb.velocity.y);
@@ -3452,6 +3480,26 @@ public class ControllerPersonaje : MonoBehaviour
                             else
                             {
                                 rb.velocity = new Vector2(velMaxima, rb.velocity.y);
+                            }
+
+                        }
+                    }
+                    else if (pInput.inputHorizontal == 0)
+                    {
+
+                        if (tengoMaxspeed == false)
+                        {
+                            rb.velocity = new Vector2(0, rb.velocity.y);
+                        }
+                        else
+                        {
+                            if (cambioSentidoReciente == false)
+                            {
+                                rb.velocity = new Vector2(0, rb.velocity.y);
+                            }
+                            else
+                            {
+                                rb.velocity = new Vector2(0, rb.velocity.y);
                             }
 
                         }
@@ -4352,12 +4400,7 @@ public class ControllerPersonaje : MonoBehaviour
             GameManager.Instance.CogerColeccionableNivel(collision.gameObject);
 
         }
-        if (collision.tag == "Estrella")
-        {
 
-            GameManager.Instance.CogerEstrellaNivel(collision.gameObject);
-
-        }
         if (collision.tag == "TriggerPausaBoss")
         {
             if (boss != null)

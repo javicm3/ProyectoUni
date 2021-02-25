@@ -9,10 +9,12 @@ public class SimplePlatf : MonoBehaviour
     int actualPoint;
     public float speedplat;
     public float waitingTime;
-    float auxwaitingTime;
+   public  float auxwaitingTime;
     public float startwaitingTime;
-    float auxStartWait;
+    public float auxStartWait;
     int puntoRandom;
+    public bool movHoriz = false;
+    public bool movVertic = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,40 +29,150 @@ public class SimplePlatf : MonoBehaviour
     {
 
         auxStartWait -= Time.deltaTime;
-        if (Vector2.Distance(this.transform.position, puntos[actualPoint].position) < 0.2f)
+        
+        if (movHoriz == true)
         {
-
-
-            if (auxwaitingTime < 0)
+            if (Vector2.Distance(this.transform.position, new Vector2(puntos[actualPoint].position.x, this.transform.position.y)) < 0.5f)
             {
 
-                for (int i = 0; i <= 2; i++)
+
+                if (auxwaitingTime < 0)
                 {
-                    puntoRandom = Random.Range(0, puntos.Length);
-                    if (puntoRandom != actualPoint)
-                    {
-                        actualPoint = puntoRandom;
 
-                        break;
-                    }
-                    else
+                    for (int i = 0; i <= 2; i++)
                     {
-
                         puntoRandom = Random.Range(0, puntos.Length);
+                        if (puntoRandom != actualPoint)
+                        {
+                            actualPoint = puntoRandom;
+
+                            break;
+                        }
+                        else
+                        {
+
+                            puntoRandom = Random.Range(0, puntos.Length);
+                        }
                     }
+                    //que no se quede dos veces seguidas en el mismo punto
+                    auxwaitingTime += waitingTime;
                 }
-                //que no se quede dos veces seguidas en el mismo punto
-                auxwaitingTime += waitingTime;
+                else
+                {
+                    auxwaitingTime -= Time.deltaTime;
+                }
             }
             else
             {
-                auxwaitingTime -= Time.deltaTime;
+
+                if (auxStartWait < 0)
+                {
+                    if (movHoriz)
+                    {
+                        transform.position = Vector2.MoveTowards(transform.position, new Vector2(puntos[actualPoint].position.x, this.transform.position.y), speedplat * Time.deltaTime);
+                    }
+                    else if (movVertic)
+                    {
+                        transform.position = Vector2.MoveTowards(transform.position, new Vector2(this.transform.position.x, puntos[actualPoint].position.y), speedplat * Time.deltaTime);
+                    }
+
+
+
+                }
             }
         }
-        else
+        else if( movVertic==true)
         {
+            if (Vector2.Distance(this.transform.position, new Vector2(this.transform.position.x, puntos[actualPoint].position.y)) < 0.5f)
+            {
 
-            if (auxStartWait < 0) transform.position = Vector2.MoveTowards(transform.position, puntos[actualPoint].position, speedplat * Time.deltaTime);
+
+                if (auxwaitingTime < 0)
+                {
+
+                    for (int i = 0; i <= 2; i++)
+                    {
+                        puntoRandom = Random.Range(0, puntos.Length);
+                        if (puntoRandom != actualPoint)
+                        {
+                            actualPoint = puntoRandom;
+
+                            break;
+                        }
+                        else
+                        {
+
+                            puntoRandom = Random.Range(0, puntos.Length);
+                        }
+                    }
+                    //que no se quede dos veces seguidas en el mismo punto
+                    auxwaitingTime += waitingTime;
+                }
+                else
+                {
+                    auxwaitingTime -= Time.deltaTime;
+                }
+            }
+            else
+            {
+
+                if (auxStartWait < 0)
+                {
+                    if (movHoriz)
+                    {
+                        transform.position = Vector2.MoveTowards(transform.position, new Vector2(puntos[actualPoint].position.x, this.transform.position.y), speedplat * Time.deltaTime);
+                    }
+                    else if (movVertic)
+                    {
+                        transform.position = Vector2.MoveTowards(transform.position, new Vector2(this.transform.position.x, puntos[actualPoint].position.y), speedplat * Time.deltaTime);
+                    }
+
+
+
+                }
+            }
+        }
+
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.GetComponent<ControllerPersonaje>() != null)
+        {
+            print("1");
+            if (collision.gameObject.transform.parent == null)
+            {
+                print("12");
+
+                collision.gameObject.transform.parent = this.transform;
+            }
+        }
+
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        print(collision.gameObject.name);
+        if (collision.gameObject.GetComponent<ControllerPersonaje>() != null)
+        {
+            print("1");
+            if (collision.gameObject.transform.parent == null)
+            {
+                print("12");
+
+                collision.gameObject.transform.parent = this.transform;
+            }
+        }
+
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.GetComponent<ControllerPersonaje>() != null)
+        {
+            if (collision.gameObject.transform.parent != null )
+            {
+                collision.gameObject.transform.parent = null;
+            }
         }
     }
 }

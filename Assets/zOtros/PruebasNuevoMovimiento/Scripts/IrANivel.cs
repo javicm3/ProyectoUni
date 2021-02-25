@@ -27,26 +27,38 @@ public class IrANivel : MonoBehaviour
     {
         SceneManager.LoadScene(nivel, LoadSceneMode.Single);
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")//CAMBIAR SI DECIDO BUSCAR LOS COLECCIONABLES AL INICIO DEL NIVEL
         {
+            int estrellasCogidas=0, coleccionablesCogidos=0;
+            if (GameManager.Instance.ListaNiveles!=null)
+            {
+                foreach (LevelInfo level in GameManager.Instance.ListaNiveles)
+                {
+                    if (nivelDestino == level.nombreNivel)
+                    {
+                        coleccionablesCogidos = level.coleccionablesCogidos.Count;
+                    }
+                }
+            }
 
+
+            //----------------------------------------------------------------------------------
             if (nivelDestino == "ND-1")
             {
-                textoEstrellasCogidas.text = "Estrellas" + GameManager.Instance.estrellasCogidosNivel0.Count.ToString() + "/" + GameManager.Instance.estrellasMaxNv[0];
-                textoColeccionablesCogidos.text = "Coleccionables" + GameManager.Instance.coleccionablesCogidosNivel0.Count.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[0];
+                textoColeccionablesCogidos.text = "Coleccionables" + coleccionablesCogidos.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[0];
             }
             if (nivelDestino == "ND-2")
             {
-                textoEstrellasCogidas.text = "Estrellas" + GameManager.Instance.estrellasCogidosNivel1.Count.ToString() + "/" + GameManager.Instance.estrellasMaxNv[1];
-                textoColeccionablesCogidos.text = "Coleccionables" + GameManager.Instance.coleccionablesCogidosNivel1.Count.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[1];
+                textoColeccionablesCogidos.text = "Coleccionables" + coleccionablesCogidos.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[1];
             }
             if (nivelDestino == "ND-3")
             {
-                textoEstrellasCogidas.text = "Estrellas" + GameManager.Instance.estrellasCogidosNivel2.Count.ToString() + "/" + GameManager.Instance.estrellasMaxNv[2];
-                textoColeccionablesCogidos.text = "Coleccionables" + GameManager.Instance.coleccionablesCogidosNivel2.Count.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[2];
+                textoColeccionablesCogidos.text = "Coleccionables" + coleccionablesCogidos.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[2];
             }
+            //-------------------------------------------------------------------------------------
 
             cartel.enabled = true;
             textoEstrellas.text = "Necesitas" + requisitoEstrellas.ToString();
@@ -57,31 +69,27 @@ public class IrANivel : MonoBehaviour
             else
             {if (GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick != null)
                 {
-                    if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
+                    if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
                     {
-                        if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
+                        Activar(nivelDestino);
+                        /*if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
                         {
                             Activar(nivelDestino);
-                        }
-
+                        }*/
                     }
                 }
                 else
                 {
                     if (Input.GetButtonDown("Interact"))
                     {
-                        if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
+                        Activar(nivelDestino);
+                        /*if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
                         {
                             Activar(nivelDestino);
-                        }
-
+                        }*/
                     }
-                }
-               
+                }               
             }
-
-
-
         }
         else
         {
