@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class trai2 : MonoBehaviour
 {
-    Animator animBulva;
+    public Animator animBulva;
     Animator animCC;
     bool Carga;
     bool Ataque;
@@ -16,7 +16,6 @@ public class trai2 : MonoBehaviour
         Ataque = false;
         Herido = false;
         animCC = GetComponent<Animator>();
-        animBulva = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -30,7 +29,7 @@ public class trai2 : MonoBehaviour
                 animCC.SetBool("Cargando", true);
                 animBulva.SetBool("True", true);
             }
-            if (Carga)
+            else if (Carga)
             {
                 Carga = false;
                 animCC.SetBool("Cargando", false);
@@ -44,7 +43,7 @@ public class trai2 : MonoBehaviour
                 Ataque = true;
                 animCC.SetBool("Ataque", true);
             }
-            if (Carga)
+            else if (Ataque)
             {
                 Ataque = false;
                 animCC.SetBool("Ataque", false);
@@ -60,7 +59,7 @@ public class trai2 : MonoBehaviour
                 Herido = true;
                 animCC.SetBool("Estuneado", true);
             }
-            if (Carga)
+            else if (Herido)
             {
                 Herido = false;
                 animCC.SetBool("Estuneado", false);

@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 1cdc5730b26947a47bd3df50ce1412e1,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -11815,6 +11815,12 @@ SpriteShapeRenderer:
   m_LocalAABB:
     m_Center: {x: -42.680984, y: 19.88932, z: -0.00005}
     m_Extent: {x: 42.680984, y: 19.88932, z: 0.00005}
+--- !u!1 &348794499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4126857948343195413, guid: 5ee4f2d76482f4745b7699e967bdb530,
+    type: 3}
+  m_PrefabInstance: {fileID: 1385368922}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &350806494
 GameObject:
   m_ObjectHideFlags: 0
@@ -12261,6 +12267,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88c04c969ca9cfc4481a77db61736188, type: 3}
+--- !u!95 &369401604 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1561003476, guid: dce6c7fdcf9f11c4498d7b377ea5e7d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 6584537341125764010}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &370630091
 GameObject:
   m_ObjectHideFlags: 0
@@ -50760,6 +50772,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b14acad65d9fe2488d54bc251535064, type: 3}
+--- !u!1 &1299948169 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2763530548639017325, guid: dce6c7fdcf9f11c4498d7b377ea5e7d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 6584537341125764010}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1299948171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299948169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e546bd4feb48a61489e030852e74678f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animBulva: {fileID: 369401604}
 --- !u!1001 &1304026263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54703,12 +54734,12 @@ PrefabInstance:
         type: 3}
       propertyPath: particulasViajeCables
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 348794499}
     - target: {fileID: 2098227749811648902, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: particulasBolaViajeCables
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2136174469}
     - target: {fileID: 2098227749811648921, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: m_Name
@@ -55574,6 +55605,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc69a99d4c31fc4080b7caef02654f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  escenasSinColeccionables:
+  - PantallaInicio
+  - NL-0
   personajevivo: 1
   futureSpawn: {x: 0, y: 0, z: 0}
   maxScore1: 0
@@ -55586,7 +55620,6 @@ MonoBehaviour:
   monedasNecesariasDisparo: 3
   coleccionablesneed: 3
   puedoDisparar: 0
-  actualLevel: 0
   coleccionablesMaxNv:
   - 81
   - 0
@@ -55598,66 +55631,10 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  coleccionablesActNv:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  estrellasMaxNv:
-  - 7
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  estrellasActNv:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  coleccionablesCogidosNivel0: []
-  actualColeccionablesCogidosNivel0: []
-  estrellasCogidosNivel0: []
-  actualEstrellasCogidosNivel0: []
-  coleccionablesCogidosNivel1: []
-  actualColeccionablesCogidosNivel1: []
-  estrellasCogidosNivel1: []
-  actualEstrellasCogidosNivel1: []
-  coleccionablesCogidosNivel2: []
-  actualColeccionablesCogidosNivel2: []
-  estrellasCogidosNivel2: []
-  actualEstrellasCogidosNivel2: []
-  estrellasCogidosNivel3: []
-  actualEstrellasCogidosNivel3: []
-  coleccionablesCogidosNivel3: []
-  actualColeccionablesCogidosNivel3: []
-  estrellasCogidosNivel4: []
-  actualEstrellasCogidosNivel4: []
-  coleccionablesCogidosNivel4: []
-  actualColeccionablesCogidosNivel4: []
   totalColeccionables: []
-  totalEstrellas: []
   PanelColeccionables: {fileID: 1256354621}
   textoActualColecc: {fileID: 231699238}
   textoMaxColecc: {fileID: 757333410}
-  textoActualEstrellas: {fileID: 448597334}
-  textoMaxEstrellas: {fileID: 1430744511}
   desbloqueadoDash: 1
 --- !u!4 &1414797229
 Transform:
@@ -86299,6 +86276,12 @@ SpriteShapeRenderer:
   m_LocalAABB:
     m_Center: {x: -76.32042, y: 3.1502762, z: -0.00005}
     m_Extent: {x: 76.32042, y: 3.1502762, z: 0.00005}
+--- !u!1 &2136174469 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1078908177106712950, guid: 5ee4f2d76482f4745b7699e967bdb530,
+    type: 3}
+  m_PrefabInstance: {fileID: 1385368922}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2140766461
 PrefabInstance:
   m_ObjectHideFlags: 0
