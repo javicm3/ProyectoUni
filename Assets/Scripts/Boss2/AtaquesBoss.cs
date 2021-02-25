@@ -45,6 +45,7 @@ public class AtaquesBoss : MonoBehaviour
     Vector3 direccionLaser;
     Quaternion rot1;
     Quaternion rot2;
+    EstadosBoss2 eb;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,56 +53,86 @@ public class AtaquesBoss : MonoBehaviour
         duracionDiagonales = 0;
         drones.SetActive(false);
         pillarDireccionDiagonal = true;
+        eb = GetComponent<EstadosBoss2>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            vert1 = Instantiate(rayoVert, posRayoVert1.position, Quaternion.identity);
-            vert2 = Instantiate(rayoVert, posRayoVert2.position, Quaternion.identity);
-            
-        }
-        if(vert1 != null || vert2 != null)
+        //if (Input.GetKeyDown(KeyCode.Alpha8))
+        //{
+        //    vert1 = Instantiate(rayoVert, posRayoVert1.position, Quaternion.identity);
+        //    vert2 = Instantiate(rayoVert, posRayoVert2.position, Quaternion.identity);
+
+        //}
+        //if(vert1 != null || vert2 != null)
+        //{
+        //    vert1.transform.position = Vector3.MoveTowards(vert1.transform.position, posRayoVert2.position, speedRayosVert);
+        //    vert2.transform.position = Vector3.MoveTowards(vert2.transform.position, posRayoVert1.position, speedRayosVert);
+        //    if (vert1.transform.position == posRayoVert2.position)
+        //    {
+        //        Destroy(vert1);
+        //    }
+        //    if (vert2.transform.position == posRayoVert1.position)
+        //    {
+        //        Destroy(vert2);
+        //    }
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.Alpha9))
+        //{
+        //    StartCoroutine(LaserHorizontal());
+
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha0))
+        //{
+        //    StartCoroutine(DisparosBoss());
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha7))
+        //{
+        //    StartCoroutine(RayoDiagonal());
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha6))
+        //{
+        //    drones.SetActive(true);
+        //}
+
+        //vert1.transform.position = Vector3.MoveTowards(vert1.transform.position, posRayoVert2.position, speedRayosVert);
+        //vert2.transform.position = Vector3.MoveTowards(vert2.transform.position, posRayoVert1.position, speedRayosVert);
+        //Destroy(vert1, 8);
+        //Destroy(vert2, 8);
+        if (vert1 != null || vert2 != null)
         {
             vert1.transform.position = Vector3.MoveTowards(vert1.transform.position, posRayoVert2.position, speedRayosVert);
             vert2.transform.position = Vector3.MoveTowards(vert2.transform.position, posRayoVert1.position, speedRayosVert);
             if (vert1.transform.position == posRayoVert2.position)
             {
                 Destroy(vert1);
+                eb.ataqueTerminado = true;
             }
             if (vert2.transform.position == posRayoVert1.position)
             {
                 Destroy(vert2);
+                eb.ataqueTerminado = true;
+                eb.acumulacion++;
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            StartCoroutine(RayoHorizontal());
-           
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            StartCoroutine(DisparosBoss());
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            StartCoroutine(RayoDiagonal());
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            drones.SetActive(true);
-        }
-
-
         UpdateDiagonalLaser();
         
 
 
     }
-    IEnumerator RayoHorizontal()
+    public void LaserVertical()
+    {
+        vert1 = Instantiate(rayoVert, posRayoVert1.position, Quaternion.identity);
+        vert2 = Instantiate(rayoVert, posRayoVert2.position, Quaternion.identity);
+       
+        //Destroy(vert1, 8);
+        //Destroy(vert2, 8);
+
+       
+    }
+    public IEnumerator LaserHorizontal(bool terminado)
     {
         horizontal1 = Instantiate(rayoHoriz, posicionesHorizontales[Random.Range(0, posicionesHorizontales.Length - 1)]);
         horizontal1.GetComponent<LineRenderer>().material = materialHorzOff;
@@ -109,9 +140,13 @@ public class AtaquesBoss : MonoBehaviour
         horizontal1.GetComponent<LineRenderer>().material = materialHorzOn;
         yield return new WaitForSeconds(duracionRayoHorizontal);
         Destroy(horizontal1);
+        terminado = true;
+
+        eb.ataqueTerminado = true;
+        eb.acumulacion++;
        
     }
-    IEnumerator DisparosBoss()
+    public IEnumerator DisparosBoss()
     {
         if (numDisparosAux < numeroDisparos)
         {
@@ -141,10 +176,12 @@ public class AtaquesBoss : MonoBehaviour
         else
         {
             numDisparosAux = 0;
+            eb.ataqueTerminado = true;
+            StartCoroutine(ParadaBoss());
         }
         
     }
-    IEnumerator RayoDiagonal()
+    public IEnumerator LaserDiagonal(bool terminado)
     {
         rayoDiagonal1.SetActive(true);
         rayoDiagonal2.SetActive(true);
@@ -162,6 +199,9 @@ public class AtaquesBoss : MonoBehaviour
         
         yield return new WaitForSeconds(tiempoBarridoDiagonales);
         diagonales = false;
+        terminado = true;
+        eb.acumulacion++;
+        eb.ataqueTerminado = true;
         rayoDiagonal1.SetActive(false);
         rayoDiagonal2.SetActive(false);
         pillarDireccionDiagonal = true;
@@ -204,6 +244,13 @@ public class AtaquesBoss : MonoBehaviour
         rotationLaser1 = Quaternion.Slerp(rotationLaser1, rot2, Time.deltaTime * velocidadDiagonal);
         rotationLaser2 = Quaternion.Slerp(rotationLaser2, rot1, Time.deltaTime * velocidadDiagonal);
         
+    }
+    IEnumerator ParadaBoss()
+    {
+        eb.bossActivo = false;
+        yield return new WaitForSeconds(eb.tiempoParadaActual);
+        eb.acumulacion = 0;
+        eb.bossActivo = true;
     }
     
 }
