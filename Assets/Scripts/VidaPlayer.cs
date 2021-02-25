@@ -323,7 +323,6 @@ public class VidaPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "balaVolador")
         {
-
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoBalaVolador, collision.gameObject.transform.position, collision.contacts[0].point);
         }
         if (collision.gameObject.tag == "Pinchos")

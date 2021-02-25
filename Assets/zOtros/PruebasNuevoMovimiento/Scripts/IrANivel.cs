@@ -39,7 +39,6 @@ public class IrANivel : MonoBehaviour
                 {
                     if (nivelDestino == level.nombreNivel)
                     {
-                        estrellasCogidas = level.estrellasCogidas.Count;
                         coleccionablesCogidos = level.coleccionablesCogidos.Count;
                     }
                 }
@@ -49,17 +48,14 @@ public class IrANivel : MonoBehaviour
             //----------------------------------------------------------------------------------
             if (nivelDestino == "ND-1")
             {
-                textoEstrellasCogidas.text = "Estrellas" + estrellasCogidas.ToString() + "/" + GameManager.Instance.estrellasMaxNv[0];
                 textoColeccionablesCogidos.text = "Coleccionables" + coleccionablesCogidos.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[0];
             }
             if (nivelDestino == "ND-2")
             {
-                textoEstrellasCogidas.text = "Estrellas" + estrellasCogidas.ToString() + "/" + GameManager.Instance.estrellasMaxNv[1];
                 textoColeccionablesCogidos.text = "Coleccionables" + coleccionablesCogidos.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[1];
             }
             if (nivelDestino == "ND-3")
             {
-                textoEstrellasCogidas.text = "Estrellas" + estrellasCogidas.ToString() + "/" + GameManager.Instance.estrellasMaxNv[2];
                 textoColeccionablesCogidos.text = "Coleccionables" + coleccionablesCogidos.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[2];
             }
             //-------------------------------------------------------------------------------------
@@ -75,20 +71,22 @@ public class IrANivel : MonoBehaviour
                 {
                     if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
                     {
-                        if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
+                        Activar(nivelDestino);
+                        /*if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
                         {
                             Activar(nivelDestino);
-                        }
+                        }*/
                     }
                 }
                 else
                 {
                     if (Input.GetButtonDown("Interact"))
                     {
-                        if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
+                        Activar(nivelDestino);
+                        /*if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
                         {
                             Activar(nivelDestino);
-                        }
+                        }*/
                     }
                 }               
             }

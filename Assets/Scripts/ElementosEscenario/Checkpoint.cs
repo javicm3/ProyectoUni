@@ -7,7 +7,6 @@ public class Checkpoint : MonoBehaviour
 
     bool used = false;
     List<string> coleccionablesGuardados = new List<string>();
-    List<string> estrellasGuardadas = new List<string>();
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -28,10 +27,6 @@ public class Checkpoint : MonoBehaviour
         {
             coleccionablesGuardados.Add(item);
         }
-        foreach (string item in GameManager.Instance.NivelActual.actualEstrellasCogidas)
-        {
-            estrellasGuardadas.Add(item);
-        }
     }
 
     public void CargarColeccionables()
@@ -51,30 +46,9 @@ public class Checkpoint : MonoBehaviour
         }
         foreach (string go in aux)
         { GameManager.Instance.NivelActual.actualColeccionablesCogidos.Remove(go); }
-
-        aux.Clear();
-
-
-        foreach (string go in GameManager.Instance.NivelActual.actualEstrellasCogidas)
-        {
-            if (!estrellasGuardadas.Contains(go))
-            {
-                aux.Add(go);
-                GameObject estrella = GameObject.Find(go);
-
-                estrella.GetComponent<SpriteRenderer>().enabled = false;
-                estrella.GetComponent<Collider2D>().enabled = false;
-            }
-        }
-        foreach (string go in aux)
-        { GameManager.Instance.NivelActual.actualEstrellasCogidas.Remove(go); }
-
-
-        print(coleccionablesGuardados.Count + " " + GameManager.Instance.NivelActual.actualColeccionablesCogidos.Count);
+ 
         GameManager.Instance.textoActualColecc.text = coleccionablesGuardados.Count.ToString();
-        GameManager.Instance.textoActualEstrellas.text = estrellasGuardadas.ToString();
 
-        GameManager.Instance.NivelActual.actualEstrellasCogidas = estrellasGuardadas;
 
     }
 
