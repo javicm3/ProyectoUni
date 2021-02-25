@@ -1449,6 +1449,11 @@ MonoBehaviour:
   salidaIzquierda: 0
   direccionDefault: 0
   entrada: 0
+  entradaArriba: 0
+  entradaAbajo: 0
+  entradaDerecha: 0
+  entradaIzquierda: 0
+  auxtime: 0.15
   cartel: {fileID: 0}
 --- !u!212 &34247351
 SpriteRenderer:
@@ -1950,6 +1955,11 @@ MonoBehaviour:
   salidaIzquierda: 0
   direccionDefault: 0
   entrada: 0
+  entradaArriba: 0
+  entradaAbajo: 0
+  entradaDerecha: 0
+  entradaIzquierda: 0
+  auxtime: 0.15
   cartel: {fileID: 0}
 --- !u!212 &89601846
 SpriteRenderer:
@@ -3787,6 +3797,11 @@ MonoBehaviour:
   salidaIzquierda: 0
   direccionDefault: 0
   entrada: 0
+  entradaArriba: 0
+  entradaAbajo: 0
+  entradaDerecha: 0
+  entradaIzquierda: 0
+  auxtime: 0.15
   cartel: {fileID: 0}
 --- !u!212 &358613453
 SpriteRenderer:
@@ -5555,8 +5570,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 3153466ae91703a4690a1b9f302bea94, type: 3}
   - {fileID: 21300000, guid: e329881c0c5059249a8bd1a568905874, type: 3}
   m_LocalAABB:
-    m_Center: {x: -5.395458, y: 19.153847, z: -0.000050399998}
-    m_Extent: {x: 48.203552, y: 89.23699, z: 0.000050399998}
+    m_Center: {x: -5.3874626, y: 19.146088, z: -0.000050399998}
+    m_Extent: {x: 48.211548, y: 89.22923, z: 0.000050399998}
 --- !u!1 &566591079
 GameObject:
   m_ObjectHideFlags: 0
@@ -17199,6 +17214,11 @@ PrefabInstance:
       propertyPath: colliderViaje
       value: 
       objectReference: {fileID: 90898854}
+    - target: {fileID: 2098227749811648897, guid: 5ee4f2d76482f4745b7699e967bdb530,
+        type: 3}
+      propertyPath: fuerzaSalida
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 2098227749811648899, guid: 5ee4f2d76482f4745b7699e967bdb530,
         type: 3}
       propertyPath: targetGroup
@@ -17443,7 +17463,6 @@ MonoBehaviour:
   monedasNecesariasDisparo: 3
   coleccionablesneed: 3
   puedoDisparar: 0
-  actualLevel: 0
   coleccionablesMaxNv:
   - 81
   - 0
