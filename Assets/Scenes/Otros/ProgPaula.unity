@@ -2134,12 +2134,12 @@ PrefabInstance:
     - target: {fileID: -3092447310304566953, guid: 03ddaec07e147414ca32d98770e1742b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.86
+      value: 65.53
       objectReference: {fileID: 0}
     - target: {fileID: -3092447310304566953, guid: 03ddaec07e147414ca32d98770e1742b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.8611765
+      value: 2.14
       objectReference: {fileID: 0}
     - target: {fileID: -3092447310304566953, guid: 03ddaec07e147414ca32d98770e1742b,
         type: 3}
@@ -14736,13 +14736,14 @@ MonoBehaviour:
   activado: 0
   distanciaActivacion: 40
   player: {fileID: 0}
-  energiaPorSegundo: 10
+  tiempoAbsorcion: 3
   tiempoReactivar: 15
-  energiaNecesaria: 30
+  energiaRobar: 10
   radioReactivarEnem: 15
   proyectil: {fileID: 6243108591191946789, guid: 815e121c30376d646a63954dc3eb33c6,
     type: 3}
   velProyectil: 25
+  cooldownAbsorber: 5
 --- !u!1001 &291526096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36881,7 +36882,7 @@ EdgeCollider2D:
   - {x: -1.0075684, y: -9.344086}
   - {x: -11.007568, y: -9.344086}
   - {x: -10.997755, y: -59.348083}
-  - {x: 259.00244, y: -59.348083}
+  - {x: 259.0024, y: -59.348083}
   - {x: 259.00244, y: -41.348083}
   - {x: 299.00244, y: -41.348083}
   - {x: 298.99243, y: -19.344086}
@@ -37894,7 +37895,7 @@ EdgeCollider2D:
   - {x: -38.884903, y: 5.8878536}
   - {x: -37.721897, y: 5.8109865}
   - {x: -36.969383, y: 5.786763}
-  - {x: -36.70197, y: 5.785324}
+  - {x: -36.701973, y: 5.785324}
 --- !u!114 &672944391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39852,9 +39853,9 @@ EdgeCollider2D:
   m_Points:
   - {x: -35.100006, y: -2.0333223}
   - {x: -35.100006, y: -2.0333223}
-  - {x: -35.100006, y: 22.980011}
-  - {x: 19.899996, y: 22.980011}
-  - {x: 19.899994, y: -2.0199897}
+  - {x: -35.100006, y: 22.980007}
+  - {x: 19.899994, y: 22.980011}
+  - {x: 19.899994, y: -2.019989}
   - {x: -35.100006, y: -2.019989}
 --- !u!114 &709632422
 MonoBehaviour:
@@ -49570,7 +49571,6 @@ EdgeCollider2D:
   m_Points:
   - {x: -40.54001, y: -3.0533419}
   - {x: -40.54001, y: -3.0533419}
-  - {x: -40.54001, y: 11.973325}
   - {x: -40.54001, y: 11.959991}
   - {x: 9.469971, y: 11.955994}
   - {x: 9.483304, y: 11.955993}
@@ -49862,7 +49862,7 @@ EdgeCollider2D:
   - {x: -44.699978, y: 0.50676715}
   - {x: -46.07364, y: -0.038022935}
   - {x: -47.472496, y: -0.4387661}
-  - {x: -48.84666, y: -0.71681106}
+  - {x: -48.84666, y: -0.7168111}
   - {x: -50.14626, y: -0.89350724}
   - {x: -51.32141, y: -0.9902035}
   - {x: -52.32224, y: -1.0282485}
@@ -58520,9 +58520,10 @@ EdgeCollider2D:
   - {x: -51.911716, y: 41.03957}
   - {x: -49.98999, y: 40.996002}
   - {x: -11, y: 41}
+  - {x: -11, y: 116.02426}
   - {x: -11, y: 116.010925}
   - {x: 119, y: 116}
-  - {x: 119, y: 15.999999}
+  - {x: 119, y: 16}
   - {x: 159.01334, y: 16}
   - {x: 159.49226, y: 16.028082}
   - {x: 160.06854, y: 16.042936}
@@ -72970,6 +72971,7 @@ MonoBehaviour:
   escenasSinColeccionables:
   - PantallaInicio
   - NL-0
+  - ProgPaula
   personajevivo: 1
   futureSpawn: {x: 0, y: 0, z: 0}
   maxScore1: 0
@@ -72982,7 +72984,6 @@ MonoBehaviour:
   monedasNecesariasDisparo: 3
   coleccionablesneed: 3
   puedoDisparar: 0
-  actualLevel: 0
   coleccionablesMaxNv:
   - 81
   - 0
@@ -72994,25 +72995,10 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  estrellasMaxNv:
-  - 7
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
   totalColeccionables: []
-  totalEstrellas: []
   PanelColeccionables: {fileID: 1256354621}
   textoActualColecc: {fileID: 231699238}
   textoMaxColecc: {fileID: 757333410}
-  textoActualEstrellas: {fileID: 448597334}
-  textoMaxEstrellas: {fileID: 1430744511}
-  desbloqueadoDash: 1
 --- !u!4 &1414797229
 Transform:
   m_ObjectHideFlags: 0
@@ -86746,7 +86732,7 @@ EdgeCollider2D:
   - {x: 124.49777, y: 2.4432182}
   - {x: 121.50222, y: 0.9544823}
   - {x: 118.56, y: -0.1580298}
-  - {x: 115.77777, y: -0.9490969}
+  - {x: 115.77777, y: -0.94909686}
   - {x: 113.26224, y: -1.4734974}
   - {x: 111.119995, y: -1.7860098}
   - {x: 109.45778, y: -1.9414122}
@@ -105255,8 +105241,7 @@ EdgeCollider2D:
   m_Points:
   - {x: -35.630005, y: -28.503325}
   - {x: -35.630005, y: -28.503325}
-  - {x: -35.630005, y: 23.523344}
-  - {x: -35.630005, y: 23.51001}
+  - {x: -35.630005, y: 23.510008}
   - {x: -0.6199988, y: 23.506012}
   - {x: -0.6066618, y: 23.50601}
 --- !u!114 &2013438085

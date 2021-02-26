@@ -17,7 +17,12 @@ public class ControllerPersonaje : MonoBehaviour
 
     public bool tocandoRebote = false;
 
-
+    // VARIABLES HABILIDADES BLOQUEADAS (puedes renamearlas si quieres)
+    //En el start se llama a un método que las setea según lo que pone en el GM
+    bool dashUnlock;
+    bool chispazoUnlook;
+    bool movParedesUnlook;
+    bool movCablesUnlook;
 
 
     Vector2 ultimaParedPosicion;
@@ -220,6 +225,8 @@ public class ControllerPersonaje : MonoBehaviour
     {
         enemigosPasados = new List<GameObject>();
         joystick = InputManager.ActiveDevice;
+        if (joystick.Name == "NullInputDevice") joystick = null;
+
         //controles = new PlayerControls();
         //controles.Gameplay.Salto.performed += ctx => saltoPulsado = true;
         //controles.Gameplay.Salto.canceled += ctx =>
@@ -244,6 +251,7 @@ public class ControllerPersonaje : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 120;
+        CargarHabilidadesGM();
         //auxTiempoChispazo = tiempoAntesChispazo;
         auxpared = maxTiempoPared;
         auxtiempoMaxSuelo = tiempoCOYOTE;
@@ -318,7 +326,7 @@ public class ControllerPersonaje : MonoBehaviour
         if (!movParedBloq) ComprobarParedes();
 
 
-        if (escenaActual != "ND-1")
+        if (dashUnlock)
         {
 
 
@@ -327,7 +335,7 @@ public class ControllerPersonaje : MonoBehaviour
                 Dash();
             }
         }
-        if (GameManager.Instance.desbloqueadoDash)
+        if (dashUnlock)
         {
 
             if (!dashCaidaBloqueado)
@@ -1530,7 +1538,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                 rb.velocity = new Vector2(0, rb.velocity.y);
-                if ((joystick!=null && Mathf.Abs(joystick.LeftStickY)>0.8f)||(joystick==null&&(pInput.inputVertical < -0.8f || pInput.inputVertical > 0.8f)))
+                if ((joystick!=null && Mathf.Abs(joystick.LeftStickY)>0.8f)||(joystick==null&& Mathf.Abs(pInput.inputVertical) > 0.0f))
                 {
                     if (tocandoizquierda)
                     {
@@ -1546,6 +1554,8 @@ public class ControllerPersonaje : MonoBehaviour
                 }
                 else
                 {
+                    if (joystick != null) {  print("NO PULSO"); }
+                  
                     if (tocandoizquierda)
                     {
                         transform.Find("Cuerpo").localScale = new Vector2(1, 1);
@@ -4425,6 +4435,16 @@ public class ControllerPersonaje : MonoBehaviour
             }
         }
     }
+
+
+    void CargarHabilidadesGM()
+    {
+        dashUnlock = GameManager.Instance.Habilidades.dash;
+        chispazoUnlook = GameManager.Instance.Habilidades.chispazo;
+        movParedesUnlook = GameManager.Instance.Habilidades.movParedes;
+        movCablesUnlook = GameManager.Instance.Habilidades.movCables;
+    }
+
     //private void OnCollisionEnter2D(Collision2D collision)
     //{
     //    if (collision.gameObject.tag == "Pared")
