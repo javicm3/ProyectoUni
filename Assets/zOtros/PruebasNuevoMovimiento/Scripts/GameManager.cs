@@ -334,9 +334,9 @@ public class LevelInfo
 [System.Serializable]
 public class ListaHabilidades
 {
-    public bool dash = false;
-    public bool chispazo = false;
-    public bool movParedes = false;
-    public bool movCables = false;
+    public bool dash = true;
+    public bool chispazo = true;
+    public bool movParedes = true;
+    public bool movCables = true;
 }
 
