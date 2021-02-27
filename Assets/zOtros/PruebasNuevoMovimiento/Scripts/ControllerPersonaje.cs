@@ -1539,7 +1539,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                 rb.velocity = new Vector2(0, rb.velocity.y);
-                if ((joystick!=null && Mathf.Abs(joystick.LeftStickY)>0.8f)||(joystick==null&& Mathf.Abs(pInput.inputVertical) > 0.0f))
+                if (((joystick!=null && Mathf.Abs(joystick.LeftStickY)>0.8f)|| Mathf.Abs(pInput.inputVertical) > 0.8f) ||(joystick==null&& Mathf.Abs(pInput.inputVertical) > 0.0f))
                 {
                     if (tocandoizquierda)
                     {
