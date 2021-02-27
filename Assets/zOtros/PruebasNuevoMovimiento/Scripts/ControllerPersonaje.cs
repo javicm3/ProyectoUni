@@ -225,7 +225,7 @@ public class ControllerPersonaje : MonoBehaviour
     {
         enemigosPasados = new List<GameObject>();
         joystick = InputManager.ActiveDevice;
-        if (joystick.Name == "NullInputDevice") joystick = null;
+    
 
         //controles = new PlayerControls();
         //controles.Gameplay.Salto.performed += ctx => saltoPulsado = true;
@@ -250,6 +250,7 @@ public class ControllerPersonaje : MonoBehaviour
     }
     void Start()
     {
+        if (joystick.Name == "NullInputDevice") joystick = null;
         Application.targetFrameRate = 120;
         CargarHabilidadesGM();
         //auxTiempoChispazo = tiempoAntesChispazo;
