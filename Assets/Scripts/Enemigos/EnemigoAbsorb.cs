@@ -183,9 +183,9 @@ public class EnemigoAbsorb : EnemigoPadre
     }
 
 
-    private void OnDrawGizmos()
-    {
-        UnityEditor.Handles.color = Color.cyan;
-        UnityEditor.Handles.DrawWireDisc(transform.position, transform.forward, radioReactivarEnem );
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    UnityEditor.Handles.color = Color.cyan;
+    //    UnityEditor.Handles.DrawWireDisc(transform.position, transform.forward, radioReactivarEnem );
+    //}
 }
