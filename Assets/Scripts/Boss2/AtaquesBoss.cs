@@ -16,6 +16,7 @@ public class AtaquesBoss : MonoBehaviour
     public Transform posRayoVert2;
     public Transform[] posicionesHorizontales;
     public Transform puntoDisparo;
+    public Transform puntoDisparo2;
 
     public float speedRayosVert;
     public float tiempoSpawnRayoHorizontal;
@@ -43,6 +44,7 @@ public class AtaquesBoss : MonoBehaviour
     bool diagonales;
     bool pillarDireccionDiagonal;
     Vector3 direccionLaser;
+    Vector3 direccionLaser2;
     Quaternion rot1;
     Quaternion rot2;
     EstadosBoss2 eb;
@@ -190,8 +192,11 @@ public class AtaquesBoss : MonoBehaviour
         direccionLaser = player.transform.position - puntoDisparo.position;
         float angle = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
 
+        direccionLaser2 = player.transform.position - puntoDisparo2.position;
+        float angle2 = Mathf.Atan2(direccionLaser2.y, direccionLaser2.x) * Mathf.Rad2Deg;
+
         rotationLaser1.eulerAngles = new Vector3(0, 0, angle + desviacionDiagonal);
-        rotationLaser2.eulerAngles = new Vector3(0, 0, angle - desviacionDiagonal);
+        rotationLaser2.eulerAngles = new Vector3(0, 0, angle2 - desviacionDiagonal);
 
         yield return new WaitForSeconds(tiempoAparicionDiagonales);
         duracionDiagonales = 0;
@@ -217,8 +222,8 @@ public class AtaquesBoss : MonoBehaviour
                 rayoDiagonal1.GetComponent<LineRenderer>().SetPosition(1, hit.point);
             }
 
-            RaycastHit2D hit2 = Physics2D.Raycast(puntoDisparo.position, rayoDiagonal2.transform.right, Mathf.Infinity, layerM);
-            rayoDiagonal2.GetComponent<LineRenderer>().SetPosition(0, puntoDisparo.position);
+            RaycastHit2D hit2 = Physics2D.Raycast(puntoDisparo2.position, rayoDiagonal2.transform.right, Mathf.Infinity, layerM);
+            rayoDiagonal2.GetComponent<LineRenderer>().SetPosition(0, puntoDisparo2.position);
             if (hit2)
             {
                 rayoDiagonal2.GetComponent<LineRenderer>().SetPosition(1, hit2.point);

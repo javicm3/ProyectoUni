@@ -17,6 +17,7 @@ public class EstadosBoss2 : MonoBehaviour
     public int acumulacion = 0;
     AtaquesBoss ab;
     public float tiempoParadaActual;
+    public GameObject laseresLimite;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,6 +71,10 @@ public class EstadosBoss2 : MonoBehaviour
                 tiempoParadaActual = tiempoStunFase2;
                 if (ataqueTerminado == true)
                 {
+                    if (laseresLimite.activeSelf == true)
+                    {
+                        laseresLimite.SetActive(false);
+                    }
                     float ataque = Random.Range(0, 1);
                     if (ataque == 0 && acumulacion < ataquesFase2)
                     {
