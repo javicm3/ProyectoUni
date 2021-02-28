@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 1cdc5730b26947a47bd3df50ce1412e1,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -19790,6 +19790,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1549059502}
     m_Modifications:
+    - target: {fileID: 366997007139150537, guid: e914f5c4671585c4e8471565988d93b0,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1838123621
+      objectReference: {fileID: 0}
+    - target: {fileID: 366997007139150537, guid: e914f5c4671585c4e8471565988d93b0,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 586563062665771733, guid: e914f5c4671585c4e8471565988d93b0,
         type: 3}
       propertyPath: m_SortingLayerID
@@ -19819,6 +19829,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 7.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136915497127604282, guid: e914f5c4671585c4e8471565988d93b0,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1838123621
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136915497127604282, guid: e914f5c4671585c4e8471565988d93b0,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5243645732305603279, guid: e914f5c4671585c4e8471565988d93b0,
         type: 3}
@@ -20606,6 +20626,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1549059502}
     m_Modifications:
+    - target: {fileID: 366997007139150537, guid: e914f5c4671585c4e8471565988d93b0,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 366997007139150537, guid: e914f5c4671585c4e8471565988d93b0,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1838123621
+      objectReference: {fileID: 0}
+    - target: {fileID: 366997007139150537, guid: e914f5c4671585c4e8471565988d93b0,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3566680219173154758, guid: e914f5c4671585c4e8471565988d93b0,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -20615,6 +20650,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 7.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136915497127604282, guid: e914f5c4671585c4e8471565988d93b0,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1838123621
+      objectReference: {fileID: 0}
+    - target: {fileID: 4136915497127604282, guid: e914f5c4671585c4e8471565988d93b0,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5243645732305603279, guid: e914f5c4671585c4e8471565988d93b0,
         type: 3}
@@ -22984,6 +23029,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc69a99d4c31fc4080b7caef02654f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  escenasSinColeccionables:
+  - PantallaInicio
+  - NL-0
   personajevivo: 1
   futureSpawn: {x: 0, y: 0, z: 0}
   maxScore1: 0
@@ -22996,7 +23044,6 @@ MonoBehaviour:
   monedasNecesariasDisparo: 3
   coleccionablesneed: 3
   puedoDisparar: 0
-  actualLevel: 0
   coleccionablesMaxNv:
   - 81
   - 0
@@ -23008,67 +23055,10 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  coleccionablesActNv:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  estrellasMaxNv:
-  - 7
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  estrellasActNv:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  coleccionablesCogidosNivel0: []
-  actualColeccionablesCogidosNivel0: []
-  estrellasCogidosNivel0: []
-  actualEstrellasCogidosNivel0: []
-  coleccionablesCogidosNivel1: []
-  actualColeccionablesCogidosNivel1: []
-  estrellasCogidosNivel1: []
-  actualEstrellasCogidosNivel1: []
-  coleccionablesCogidosNivel2: []
-  actualColeccionablesCogidosNivel2: []
-  estrellasCogidosNivel2: []
-  actualEstrellasCogidosNivel2: []
-  estrellasCogidosNivel3: []
-  actualEstrellasCogidosNivel3: []
-  coleccionablesCogidosNivel3: []
-  actualColeccionablesCogidosNivel3: []
-  estrellasCogidosNivel4: []
-  actualEstrellasCogidosNivel4: []
-  coleccionablesCogidosNivel4: []
-  actualColeccionablesCogidosNivel4: []
   totalColeccionables: []
-  totalEstrellas: []
   PanelColeccionables: {fileID: 1256354621}
   textoActualColecc: {fileID: 231699238}
   textoMaxColecc: {fileID: 757333410}
-  textoActualEstrellas: {fileID: 448597334}
-  textoMaxEstrellas: {fileID: 1430744511}
-  desbloqueadoDash: 1
 --- !u!4 &1414797229
 Transform:
   m_ObjectHideFlags: 0
