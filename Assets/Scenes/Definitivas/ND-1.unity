@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 1cdc5730b26947a47bd3df50ce1412e1,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -11212,12 +11212,12 @@ PrefabInstance:
     - target: {fileID: 6272630988270635966, guid: 7d936c3d432e1954dab6c8f711716d0e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 613.4
+      value: 621.8
       objectReference: {fileID: 0}
     - target: {fileID: 6272630988270635966, guid: 7d936c3d432e1954dab6c8f711716d0e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -187.9
+      value: -187.38
       objectReference: {fileID: 0}
     - target: {fileID: 6272630988270635966, guid: 7d936c3d432e1954dab6c8f711716d0e,
         type: 3}
@@ -11267,9 +11267,15 @@ PrefabInstance:
     - target: {fileID: 8281852285158902120, guid: 7d936c3d432e1954dab6c8f711716d0e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8281852285158902120, guid: 7d936c3d432e1954dab6c8f711716d0e,
+        type: 3}
+      propertyPath: m_Name
+      value: CanvasPuerta
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6272630988270635584, guid: 7d936c3d432e1954dab6c8f711716d0e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7d936c3d432e1954dab6c8f711716d0e, type: 3}
 --- !u!1 &232780731 stripped
 GameObject:
@@ -11290,6 +11296,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desbloquear: 0
+--- !u!114 &232780733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232780731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf3f8ee6edda5684f9bae9bb301cbc7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cartel: {fileID: 232780734}
+--- !u!223 &232780734 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 1139026066604954516, guid: 7d936c3d432e1954dab6c8f711716d0e,
+    type: 3}
+  m_PrefabInstance: {fileID: 232780730}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &234973539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23388,7 +23413,7 @@ PrefabInstance:
     - target: {fileID: 5883802503920837383, guid: fc40c5cb0c4bec947b05a775b0a042d1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 599
+      value: 599.66
       objectReference: {fileID: 0}
     - target: {fileID: 5883802503920837383, guid: fc40c5cb0c4bec947b05a775b0a042d1,
         type: 3}
@@ -23444,6 +23469,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Puerta_Inicio (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6436948835578053871, guid: fc40c5cb0c4bec947b05a775b0a042d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc40c5cb0c4bec947b05a775b0a042d1, type: 3}
