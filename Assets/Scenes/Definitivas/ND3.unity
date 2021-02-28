@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 1cdc5730b26947a47bd3df50ce1412e1,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1045,6 +1045,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1919278811}
     m_Modifications:
+    - target: {fileID: 1174551692, guid: d2afb9a04c207094286549ea30825e23, type: 3}
+      propertyPath: objetosActivados.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174551692, guid: d2afb9a04c207094286549ea30825e23, type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b66d6610803a47441aa04af6316a1ec4, type: 3}
+    - target: {fileID: 1174551692, guid: d2afb9a04c207094286549ea30825e23, type: 3}
+      propertyPath: objetosActivados.Array.data[0]
+      value: 
+      objectReference: {fileID: 216281553}
+    - target: {fileID: 1174551692, guid: d2afb9a04c207094286549ea30825e23, type: 3}
+      propertyPath: objetosActivados.Array.data[1]
+      value: 
+      objectReference: {fileID: 213340546}
+    - target: {fileID: 1174551692, guid: d2afb9a04c207094286549ea30825e23, type: 3}
+      propertyPath: objetosActivados.Array.data[2]
+      value: 
+      objectReference: {fileID: 646919974}
     - target: {fileID: 1051599838690423673, guid: d2afb9a04c207094286549ea30825e23,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1130,7 +1150,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: NuevoActivador
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1877410493, guid: d2afb9a04c207094286549ea30825e23, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d2afb9a04c207094286549ea30825e23, type: 3}
 --- !u!4 &57158660 stripped
 Transform:
