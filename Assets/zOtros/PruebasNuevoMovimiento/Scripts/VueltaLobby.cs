@@ -41,7 +41,7 @@ public class VueltaLobby : MonoBehaviour
         {                       
             cartel.enabled = true;
 
-            if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
+            if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick!=null&& GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
             {
                 GuardarDatos();
                 SceneManager.LoadScene("NL-0", LoadSceneMode.Single);
