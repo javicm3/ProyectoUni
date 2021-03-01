@@ -158,7 +158,7 @@ public class VidaPlayer : MonoBehaviour
             cc.movimientoBloqueado = false;
             cc.combateBloqueado = false;
             reiniciando = false;
-            GetComponent<CameraZoom>().ceboCamara.transform.position = this.transform.position;
+
             check.CargarColeccionables();
         }
 
@@ -184,7 +184,6 @@ public class VidaPlayer : MonoBehaviour
             this.GetComponent<ManagerEnergia>().actualEnergy = 0;
             cc.movimientoBloqueado = false;
             cc.combateBloqueado = false;
-            GetComponent<CameraZoom>().ceboCamara.transform.position = this.transform.position;
             reiniciando = false;
         }
 
