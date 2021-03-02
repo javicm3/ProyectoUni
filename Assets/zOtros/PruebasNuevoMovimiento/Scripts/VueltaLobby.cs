@@ -44,6 +44,10 @@ public class VueltaLobby : MonoBehaviour
             if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick!=null&& GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
             {
                 GuardarDatos();
+                if (GetComponent<DesbloquearHabilidades>()!=null)
+                { GetComponent<DesbloquearHabilidades>().DesbloquearHabilidad(); }
+
+                SistemaGuardado.Guardar();
                 SceneManager.LoadScene("NL-0", LoadSceneMode.Single);
             }
         }

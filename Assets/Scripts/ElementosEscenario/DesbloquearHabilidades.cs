@@ -17,16 +17,17 @@ public class DesbloquearHabilidades : MonoBehaviour
     [SerializeField] habilidad desbloquear;
 
 
+    // De momento se llama desde el script vuleta al lobby (si la puerta tiene ambos scripts)
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player" && !usado)
         {
             DesbloquearHabilidad();
         }
-    }
+    }*/
 
-    void DesbloquearHabilidad()
+    public void DesbloquearHabilidad()
     {
         switch (desbloquear)
         {
