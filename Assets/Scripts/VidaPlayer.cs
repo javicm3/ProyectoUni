@@ -46,7 +46,7 @@ public class VidaPlayer : MonoBehaviour
             //spritesvida[2] = GameObject.Find("Vida2").GetComponent<Image>();
             //spritesvida[3] = GameObject.Find("Vida3").GetComponent<Image>();
             //colorinicial = spritesvida[0].GetComponent<Image>().color;
-            if (GameObject.Find("LifeBar").gameObject != null) barraVida = GameObject.Find("LifeBar").gameObject;
+            //if (GameObject.Find("LifeBar").gameObject != null) barraVida = GameObject.Find("LifeBar").gameObject;
         }
         auxcdinvuln = cdInvulnAtaq;
         //cc = this.GetComponent<CharacterController2D>();

@@ -3353,7 +3353,7 @@ public class ControllerPersonaje : MonoBehaviour
                         pulsadoEspacio = true;
                         saltoIniciado = false;
                         animCC.SetTrigger("Salto");
-                        GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasSalto, posGround.position, posGround);
+                        GetComponent<Particulas>().SpawnParticulasSinTransform(GetComponent<Particulas>().particulasSalto, posGround.position);
                     }
                 }
                 else

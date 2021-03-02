@@ -74,7 +74,8 @@ public class Particulas : MonoBehaviour
     public void SpawnParticulasSinTransform(GameObject particulas, Vector3 posicion)
     {
        
-            Instantiate(particulas, posicion, Quaternion.identity);
+        Instantiate(particulas, posicion, Quaternion.identity);
+        particulas.transform.parent = null;
 
     }
     // Update is called once per frame
