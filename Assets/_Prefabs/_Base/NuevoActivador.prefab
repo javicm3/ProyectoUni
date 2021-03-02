@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5045152309140109276}
   - component: {fileID: 4435925543307723840}
   - component: {fileID: 2291637618364057594}
-  - component: {fileID: 4645633827825220382}
+  - component: {fileID: 1174551692}
+  - component: {fileID: 1877410493}
   m_Layer: 12
   m_Name: NuevoActivador
   m_TagString: Activador
@@ -230,7 +231,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4645633827825220382
+--- !u!114 &1174551692
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,10 +247,46 @@ MonoBehaviour:
   apagado: {fileID: 21300000, guid: 16e10a48c2228ed4fa95ba2db98056e4, type: 3}
   objetosActivados:
   - {fileID: 0}
-  tiempoEntrePlataformas: 0.4
-  clip: {fileID: 8300000, guid: b66d6610803a47441aa04af6316a1ec4, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  tiempoEntrePlataformas: 0.2
+  secuenciaPlat: 1
+  seDesactivaConPlatf: 1
+  auxTiempoEntre: 0
+  clip: {fileID: 8300000, guid: bd3b9be2c935b86458cf5f8767b71d29, type: 3}
   source: {fileID: 2291637618364057594}
   cartel: {fileID: 880344501442349080}
+  activadoBool: 0
+  posicionArray: 0
+--- !u!114 &1877410493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5188450088900188902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa620f42da0dca4abc73686a350e2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activado: {fileID: 21300000, guid: 3971fa109e54a7c4ca0209d380b118e6, type: 3}
+  apagado: {fileID: 21300000, guid: 16e10a48c2228ed4fa95ba2db98056e4, type: 3}
+  objetosActivados:
+  - {fileID: 0}
+  - {fileID: 0}
+  tiempoEntrePlataformas: 2.5
+  secuenciaPlat: 0
+  seDesactivaConPlatf: 1
+  auxTiempoEntre: 0
+  clip: {fileID: 8300000, guid: bd3b9be2c935b86458cf5f8767b71d29, type: 3}
+  source: {fileID: 2291637618364057594}
+  cartel: {fileID: 880344501442349080}
+  activadoBool: 0
+  posicionArray: 0
 --- !u!1 &6290759603298458540
 GameObject:
   m_ObjectHideFlags: 0
