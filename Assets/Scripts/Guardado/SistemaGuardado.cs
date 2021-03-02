@@ -30,6 +30,10 @@ public class SistemaGuardado : MonoBehaviour
             foreach (LevelInfo level in datos.listaNivel)
             {
                 GameManager.Instance.ListaNiveles.Add(level);
+                foreach (string item in level.coleccionablesCogidos)
+                {
+                    GameManager.Instance.totalColeccionables.Add(item);
+                }                
             }
 
 
@@ -55,6 +59,8 @@ public class SistemaGuardado : MonoBehaviour
         File.WriteAllText(Carpeta_Guardado + "save_DatosGM.txt", datos);
 
         ListaHabilidades habilidades = GameManager.Instance.Habilidades;
+
+        GameManager.Instance.MostrarSaveIcon = true;
     }
 }
 
@@ -64,4 +70,5 @@ public class DataGuardadoJSON
 {
     public List<LevelInfo> listaNivel;
     public ListaHabilidades habilidades;
+
 }

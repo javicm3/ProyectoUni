@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     //V A R I A B L E S   N U E V A S   P A U L A
 
-    //COMENTARIO: Por cada nivel que se añade, para setear las estrellas y coleccionables max hay que añadir un case en el swich del void CheckLevelList() (abajo del todo) (ahora está puesto hasta el 7 por si acaso)
+    //COMENTARIO: Por cada nivel que se añade, para setear los coleccionables max hay que añadir un case en el swich del void CheckLevelList() (abajo del todo) (ahora está puesto hasta el 7 por si acaso)
 
     List<LevelInfo> listaNiveles = new List<LevelInfo>();
     public List<LevelInfo> ListaNiveles { get => listaNiveles; }
@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     Checkpoint ultimoCheck;
     public Checkpoint UltimoCheck { get => ultimoCheck; set => ultimoCheck = value; }
 
+    bool mostrarSaveIcon;
+    public bool MostrarSaveIcon { get => mostrarSaveIcon; set => mostrarSaveIcon = value; }
     ListaHabilidades habilidades = new ListaHabilidades(); 
     public ListaHabilidades Habilidades { get => habilidades; set => habilidades = value; }
 
@@ -154,8 +156,7 @@ public class GameManager : MonoBehaviour
             //actualLevel = -1;
             personajevivo = true;
 
-
-            GameObject.Find("Actual").GetComponent<Text>().text = totalColeccionables.Count.ToString();
+            GameObject.Find("Actual").GetComponent<Text>().text = totalColeccionables.Count.ToString(); 
             //textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
             //textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase] 
 public class EnemigoAbsorb : EnemigoPadre
 {
     enum States
@@ -16,6 +17,8 @@ public class EnemigoAbsorb : EnemigoPadre
 
     LineRenderer lineRend;
     CircleCollider2D coll;
+    Animator cmpAnim;
+    [SerializeField] Animator cmpAnimInt;
 
     ManagerEnergia playerEnergy;
     [SerializeField] float tiempoAbsorcion = 3;
@@ -30,10 +33,13 @@ public class EnemigoAbsorb : EnemigoPadre
     [SerializeField] float cooldownAbsorber = 5;
     float cooldownRestante;
 
+
     void Awake()
     {
+        cmpAnim = GetComponentInChildren<Animator>();
         coll = GetComponent<CircleCollider2D>();        
         lineRend = GetComponent<LineRenderer>();
+        lineRend.positionCount = 2;
         lineRend.SetPosition(0, transform.position);
         lineRend.enabled = false;
 
@@ -76,6 +82,24 @@ public class EnemigoAbsorb : EnemigoPadre
         }
     }
 
+    void ActiveAnim(string boolName)
+    {
+        cmpAnim.SetBool("Cargando", false);
+        cmpAnim.SetBool("Estuneado", false);
+        cmpAnim.SetBool("Ataque", false);
+
+        cmpAnim.SetBool(boolName, true);
+        print(boolName);
+        if (boolName == "Cargando")
+        {
+            cmpAnimInt.SetBool("True", true);
+        }
+        else if(boolName!="Ataque")
+        {
+            cmpAnimInt.SetBool("True", false);
+        }
+
+    }
 
     public override void Reactivar()
     {
@@ -83,17 +107,17 @@ public class EnemigoAbsorb : EnemigoPadre
 
         if (Vector3.Distance(transform.position, playerEnergy.transform.position) < coll.radius && playerEnergy.actualEnergy>energiaRobar)
         {
-            estado = States.Absorber;
+            estado = States.Absorber; ActiveAnim("Cargando");
             lineRend.enabled = true;
             lineRend.SetPosition(1, playerEnergy.transform.position);
         }
-        else { estado = States.Idle; }
+        else { estado = States.Idle; ActiveAnim("None"); }
     }
 
     public override void Stun() //Hay que ver por donde se llama al metodo desactivar :3
     {
         stun = true;
-        estado = States.Desactivado;
+        estado = States.Desactivado; ActiveAnim("Estuneado");
         tiempoRestante = tiempoReactivar;
         lineRend.enabled = false;
     }
@@ -108,36 +132,39 @@ public class EnemigoAbsorb : EnemigoPadre
         {
             actTiempoAbsorcion = 0;
             playerEnergy.RestarEnergia(energiaRobar);
-            lineRend.enabled = false; print(lineRend.enabled);
+            lineRend.enabled = false;
             cooldownRestante = cooldownAbsorber;
             estado = States.Cooldown;
-
-            // Buscar a los enemigos que hay en el area y reactivar el más cercano
-
-            bool enemigoActivado = false;
-            RaycastHit2D[] hit = Physics2D.CircleCastAll(new Vector2(transform.position.x,transform.position.y), radioReactivarEnem, Vector2.left, 0.05f);
-            foreach (RaycastHit2D item in hit)
-            {
-                if (item.transform.GetComponent<EnemigoPadre>()!=null && !item.transform.GetComponent<EnemigoPadre>().seActivaPorCercania)
-                {
-                    item.transform.GetComponent<EnemigoPadre>().seActivaPorCercania = true;
-                    print("enemigo encontrado");
-
-                    //D I S P A R A R   R A Y O   D E   E N E R G Í A   A L   E N E M I G O   E N   C U E S T I O N   (por hacer)
-                    enemigoActivado = true;
-                    break;
-                }
-            }            
-            
-
-            if (!enemigoActivado)//Disparar al jugador
-            {
-                GameObject bala= Instantiate(proyectil, transform.position, transform.rotation);
-                bala.GetComponent<Rigidbody2D>().AddForce((playerEnergy.transform.position-transform.position).normalized * velProyectil, ForceMode2D.Impulse); //Esto me hace cero de caso asique crearé una bala
-            }
+            ActiveAnim("Ataque");
         }
     }
 
+    public void EjecutarAtaque()
+    {
+        cmpAnimInt.SetBool("True", false);
+        // Buscar a los enemigos que hay en el area y reactivar el más cercano
+        bool enemigoActivado = false;
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(new Vector2(transform.position.x, transform.position.y), radioReactivarEnem, Vector2.left, 0.05f);
+        foreach (RaycastHit2D item in hit)
+        {
+            if (item.transform.GetComponent<EnemigoPadre>() != null && !item.transform.GetComponent<EnemigoPadre>().seActivaPorCercania)
+            {
+                item.transform.GetComponent<EnemigoPadre>().seActivaPorCercania = true;
+                print("enemigo encontrado");
+
+                //D I S P A R A R   R A Y O   D E   E N E R G Í A   A L   E N E M I G O   E N   C U E S T I O N   (por hacer)
+                enemigoActivado = true;
+                break;
+            }
+        }
+
+
+        if (!enemigoActivado)//Disparar al jugador
+        {
+            GameObject bala = Instantiate(proyectil, transform.position, transform.rotation);
+            bala.GetComponent<Rigidbody2D>().AddForce((playerEnergy.transform.position - transform.position).normalized * velProyectil, ForceMode2D.Impulse); //Esto me hace cero de caso asique crearé una bala
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -148,11 +175,10 @@ public class EnemigoAbsorb : EnemigoPadre
 
             if (playerEnergy.actualEnergy>energiaRobar)
             {
-                estado = States.Absorber;
+                estado = States.Absorber; ActiveAnim("Cargando");
                 lineRend.enabled = true;
                 lineRend.SetPosition(1, playerEnergy.transform.position);
             }
-
         }
     }
 
@@ -160,7 +186,7 @@ public class EnemigoAbsorb : EnemigoPadre
     {
         if (estado == States.Idle && collision.tag == "Player" && playerEnergy.actualEnergy > energiaRobar)
         {
-            estado = States.Absorber;
+            estado = States.Absorber; ActiveAnim("Cargando");
             lineRend.enabled = true;
             lineRend.SetPosition(1, playerEnergy.transform.position);
         }
@@ -172,12 +198,12 @@ public class EnemigoAbsorb : EnemigoPadre
         {
             if (estado == States.Absorber)
             {
-                estado = States.Idle;
+                estado = States.Idle; ActiveAnim("None");
                 lineRend.enabled = false;
                 actTiempoAbsorcion = 0;
             }
             else if(estado==States.Cooldown)
-            { estado = States.Idle; }
+            { estado = States.Idle; ActiveAnim("None"); }
         }
 
     }
