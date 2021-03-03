@@ -210,7 +210,7 @@ public class ControllerPersonaje : MonoBehaviour
     //bool saltoPulsado=false;
     //bool saltoSoltado=false;
     //bool dashPulsado=false;
-
+    public bool haciendoEnfoque = false;
     public bool pulsadoChispazo = false;
     [Header("TRAMPOLIN")]
     public float auxTiempoTrasImpulso;
@@ -280,8 +280,9 @@ public class ControllerPersonaje : MonoBehaviour
         }
         else
         {
-            auxTiempoUsar = 0;
-            combateBloqueado = false;
+            if (GetComponent<VidaPlayer>().reiniciando == false) {     auxTiempoUsar = 0;
+            combateBloqueado = false;}
+            
         }
         //move.x = controles.Gameplay.Movement.ReadValue<float>();
         //print(controles.Gameplay.Movement.ReadValue<float>());
@@ -313,8 +314,7 @@ public class ControllerPersonaje : MonoBehaviour
             }
         }
         if (grounded)
-        {
-            dashBloqueado = false;
+        { if(haciendoEnfoque==false)if(GetComponent<VidaPlayer>().reiniciando==false)            dashBloqueado = false;
         }
 
         if (!saltoBloqueado)
@@ -376,12 +376,15 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 yaimpulsado = false;
             }
+            if (auxTiempoTrasImpulso <= 0)
+            { 
+                movimientoBloqueado = false;
+            }
         }
-        else
-        {
+       
 
-            movimientoBloqueado = false;
-        }
+           
+      
         if (!movimientoBloqueado)
         {
             MoverPersonaje();

@@ -30,6 +30,7 @@ public class VidaPlayer : MonoBehaviour
     Movimiento mov;
     public bool reiniciando;
     public CinemachineTargetGroup targetGroup;
+    bool puedoReiniciar = false;
     //public AudioClip dañoPlayer;
     //public AudioClip muertePlayer;
     //public AudioSource source;
@@ -62,7 +63,7 @@ public class VidaPlayer : MonoBehaviour
 
     public void RecibirDaño(float daño, Vector3 puntoimpacto, Vector3 puntocontacto)
     {//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de abajo
-        if(daño!=0)daño = 55;
+        if (daño != 0) daño = 55;
         //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de arriba
         if (auxcdTrasdaño <= 0)
         {
@@ -88,6 +89,10 @@ public class VidaPlayer : MonoBehaviour
                 animCC.SetTrigger("Die");
                 cc.movimientoBloqueado = true;
                 cc.combateBloqueado = true;
+
+                cc.saltoBloqueado = true;
+                cc.dashBloqueado = true;
+
                 reiniciando = true;
                 if (FindObjectOfType<CinemachineTargetGroup>() != null)
                 {
@@ -146,20 +151,31 @@ public class VidaPlayer : MonoBehaviour
 
 
     }
-    void IraCheckpoint()//CREO QUE ESTO NO SE ESTÁ USANDO
+    void IraCheckpoint()//CREO QUE ESTO NO SE ESTÁ USANDO + si, mira la linea 125
     {
-       
-        if (GameManager.Instance.UltimoCheck!=null)
+
+        if (GameManager.Instance.UltimoCheck != null)
         {
+            cc.rb.velocity = Vector3.zero;
             Checkpoint check = GameManager.Instance.UltimoCheck;
             this.transform.position = check.transform.position;
-            vidaActual = vidaMax;
-            this.GetComponent<ManagerEnergia>().actualEnergy = 0;
-            cc.movimientoBloqueado = false;
-            cc.combateBloqueado = false;
-            reiniciando = false;
+
+            puedoReiniciar = true;
+
             GetComponent<CameraZoom>().ceboCamara.transform.position = this.transform.position;
             check.CargarColeccionables();
+
+        }
+        else if (reiniciando)
+        {
+            cc.rb.velocity = Vector3.zero;
+            this.transform.position = GameObject.FindGameObjectWithTag("InicioNivel").gameObject.transform.position;
+
+
+            GetComponent<CameraZoom>().ceboCamara.transform.position = this.transform.position;
+            puedoReiniciar = true;
+
+
         }
 
         /*Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
@@ -177,16 +193,7 @@ public class VidaPlayer : MonoBehaviour
             }
         }*/
 
-        if (reiniciando)
-        {
-            this.transform.position = GameObject.FindGameObjectWithTag("InicioNivel").gameObject.transform.position;
-            vidaActual = vidaMax;
-            this.GetComponent<ManagerEnergia>().actualEnergy = 0;
-            cc.movimientoBloqueado = false;
-            cc.combateBloqueado = false;
-            GetComponent<CameraZoom>().ceboCamara.transform.position = this.transform.position;
-            reiniciando = false;
-        }
+
 
     }
     public void AplicarFuerza(Vector3 puntoimpacto, Vector3 puntocontacto)
@@ -297,6 +304,22 @@ public class VidaPlayer : MonoBehaviour
             //    spritesvida[2].GetComponent<Image>().color = colorinicial;
             //    spritesvida[3].GetComponent<Image>().color = colorinicial;
             //}
+        }
+        if ((reiniciando) && (puedoReiniciar))
+        {
+
+            if (Vector2.Distance(GetComponent<CameraZoom>().targetGroup.transform.position, this.transform.position) < 1)
+            {
+
+                vidaActual = vidaMax;
+                this.GetComponent<ManagerEnergia>().actualEnergy = 0;
+                cc.movimientoBloqueado = false;
+                cc.saltoBloqueado = false;
+                cc.dashBloqueado = false;
+                cc.combateBloqueado = false;
+                reiniciando = false;
+                puedoReiniciar = false;
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

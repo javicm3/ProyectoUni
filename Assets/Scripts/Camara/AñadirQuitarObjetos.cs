@@ -285,7 +285,8 @@ public class AñadirQuitarObjetos : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.transform.position.x > this.transform.position.x)
+            Vector3 offset = this.GetComponent<Collider2D>().offset;
+            if (collision.gameObject.transform.position.x > (this.transform.position + offset).x)
             {
                 if (!ignorarSiVieneXDerecha)
                 {
@@ -325,7 +326,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
                 }
 
             }
-            else
+            else if (collision.gameObject.transform.position.x < (this.transform.position+ offset).x)
             {
                 if (!ignorarSiVieneXIzquierda)
                 {

@@ -95,14 +95,19 @@ public class CameraZoom : MonoBehaviour
 
         if (cc.auxCdDash > 0.5f)
         {
-            if (Mathf.Abs(cc.rb.velocity.x) > 30f)
+            if (Mathf.Abs(cc.rb.velocity.y) > 30f)
+            {
+                ceboCamara.transform.localPosition = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.y) * 3f * Time.deltaTime, 50f * Time.deltaTime, 90f * Time.deltaTime));
+
+            }
+            else if(Mathf.Abs(cc.rb.velocity.x) > 30f)
             {
                 ceboCamara.transform.localPosition = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 2f * Time.deltaTime, 50f * Time.deltaTime, 90f * Time.deltaTime));
 
             }
             else if (Mathf.Abs(cc.rb.velocity.x) > 5f)
             {
-                ceboCamara.transform.localPosition = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) *2f * Time.deltaTime, 50f*Time.deltaTime, 90f* Time.deltaTime));
+                ceboCamara.transform.localPosition = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 2f * Time.deltaTime, 50f * Time.deltaTime, 90f * Time.deltaTime));
 
             }
             else
@@ -113,14 +118,19 @@ public class CameraZoom : MonoBehaviour
         }
         else
         {
-            if (Mathf.Abs(cc.rb.velocity.x) > 30f)
+            if (Mathf.Abs(cc.rb.velocity.y) > 30f)
+            {
+                ceboCamara.transform.localPosition = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.y) * 3f * Time.deltaTime, 50f * Time.deltaTime, 90f * Time.deltaTime));
+
+            }
+            else if (Mathf.Abs(cc.rb.velocity.x) > 30f)
             {
                 ceboCamara.transform.localPosition = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 2f * Time.deltaTime, 50f * Time.deltaTime, 90f * Time.deltaTime));
 
             }
-            else if(Mathf.Abs(cc.rb.velocity.x) > 5f)
+            else if (Mathf.Abs(cc.rb.velocity.x) > 5f)
             {
-               
+
                 ceboCamara.transform.localPosition = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 2f * Time.deltaTime, 50f * Time.deltaTime, 90f * Time.deltaTime));
 
             }

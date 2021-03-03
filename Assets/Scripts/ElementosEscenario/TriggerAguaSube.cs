@@ -21,7 +21,7 @@ public class TriggerAguaSube : MonoBehaviour
     public GameObject objetoEnfocadoSolo;
     public float tiempoVolverEnfoqueSolo = 5f;
     //public float radioEnfoqueObjSolo = 3f;
-    float auxTiempoEnfoqueSolo;
+    public float auxTiempoEnfoqueSolo;
     [Header("Varios a la vez x tiempo")]
     public GameObject[] objetosEnfocados;
     public float tiempoVolverVariosEnfocados = 5f;
@@ -124,6 +124,8 @@ public class TriggerAguaSube : MonoBehaviour
                 }
             }
         }
+        print("soloplayea");
+        player.GetComponent<ControllerPersonaje>().haciendoEnfoque = false;
         player.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
         player.GetComponent<ControllerPersonaje>().saltoBloqueado = false;
         player.GetComponent<ControllerPersonaje>().dashBloqueado = false;
@@ -141,10 +143,10 @@ public class TriggerAguaSube : MonoBehaviour
         {
             auxTiempoEnfoqueSolo -= Time.deltaTime;
             if (auxTiempoEnfoqueSolo <= 0)
-            {
+            { DejarSoloPlayer();
                 auxTiempoEnfoqueSolo = 0;
              
-                DejarSoloPlayer();
+               
                 timerSoloInicio = false;
             }
         }
@@ -249,7 +251,8 @@ public class TriggerAguaSube : MonoBehaviour
                 player.GetComponent<ControllerPersonaje>().saltoBloqueado = true;
                 player.GetComponent<ControllerPersonaje>().dashBloqueado = true;
                 player.GetComponentInChildren<ComportamientoHUD>().bloqueado = true;
-            player.GetComponent<ControllerPersonaje>().rb.velocity = Vector3.zero;
+                player.GetComponent<ControllerPersonaje>().haciendoEnfoque = true;
+                player.GetComponent<ControllerPersonaje>().rb.velocity = Vector3.zero;
             }
          
         
