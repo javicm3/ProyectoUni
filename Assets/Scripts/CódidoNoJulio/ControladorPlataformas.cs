@@ -6,7 +6,8 @@ public class ControladorPlataformas : MonoBehaviour
 {
     public Sprite activado;
     public Sprite apagado;
-
+    public bool luz = false;
+    public GameObject luzGO;
     public GameObject[] objetosActivados;
     public float tiempoEntrePlataformas = 0.4f;
     public bool secuenciaPlat = false;
@@ -102,6 +103,10 @@ public class ControladorPlataformas : MonoBehaviour
                 posicionArray = 0;
                 activadoBool = false;
                 this.GetComponent<SpriteRenderer>().sprite = apagado;
+                if (luz == true && luzGO != null)
+                {
+                    luzGO.SetActive(false);
+                }
             }
         }
         if ((seDesactivaConPlatf) && (this.GetComponent<SpriteRenderer>().sprite == activado))
@@ -117,6 +122,10 @@ public class ControladorPlataformas : MonoBehaviour
                 posicionArray = 0;
                 activadoBool = false;
                 this.GetComponent<SpriteRenderer>().sprite = apagado;
+                if(luz == true && luzGO != null)
+                {
+                    luzGO.SetActive(false);
+                }
 
             }
         }
@@ -160,6 +169,10 @@ public class ControladorPlataformas : MonoBehaviour
         }
         source.PlayOneShot(clip);
         this.GetComponent<SpriteRenderer>().sprite = activado;
+        if (luz == true && luzGO != null)
+        {
+            luzGO.SetActive(true);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
