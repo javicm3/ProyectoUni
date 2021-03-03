@@ -123,8 +123,10 @@ public class EstadosBoss2 : MonoBehaviour
 
                 }
             }
-            else if(brazosCortados == 6)
+            else if(brazosCortados == 6 || brazosCortados >= 6)
             {
+                ab.drones.SetActive(false);
+                ab.dronesFinal.SetActive(true);
                 print("faseFinal");
             }
 
