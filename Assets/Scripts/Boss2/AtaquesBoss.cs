@@ -11,6 +11,7 @@ public class AtaquesBoss : MonoBehaviour
     public GameObject rayoDiagonal1;
     public GameObject rayoDiagonal2;
     public GameObject drones;
+    public GameObject dronesFinal;
 
     public Transform posRayoVert1;
     public Transform posRayoVert2;
@@ -54,6 +55,7 @@ public class AtaquesBoss : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         duracionDiagonales = 0;
         drones.SetActive(false);
+        dronesFinal.SetActive(false);
         pillarDireccionDiagonal = true;
         eb = GetComponent<EstadosBoss2>();
     }
