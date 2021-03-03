@@ -134,15 +134,31 @@ public class AtaquesBoss : MonoBehaviour
 
        
     }
-    public IEnumerator LaserHorizontal(bool terminado)
+    public void SeleccionarLaserHorizontal()
     {
-        horizontal1 = Instantiate(rayoHoriz, posicionesHorizontales[Random.Range(0, posicionesHorizontales.Length - 1)]);
+        int elegido = -1;
+        for(int i = 0; i < posicionesHorizontales.Length; i++)
+        {
+            if(elegido == -1)
+            {
+                elegido = 0;
+            }
+            else if(Mathf.Abs(posicionesHorizontales[i].position.y - player.transform.position.y) < Mathf.Abs(posicionesHorizontales[elegido].position.y - player.transform.position.y))
+            {
+                elegido = i;
+            }
+        }
+        StartCoroutine(LaserHorizontal(elegido));
+    }
+    public IEnumerator LaserHorizontal(int i)
+    {
+        //horizontal1 = Instantiate(rayoHoriz, posicionesHorizontales[Random.Range(0, posicionesHorizontales.Length - 1)]);
+        horizontal1 = Instantiate(rayoHoriz, posicionesHorizontales[i]);
         horizontal1.GetComponent<LineRenderer>().material = materialHorzOff;
         yield return new WaitForSeconds(tiempoSpawnRayoHorizontal);
         horizontal1.GetComponent<LineRenderer>().material = materialHorzOn;
         yield return new WaitForSeconds(duracionRayoHorizontal);
         Destroy(horizontal1);
-        terminado = true;
 
         eb.ataqueTerminado = true;
         eb.acumulacion++;
