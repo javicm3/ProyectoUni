@@ -89,7 +89,6 @@ public class EnemigoAbsorb : EnemigoPadre
         cmpAnim.SetBool("Ataque", false);
 
         cmpAnim.SetBool(boolName, true);
-        print(boolName);
         if (boolName == "Cargando")
         {
             cmpAnimInt.SetBool("True", true);
@@ -120,6 +119,7 @@ public class EnemigoAbsorb : EnemigoPadre
         estado = States.Desactivado; ActiveAnim("Estuneado");
         tiempoRestante = tiempoReactivar;
         lineRend.enabled = false;
+        print("Hasta luego Maricarmen");
     }
 
 
@@ -162,7 +162,8 @@ public class EnemigoAbsorb : EnemigoPadre
         if (!enemigoActivado)//Disparar al jugador
         {
             GameObject bala = Instantiate(proyectil, transform.position, transform.rotation);
-            bala.GetComponent<Rigidbody2D>().AddForce((playerEnergy.transform.position - transform.position).normalized * velProyectil, ForceMode2D.Impulse); //Esto me hace cero de caso asique crearé una bala
+            bala.GetComponent<Rigidbody2D>().AddForce((playerEnergy.transform.position - transform.position).normalized * velProyectil, ForceMode2D.Impulse);
+            print(bala);
         }
     }
 
