@@ -52,7 +52,7 @@ public class EstadosBoss2 : MonoBehaviour
                     else if(ataque > 0 && acumulacion < ataquesFase1)
                     {
                         ataqueTerminado = false;
-                        StartCoroutine(ab.LaserHorizontal(ataqueTerminado));
+                        ab.SeleccionarLaserHorizontal();
                         
                     }
                     if(acumulacion >= ataquesFase1)
@@ -84,7 +84,7 @@ public class EstadosBoss2 : MonoBehaviour
                     else if (ataque == 1 && acumulacion < ataquesFase2)
                     {
                         ataqueTerminado = false;
-                        StartCoroutine(ab.LaserHorizontal(ataqueTerminado));
+                        ab.SeleccionarLaserHorizontal();
                     }
                     if (acumulacion >= ataquesFase2)
                     {
@@ -111,7 +111,7 @@ public class EstadosBoss2 : MonoBehaviour
                     else if (ataque == 1 && acumulacion < ataquesFase3)
                     {
                         ataqueTerminado = false;
-                        StartCoroutine(ab.LaserHorizontal(ataqueTerminado));
+                        ab.SeleccionarLaserHorizontal();
                         acumulacion++;
                     }
                     if (acumulacion >= ataquesFase2)
@@ -123,8 +123,10 @@ public class EstadosBoss2 : MonoBehaviour
 
                 }
             }
-            else if(brazosCortados == 6)
+            else if(brazosCortados == 6 || brazosCortados >= 6)
             {
+                ab.drones.SetActive(false);
+                ab.dronesFinal.SetActive(true);
                 print("faseFinal");
             }
 
