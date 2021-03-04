@@ -65,78 +65,84 @@ public class VidaPlayer : MonoBehaviour
     {//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de abajo
         if (daño != 0) daño = 55;
         //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de arriba
-        if (auxcdTrasdaño <= 0)
+        if ((auxcdTrasdaño <= 0))
         {
             //if ((this.GetComponent<Movimiento>().cayendoS == false) && (this.GetComponent<CharacterController2D>().dashing == false) && (this.GetComponent<CharacterController2D>().justdashed == false) && (recienAtacado == false))
 
             AplicarFuerza(puntoimpacto, puntocontacto);
-            vidaActual -= daño;
-            if (vidaActual < 0 && reiniciando == false)
-            {
-                vidaActual = 0;
-            }
-
             auxcdTrasdaño += cdTrasDaño;
-
-
-            if (vidaActual == 0)
+            if(cc.auxtiempoTrasSalirCombateInvuln <= 0)
             {
-                //this.GetComponentInChildren<Animator>().SetTrigger("Die");
-                //source.PlayOneShot(muertePlayer);
-                FindObjectOfType<NewAudioManager>().Play("PlayerDeath");
-                //if (this.GetComponent<AudioManager>().sonidosUnaVez.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().morir);
-                //GameManager.Instance.MuertePJ();
-                animCC.SetTrigger("Die");
-                cc.movimientoBloqueado = true;
-                cc.combateBloqueado = true;
-
-                cc.saltoBloqueado = true;
-                cc.dashBloqueado = true;
-
-                reiniciando = true;
-                if (FindObjectOfType<CinemachineTargetGroup>() != null)
+                vidaActual -= daño;
+                if (vidaActual < 0 && reiniciando == false)
                 {
-                    for (int i = 0; i < targetGroup.m_Targets.Length; i++)
-                    {
-                        if (i == 0)
-                        {
-                            targetGroup.m_Targets[0].target = this.transform;
-                        }
-                        else if (i == 1)
-                        {
-                            targetGroup.m_Targets[1].target = this.GetComponent<CameraZoom>().ceboCamara.transform;
-                        }
-                        else
-                        {
-                            if (targetGroup.m_Targets[i].target != null)
-                            {
-                                targetGroup.m_Targets[i].target = null;
+                    vidaActual = 0;
+                }
 
+              
+
+
+                if (vidaActual == 0)
+                {
+                    //this.GetComponentInChildren<Animator>().SetTrigger("Die");
+                    //source.PlayOneShot(muertePlayer);
+                    FindObjectOfType<NewAudioManager>().Play("PlayerDeath");
+                    //if (this.GetComponent<AudioManager>().sonidosUnaVez.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().morir);
+                    //GameManager.Instance.MuertePJ();
+                    animCC.SetTrigger("Die");
+                    cc.movimientoBloqueado = true;
+                    cc.combateBloqueado = true;
+
+                    cc.saltoBloqueado = true;
+                    cc.dashBloqueado = true;
+
+                    reiniciando = true;
+                    if (FindObjectOfType<CinemachineTargetGroup>() != null)
+                    {
+                        for (int i = 0; i < targetGroup.m_Targets.Length; i++)
+                        {
+                            if (i == 0)
+                            {
+                                targetGroup.m_Targets[0].target = this.transform;
+                            }
+                            else if (i == 1)
+                            {
+                                targetGroup.m_Targets[1].target = this.GetComponent<CameraZoom>().ceboCamara.transform;
+                            }
+                            else
+                            {
+                                if (targetGroup.m_Targets[i].target != null)
+                                {
+                                    targetGroup.m_Targets[i].target = null;
+
+                                }
                             }
                         }
+
+                        FindObjectOfType<CameraZoom>().soloplayer = true;
+                    }
+                    if (SceneManager.GetActiveScene().name == "ND-3")
+                    {
+                        GameManager.Instance.MuertePJ();
+                    }
+                    else
+                    {
+                        Invoke("IraCheckpoint", 1f);
                     }
 
-                    FindObjectOfType<CameraZoom>().soloplayer = true;
-                }
-                if (SceneManager.GetActiveScene().name == "ND-3")
-                {
-                    GameManager.Instance.MuertePJ();
+                    vidaActual = -1;
                 }
                 else
                 {
-                    Invoke("IraCheckpoint", 1f);
+                    GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDaño, transform.position, transform);
+                    //source.PlayOneShot(dañoPlayer);
+                    FindObjectOfType<NewAudioManager>().Play("PlayerHurt");
+                    //if(this.GetComponent<AudioManager>().sonidosUnaVez.isPlaying==false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().daño);
+                    animCC.SetTrigger("Daño");
                 }
 
-                vidaActual = -1;
             }
-            else
-            {
-                GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDaño, transform.position, transform);
-                //source.PlayOneShot(dañoPlayer);
-                FindObjectOfType<NewAudioManager>().Play("PlayerHurt");
-                //if(this.GetComponent<AudioManager>().sonidosUnaVez.isPlaying==false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().daño);
-                animCC.SetTrigger("Daño");
-            }
+           
 
 
 

@@ -12,7 +12,7 @@ public class ManagerEnergia : MonoBehaviour
     public float energiaSumadaBouncer = 10;
     public float energiaDashAbajo = 15f;
     public float energiaDisparo = 25f;
-    public float energiaxSegCombate = 5f;
+    public float energiaxEnemigoCombate = 10f;
     GameObject barraEnergia;
     ControllerPersonaje cc;
     public float indiceMultiplicador = 2;

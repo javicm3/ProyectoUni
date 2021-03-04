@@ -126,7 +126,7 @@ public class ControllerPersonaje : MonoBehaviour
     public Vector3 direccionCombate;
     public Vector3 velocidadCombateUltima;
     public float tiempoTrasSalirCombate = 0.3f;
-    float auxTiempoTrasSalirCombate;
+   public float auxTiempoTrasSalirCombate;
     [Range(0.0f, 1f)]
 
     public float salirCombate;
@@ -450,7 +450,7 @@ public class ControllerPersonaje : MonoBehaviour
         {
             auxtiempoTrasSalirCombateInvuln -= Time.deltaTime;
         }
-        if (enemigoCerca)
+        if (enemigoCerca&&mEnergy.actualEnergy>=mEnergy.energiaxEnemigoCombate)
         {
             if ((joystick != null && joystick.RightTrigger.IsPressed) || Input.GetKey(KeyCode.LeftControl))
             {
@@ -508,6 +508,7 @@ public class ControllerPersonaje : MonoBehaviour
 
         if (haciendoCombate)
         {
+            bocabajocambiotecla = false;
             auxtiempoTrasSalirCombateInvuln = tiempoTrasSalirCombateInvuln;
             pInput.inputHorizBlock = true;
             movimientoBloqueado = true;
@@ -577,7 +578,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                             ultimoEnemigoDetectado.GetComponent<EnemigoPadre>().Stun();
-
+                            mEnergy.actualEnergy-= mEnergy.energiaxEnemigoCombate;
                             float offset = 0;
                             if (ultimoEnemigoDetectado.GetComponent<EnemigoEmbestida2>() != null)
                             { offset = offsetSalidaEnemigoTerrestreY; }
@@ -626,6 +627,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                     float offset = 0;
                     ultimoEnemigoPasado.GetComponent<EnemigoPadre>().Stun();
+                    mEnergy.actualEnergy -= mEnergy.energiaxEnemigoCombate;
                     if (ultimoEnemigoPasado.GetComponent<EnemigoEmbestida2>() != null)
                     {
                         offset = offsetSalidaEnemigoTerrestreY;
@@ -668,6 +670,7 @@ public class ControllerPersonaje : MonoBehaviour
                     if (ultimoEnemigoPasado != null)
                     {
                         ultimoEnemigoPasado.GetComponent<EnemigoPadre>().Stun();
+                        mEnergy.actualEnergy -= mEnergy.energiaxEnemigoCombate;
                         Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);
 
                         rb.velocity = resultante * salirCombate;
@@ -676,6 +679,7 @@ public class ControllerPersonaje : MonoBehaviour
                     {
 
                         ultimoEnemigoDetectado.GetComponent<EnemigoPadre>().Stun();
+                        mEnergy.actualEnergy -= mEnergy.energiaxEnemigoCombate;
                         Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);
 
                         rb.velocity = resultante * salirCombate;
@@ -684,7 +688,7 @@ public class ControllerPersonaje : MonoBehaviour
                     {
                         rb.velocity = velocidadCombateUltima * salirCombate;
                     }
-
+                  
                 }
                 direccionCombate = Vector3.zero;
                 velocidadCombateUltima = Vector3.zero;
@@ -2756,7 +2760,10 @@ public class ControllerPersonaje : MonoBehaviour
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
-
+        if (rb.velocity.y == 0)
+        {
+            dashEnCaida = false;
+        }
         //if (!grounded && pInput.inputVertical ==-1 && pegadoPared == false && Input.GetButtonDown("Dash"))
         if (joystick != null)
         {
