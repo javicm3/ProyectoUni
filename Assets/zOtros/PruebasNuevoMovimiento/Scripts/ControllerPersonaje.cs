@@ -2789,7 +2789,7 @@ public class ControllerPersonaje : MonoBehaviour
                     {
                         if (tiempoCOYOTE < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
                         {
-                            mEnergy.RestarEnergia(30);
+                            mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
