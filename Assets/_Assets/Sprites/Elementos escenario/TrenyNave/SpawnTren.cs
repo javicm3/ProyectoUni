@@ -5,12 +5,13 @@ using UnityEngine;
 public class SpawnTren : MonoBehaviour
 {
     public GameObject tren;
-    float tmp;
-    public float tiempoSpawn = 5;
+    public float tmpMin;
+    public float tmpMax;
+    float tiempoSpawn = 0;
     // Start is called befor e the first frame update
     void Start()
     {
-        tmp = tiempoSpawn;
+
     }
 
     // Update is called once per frame
@@ -21,7 +22,7 @@ public class SpawnTren : MonoBehaviour
         {
             Instantiate(tren, this.transform);
 
-            tiempoSpawn = tmp;
+            tiempoSpawn = Random.Range(tmpMin, tmpMax);
 
         }
     }

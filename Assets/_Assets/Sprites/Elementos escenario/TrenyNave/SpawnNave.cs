@@ -7,7 +7,7 @@ public class SpawnNave : MonoBehaviour
     public GameObject nave;
     public float tmpMin;
     public float tmpMax;
-    float tiempoSpawn = 5;
+    float tiempoSpawn = 0;
     float posicion;
     public float rango;
 
