@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7785572037097274887}
   - component: {fileID: 6654408933399638107}
   - component: {fileID: 5407477776808778591}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trampolin_Palo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 2309408766547897937}
   - component: {fileID: 8214635848899183720}
   - component: {fileID: 1847182829355739699}
-  - component: {fileID: 8781360050903856293}
+  - component: {fileID: 1018484815}
   m_Layer: 8
   m_Name: Trampolin_Plataforma
   m_TagString: Trampolin
@@ -266,8 +266,8 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
---- !u!61 &8781360050903856293
+  m_Constraints: 5
+--- !u!61 &1018484815
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -304,7 +304,6 @@ GameObject:
   - component: {fileID: 6204035148615069786}
   - component: {fileID: 1081428253295022270}
   - component: {fileID: 1847182829355739694}
-  - component: {fileID: 4975113334748575791}
   m_Layer: 0
   m_Name: Trampolin_Base
   m_TagString: Untagged
@@ -389,7 +388,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.023029327, y: -0.14055204}
+  m_Offset: {x: -0.023029327, y: -0.17922544}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -400,46 +399,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.532589, y: 0.096673965}
+  m_Size: {x: 1.532589, y: 0.17402077}
   m_EdgeRadius: 0
---- !u!60 &4975113334748575791
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8305590456438600424}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
-    newSize: {x: 5.12, y: 5.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.98999995, y: -0.93}
-      - {x: 0.91999996, y: -0.87}
-      - {x: 0.9, y: -0.32999998}
-      - {x: 0.89, y: -0.26999998}
-      - {x: 0.77, y: -0.06}
-      - {x: 0.69, y: 0}
-      - {x: -0.76, y: 0}
-      - {x: -0.96, y: -0.32}
-      - {x: -0.97999996, y: -0.89}
-      - {x: -1.04, y: -0.93}
-      - {x: -1.3299999, y: -1.54}
-      - {x: -2.56, y: -1.55}
-      - {x: -2.56, y: -2.56}
-      - {x: 2.56, y: -2.56}
-      - {x: 2.56, y: -1.55}
-      - {x: 1.35, y: -1.54}
