@@ -23,7 +23,7 @@ public class EnemigoSaltamontes : EnemigoPadre
 
 
     public float distanciaAlSuelo = 1f;
-  
+
     public float distanciaAtacar = 15f;
     public float distanciaPerseguir = 27f;[Space(5)]
     public GameObject pIzq;
@@ -52,7 +52,9 @@ public class EnemigoSaltamontes : EnemigoPadre
     float auxtiempoEntreSaltosAndar;
     float auxtiempoEntreSaltosPerseguir;
     float auxtiempoEntreSaltosAtacar;
-
+    public GameObject parte1;
+    public GameObject parte2;
+    public float fuerzaDivision = 50f;
 
     Rigidbody2D rb;
     //GameObject player;
@@ -96,10 +98,10 @@ public class EnemigoSaltamontes : EnemigoPadre
         }
     }
     // Update is called once per frame
-     protected override void Update()
+    protected override void Update()
     {
         base.Update();
-      
+
 
 
         //if (activado == false)
@@ -280,6 +282,24 @@ public class EnemigoSaltamontes : EnemigoPadre
                 }
                 else if (auxTiempoHastaSpawn > 0)
                 {
+
+
+                    if (parte1.layer!=11)
+                    {
+                        Destroy(parte1, 1f);
+                        parte1.transform.parent = null;
+                        parte1.GetComponent<Rigidbody2D>().isKinematic = false;
+                        parte1.GetComponent<BoxCollider2D>().enabled = true;
+                        parte1.layer = 11;
+                        parte1.GetComponent<Rigidbody2D>().AddForce(fuerzaDivision * -this.transform.right, ForceMode2D.Impulse);
+                        Destroy(parte2, 1f);
+                        parte2.transform.parent = null;
+                        parte2.GetComponent<Rigidbody2D>().isKinematic = false;
+                        parte2.GetComponent<BoxCollider2D>().enabled = true;
+                        parte2.layer = 11;
+                        parte2.GetComponent<Rigidbody2D>().AddForce(fuerzaDivision * this.transform.right, ForceMode2D.Impulse);
+                    }
+
                     auxTiempoHastaSpawn -= Time.deltaTime;
                 }
 
