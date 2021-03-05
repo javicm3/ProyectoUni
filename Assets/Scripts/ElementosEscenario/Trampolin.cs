@@ -28,6 +28,11 @@ public class Trampolin : MonoBehaviour
     {
 
     }
+
+    void Desactivar()
+    {
+        trampoAnim.SetBool("Dash", false);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -45,12 +50,15 @@ public class Trampolin : MonoBehaviour
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
                     }
                     else
                     {
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulso);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
+
                     }
                 }
                 else if (!sePuedeDashHorizontal && sePuedeDashVertical)
@@ -60,12 +68,16 @@ public class Trampolin : MonoBehaviour
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
+
                     }
                     else
                     {
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulso);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
+
                     }
                 }
                 else
@@ -75,12 +87,16 @@ public class Trampolin : MonoBehaviour
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
+
                     }
                     else
                     {
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulso);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
+
                     }
                 }
             }
@@ -104,12 +120,16 @@ public class Trampolin : MonoBehaviour
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
+
                     }
                     else
                     {
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulso);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
+
                     }
                 }
                 else if (!sePuedeDashHorizontal && sePuedeDashVertical)
@@ -119,12 +139,16 @@ public class Trampolin : MonoBehaviour
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
+
                     }
                     else
                     {
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulso);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
+
                     }
                 }
                 else
@@ -134,6 +158,8 @@ public class Trampolin : MonoBehaviour
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
+
 
                     }
                     else
@@ -141,6 +167,8 @@ public class Trampolin : MonoBehaviour
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulso);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
+                        Invoke("Desactivar", 0.35f);
+
                     }
                 }
             }
