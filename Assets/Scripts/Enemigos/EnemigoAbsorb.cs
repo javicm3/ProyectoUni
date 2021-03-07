@@ -119,7 +119,6 @@ public class EnemigoAbsorb : EnemigoPadre
         estado = States.Desactivado; ActiveAnim("Estuneado");
         tiempoRestante = tiempoReactivar;
         lineRend.enabled = false;
-        print("Hasta luego Maricarmen");
     }
 
 
@@ -132,7 +131,6 @@ public class EnemigoAbsorb : EnemigoPadre
         {
             actTiempoAbsorcion = 0;
             playerEnergy.RestarEnergia(energiaRobar);
-            lineRend.enabled = false;
             cooldownRestante = cooldownAbsorber;
             estado = States.Cooldown;
             ActiveAnim("Ataque");
@@ -141,6 +139,8 @@ public class EnemigoAbsorb : EnemigoPadre
 
     public void EjecutarAtaque()
     {
+        print("ey");
+        lineRend.enabled = false;
         cmpAnimInt.SetBool("True", false);
         // Buscar a los enemigos que hay en el area y reactivar el más cercano
         bool enemigoActivado = false;
@@ -163,7 +163,6 @@ public class EnemigoAbsorb : EnemigoPadre
         {
             GameObject bala = Instantiate(proyectil, transform.position, transform.rotation);
             bala.GetComponent<Rigidbody2D>().AddForce((playerEnergy.transform.position - transform.position).normalized * velProyectil, ForceMode2D.Impulse);
-            print(bala);
         }
     }
 

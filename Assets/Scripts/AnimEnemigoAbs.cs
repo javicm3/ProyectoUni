@@ -13,6 +13,7 @@ public class AnimEnemigoAbs : MonoBehaviour
 
     public void EventoAtacar()
     {
-        enemigo.EjecutarAtaque();
+         enemigo.EjecutarAtaque();
     }
+
 }

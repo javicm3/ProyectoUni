@@ -16,10 +16,14 @@ public class BalaAbsorber : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        Destroy(this.gameObject);
+        print("-.-");
+        if (collision.gameObject.tag != "Enemigo" && collision.gameObject.tag !="EnemigoDetectar")
+        {
+            print(collision.gameObject);
+            Destroy(this.gameObject,0.05f);
+        }     
 
     }
 }
