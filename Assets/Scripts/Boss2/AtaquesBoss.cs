@@ -28,15 +28,19 @@ public class AtaquesBoss : MonoBehaviour
     public float velocidadDiagonal;
     public float tiempoAparicionDiagonales = 1;
     public float tiempoBarridoDiagonales = 3;
+    
     public LayerMask layerM;
+    
     GameObject vert1;
     GameObject vert2;
     GameObject dia1;
     GameObject horizontal1;
+    GameObject player;
+    GameObject bossVisual;
 
     public Material materialHorzOff;
     public Material materialHorzOn;
-    GameObject player;
+    
     public float numeroDisparos;
     float numDisparosAux = 0;
     Quaternion rotationLaser1;
@@ -49,6 +53,9 @@ public class AtaquesBoss : MonoBehaviour
     Quaternion rot1;
     Quaternion rot2;
     EstadosBoss2 eb;
+
+    Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +65,7 @@ public class AtaquesBoss : MonoBehaviour
         dronesFinal.SetActive(false);
         pillarDireccionDiagonal = true;
         eb = GetComponent<EstadosBoss2>();
+        animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -105,36 +113,36 @@ public class AtaquesBoss : MonoBehaviour
         //vert2.transform.position = Vector3.MoveTowards(vert2.transform.position, posRayoVert1.position, speedRayosVert);
         //Destroy(vert1, 8);
         //Destroy(vert2, 8);
+        
         if (vert1 != null || vert2 != null)
         {
             vert1.transform.position = Vector3.MoveTowards(vert1.transform.position, posRayoVert2.position, speedRayosVert);
             vert2.transform.position = Vector3.MoveTowards(vert2.transform.position, posRayoVert1.position, speedRayosVert);
             if (vert1.transform.position == posRayoVert2.position)
-            {
-                Destroy(vert1);
+            {               
                 eb.ataqueTerminado = true;
+                Destroy(vert1);
             }
             if (vert2.transform.position == posRayoVert1.position)
-            {
-                Destroy(vert2);
+            {                
                 eb.ataqueTerminado = true;
                 eb.acumulacion++;
+                Destroy(vert2);
             }
         }
+
         UpdateDiagonalLaser();
-        
-
-
     }
     public void LaserVertical()
     {
+        animator.SetBool("atacando", true);
+        animator.SetBool("stun", false);
+
         vert1 = Instantiate(rayoVert, posRayoVert1.position, Quaternion.identity);
         vert2 = Instantiate(rayoVert, posRayoVert2.position, Quaternion.identity);
        
         //Destroy(vert1, 8);
         //Destroy(vert2, 8);
-
-       
     }
     public void SeleccionarLaserHorizontal()
     {
@@ -153,11 +161,16 @@ public class AtaquesBoss : MonoBehaviour
         StartCoroutine(LaserHorizontal(elegido));
     }
     public IEnumerator LaserHorizontal(int i)
-    {
+    {      
+        animator.SetBool("atacando", true);
+        animator.SetBool("stun", false);
+
         //horizontal1 = Instantiate(rayoHoriz, posicionesHorizontales[Random.Range(0, posicionesHorizontales.Length - 1)]);
         horizontal1 = Instantiate(rayoHoriz, posicionesHorizontales[i]);
         horizontal1.GetComponent<LineRenderer>().material = materialHorzOff;
+        horizontal1.GetComponent<BoxCollider2D>().enabled = false;
         yield return new WaitForSeconds(tiempoSpawnRayoHorizontal);
+        horizontal1.GetComponent<BoxCollider2D>().enabled = true;
         horizontal1.GetComponent<LineRenderer>().material = materialHorzOn;
         yield return new WaitForSeconds(duracionRayoHorizontal);
         Destroy(horizontal1);
@@ -172,6 +185,9 @@ public class AtaquesBoss : MonoBehaviour
         {
             GameObject disparo1;
             GameObject disparo2;
+
+            animator.SetBool("atacando", true);
+            animator.SetBool("stun", false);
 
             //primer rayo dirigido
             disparo1 = Instantiate(disparoLaser, puntoDisparo.position, Quaternion.identity);
@@ -203,6 +219,9 @@ public class AtaquesBoss : MonoBehaviour
     }
     public IEnumerator LaserDiagonal(bool terminado)
     {
+        animator.SetBool("atacando", true);
+        animator.SetBool("stun", false);
+
         rayoDiagonal1.SetActive(true);
         rayoDiagonal2.SetActive(true);
         diagonales = false;
@@ -270,6 +289,9 @@ public class AtaquesBoss : MonoBehaviour
     }
     IEnumerator ParadaBoss()
     {
+        animator.SetBool("stun", true);
+        animator.SetBool("atacando", false);
+
         eb.bossActivo = false;
         yield return new WaitForSeconds(eb.tiempoParadaActual);
         eb.acumulacion = 0;
