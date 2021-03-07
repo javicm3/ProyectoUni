@@ -135,7 +135,7 @@ public class AtaquesBoss : MonoBehaviour
     }
     public void LaserVertical()
     {
-        animator.SetBool("atacando", true);
+        animator.SetBool("atacando", false);
         animator.SetBool("stun", false);
 
         vert1 = Instantiate(rayoVert, posRayoVert1.position, Quaternion.identity);
@@ -162,7 +162,7 @@ public class AtaquesBoss : MonoBehaviour
     }
     public IEnumerator LaserHorizontal(int i)
     {      
-        animator.SetBool("atacando", true);
+        animator.SetBool("atacando", false);
         animator.SetBool("stun", false);
 
         //horizontal1 = Instantiate(rayoHoriz, posicionesHorizontales[Random.Range(0, posicionesHorizontales.Length - 1)]);

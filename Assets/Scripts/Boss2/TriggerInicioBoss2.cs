@@ -5,10 +5,13 @@ using UnityEngine;
 public class TriggerInicioBoss2 : MonoBehaviour
 {
     public GameObject boss;
+    public float tiempoInicio;
+    public GameObject triggerInicioCamara;
+    public GameObject triggerNormal;
     // Start is called before the first frame update
     void Start()
     {
-        
+        //triggerNormal.SetActive(false);
     }
 
     // Update is called once per frame
@@ -20,8 +23,16 @@ public class TriggerInicioBoss2 : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            boss.GetComponent<EstadosBoss2>().bossActivo = true;
-            GetComponent<BoxCollider2D>().enabled = false;
+            StartCoroutine(InicioBoss());
         }
+    }
+    IEnumerator InicioBoss()
+    {
+        yield return new WaitForSeconds(tiempoInicio/2);
+        //triggerNormal.SetActive(true);
+        //triggerInicioCamara.SetActive(false);
+        yield return new WaitForSeconds(tiempoInicio/2);
+        boss.GetComponent<EstadosBoss2>().bossActivo = true;
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 }
