@@ -24,22 +24,28 @@ public class LaserVertical : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (player.GetComponent<ControllerPersonaje>().auxCdDash - 0.1f > (player.GetComponent<ControllerPersonaje>().cooldownDash - tiempoTrasDash))
+        if(this.GetComponent<BoxCollider2D>() != null)
         {
-            this.GetComponent<BoxCollider2D>().enabled = false;
-        }
-        else
-        {
-            this.GetComponent<BoxCollider2D>().enabled = true;
-        }
+            if (player.GetComponent<ControllerPersonaje>().auxCdDash - 0.1f > (player.GetComponent<ControllerPersonaje>().cooldownDash - tiempoTrasDash))
+            {
+                this.GetComponent<BoxCollider2D>().enabled = false;
+            }
+            else
+            {
+                this.GetComponent<BoxCollider2D>().enabled = true;
+            }
+        }        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Boss")
+        if (this.GetComponent<BoxCollider2D>() != null)
         {
-            eb.ataqueTerminado = true;
-            eb.acumulacion++;
-            Destroy(this.gameObject);
+            if (collision.tag == "Boss")
+            {
+                eb.ataqueTerminado = true;
+                eb.acumulacion++;
+                Destroy(this.gameObject);
+            }
         }
     }
 }
