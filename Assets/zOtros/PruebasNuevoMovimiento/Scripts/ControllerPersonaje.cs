@@ -2617,6 +2617,7 @@ public class ControllerPersonaje : MonoBehaviour
                         dashEnCaida = false;
                         animCC.SetBool("cayendo", dashEnCaida);
                         animCC.SetTrigger("Dash");
+                        GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDash, transform.position, transform);
                         //movimientoBloqueado = true;
                         dashCaidaBloqueado = true;
                         auxCdDash = cooldownDash;
