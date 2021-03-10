@@ -68,7 +68,6 @@ public class MovimientoEnemigoVolador : EnemigoPadre
             else
             {
 
-
                 if (Vector3.Distance(this.transform.position, puntosPersonaje[indexArray].position) > 1 && !arrived)
                 {
                     if (puntosPersonaje[indexArray].position.x < this.transform.position.x)
@@ -80,6 +79,7 @@ public class MovimientoEnemigoVolador : EnemigoPadre
                         this.transform.localScale = new Vector3(1, 1, 1);
                     }
                     this.transform.Translate((puntosPersonaje[indexArray].position - this.transform.position).normalized * Time.deltaTime * speed);
+                    animCC.SetBool("Moviendose", true);
 
                 }
                 else
@@ -106,6 +106,8 @@ public class MovimientoEnemigoVolador : EnemigoPadre
 
     IEnumerator Wait()
     {
+        animCC.SetBool("Moviendose", false);
+
         yield return new WaitForSeconds(tiempoEspera);
         arrived = false;
     }
