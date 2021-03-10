@@ -12,6 +12,7 @@ public class MovimientoEnemigoVolador : EnemigoPadre
     public float auxTiempoStun;
 
     [SerializeField] float tiempoEspera;
+    [SerializeField] Animator animCC;
 
 
     // Start is called before the first frame update
@@ -34,7 +35,7 @@ public class MovimientoEnemigoVolador : EnemigoPadre
     {
 
         stun = true;
-
+        animCC.SetBool("Dañado", true);
 
         auxTiempoStun = tiempoStun;
 
@@ -44,6 +45,8 @@ public class MovimientoEnemigoVolador : EnemigoPadre
     {
         auxTiempoStun = 0;
         stun = false;
+        animCC.SetBool("Dañado", false);
+
     }
     protected override void Update()
     {
