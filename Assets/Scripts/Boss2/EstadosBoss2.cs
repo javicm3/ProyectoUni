@@ -4,26 +4,38 @@ using UnityEngine;
 
 public class EstadosBoss2 : MonoBehaviour
 {
-    public bool ataqueTerminado = false;
     public int brazosCortados = 0;
+
+    public bool ataqueTerminado = false;
     public bool bossActivo;
+    
     public float tiempoStunFase1;
     public float tiempoStunFase2;
     public float tiempoStunFase3;
     public float tiempoStunFase4;
+
     public int ataquesFase1;
     public int ataquesFase2;
     public int ataquesFase3;
     public int acumulacion = 0;
+    
     AtaquesBoss ab;
+    
     public float tiempoParadaActual;
     public GameObject laseresLimite;
+    public GameObject[] chapasFinales;
+    
     // Start is called before the first frame update
     void Start()
     {
         ataqueTerminado = true;
         acumulacion = 0;
         ab = GetComponent<AtaquesBoss>();
+
+        for (int i = 0; i < chapasFinales.Length; i++)
+        {
+            chapasFinales[i].GetComponent<BoxCollider2D>().enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -127,6 +139,12 @@ public class EstadosBoss2 : MonoBehaviour
             {
                 ab.drones.SetActive(false);
                 ab.dronesFinal.SetActive(true);
+
+                for (int i = 0; i < chapasFinales.Length; i++)
+                {
+                    chapasFinales[i].GetComponent<BoxCollider2D>().enabled = true;
+                }
+
                 print("faseFinal");
             }
 

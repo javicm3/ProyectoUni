@@ -13,6 +13,8 @@ public class AtaquesBoss : MonoBehaviour
     public GameObject drones;
     public GameObject dronesFinal;
 
+    public GameObject[] chapasDestruibles;
+
     public Transform posRayoVert1;
     public Transform posRayoVert2;
     public Transform[] posicionesHorizontales;
@@ -66,6 +68,10 @@ public class AtaquesBoss : MonoBehaviour
         pillarDireccionDiagonal = true;
         eb = GetComponent<EstadosBoss2>();
         animator = gameObject.GetComponent<Animator>();
+        for (int i = 0; i < chapasDestruibles.Length; i++)
+        {
+            chapasDestruibles[i].GetComponent<BoxCollider2D>().enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -265,6 +271,12 @@ public class AtaquesBoss : MonoBehaviour
             {
                 rayoDiagonal2.GetComponent<LineRenderer>().SetPosition(1, hit2.point);
             }
+            if (hit2.collider.tag == "Player")
+            {
+                print("daño");
+                //player.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().vidaActual, Vector3.forward, player.transform.position);
+            }
+
 
             rayoDiagonal1.transform.rotation = rotationLaser1;
             rayoDiagonal2.transform.rotation = rotationLaser2;
@@ -292,8 +304,19 @@ public class AtaquesBoss : MonoBehaviour
         animator.SetBool("stun", true);
         animator.SetBool("atacando", false);
 
+        for (int i = 0; i < chapasDestruibles.Length; i++)
+        {
+            chapasDestruibles[i].GetComponent<BoxCollider2D>().enabled = true;
+        }
+
         eb.bossActivo = false;
         yield return new WaitForSeconds(eb.tiempoParadaActual);
+
+        for (int i = 0; i < chapasDestruibles.Length; i++)
+        {
+            chapasDestruibles[i].GetComponent<BoxCollider2D>().enabled = false;
+        }
+
         eb.acumulacion = 0;
         eb.bossActivo = true;
     }
