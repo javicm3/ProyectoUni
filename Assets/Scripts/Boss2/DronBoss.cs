@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DronBoss : MonoBehaviour
+public class DronBoss : EnemigoPadre
 {
     public Transform cabeza;
     public float velocidadMov;
@@ -20,7 +20,7 @@ public class DronBoss : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         transform.RotateAround(cabeza.position, transform.forward, velocidadMov * Time.deltaTime);
         tmp += Time.deltaTime;

@@ -679,6 +679,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 1060674485}
@@ -1492,12 +1497,17 @@ PrefabInstance:
     - target: {fileID: 2855505484558121667, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Name
       value: LaserLimites (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3966815859032135436, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
@@ -2258,12 +2268,17 @@ PrefabInstance:
     - target: {fileID: 2855505484558121667, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Name
       value: LaserLimites (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3966815859032135436, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
@@ -8873,6 +8888,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 1049707902}
@@ -9492,6 +9512,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 1411396558}
@@ -9784,6 +9809,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 727730945}
@@ -10028,7 +10058,7 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_Targets:
   - target: {fileID: 308872011}
-    weight: 1
+    weight: 10
     radius: 0
   - target: {fileID: 0}
     weight: 1
@@ -10690,6 +10720,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 1410529219}
@@ -17018,6 +17053,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 1406788627}
@@ -17371,6 +17411,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 1356210632}
@@ -17901,30 +17946,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1696965077}
     m_Modifications:
-    - target: {fileID: 247156933183755416, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 247156933183755416, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_AutoTiling
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 967754517155666449, guid: e8758fcd3c244ef42a776a51dff01351,
         type: 3}
       propertyPath: m_Name
       value: LaserDiagonal
-      objectReference: {fileID: 0}
-    - target: {fileID: 967754517155666449, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 967754517155666449, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1423752047199156567, guid: e8758fcd3c244ef42a776a51dff01351,
         type: 3}
@@ -17981,28 +18006,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8188887186469129973, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8188887186469129973, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_Positions.Array.data[1].x
-      value: -170
-      objectReference: {fileID: 0}
-    - target: {fileID: 8188887186469129973, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_Positions.Array.data[0].x
-      value: -170
-      objectReference: {fileID: 0}
-    - target: {fileID: 8188887186469129973, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_Positions.Array.data[0].y
-      value: 5.07
-      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 247156933183755416, guid: e8758fcd3c244ef42a776a51dff01351, type: 3}
+    - {fileID: 8285752464379875398, guid: e8758fcd3c244ef42a776a51dff01351, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e8758fcd3c244ef42a776a51dff01351, type: 3}
 --- !u!4 &517463075 stripped
 Transform:
@@ -18026,12 +18031,17 @@ PrefabInstance:
     - target: {fileID: 2855505484558121667, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Name
       value: LaserLimites (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3966815859032135436, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
@@ -24019,6 +24029,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 1979097896}
@@ -29292,6 +29307,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 706691356}
@@ -34754,6 +34774,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 664004302}
@@ -34980,6 +35005,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 921145212}
@@ -35590,6 +35620,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 307915612}
@@ -40322,6 +40357,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 717608038}
@@ -40696,12 +40736,17 @@ PrefabInstance:
     - target: {fileID: 2855505484558121667, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Name
       value: LaserLimites (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3966815859032135436, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
@@ -41304,6 +41349,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 235861248}
@@ -41603,6 +41653,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 43197074}
@@ -47044,30 +47099,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 624172881}
     m_Modifications:
-    - target: {fileID: 247156933183755416, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 247156933183755416, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_AutoTiling
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 967754517155666449, guid: e8758fcd3c244ef42a776a51dff01351,
         type: 3}
       propertyPath: m_Name
       value: LaserDiagonal (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 967754517155666449, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 967754517155666449, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1423752047199156567, guid: e8758fcd3c244ef42a776a51dff01351,
         type: 3}
@@ -47124,28 +47159,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8188887186469129973, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8188887186469129973, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_Positions.Array.data[0].x
-      value: -170
-      objectReference: {fileID: 0}
-    - target: {fileID: 8188887186469129973, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_Positions.Array.data[0].y
-      value: 5.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 8188887186469129973, guid: e8758fcd3c244ef42a776a51dff01351,
-        type: 3}
-      propertyPath: m_Positions.Array.data[1].x
-      value: -170
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 247156933183755416, guid: e8758fcd3c244ef42a776a51dff01351, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8758fcd3c244ef42a776a51dff01351, type: 3}
 --- !u!4 &1107736759 stripped
 Transform:
@@ -48208,6 +48222,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 1709546101}
@@ -48830,6 +48849,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 1830981148}
@@ -49346,6 +49370,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 2098137022}
@@ -50039,6 +50068,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 502928082}
@@ -55817,6 +55851,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 481670043}
@@ -56043,6 +56082,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 361216809}
@@ -56283,6 +56327,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 284661512}
@@ -56997,6 +57046,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 1739694779}
@@ -57292,6 +57346,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 1818965092}
@@ -58173,6 +58232,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 2057800754}
@@ -66004,6 +66068,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 1232829400}
@@ -66467,6 +66536,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 1466263387}
@@ -72761,6 +72835,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 1475754241}
@@ -73024,6 +73103,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 1272181010}
@@ -73486,12 +73570,17 @@ PrefabInstance:
     - target: {fileID: 2855505484558121667, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Name
       value: LaserLimites (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3966815859032135436, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
@@ -79888,6 +79977,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 1862167978}
   velocidadMov: 10
   pareja: {fileID: 617693235}
@@ -81131,6 +81225,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 1524695268}
@@ -82362,6 +82461,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1abb1faf1651db45bc9f3dbf00c6ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
   cabeza: {fileID: 2124682741}
   velocidadMov: 10
   pareja: {fileID: 1288311793}
@@ -82901,12 +83005,17 @@ PrefabInstance:
     - target: {fileID: 2855505484558121667, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
       propertyPath: m_Name
       value: LaserLimites
+      objectReference: {fileID: 0}
+    - target: {fileID: 2999678187318981706, guid: ae55dbf691102fc45b5a74b4d43830ed,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 3966815859032135436, guid: ae55dbf691102fc45b5a74b4d43830ed,
         type: 3}
