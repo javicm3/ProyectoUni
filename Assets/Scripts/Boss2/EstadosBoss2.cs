@@ -8,6 +8,7 @@ public class EstadosBoss2 : MonoBehaviour
 
     public bool ataqueTerminado = false;
     public bool bossActivo;
+    public bool bossStuneado;
     
     public float tiempoStunFase1;
     public float tiempoStunFase2;
@@ -28,6 +29,7 @@ public class EstadosBoss2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        bossStuneado = false;
         ataqueTerminado = true;
         acumulacion = 0;
         ab = GetComponent<AtaquesBoss>();
@@ -47,6 +49,10 @@ public class EstadosBoss2 : MonoBehaviour
         }
         if (bossActivo)
         {
+            if (laseresLimite.activeSelf == true && brazosCortados >= 2)
+            {
+                laseresLimite.SetActive(false);
+            }
             if (brazosCortados == 0 || brazosCortados == 1)
             {
                 tiempoParadaActual = tiempoStunFase1;
@@ -83,11 +89,8 @@ public class EstadosBoss2 : MonoBehaviour
                 tiempoParadaActual = tiempoStunFase2;
                 if (ataqueTerminado == true)
                 {
-                    if (laseresLimite.activeSelf == true)
-                    {
-                        laseresLimite.SetActive(false);
-                    }
-                    float ataque = Random.Range(0, 1);
+                    
+                    float ataque = Random.Range(0, 2);
                     if (ataque == 0 && acumulacion < ataquesFase2)
                     {
                         ataqueTerminado = false;
@@ -113,7 +116,7 @@ public class EstadosBoss2 : MonoBehaviour
                 tiempoParadaActual = tiempoStunFase3;
                 if (ataqueTerminado == true)
                 {
-                    float ataque = Random.Range(0, 1);
+                    float ataque = Random.Range(0, 2);
                     if (ataque == 0 && acumulacion < ataquesFase3)
                     {
                         ataqueTerminado = false;
@@ -126,7 +129,7 @@ public class EstadosBoss2 : MonoBehaviour
                         ab.SeleccionarLaserHorizontal();
                         acumulacion++;
                     }
-                    if (acumulacion >= ataquesFase2)
+                    if (acumulacion >= ataquesFase3)
                     {
                         ataqueTerminado = false;
                         StartCoroutine(ab.DisparosBoss());

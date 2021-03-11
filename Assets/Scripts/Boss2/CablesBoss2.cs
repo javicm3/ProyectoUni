@@ -27,7 +27,16 @@ public class CablesBoss2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(GetComponentInParent<EstadosBoss2>().bossStuneado == true)
+        {
+            GetComponent<Collider2D>().enabled = true;
+            GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else
+        {
+            GetComponent<Collider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -37,13 +46,14 @@ public class CablesBoss2 : MonoBehaviour
             {
                 if (activo == false)
                 {
-                    GetComponent<SpriteRenderer>().enabled = false;
+                    //GetComponent<SpriteRenderer>().enabled = false;
                     GetComponentInParent<EstadosBoss2>().brazosCortados++;
                     
                     tentaculoNormal.SetActive(false);
                     tentaculoRoto1.SetActive(true);
                     tentaculoRoto2.SetActive(true);
-                    Destroy(this);
+                    Destroy(this.gameObject);
+                    GetComponentInParent<EstadosBoss2>().bossStuneado = false;
                     if (fuerzaDerecha == true)
                     {
                         target1.GetComponent<Rigidbody2D>().AddForce(Vector3.right * fuerza);

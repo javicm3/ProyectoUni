@@ -488,6 +488,10 @@ public class VidaPlayer : MonoBehaviour
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoColliderMuerte, collision.gameObject.transform.position, collision.contacts[0].point);
 
         }
+        if(collision.gameObject.tag == "BossFinal")
+        {
+            SceneManager.LoadScene("ND-FINAL");
+        }
         //if (collision.gameObject.tag == "Escudo")
         //{
         //    if (this.GetComponent<ControllerPersonaje>().haciendoCombate == true)

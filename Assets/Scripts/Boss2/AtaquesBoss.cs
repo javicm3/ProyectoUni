@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AtaquesBoss : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class AtaquesBoss : MonoBehaviour
     public GameObject drones;
     public GameObject dronesFinal;
 
-    public GameObject[] chapasDestruibles;
+    //public GameObject[] chapasDestruibles;
 
     public Transform posRayoVert1;
     public Transform posRayoVert2;
@@ -30,7 +31,8 @@ public class AtaquesBoss : MonoBehaviour
     public float velocidadDiagonal;
     public float tiempoAparicionDiagonales = 1;
     public float tiempoBarridoDiagonales = 3;
-    
+    public float tiempoTrasDash = 0.55f;
+
     public LayerMask layerM;
     
     GameObject vert1;
@@ -61,17 +63,17 @@ public class AtaquesBoss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
         duracionDiagonales = 0;
         drones.SetActive(false);
         dronesFinal.SetActive(false);
         pillarDireccionDiagonal = true;
         eb = GetComponent<EstadosBoss2>();
         animator = gameObject.GetComponent<Animator>();
-        for (int i = 0; i < chapasDestruibles.Length; i++)
-        {
-            chapasDestruibles[i].GetComponent<BoxCollider2D>().enabled = false;
-        }
+        //for (int i = 0; i < chapasDestruibles.Length; i++)
+        //{
+        //    chapasDestruibles[i].GetComponent<BoxCollider2D>().enabled = false;
+        //}
     }
 
     // Update is called once per frame
@@ -271,10 +273,14 @@ public class AtaquesBoss : MonoBehaviour
             {
                 rayoDiagonal2.GetComponent<LineRenderer>().SetPosition(1, hit2.point);
             }
-            if (hit2.collider.tag == "Player")
+            if (hit2.collider.tag == "Player" || hit.collider.tag == "Player")
             {
-                print("daño");
-                //player.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().vidaActual, Vector3.forward, player.transform.position);
+                if(player != null && player.GetComponent<ControllerPersonaje>().auxCdDash - 0.1f < (player.GetComponent<ControllerPersonaje>().cooldownDash - tiempoTrasDash))
+                {
+
+                    //player.gameObject.GetComponent<VidaPlayer>().RecibirDaño(player.gameObject.GetComponent<VidaPlayer>().dañoColliderMuerte, hit2.point, player.transform.position);
+                    SceneManager.LoadScene("ND-FINAL");
+                }
             }
 
 
@@ -304,19 +310,19 @@ public class AtaquesBoss : MonoBehaviour
         animator.SetBool("stun", true);
         animator.SetBool("atacando", false);
 
-        for (int i = 0; i < chapasDestruibles.Length; i++)
-        {
-            chapasDestruibles[i].GetComponent<BoxCollider2D>().enabled = true;
-        }
-
+        //for (int i = 0; i < chapasDestruibles.Length; i++)
+        //{
+        //    chapasDestruibles[i].GetComponent<BoxCollider2D>().enabled = true;
+        //}
+        eb.bossStuneado = true;
         eb.bossActivo = false;
         yield return new WaitForSeconds(eb.tiempoParadaActual);
 
-        for (int i = 0; i < chapasDestruibles.Length; i++)
-        {
-            chapasDestruibles[i].GetComponent<BoxCollider2D>().enabled = false;
-        }
-
+        //for (int i = 0; i < chapasDestruibles.Length; i++)
+        //{
+        //    chapasDestruibles[i].GetComponent<BoxCollider2D>().enabled = false;
+        //}
+        eb.bossStuneado = false;
         eb.acumulacion = 0;
         eb.bossActivo = true;
     }
