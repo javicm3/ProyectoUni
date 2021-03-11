@@ -12,6 +12,7 @@ public class MovimientoEnemigoVolador : EnemigoPadre
     public float auxTiempoStun;
 
     [SerializeField] float tiempoEspera;
+    [SerializeField] Animator animCC;
 
 
     // Start is called before the first frame update
@@ -34,7 +35,7 @@ public class MovimientoEnemigoVolador : EnemigoPadre
     {
 
         stun = true;
-
+        animCC.SetBool("Dañado", true);
 
         auxTiempoStun = tiempoStun;
 
@@ -44,6 +45,8 @@ public class MovimientoEnemigoVolador : EnemigoPadre
     {
         auxTiempoStun = 0;
         stun = false;
+        animCC.SetBool("Dañado", false);
+
     }
     protected override void Update()
     {
@@ -65,7 +68,6 @@ public class MovimientoEnemigoVolador : EnemigoPadre
             else
             {
 
-
                 if (Vector3.Distance(this.transform.position, puntosPersonaje[indexArray].position) > 1 && !arrived)
                 {
                     if (puntosPersonaje[indexArray].position.x < this.transform.position.x)
@@ -77,6 +79,7 @@ public class MovimientoEnemigoVolador : EnemigoPadre
                         this.transform.localScale = new Vector3(1, 1, 1);
                     }
                     this.transform.Translate((puntosPersonaje[indexArray].position - this.transform.position).normalized * Time.deltaTime * speed);
+                    animCC.SetBool("Moviendose", true);
 
                 }
                 else
@@ -103,6 +106,8 @@ public class MovimientoEnemigoVolador : EnemigoPadre
 
     IEnumerator Wait()
     {
+        animCC.SetBool("Moviendose", false);
+
         yield return new WaitForSeconds(tiempoEspera);
         arrived = false;
     }
