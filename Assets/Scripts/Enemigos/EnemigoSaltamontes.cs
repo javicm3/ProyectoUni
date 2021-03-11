@@ -55,6 +55,7 @@ public class EnemigoSaltamontes : EnemigoPadre
     public GameObject parte1;
     public GameObject parte2;
     public float fuerzaDivision = 50f;
+    Animator animCC;
 
     Rigidbody2D rb;
     //GameObject player;
@@ -73,6 +74,7 @@ public class EnemigoSaltamontes : EnemigoPadre
         auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
         //player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
         rb = this.GetComponent<Rigidbody2D>();
+        animCC = GetComponent<Animator>();
         if (this.GetComponent<SpriteRenderer>() != null)
         {
             colororiginal = this.GetComponent<SpriteRenderer>().color;
@@ -82,6 +84,9 @@ public class EnemigoSaltamontes : EnemigoPadre
     public override void Stun()
     {
         stun = true;
+        animCC.SetBool("Estuneado", true);
+        animCC.SetBool("Moviendose", false);
+
     }
     public override void Reactivar()
     {
@@ -159,6 +164,9 @@ public class EnemigoSaltamontes : EnemigoPadre
             else if (estado == States.Movimiento)
             {
                 stun = false;
+                animCC.SetBool("Estuneado", false);
+                animCC.SetBool("Moviendose", true);
+
                 auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
                 auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
 
