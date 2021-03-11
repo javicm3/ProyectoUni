@@ -7,6 +7,8 @@ using Cinemachine;
 
 public class VidaPlayer : MonoBehaviour
 {
+    Rigidbody2D rb;
+
     public float dañoenemigoEmbestida = 1;
     public float dañopinchos = 1;
     public float dañoAgua = 4;
@@ -58,7 +60,7 @@ public class VidaPlayer : MonoBehaviour
         auxcdTrasdaño = 0;
         targetGroup = FindObjectOfType<CinemachineTargetGroup>();
 
-
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public void RecibirDaño(float daño, Vector3 puntoimpacto, Vector3 puntocontacto)
@@ -69,7 +71,9 @@ public class VidaPlayer : MonoBehaviour
         {
             //if ((this.GetComponent<Movimiento>().cayendoS == false) && (this.GetComponent<CharacterController2D>().dashing == false) && (this.GetComponent<CharacterController2D>().justdashed == false) && (recienAtacado == false))
 
-            AplicarFuerza(puntoimpacto, puntocontacto);
+            //AplicarFuerza(puntoimpacto, puntocontacto);
+            rb.bodyType = RigidbodyType2D.Static; //  <-------------------------NUEVO
+
             auxcdTrasdaño += cdTrasDaño;
             if(cc.auxtiempoTrasSalirCombateInvuln <= 0)
             {
@@ -127,7 +131,7 @@ public class VidaPlayer : MonoBehaviour
                     }
                     else
                     {
-                        Invoke("IraCheckpoint", 1f);
+                        Invoke("IraCheckpoint", 1f); //---------------------------------> llamar esto cuando acabe la animación?
                     }
 
                     vidaActual = -1;
@@ -140,23 +144,11 @@ public class VidaPlayer : MonoBehaviour
                     //if(this.GetComponent<AudioManager>().sonidosUnaVez.isPlaying==false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().daño);
                     animCC.SetTrigger("Daño");
                 }
-
             }
-           
-
-
-
-
-
         }
-        else
-        {
-
-        }
-
-
-
+        
     }
+
     void IraCheckpoint()//CREO QUE ESTO NO SE ESTÁ USANDO + si, mira la linea 125
     {
 

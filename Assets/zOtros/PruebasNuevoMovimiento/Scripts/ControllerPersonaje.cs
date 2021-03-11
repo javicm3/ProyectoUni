@@ -4256,7 +4256,7 @@ public class ControllerPersonaje : MonoBehaviour
     }
 
 
-    void CargarHabilidadesGM()
+    public void CargarHabilidadesGM()
     {
         dashUnlock = GameManager.Instance.Habilidades.dash;
         chispazoUnlook = GameManager.Instance.Habilidades.chispazo;

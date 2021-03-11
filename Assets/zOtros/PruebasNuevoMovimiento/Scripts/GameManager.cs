@@ -248,6 +248,17 @@ public class GameManager : MonoBehaviour
         {
             ReiniciarEscena();
         }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            habilidades.dash = true;
+            habilidades.chispazo = true;
+            habilidades.movCables = true;
+            habilidades.movParedes = true;
+
+            ControllerPersonaje p = FindObjectOfType<ControllerPersonaje>();
+            if (p!=null)
+            { p.CargarHabilidadesGM(); }
+        }
     }
 
 
@@ -335,9 +346,9 @@ public class LevelInfo
 [System.Serializable]
 public class ListaHabilidades
 {
-    public bool dash = true;
-    public bool chispazo = true;
-    public bool movParedes = true;
-    public bool movCables = true;
+    public bool dash = false;
+    public bool chispazo = false;
+    public bool movParedes = false;
+    public bool movCables = false;
 }
 
