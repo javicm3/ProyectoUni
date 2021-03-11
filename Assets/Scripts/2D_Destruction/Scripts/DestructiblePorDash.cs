@@ -23,8 +23,20 @@ public class DestructiblePorDash : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f || collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
+            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f || collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
             {
+                GetComponent<Collider2D>().isTrigger = true;
+                expl.explode(duracionFrag);
+            }
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f || collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
+            {
+                GetComponent<Collider2D>().isTrigger = true;
                 expl.explode(duracionFrag);
             }
         }

@@ -30,7 +30,7 @@ public class TriggerAguaSube : MonoBehaviour
     public GameObject[] objetosEnfocadosSecuencia;
     public float tiempoEntreEnfoquesSecuencia = 3f;
     float auxTiempoSecuenciaEnfoques;
-
+    bool unavez = false;
 
     public GameObject[] objAñadir;
     public GameObject[] objQuitar;
@@ -135,9 +135,18 @@ public class TriggerAguaSube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Vector2.Distance(player.transform.position, this.transform.position) < 30f)
+        {
+            if (aguaSube.activeSelf == false) aguaSube.SetActive(true);
+        }
         if (player.GetComponent<VidaPlayer>().reiniciando)
         {
-            this.GetComponent<Collider2D>().enabled = true;
+            if (enfocarObjetoSolo == false) if (unavez == false)
+                {
+                    unavez = true;
+                    aguaSube.GetComponent<AguaSube>().posicionInicial.transform.position = new Vector2(aguaSube.GetComponent<AguaSube>().posicionInicial.transform.position.x, aguaSube.GetComponent<AguaSube>().posicionInicial.transform.position.y + 5.5f);
+                }
+            if (seDestruyeTrasTocarlo==false) this.GetComponent<Collider2D>().enabled = true;
         }
         if (timerSoloInicio)
         {
@@ -257,7 +266,7 @@ public class TriggerAguaSube : MonoBehaviour
          
         
             if (aguaSube != null)
-            {
+            { 
                 aguaSube.GetComponent<AguaSube>().iniciado = true;
                
             }
@@ -289,7 +298,13 @@ public class TriggerAguaSube : MonoBehaviour
                 EnfocarSecuenciaObj();
             }
 
-            if (seDestruyeTrasTocarlo) this.GetComponent<Collider2D>().enabled = false;
+            if (seDestruyeTrasTocarlo) {
+               
+                /*this.GetComponent<Collider2D>().enabled = false*/
+                enfocarObjetoSolo = false;
+                bloqueaMovimiento = false;
+
+            }
         }
     }
 }

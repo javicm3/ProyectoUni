@@ -374,7 +374,7 @@ public class VidaPlayer : MonoBehaviour
 
         if (collision.gameObject.tag == "CascadaGoo")
         {
-            if (this.GetComponent<ControllerPersonaje>().auxCdDash < 0.2f) this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoCascada, collision.gameObject.transform.position, collision.contacts[0].point);
+            if (this.GetComponent<ControllerPersonaje>().auxCdDashAtravesar < 0.2f) this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoCascada, collision.gameObject.transform.position, collision.contacts[0].point);
 
         }
         if (collision.gameObject.tag == "ColliderMuerte")
@@ -468,7 +468,7 @@ public class VidaPlayer : MonoBehaviour
         if (collision.gameObject.tag == "CascadaGoo")
         {
 
-            if (this.GetComponent<ControllerPersonaje>().auxCdDash < 0.2f) this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoCascada, collision.gameObject.transform.position, collision.contacts[0].point);
+            if (this.GetComponent<ControllerPersonaje>().auxCdDashAtravesar < 0.2f) this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoCascada, collision.gameObject.transform.position, collision.contacts[0].point);
         }
         if (collision.gameObject.tag == "Agua")
         {

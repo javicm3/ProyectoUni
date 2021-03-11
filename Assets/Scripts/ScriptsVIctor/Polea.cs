@@ -32,7 +32,7 @@ public class Polea : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
 
-            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f)
+            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
             {
                 if (animCuerda != null) animCuerda.SetTrigger("DashHecho");
 

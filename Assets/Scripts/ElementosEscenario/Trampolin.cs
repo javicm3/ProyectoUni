@@ -45,7 +45,7 @@ public class Trampolin : MonoBehaviour
 
                 if (sePuedeDashHorizontal && !sePuedeDashVertical)
                 {
-                    if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f)
+                    if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
                     {
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
@@ -65,6 +65,7 @@ public class Trampolin : MonoBehaviour
                 {
                     if (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida == true)
                     {
+                        collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida = false;
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
@@ -82,13 +83,17 @@ public class Trampolin : MonoBehaviour
                 }
                 else
                 {
-                    if ((collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f) || (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida == true))
+                    if ((collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f) || (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida == true))
                     {
+
+
+                        if (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida == true) { collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida = false; }
+
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
                         Invoke("Desactivar", 0.35f);
-
+                      
                     }
                     else
                     {
@@ -115,7 +120,7 @@ public class Trampolin : MonoBehaviour
 
                 if (sePuedeDashHorizontal && !sePuedeDashVertical)
                 {
-                    if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f)
+                    if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
                     {
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
@@ -136,6 +141,8 @@ public class Trampolin : MonoBehaviour
                 {
                     if (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida == true)
                     {
+                        collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida = false;
+
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;
@@ -153,8 +160,10 @@ public class Trampolin : MonoBehaviour
                 }
                 else
                 {
-                    if ((collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f) || (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida == true))
+                    if ((collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f) || (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida == true))
                     {
+                        if (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida != false) collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida = false;
+
                         trampoAnim.SetBool("Dash", true);
                         player.GetComponent<ControllerPersonaje>().AplicarImpulso(hijoDireccion, this.gameObject, fImpulsoDash);
                         player.GetComponent<ControllerPersonaje>().yaimpulsado = true;

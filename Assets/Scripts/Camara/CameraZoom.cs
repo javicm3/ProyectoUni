@@ -101,7 +101,7 @@ public class CameraZoom : MonoBehaviour
         }
         else
         {
-            if (cc.auxCdDash > 0.5f)
+            if (cc.auxCdDashAtravesar > 0.5f)
             {
                 if (Mathf.Abs(cc.rb.velocity.y) > 30f)
                 {
@@ -318,7 +318,7 @@ public class CameraZoom : MonoBehaviour
                    
                     if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping >= 0.2f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping -= 1 * Time.deltaTime;
 
-                    if (this.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f)
+                    if (this.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
                     {
                         if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping < 1f)
                         {
