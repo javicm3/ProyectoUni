@@ -165,7 +165,6 @@ public class EnemigoSaltamontes : EnemigoPadre
             {
                 stun = false;
                 animCC.SetBool("Estuneado", false);
-                animCC.SetBool("Moviendose", true);
 
                 auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
                 auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
@@ -176,12 +175,14 @@ public class EnemigoSaltamontes : EnemigoPadre
                     {
 
                         auxtiempoEntreSaltosAndar -= Time.deltaTime;
+                        animCC.SetBool("Moviendose", false);
 
                     }
                     else
                     {
                         auxtiempoEntreSaltosAndar = tiempoEntreSaltosAndar;
                         Saltar(fHorizMov, fVerticalMov);
+                        animCC.SetBool("Moviendose", true);
                     }
                 }
             }
@@ -206,12 +207,15 @@ public class EnemigoSaltamontes : EnemigoPadre
                     {
 
                         auxtiempoEntreSaltosPerseguir -= Time.deltaTime;
+                        animCC.SetBool("Moviendose", false);
+
 
                     }
                     else
                     {
                         auxtiempoEntreSaltosPerseguir = tiempoEntreSaltosPerseguir;
                         Saltar(fHorizPerseg, fVerticalPerseg);
+                        animCC.SetBool("Moviendose", true);
                     }
                 }
 
@@ -237,11 +241,12 @@ public class EnemigoSaltamontes : EnemigoPadre
                     {
 
                         auxtiempoEntreSaltosAtacar -= Time.deltaTime;
-
+                        animCC.SetBool("Moviendose", false);
                     }
                     else
                     {
                         auxtiempoEntreSaltosAtacar = tiempoEntreSaltosAtacar;
+                        animCC.SetBool("Moviendose", true);
 
                         Saltar(Mathf.Clamp(Vector2.Distance(this.transform.position, player.transform.position), fHorizAtaqueMin, fHorizAtaqueMax), fVerticalAtaque);
                     }
@@ -294,13 +299,13 @@ public class EnemigoSaltamontes : EnemigoPadre
 
                     if (parte1.layer!=11)
                     {
-                        Destroy(parte1, 1f);
+                        Destroy(parte1, 2f);
                         parte1.transform.parent = null;
                         parte1.GetComponent<Rigidbody2D>().isKinematic = false;
                         parte1.GetComponent<BoxCollider2D>().enabled = true;
                         parte1.layer = 11;
                         parte1.GetComponent<Rigidbody2D>().AddForce(fuerzaDivision * -this.transform.right, ForceMode2D.Impulse);
-                        Destroy(parte2, 1f);
+                        Destroy(parte2, 2f);
                         parte2.transform.parent = null;
                         parte2.GetComponent<Rigidbody2D>().isKinematic = false;
                         parte2.GetComponent<BoxCollider2D>().enabled = true;
