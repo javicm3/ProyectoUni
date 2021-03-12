@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class PlataformaDron : MonoBehaviour
 {
-
     public float speed;
     public Transform pos1, pos2;
     public Transform startPos;
@@ -14,151 +15,87 @@ public class PlataformaDron : MonoBehaviour
     public bool verticales = false;
     public Vector3 nextPos;
 
-    // Start is called before the first frame update
+    enum platformState { desactivada, inmovil, movil }
+    platformState estado;
+
     void Start()
     {
-        nextPos = startPos.position;
+        nextPos = pos1.position;
         auxtiempoParada = tiempoParada;
+        estado = platformState.inmovil;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (verticales)
+        switch (estado)
         {
-            auxtiempoParada -= Time.deltaTime;
-            if ((auxtiempoParada <= 0) && (vuelta = false))
-            {
-                nextPos = pos1.position;
-                vuelta = true;
-            }
-        }
-        if (FindObjectOfType<VidaPlayer>().reiniciando)
-        {
+            case platformState.movil:
+                Caer();
+                break;
 
+            case platformState.inmovil:
+                CheckTiempoParada();
+                break;
 
-
-
-            vuelta = false;
-            this.transform.position = startPos.position;
-            transform.gameObject.SetActive(false);
-        }
-        if (Vector2.Distance(this.transform.position, startPos.position) <= 0.05)
-        {
-            if (!verticales)
-            {
-                auxtiempoParada -= Time.deltaTime;
-            }
-
-            if (auxtiempoParada <= 0)
-            {
-                foreach (Animator go in GetComponentsInChildren<Animator>())
-                {
-                   go.SetBool("Activado", false);
-                }
-                nextPos = pos1.position;
-                vuelta = true;
-            }
-            else if (auxtiempoParada > 0.3f)
-            {
-                foreach (Animator go in GetComponentsInChildren<Animator>())
-                {
-                    go.SetBool("Activado", true);
-                }
-              
-            }
+            default:
+                break;
         }
 
-        if ((Vector2.Distance(this.transform.position, pos1.position) <= 0.05))
-        {
-            if (!verticales)
-            {
-
-
-                //nextPos = pos2.position;
-                if (vuelta == true)
-                {
-                    nextPos = pos2.position;
-                    //if (FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent != null) FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent = null;
-
-                    //vuelta = false;
-                    //this.transform.position = startPos.position;
-                    //transform.gameObject.SetActive(false);
-
-                }
-            }
-            else
-            {
-                this.transform.position = pos1.position;
-                transform.gameObject.SetActive(false);
-                nextPos = startPos.position;
-                auxtiempoParada = tiempoParada;
-            }
-        }
-        if (Vector2.Distance(this.transform.position, pos2.position) <= 0.05)
-        {
-            //nextPos = pos2.position;
-            if (!verticales)
-            {
-                if (vuelta == true)
-                {
-                    nextPos = pos2.position;
-                    if (FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent != null) FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent = null;
-
-                    vuelta = false;
-                    this.transform.position = startPos.position;
-                    transform.gameObject.SetActive(false);
-
-                }
-            }
-            else
-            {
-                if (vuelta == true)
-                {
-                    nextPos = pos1.position;
-
-
-                    vuelta = false;
-                    this.transform.position = startPos.position;
-
-
-                }
-            }
-
-        }
-
-        transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
     }
+
+    void Caer()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
+        if (Vector3.Distance(transform.position, nextPos) < 0.05f)
+        {
+            Desactivar();
+        }
+    }
+
+    public void Desactivar()
+    {
+        estado = platformState.inmovil;
+        foreach (Animator go in GetComponentsInChildren<Animator>())
+        {
+            go.SetBool("Activado", false); //En caso de que se desactive desde el controlador y no por tiempo
+        }
+        transform.gameObject.SetActive(false);
+    }
+
+    public void Activar()
+    {
+        this.transform.position = startPos.position;
+        estado = platformState.inmovil;
+        foreach (Animator go in GetComponentsInChildren<Animator>())
+        {
+            go.SetBool("Activado", true);
+        }
+    }
+
+
+    void CheckTiempoParada()
+    {
+        auxtiempoParada -= Time.deltaTime;
+        if (auxtiempoParada <= 0)
+        {
+            estado = platformState.movil;
+            auxtiempoParada = tiempoParada;
+        }
+        if (auxtiempoParada <= 0.3f)
+        {
+            foreach (Animator go in GetComponentsInChildren<Animator>())
+            {
+                go.SetBool("Activado", false);
+            }
+        }
+    }
+
 
     private void OndDrawGizmos()
     {
         Gizmos.DrawLine(pos1.position, pos2.position);
     }
-
-    public IEnumerator Scuttle()
-    {
-        yield return new WaitForSeconds(tiempoParada);
-
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            if (collision.gameObject.transform.parent = FindObjectOfType<ControllerPersonaje>().gameObject.transform)
-            {
-                collision.gameObject.transform.parent = this.transform;
-            }
-        }
-
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            if (collision.gameObject.transform.parent == this.transform)
-            {
-                collision.gameObject.transform.parent = null;
-            }
-        }
-    }
 }
+
+

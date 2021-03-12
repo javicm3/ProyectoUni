@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class ControladorPlataformas : MonoBehaviour
 {
     public Sprite activado;
@@ -12,206 +13,147 @@ public class ControladorPlataformas : MonoBehaviour
     public float tiempoEntrePlataformas = 0.4f;
     public bool secuenciaPlat = false;
     public bool seDesactivaConPlatf = false;
-    public float auxTiempoEntre;
+    //public float auxTiempoEntre;
     public AudioClip clip;
     public AudioSource source;
     public Canvas cartel;
     public bool activadoBool;
-    public int posicionArray = 0;
-    // Start is called before the first frame update
+    public float tiempoReiniciar = 10;
+
+    float tiempoRest;
+    VidaPlayer vidaPl;
+
+
     void Start()
     {
-        posicionArray = 0;
-        cartel.enabled = false;
-        auxTiempoEntre = 0;
+        vidaPl = FindObjectOfType<VidaPlayer>();
+        tiempoRest = tiempoReiniciar;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
-
-        if (secuenciaPlat)
+        if (activadoBool)
         {
-
-
-            if (activadoBool == true)
+            tiempoRest -= Time.deltaTime;
+            if (tiempoRest <= 0 || vidaPl.reiniciando)
             {
-                auxTiempoEntre -= Time.deltaTime;
-                if (objetosActivados != null)
-                {
-                    if (auxTiempoEntre <= 0)
-                    {
-                        if (objetosActivados[posicionArray] != null)
-                        {
-                            objetosActivados[posicionArray].SetActive(true);
-                            if (objetosActivados[posicionArray].GetComponent<PlataformaND1>() != null)
-                            {
-                                //print("no null componente platf");
-                                objetosActivados[posicionArray].GetComponent<PlataformaND1>().transform.position = objetosActivados[posicionArray].GetComponent<PlataformaND1>().startPos.position;
-
-                                objetosActivados[posicionArray].GetComponent<PlataformaND1>().nextPos = objetosActivados[posicionArray].GetComponent<PlataformaND1>().startPos.transform.position;
-                                objetosActivados[posicionArray].GetComponent<PlataformaND1>().auxtiempoParada = objetosActivados[posicionArray].GetComponent<PlataformaND1>().tiempoParada;
-                                if (posicionArray < objetosActivados.Length - 1)
-                                {
-
-
-                                    posicionArray++;
-                                    auxTiempoEntre = tiempoEntrePlataformas;
-                                }
-                                else
-                                {
-                                    activadoBool = false;
-                                }
-
-
-                            }
-                            else if (objetosActivados[posicionArray].GetComponent<PlataformaDron>() != null)
-                            {
-                                //print("no null componente platf");
-                                objetosActivados[posicionArray].GetComponent<PlataformaDron>().transform.position = objetosActivados[posicionArray].GetComponent<PlataformaDron>().startPos.position;
-
-                                objetosActivados[posicionArray].GetComponent<PlataformaDron>().nextPos = objetosActivados[posicionArray].GetComponent<PlataformaDron>().startPos.transform.position;
-                                objetosActivados[posicionArray].GetComponent<PlataformaDron>().auxtiempoParada = objetosActivados[posicionArray].GetComponent<PlataformaDron>().tiempoParada;
-                                if (posicionArray < objetosActivados.Length - 1)
-                                {
-
-
-                                    posicionArray++;
-                                    auxTiempoEntre = tiempoEntrePlataformas;
-                                }
-                                else
-                                {
-                                    activadoBool = false;
-                                }
-
-
-                            }
-                        }
-
-                    }
-
-
-                }
-
-            }
-        }
-        if ((FindObjectOfType<VidaPlayer>().reiniciando))
-        {
-            if (this.GetComponent<SpriteRenderer>().sprite == activado)
-            {
-                posicionArray = 0;
-                activadoBool = false;
-                this.GetComponent<SpriteRenderer>().sprite = apagado;
-                if (luz == true && luzGO != null)
-                {
-                    luzGO.SetActive(false);
-                }
-            }
-        }
-        if ((seDesactivaConPlatf) && (this.GetComponent<SpriteRenderer>().sprite == activado))
-        {
-            bool hayActivos = false;
-            foreach (GameObject go in objetosActivados)
-            {
-                if (go.activeSelf) hayActivos = true;
-            }
-            if (hayActivos == false)
-            {
-
-                posicionArray = 0;
-                activadoBool = false;
-                this.GetComponent<SpriteRenderer>().sprite = apagado;
-                if(luz == true && luzGO != null)
-                {
-                    luzGO.SetActive(false);
-                }
-
-            }
+                tiempoRest = tiempoReiniciar;
+                Reiniciar();
+            }            
         }
     }
-    public void Activar()
+
+    void Reiniciar()
     {
-        //PlataformaND1.vuelta = false;
-        posicionArray = 0;
-        //StartCoroutine(ScuttleV2());
-        activadoBool = true;
-        if (!secuenciaPlat)
-        {
-            foreach (GameObject go in objetosActivados)
-            {
-
-                if (go != null)
-                {
-
-                    go.SetActive(true);
-                    if (go.GetComponent<PlataformaND1>() != null)
-                    {
-
-                        go.GetComponent<PlataformaND1>().transform.position = go.GetComponent<PlataformaND1>().startPos.position;
-
-                        go.GetComponent<PlataformaND1>().nextPos = go.GetComponent<PlataformaND1>().startPos.transform.position;
-                        go.GetComponent<PlataformaND1>().auxtiempoParada = go.GetComponent<PlataformaND1>().tiempoParada;
-                    }
-                    else if (go.GetComponent<PlataformaDron>() != null)
-                    {
-
-                        go.GetComponent<PlataformaDron>().transform.position = go.GetComponent<PlataformaDron>().startPos.position;
-
-                        go.GetComponent<PlataformaDron>().nextPos = go.GetComponent<PlataformaDron>().startPos.transform.position;
-                        go.GetComponent<PlataformaDron>().auxtiempoParada = go.GetComponent<PlataformaDron>().tiempoParada;
-
-                    }
-
-                }
-
-            }
-        }
-        source.PlayOneShot(clip);
-        this.GetComponent<SpriteRenderer>().sprite = activado;
+        print("Controlador Reactivado");
+        activadoBool = false;
+        this.GetComponent<SpriteRenderer>().sprite = apagado;
         if (luz == true && luzGO != null)
         {
-            luzGO.SetActive(true);
+            luzGO.SetActive(false);
         }
+
+        foreach (GameObject plat in objetosActivados)
+        {
+            PlataformaDron a = plat.GetComponent<PlataformaDron>();
+            if (a!=null)
+            {
+                a.Desactivar();
+            }
+
+            plat.SetActive(false);
+        }
+        //Mirar si hago algo con las plataformas aquí
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    IEnumerator ActivarSecuencia()
     {
-        if (collision.gameObject.tag == "Player")
+        WaitForSeconds w = new WaitForSeconds(tiempoEntrePlataformas);
+
+        foreach (GameObject plat in objetosActivados)
         {
-            if (this.GetComponent<SpriteRenderer>().sprite == apagado)
+            plat.SetActive(true);
+            PlataformaDron platDron = plat.GetComponent<PlataformaDron>();
+            if (platDron != null)
             {
-                //cartel.enabled = true;
-                //if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
-                //{
-                Activar();
-                //}
+                platDron.Activar();
             }
             else
             {
-                cartel.enabled = false;
+                PlataformaND1 platND1 = plat.GetComponent<PlataformaND1>();
+                if (platND1 != null)
+                {
+                    //METER UN METODO ACTIVAR EN LA PLATAFORMA
+                    platND1.transform.position = platND1.GetComponent<PlataformaND1>().startPos.position;
+
+                    platND1.GetComponent<PlataformaND1>().nextPos = platND1.GetComponent<PlataformaND1>().startPos.transform.position;
+                    platND1.GetComponent<PlataformaND1>().auxtiempoParada = platND1.GetComponent<PlataformaND1>().tiempoParada;
+
+                }
             }
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            cartel.enabled = false;
+
+            yield return w;
         }
     }
 
-    public IEnumerator ScuttleV2()
+    void ActivarSinSecuencia()
     {
-        if (objetosActivados != null)
+        foreach (GameObject plat in objetosActivados)
         {
-            foreach (GameObject go in objetosActivados)
+            plat.SetActive(true);
+            PlataformaDron platDron = plat.GetComponent<PlataformaDron>();
+            if (platDron != null)
             {
-                if (go != null) go.SetActive(true);
+                //METER UN METODO ACTIVAR EN LA PLATAFORMA
+                platDron.Activar();
+            }
+            else
+            {
+                PlataformaND1 platND1 = plat.GetComponent<PlataformaND1>();
+                if (platND1 != null)
+                {
+                    //METER UN METODO ACTIVAR EN LA PLATAFORMA
+                    platND1.transform.position = platND1.GetComponent<PlataformaND1>().startPos.position;
 
-                yield return new WaitForSeconds(tiempoEntrePlataformas);
+                    platND1.GetComponent<PlataformaND1>().nextPos = platND1.GetComponent<PlataformaND1>().startPos.transform.position;
+                    platND1.GetComponent<PlataformaND1>().auxtiempoParada = platND1.GetComponent<PlataformaND1>().tiempoParada;
+
+                }
             }
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!activadoBool && collision.gameObject.tag == "Player")
+        {
+            activadoBool=true;
+            if (secuenciaPlat)
+            {
+                StartCoroutine(ActivarSecuencia());
+            }
+            else ActivarSinSecuencia();
+
+            source.PlayOneShot(clip);
+            this.GetComponent<SpriteRenderer>().sprite = activado;
+            if (luz == true && luzGO != null)
+            {
+                luzGO.SetActive(true);
+            }
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
