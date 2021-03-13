@@ -193,7 +193,7 @@ public class PlataformaDash : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
           
-            if (player.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f&&activado==false)
+            if (player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f&&activado==false)
             {
                
                 collideractivado = false;

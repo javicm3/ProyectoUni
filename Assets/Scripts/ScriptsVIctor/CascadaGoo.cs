@@ -45,7 +45,7 @@ public class CascadaGoo : MonoBehaviour
         }
         if (activado == true)
         {
-            if (player.GetComponent<ControllerPersonaje>().auxCdDash - 0.1f > (player.GetComponent<ControllerPersonaje>().cooldownDash - tiempoTrasDash))
+            if (player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar - 0.1f > (player.GetComponent<ControllerPersonaje>().cooldownDashAtravesar - tiempoTrasDash))
             {
                 this.GetComponent<BoxCollider2D>().enabled = false;
             }

@@ -19,7 +19,6 @@ public class Moneda : MonoBehaviour
 
     public void Activar()
     {
-        print("uwu");
         GetComponent<CircleCollider2D>().enabled = true;
         meshRendererGO.SetActive(true);
         particlesGO.SetActive(true);

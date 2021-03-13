@@ -42,7 +42,7 @@ public class CablesBoss2 : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDash > 0.2f)
+            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
             {
                 if (activo == false)
                 {
