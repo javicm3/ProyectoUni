@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DronBoss : EnemigoPadre
 {
@@ -16,7 +17,7 @@ public class DronBoss : EnemigoPadre
     public float velocidadMov;
     public float tiempoLaser = 1;
     public float tiempoAviso = 1;
-    
+    public LayerMask layer;
     float tmp = 0;
     
     // Start is called before the first frame update
@@ -54,23 +55,20 @@ public class DronBoss : EnemigoPadre
     {
         lr.enabled = true;
         lr.material = GetComponentInParent<AtaquesBoss>().materialHorzOff;
-        if (colliderBoss != null)
-        {
-            colliderBoss.SetActive(false);
-        }        
+             
         
         yield return new WaitForSeconds(tiempoAviso);
         lr.material = GetComponentInParent<AtaquesBoss>().materialHorzOn;
-        if (colliderBoss != null)
-        {
-            colliderBoss.SetActive(true);
-        }
         
-        yield return new WaitForSeconds(tiempoLaser);
-        if (colliderBoss != null)
+        float distancia = Vector3.Distance(transform.position, pareja.transform.position);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, pareja.transform.position, distancia, layer);
+        if (hit)
         {
-            colliderBoss.SetActive(false);
+            GetComponent<LineRenderer>().SetPosition(1, hit.point);
+            SceneManager.LoadScene("ND-FINAL");
         }
+        yield return new WaitForSeconds(tiempoLaser);
+        
         lr.enabled = false;
     }
 }

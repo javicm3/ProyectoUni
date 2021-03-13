@@ -11,6 +11,7 @@ public class CablesBoss2 : MonoBehaviour
     public GameObject tentaculoRoto2;
     public GameObject target1;
     public GameObject target2;
+    public GameObject particulasExplosion;
     public float fuerza;
     GameObject player;
     public bool fuerzaDerecha = true;
@@ -27,7 +28,7 @@ public class CablesBoss2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GetComponentInParent<EstadosBoss2>().bossStuneado == true)
+        if(GetComponentInParent<EstadosBoss2>().bossStuneado == true && activo == false)
         {
             GetComponent<Collider2D>().enabled = true;
             GetComponent<SpriteRenderer>().enabled = true;
@@ -42,7 +43,7 @@ public class CablesBoss2 : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
+            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f )
             {
                 if (activo == false)
                 {
@@ -52,7 +53,9 @@ public class CablesBoss2 : MonoBehaviour
                     tentaculoNormal.SetActive(false);
                     tentaculoRoto1.SetActive(true);
                     tentaculoRoto2.SetActive(true);
-                    Destroy(this.gameObject);
+                    Instantiate(particulasExplosion, transform);
+                    //particulasExplosion.transform.parent = null;
+                   
                     GetComponentInParent<EstadosBoss2>().bossStuneado = false;
                     if (fuerzaDerecha == true)
                     {
@@ -65,6 +68,9 @@ public class CablesBoss2 : MonoBehaviour
                         target2.GetComponent<Rigidbody2D>().AddForce(Vector3.left * fuerza);
                     }
                     activo = true;
+                    GetComponent<Collider2D>().enabled = false;
+                    GetComponent<SpriteRenderer>().enabled = false;
+                    //Destroy(this.gameObject);
                 }  
             }
         }
