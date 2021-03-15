@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class CameraZoom : MonoBehaviour
 {
     string escenaActual;
+    public Camera cameraNormal;
     public CinemachineVirtualCamera cinemakina;
     public float startsize = 13;
     public float finalsize = 19;
@@ -46,6 +47,7 @@ public class CameraZoom : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cameraNormal = FindObjectOfType<Camera>();
         maxPaneoHorizontalConVariosTargets = maxPaneoHorizontalBase * 2;
         velocidadPaneoHorizVariosTargets = 2 * velocidadPaneoHorizontalBase;
         pausaZoom = GameObject.Find("ZoomPausa");
@@ -56,9 +58,12 @@ public class CameraZoom : MonoBehaviour
         cc = GameObject.FindObjectOfType<ControllerPersonaje>();
         player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
         escenaActual = SceneManager.GetActiveScene().name;
+
+        cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z = -20;
         if (GameObject.Find("ceboCamara") != null)
         {
             ceboCamara = GameObject.Find("ceboCamara");
+            ceboCamara.transform.position = new Vector3(ceboCamara.transform.position.x, ceboCamara.transform.position.y, -10);
             targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target = player.transform;
             targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[1].target = ceboCamara.transform;
             ceboCamara.transform.parent = null;
@@ -75,7 +80,7 @@ public class CameraZoom : MonoBehaviour
         }
         if (bounds.size.x > bounds.size.y)
         {
-            if (bounds.size.x > maxZoom) { return maxZoom; } else {return bounds.size.x; }            
+            if (bounds.size.x > maxZoom) { return maxZoom; } else { return bounds.size.x; }
         }
         else
         {
@@ -86,8 +91,14 @@ public class CameraZoom : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        targetSpeed = new Vector2(cc.rb.velocity.x, cc.rb.velocity.y/* * 0.5f*/).normalized;
-       
+        targetSpeed = new Vector3(cc.rb.velocity.x, cc.rb.velocity.y/* * 0.5f*/,0).normalized;
+        //if (cameraNormal.transform.position.z != -10)
+        //{
+        //    cameraNormal.transform.position = new Vector3(cameraNormal.transform.position.x, cameraNormal.transform.position.y, -10);
+        //    print("cinemaz" + cameraNormal.transform.position.z);
+        //}
+
+
     }
     void LateUpdate()
     {
@@ -105,22 +116,41 @@ public class CameraZoom : MonoBehaviour
             {
                 if (Mathf.Abs(cc.rb.velocity.y) > 30f)
                 {
-                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.y) *5f * Time.deltaTime, 60f * Time.deltaTime, 120f * Time.deltaTime));
+                    if (cc.dashEnCaida)
+                    {
+                        ceboCamara.transform.position = Vector3.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x,player.transform.position.y,-10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.y) * 6f * Time.deltaTime, 70f * Time.deltaTime, 120f * Time.deltaTime));
+                    }
+                    else
+                    {
+                        ceboCamara.transform.position = Vector3.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.y) * 5f * Time.deltaTime, 60f * Time.deltaTime, 120f * Time.deltaTime));
+
+
+                    }
 
                 }
                 else if (Mathf.Abs(cc.rb.velocity.x) > 30f)
                 {
-                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 2f * Time.deltaTime, 50f * Time.deltaTime, 90f * Time.deltaTime));
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 1.7f * Time.deltaTime, 50f * Time.deltaTime, 90f * Time.deltaTime));
+
+                }
+                else if (Mathf.Abs(cc.rb.velocity.x) > 22f)
+                {
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 1.3f * Time.deltaTime, 30f * Time.deltaTime, 90f * Time.deltaTime));
 
                 }
                 else if (Mathf.Abs(cc.rb.velocity.x) > 12f)
                 {
-                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 1f * Time.deltaTime, 25f * Time.deltaTime, 90f * Time.deltaTime));
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 1f * Time.deltaTime, 25f * Time.deltaTime, 90f * Time.deltaTime));
+
+                }
+                else if (Mathf.Abs(cc.rb.velocity.x) > 3f)
+                {
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 1f * Time.deltaTime, 15f * Time.deltaTime, 90f * Time.deltaTime));
 
                 }
                 else
                 {
-                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position, 30f * Time.deltaTime);
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10), 60f * Time.deltaTime);
 
                 }
             }
@@ -128,28 +158,49 @@ public class CameraZoom : MonoBehaviour
             {
                 if (Mathf.Abs(cc.rb.velocity.y) > 20f)
                 {
-                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.y) * 5f * Time.deltaTime, 60f * Time.deltaTime, 120f * Time.deltaTime));
+                    if (cc.dashEnCaida)
+                    {
+                        ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.y) * 6f * Time.deltaTime, 70f * Time.deltaTime, 120f * Time.deltaTime));
+                    }
+                    else
+                    {
+                        ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.y) * 5f * Time.deltaTime, 60f * Time.deltaTime, 120f * Time.deltaTime));
+
+
+                    }
 
                 }
                 else if (Mathf.Abs(cc.rb.velocity.x) > 30f)
                 {
-                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 2f * Time.deltaTime, 50f * Time.deltaTime, 90f * Time.deltaTime));
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 1.7f * Time.deltaTime, 50f * Time.deltaTime, 90f * Time.deltaTime));
 
                 }
-                else if (Mathf.Abs(cc.rb.velocity.x) >12f)
+                else if (Mathf.Abs(cc.rb.velocity.x) > 22f)
                 {
 
-                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 1f * Time.deltaTime, 25f * Time.deltaTime, 90f * Time.deltaTime));
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 1.3f * Time.deltaTime, 30f * Time.deltaTime, 90f * Time.deltaTime));
+
+                }
+                else if (Mathf.Abs(cc.rb.velocity.x) > 12f)
+                {
+
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 1f * Time.deltaTime, 25f * Time.deltaTime, 90f * Time.deltaTime));
+
+                }
+                else if (Mathf.Abs(cc.rb.velocity.x) >3f)
+                {
+
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10) + distanciaCebo * targetSpeed, Mathf.Clamp(Mathf.Abs(cc.rb.velocity.x) * 1f * Time.deltaTime, 15f * Time.deltaTime, 90f * Time.deltaTime));
 
                 }
                 else
                 {
-                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, player.transform.position, 30f * Time.deltaTime);
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10), 60f * Time.deltaTime);
 
                 }
             }
         }
-        
+
 
         //}
         //else
@@ -226,6 +277,7 @@ public class CameraZoom : MonoBehaviour
             if (GameManager.Instance != null && GameManager.Instance.GetComponent<MenuPausa>().paused)
             {
                 cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y = 0;
+                cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z =-20;
                 cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.x = 0;
 
 
@@ -276,20 +328,20 @@ public class CameraZoom : MonoBehaviour
             }
             else if (cc.haciendoCombate == false)
             {
-                cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y =3.5f;
+                cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.y = 3.5f;
                 if (soloplayer == true)
                 {
                     if (escenaActual != "ND-3")
                     {
                         if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target != null)
                         {
-                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].weight = 15;
-                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].radius = 15;
+                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].weight = 20;
+                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].radius = 35;
                         }
                         if (targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[1].target != null)
                         {
                             targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[1].weight = 25;
-                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[1].radius = 10;
+                            targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[1].radius = 35;
                         }
                     }
                     else
@@ -315,26 +367,26 @@ public class CameraZoom : MonoBehaviour
                             pausado = false;
                         }
                     }
-                   
+
                     if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping >= 0.2f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping -= 1 * Time.deltaTime;
 
-                    if (this.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
+                    if (this.GetComponent<ControllerPersonaje>().auxCdDashReal > 0.2f)
                     {
                         if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping < 1f)
                         {
                             cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 1f;
                         }
                     }
-                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping <=0.3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 1 ;
-                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping >= 1f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping -= 1 * Time.deltaTime;
+                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping <= 0.3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0.8f;
+                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping >= 0.8f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping -= 1 * Time.deltaTime;
                     if (this.GetComponent<ControllerPersonaje>().dashEnCaida == true)
                     {
-                        if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping < 1.5f)
+                        if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping > 0f)
                         {
-                            cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 1.5f;
+                            cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0;
                         }
                     }
-                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping >= 0.2f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping -= 1 * Time.deltaTime;
+                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping > 0) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 0;
                     if (Mathf.Abs(cc.rb.velocity.x) > 7)
                     {
                         tiempoSinInput = 0;
@@ -392,7 +444,6 @@ public class CameraZoom : MonoBehaviour
                         }
 
                     }
-
                     else
                     {
                         if ((cinemakina.m_Lens.OrthographicSize > startsize) && (Mathf.Abs(cc.rb.velocity.y) < 8f) && (Mathf.Abs(cc.rb.velocity.y) > 0.0f))
@@ -563,13 +614,13 @@ public class CameraZoom : MonoBehaviour
                 }
                 else
                 {
-                    cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = Vector3.MoveTowards(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, new Vector3(0, 3.5f, cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z), 5 * Time.deltaTime);
+                    cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset = Vector3.MoveTowards(cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset, new Vector3(0, 3.5f,-20), 5 * Time.deltaTime);
                     if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping <= 3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping += 10 * Time.deltaTime;
                     if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping <= 3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping += 10 * Time.deltaTime;
-                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping <= 1f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping += 10 * Time.deltaTime;
+                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping > 0) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_ZDamping = 0;
                     if (limitarDistancia)
                     {
-
+                        maxDistance = DistanciaMaxima();
                     }
                     else
                     {
@@ -578,7 +629,7 @@ public class CameraZoom : MonoBehaviour
 
                     if (cinemakina.m_Lens.OrthographicSize < maxDistance * 0.6f && cinemakina.m_Lens.OrthographicSize < maxZoom)
                     {
-                        cinemakina.m_Lens.OrthographicSize = cinemakina.m_Lens.OrthographicSize + indiceMultiplicadorZoom * Time.deltaTime;
+                        cinemakina.m_Lens.OrthographicSize +=  indiceMultiplicadorZoom * Time.deltaTime;
                     }
                     else if (cinemakina.m_Lens.OrthographicSize > maxDistance * 1f && cinemakina.m_Lens.OrthographicSize > startsize)
                     {
