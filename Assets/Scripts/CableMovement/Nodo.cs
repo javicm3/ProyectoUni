@@ -68,7 +68,7 @@ public class Nodo : MonoBehaviour
 
         if (entrada == true)
         {
-            if (GameObject.FindGameObjectWithTag("Player") != null) if ((Vector2.Distance(player.transform.position, this.transform.position) < 5) && (cab.viajando == false))
+            if (GameObject.FindGameObjectWithTag("Player") != null) if ((Vector2.Distance(player.transform.position, this.transform.position) < 10) && (cab.viajando == false))
                 {
                     if (cartel != null) cartel.gameObject.SetActive(true);
                     auxtime = 0.15f;
