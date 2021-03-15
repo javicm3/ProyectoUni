@@ -150,7 +150,7 @@ public class CameraZoom : MonoBehaviour
                 }
                 else
                 {
-                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10), 60f * Time.deltaTime);
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10), 30f * Time.deltaTime);
 
                 }
             }
@@ -195,7 +195,7 @@ public class CameraZoom : MonoBehaviour
                 }
                 else
                 {
-                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10), 60f * Time.deltaTime);
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10), 30f * Time.deltaTime);
 
                 }
             }
@@ -368,7 +368,7 @@ public class CameraZoom : MonoBehaviour
                         }
                     }
 
-                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping >= 0.2f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping -= 1 * Time.deltaTime;
+                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping >= 0.2f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping -= 3 * Time.deltaTime;
 
                     if (this.GetComponent<ControllerPersonaje>().auxCdDashReal > 0.2f)
                     {
@@ -378,7 +378,7 @@ public class CameraZoom : MonoBehaviour
                         }
                     }
                     if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping <= 0.3f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping = 0.8f;
-                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping >= 0.8f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping -= 1 * Time.deltaTime;
+                    if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping >= 0.8f) cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping -= 3 * Time.deltaTime;
                     if (this.GetComponent<ControllerPersonaje>().dashEnCaida == true)
                     {
                         if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_YDamping > 0f)

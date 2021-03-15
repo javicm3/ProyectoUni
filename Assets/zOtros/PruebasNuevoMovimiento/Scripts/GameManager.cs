@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
         {
             ReiniciarEscena();
         }
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             habilidades.dash = true;
             habilidades.chispazo = true;
