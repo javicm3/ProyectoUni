@@ -275,27 +275,12 @@ public class AtaquesBoss : MonoBehaviour
             }
             if (hit2.collider.tag == "Player" || hit.collider.tag == "Player")
             {
-                //if(player != null && player.GetComponent<ControllerPersonaje>().cooldownDashAtravesar - 0.1f > (player.GetComponent<ControllerPersonaje>().cooldownDashReal - tiempoTrasDash))
-                //{
-
-                //    //player.gameObject.GetComponent<VidaPlayer>().RecibirDaño(player.gameObject.GetComponent<VidaPlayer>().dañoColliderMuerte, hit2.point, player.transform.position);
-                //    print("conchesumare");
-                //    SceneManager.LoadScene("ND-FINAL");
-                //}
-                print("el dash esta en " + player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar);
-                if (player != null && player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
+                if (player != null && player.GetComponent<ControllerPersonaje>().auxCdDash - 0.1f < (player.GetComponent<ControllerPersonaje>().cooldownDash - tiempoTrasDash))
                 {
 
                     //player.gameObject.GetComponent<VidaPlayer>().RecibirDaño(player.gameObject.GetComponent<VidaPlayer>().dañoColliderMuerte, hit2.point, player.transform.position);
-                    //print("conchesumare");
-                    //SceneManager.LoadScene("ND-FINAL");
-                }
-                else
-                {
-                    print("conchesumare");
                     SceneManager.LoadScene("ND-FINAL");
                 }
-
             }
 
 
