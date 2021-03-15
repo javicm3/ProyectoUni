@@ -184,6 +184,7 @@ public class AtaquesBoss : MonoBehaviour
         Destroy(horizontal1);
 
         eb.ataqueTerminado = true;
+        print("ffff");
         eb.acumulacion++;
        
     }
@@ -275,10 +276,14 @@ public class AtaquesBoss : MonoBehaviour
             }
             if (hit2.collider.tag == "Player" || hit.collider.tag == "Player")
             {
-                if(player != null && player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar - 0.1f < (player.GetComponent<ControllerPersonaje>().cooldownDashAtravesar - tiempoTrasDash))
+                if(player != null && player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
                 {
 
                     //player.gameObject.GetComponent<VidaPlayer>().RecibirDaño(player.gameObject.GetComponent<VidaPlayer>().dañoColliderMuerte, hit2.point, player.transform.position);
+                    
+                }
+                else
+                {
                     SceneManager.LoadScene("ND-FINAL");
                 }
             }

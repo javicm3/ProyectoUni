@@ -121,13 +121,13 @@ public class EstadosBoss2 : MonoBehaviour
                     {
                         ataqueTerminado = false;
                         StartCoroutine(ab.LaserDiagonal(ataqueTerminado));
-                        acumulacion++;
+                        //acumulacion++;
                     }
                     else if (ataque == 1 && acumulacion < ataquesFase3)
                     {
                         ataqueTerminado = false;
                         ab.SeleccionarLaserHorizontal();
-                        acumulacion++;
+                        //acumulacion++;
                     }
                     if (acumulacion >= ataquesFase3)
                     {

@@ -332,6 +332,14 @@ public class VidaPlayer : MonoBehaviour
             GetComponent<VidaPlayer>().RecibirDaño(GetComponent<VidaPlayer>().vidaActual, collision.gameObject.transform.position, this.transform.position);
             //this.transform.position = new Vector3(this.transform.position.x - 0.1f, this.transform.position.y + 0.2f, 0);
         }
+        if (collision.gameObject.tag == "BossFinal")
+        {
+            SceneManager.LoadScene("ND-FINAL");
+        }
+        if (collision.gameObject.tag == "LaseresBossFinal")
+        {
+            SceneManager.LoadScene("ND-FINAL");
+        }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {

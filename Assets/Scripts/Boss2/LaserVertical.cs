@@ -26,7 +26,7 @@ public class LaserVertical : MonoBehaviour
     {
         if(this.GetComponent<BoxCollider2D>() != null)
         {
-            if (player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar - 0.1f > (player.GetComponent<ControllerPersonaje>().cooldownDashAtravesar - tiempoTrasDash))
+            if (player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
             {
                 this.GetComponent<BoxCollider2D>().enabled = false;
             }
@@ -40,10 +40,9 @@ public class LaserVertical : MonoBehaviour
     {
         if (this.GetComponent<BoxCollider2D>() != null)
         {
-            if (collision.tag == "Boss")
+            if (collision.tag == "LaseresBossFinal")
             {
                 eb.ataqueTerminado = true;
-                eb.acumulacion++;
                 Destroy(this.gameObject);
             }
         }
