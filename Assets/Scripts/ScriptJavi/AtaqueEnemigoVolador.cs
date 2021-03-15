@@ -134,4 +134,10 @@ public class AtaqueEnemigoVolador : MonoBehaviour
     //        yield return new WaitForSeconds(TiempoEntreDisparos);
     //    }
     //}
+    void OnDrawGizmos()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, distanciaDisparo);
+    }
 }
