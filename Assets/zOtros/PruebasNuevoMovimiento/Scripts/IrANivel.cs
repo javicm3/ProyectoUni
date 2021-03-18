@@ -18,21 +18,36 @@ public class IrANivel : MonoBehaviour
         cartel.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    bool done = false;
     void Activar(string nivel)
     {
+        print("._.");
+        if (!done)
+        {
+            done = true;
+            FadeInOut fade = FindObjectOfType<FadeInOut>();
+            if (fade != null)
+            {
+                StartCoroutine(fade.FadeOut());
+                StartCoroutine(CargarNivel(nivel));
+            }
+            else { SceneManager.LoadScene(nivel, LoadSceneMode.Single); }
+        }
+    }
+   
+    
+    IEnumerator CargarNivel(string nivel)
+    {
+        yield return new WaitForSeconds(1.2f);
         SceneManager.LoadScene(nivel, LoadSceneMode.Single);
     }
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")//CAMBIAR SI DECIDO BUSCAR LOS COLECCIONABLES AL INICIO DEL NIVEL
         {
-            int estrellasCogidas=0, coleccionablesCogidos=0;
+            int coleccionablesCogidos=0;
             if (GameManager.Instance.ListaNiveles!=null)
             {
                 foreach (LevelInfo level in GameManager.Instance.ListaNiveles)

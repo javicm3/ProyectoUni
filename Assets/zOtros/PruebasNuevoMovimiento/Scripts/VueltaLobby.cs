@@ -35,23 +35,35 @@ public class VueltaLobby : MonoBehaviour
         GameManager.Instance.UltimoCheck = null;
     }
 
+    bool done = false;
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {                       
             cartel.enabled = true;
 
-            if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick!=null&& GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
+            if (!done && (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick!=null&& GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed))
             {
+                done = true;
                 GuardarDatos();
                 if (GetComponent<DesbloquearHabilidades>()!=null)
                 { GetComponent<DesbloquearHabilidades>().DesbloquearHabilidad(); }
 
                 SistemaGuardado.Guardar();
-                SceneManager.LoadScene("NL-0", LoadSceneMode.Single);
+                FadeInOut fade = FindObjectOfType<FadeInOut>();
+                if (fade != null)
+                {
+                    StartCoroutine(fade.FadeOut());
+                    Invoke("IrLobby", 1.2f);
+
+                }
+                else { IrLobby();  }
             }
         }
     }
+
+    void IrLobby()
+    { SceneManager.LoadScene("NL-0", LoadSceneMode.Single); }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
