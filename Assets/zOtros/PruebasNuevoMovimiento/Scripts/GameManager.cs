@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public ListaHabilidades Habilidades { get => habilidades; set => habilidades = value; }
 
     NewAudioManager NAM;
+    public bool animDesbloquear;
     
     //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -112,7 +113,6 @@ public class GameManager : MonoBehaviour
              //- - - - - - - - E S T O Y   T R A B A J A N D O   A Q U Í  - - - - - - - - 
         //////////////////////////////////////////////////////////////////////////////////////////
 
-        //Hay que comprobar si hay que hacer algo en el menú o el lobby para marcar que nivel es de aguna forma
 
         bool tieneColeccionables = true;
         foreach (string nombreEscena in escenasSinColeccionables)
@@ -156,15 +156,29 @@ public class GameManager : MonoBehaviour
             //actualLevel = -1;
             personajevivo = true;
 
-            GameObject.Find("Actual").GetComponent<Text>().text = totalColeccionables.Count.ToString(); 
+            GameObject.Find("Actual").GetComponent<Text>().text = totalColeccionables.Count.ToString();
             //textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
             //textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
+
+            if (animDesbloquear)
+            {
+                Invoke("HacerAnim", 1);
+                animDesbloquear = false;
+                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().enabled = false;
+            }
 
         }
     }
 
-
-
+    void HacerAnim()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Animator>().SetTrigger("Habilidad");
+        Invoke("DevolverInput", 7.45f);
+    }
+    void DevolverInput()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().enabled = true;
+    }
 
     void Awake()
     {
