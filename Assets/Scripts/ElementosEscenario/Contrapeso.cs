@@ -9,7 +9,8 @@ public class Contrapeso : MonoBehaviour
     float startx;
     public bool subiendo;
     public float velocidadSubida;
-
+    public GameObject particulasPolvo;
+    Vector3 posicionParticulas;
     private void Start()
     {
         Physics2D.IgnoreLayerCollision(8, 4);
@@ -33,6 +34,7 @@ public class Contrapeso : MonoBehaviour
             {
 
                 animacionRompiendo.Play("ContrapesoRompiendo");
+                posicionParticulas = collision.contacts[0].point;
 
             }
         }
@@ -51,6 +53,11 @@ public class Contrapeso : MonoBehaviour
           
         }
         
+    }
+    public void InstanciarParticulasEscombro()
+    {
+        //Instantiate(particulasPolvo, transform.position,  Quaternion.identity);
+        Instantiate(particulasPolvo, posicionParticulas, Quaternion.identity);
     }
     
 }
