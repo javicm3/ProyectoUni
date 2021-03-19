@@ -44,7 +44,7 @@ public class DesbloquearHabilidades : MonoBehaviour
                 GameManager.Instance.Habilidades.movCables = true;
                 break;
         }
-
+        GameManager.Instance.animDesbloquear = true;
         usado = true;
     }
 }
