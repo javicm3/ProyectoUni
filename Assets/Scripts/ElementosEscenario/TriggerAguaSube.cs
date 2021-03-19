@@ -144,7 +144,7 @@ public class TriggerAguaSube : MonoBehaviour
             if (enfocarObjetoSolo == false) if (unavez == false)
                 {
                     unavez = true;
-                    aguaSube.GetComponent<AguaSube>().posicionInicial.transform.position = new Vector2(aguaSube.GetComponent<AguaSube>().posicionInicial.transform.position.x, aguaSube.GetComponent<AguaSube>().posicionInicial.transform.position.y + 5.5f);
+                    aguaSube.GetComponent<AguaSube>().posicionInicial.transform.position = new Vector2(aguaSube.GetComponent<AguaSube>().posicionInicial.transform.position.x, aguaSube.GetComponent<AguaSube>().posicionInicial.transform.position.y + 3f);
                 }
             if (seDestruyeTrasTocarlo==false) this.GetComponent<Collider2D>().enabled = true;
         }
