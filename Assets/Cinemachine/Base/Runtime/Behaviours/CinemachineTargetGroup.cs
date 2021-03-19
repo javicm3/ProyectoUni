@@ -249,11 +249,11 @@ namespace Cinemachine
             switch (m_PositionMode)
             {
                 case PositionMode.GroupCenter:
-                    transform.position = BoundingBox.center;
+                    transform.position = Vector3.MoveTowards(transform.position,BoundingBox.center,100*Time.deltaTime);
                     break;
                 case PositionMode.GroupAverage:
                     float averageWeight;
-                    transform.position = CalculateAveragePosition(out averageWeight);
+                    transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 120 * Time.deltaTime); 
                     break;
             }
             switch (m_RotationMode)

@@ -61,7 +61,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
         if (FindObjectOfType<CameraZoom>() != null && limitaDistanciaMax)
         {
             FindObjectOfType<CameraZoom>().limitarDistancia = true;
-            FindObjectOfType<CameraZoom>().maxDistance = distanciaMaxLimite;
+            FindObjectOfType<CameraZoom>().tempMaxDistance = distanciaMaxLimite;
         }
         foreach (GameObject go in objAñadir)
         {
@@ -105,7 +105,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
         if (FindObjectOfType<CameraZoom>() != null && limitaDistanciaMax)
         {
             FindObjectOfType<CameraZoom>().limitarDistancia = true;
-            FindObjectOfType<CameraZoom>().maxDistance = distanciaMaxLimite;
+            FindObjectOfType<CameraZoom>().tempMaxDistance = distanciaMaxLimite;
         }
         foreach (GameObject go in objQuitar)
         {
@@ -214,7 +214,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
         if (FindObjectOfType<CameraZoom>() != null && limitaDistanciaMax)
         {
             FindObjectOfType<CameraZoom>().limitarDistancia = true;
-            FindObjectOfType<CameraZoom>().maxDistance = distanciaMaxLimite;
+            FindObjectOfType<CameraZoom>().tempMaxDistance = distanciaMaxLimite;
         }
         for (int i = 0; i < targetGroup.m_Targets.Length; i++)
         {
@@ -241,7 +241,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
         if (FindObjectOfType<CameraZoom>() != null && limitaDistanciaMax)
         {
             FindObjectOfType<CameraZoom>().limitarDistancia = true;
-            FindObjectOfType<CameraZoom>().maxDistance = distanciaMaxLimite;
+            FindObjectOfType<CameraZoom>().tempMaxDistance = distanciaMaxLimite;
         }
         targetGroup.m_Targets[0].target = null;
         foreach (GameObject go in objetosEnfocados)
@@ -274,7 +274,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
         if (FindObjectOfType<CameraZoom>() != null && limitaDistanciaMax)
         {
             FindObjectOfType<CameraZoom>().limitarDistancia = true;
-            FindObjectOfType<CameraZoom>().maxDistance = distanciaMaxLimite;
+            FindObjectOfType<CameraZoom>().tempMaxDistance = distanciaMaxLimite;
         }
         targetGroup.m_Targets[0].target = objetosEnfocadosSecuencia[(int)coeficienteInicialSecuencia].transform;
         auxTiempoSecuenciaEnfoques = tiempoEntreEnfoquesSecuencia;
@@ -285,6 +285,7 @@ public class AñadirQuitarObjetos : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+          
             Vector3 offset = this.GetComponent<Collider2D>().offset;
             if (collision.gameObject.transform.position.x > (this.transform.position + offset).x)
             {
@@ -292,29 +293,35 @@ public class AñadirQuitarObjetos : MonoBehaviour
                 {
                     if (dejarSoloPlayer)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         DejarSoloPlayer();
                     }
                     if (quitarObjetos)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         QuitarObj();
 
                     }
                     if (añadirObjetos)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         AñadirObj();
                     }
 
 
                     if (enfocarObjetoSolo && timerSoloInicio == false)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         EnfocarObjSolo(); ;
                     }
                     if (enfocarVariosObjetos && timerVariosInicio == false)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         EnfocarVariosObj();
                     }
                     if (enfocarSecuenciaObjetos && timerSecuencialInicio == false)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         EnfocarSecuenciaObj();
                     }
                     if (bloqueaMovimiento)
@@ -332,29 +339,35 @@ public class AñadirQuitarObjetos : MonoBehaviour
                 {
                     if (dejarSoloPlayer)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         DejarSoloPlayer();
                     }
                     if (quitarObjetos)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         QuitarObj();
 
                     }
                     if (añadirObjetos)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         AñadirObj();
                     }
 
 
                     if (enfocarObjetoSolo && timerSoloInicio == false)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         EnfocarObjSolo(); ;
                     }
                     if (enfocarVariosObjetos && timerVariosInicio == false)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         EnfocarVariosObj();
                     }
                     if (enfocarSecuenciaObjetos && timerSecuencialInicio == false)
                     {
+                        FindObjectOfType<CameraZoom>().InicioTimerTrans();
                         EnfocarSecuenciaObj();
                     }
                     if (bloqueaMovimiento)
