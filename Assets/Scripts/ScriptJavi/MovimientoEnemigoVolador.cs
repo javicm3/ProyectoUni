@@ -102,6 +102,11 @@ public class MovimientoEnemigoVolador : EnemigoPadre
                 }
             }
         }
+
+        else
+        {
+            animCC.SetBool("Moviendose", false);
+        }
     }
 
     IEnumerator Wait()
