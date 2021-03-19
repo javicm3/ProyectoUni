@@ -249,12 +249,27 @@ namespace Cinemachine
             switch (m_PositionMode)
             {
                 case PositionMode.GroupCenter:
-                    transform.position = Vector3.MoveTowards(transform.position,BoundingBox.center,100*Time.deltaTime);
+                    if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == false)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 120 * Time.deltaTime);
+                    }
+                    else if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == true)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 3000 * Time.deltaTime);
+                    }
+                 
                     break;
                 case PositionMode.GroupAverage:
                     float averageWeight;
-                    transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 120 * Time.deltaTime); 
-                    break;
+                    if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == false)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 120 * Time.deltaTime);
+                    }else if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == true)
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 3000 * Time.deltaTime);
+                    }
+
+                        break;
             }
             switch (m_RotationMode)
             {
