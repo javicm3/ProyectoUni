@@ -32,7 +32,7 @@ public class DesaparecerPersonaje : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, punt, 2f * Time.deltaTime);
 
-¡            //if (Vector2.Distance(transform.position, puntoOrdenador.position) > .5f)
+            //if (Vector2.Distance(transform.position, puntoOrdenador.position) > .5f)
             //{
             //    this.transform.position = Vector3.MoveTowards(transform.position, new Vector3(puntoOrdenador.position.x, transform.position.y, 0), 2.5f * Time.deltaTime);
             //    //this.gameObject.transform.Translate(new Vector3(puntoOrdenador.position.x, 0, 0) * 0.3f * Time.deltaTime);
