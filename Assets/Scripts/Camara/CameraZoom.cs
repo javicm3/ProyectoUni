@@ -151,7 +151,11 @@ public class CameraZoom : MonoBehaviour
             cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 0.3f;
         }
         else
-        { if (!cc.GetComponent<VidaPlayer>().reiniciando) { 
+        { if (!cc.GetComponent<VidaPlayer>().reiniciando) {
+                if (Vector2.Distance(ceboCamara.transform.position, this.transform.position) > 20)
+                {
+                    ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10), 3000);
+                }
             //print(cc.rb.velocity.y + "speedY" + cc.rb.velocity.x + "speedx");
             if (cc.auxCdDashAtravesar > 0.5f)
             {
@@ -355,7 +359,7 @@ public class CameraZoom : MonoBehaviour
             }
             else
             {
-                ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10), 300);
+                ceboCamara.transform.position = Vector2.MoveTowards(ceboCamara.transform.position, new Vector3(player.transform.position.x, player.transform.position.y, -10), 3000);
             }
         }
 
@@ -587,7 +591,7 @@ public class CameraZoom : MonoBehaviour
                     }
                     else
                     {
-                        print("EEEEEEEEEEELSE"+cc.rb.velocity+"speed"+ cinemakina.m_Lens.OrthographicSize);
+
                         if ((cinemakina.m_Lens.OrthographicSize > startsize) && (Mathf.Abs(cc.rb.velocity.y) < 8f) && (Mathf.Abs(cc.rb.velocity.y) >= 0.0f))
                         {
 
