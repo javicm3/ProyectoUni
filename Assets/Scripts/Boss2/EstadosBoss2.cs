@@ -25,6 +25,7 @@ public class EstadosBoss2 : MonoBehaviour
     public float tiempoParadaActual;
     public GameObject laseresLimite;
     public GameObject[] chapasFinales;
+    public GameObject cabeza;
     
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,8 @@ public class EstadosBoss2 : MonoBehaviour
         {
             chapasFinales[i].GetComponent<BoxCollider2D>().enabled = false;
         }
+        cabeza.GetComponent<Collider2D>().enabled = false;
+        cabeza.GetComponent<Rigidbody2D>().isKinematic = true;
     }
 
     // Update is called once per frame
@@ -138,17 +141,25 @@ public class EstadosBoss2 : MonoBehaviour
 
                 }
             }
-            else if(brazosCortados == 6 || brazosCortados >= 6)
+            else if((brazosCortados == 6 || brazosCortados >= 6) && brazosCortados < 10)
             {
                 ab.drones.SetActive(false);
                 ab.dronesFinal.SetActive(true);
-
+                bossStuneado = true;
                 for (int i = 0; i < chapasFinales.Length; i++)
                 {
                     chapasFinales[i].GetComponent<BoxCollider2D>().enabled = true;
                 }
 
                 print("faseFinal");
+            }
+            else if(brazosCortados >= 10)
+            {
+                ab.drones.SetActive(false);
+                ab.dronesFinal.SetActive(false);
+                GetComponent<Animator>().enabled = false;
+                cabeza.GetComponent<Collider2D>().enabled = true;
+                cabeza.GetComponent<Rigidbody2D>().isKinematic = false;
             }
 
         }
