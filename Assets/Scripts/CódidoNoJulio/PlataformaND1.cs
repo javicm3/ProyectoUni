@@ -13,17 +13,28 @@ public class PlataformaND1 : MonoBehaviour
     public bool vuelta = false;
     public bool verticales = false;
     public Vector3 nextPos;
-
+    GameObject player;
+    public bool tocando;
     // Start is called before the first frame update
     void Start()
     {
         nextPos = startPos.position;
         auxtiempoParada = tiempoParada;
+        player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (tocando)
+        {
+         
+         
+            //player.GetComponent<Rigidbody2D>().velocity = new Vector3(player.GetComponent<Rigidbody2D>().velocity.x + speed*x*Time.fixedDeltaTime, player.GetComponent<Rigidbody2D>().velocity.y + speed*y* Time.fixedDeltaTime, 0);
+            player.transform.position = Vector2.MoveTowards(player.transform.position, nextPos, speed * Time.deltaTime);
+     
+
+        }
         if (verticales)
         {
             auxtiempoParada -= Time.deltaTime;
@@ -38,13 +49,13 @@ public class PlataformaND1 : MonoBehaviour
 
 
 
-
+            tocando = false;
             vuelta = false;
             this.transform.position = startPos.position;
-            if (gameObject.GetComponentInChildren<ControllerPersonaje>()!=null)
-            {
-                gameObject.GetComponentInChildren<ControllerPersonaje>().gameObject.transform.parent = null;
-            }
+            //if (gameObject.GetComponentInChildren<ControllerPersonaje>()!=null)
+            //{
+            //    gameObject.GetComponentInChildren<ControllerPersonaje>().gameObject.transform.parent = null;
+            //}
             this.transform.gameObject.SetActive(false);
         }
         if (Vector2.Distance(this.transform.position,startPos.position)<=0.05)
@@ -95,8 +106,8 @@ public class PlataformaND1 : MonoBehaviour
                 if (vuelta == true)
                 {
                     nextPos = pos2.position;
-                    if (FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent != null) FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent = null;
-                   
+                    //if (FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent != null) FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent = null;
+
                     vuelta = false;
                     this.transform.position = startPos.position;
                     transform.gameObject.SetActive(false);
@@ -132,13 +143,26 @@ public class PlataformaND1 : MonoBehaviour
         yield return new WaitForSeconds(tiempoParada);
 
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (collision.gameObject.transform.parent = FindObjectOfType<ControllerPersonaje>().gameObject.transform)
+            {
+                //collision.gameObject.transform.parent = this.transform;
+                tocando = true;
+            }
+        }
+
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             if (collision.gameObject.transform.parent = FindObjectOfType<ControllerPersonaje>().gameObject.transform)
             {
-                collision.gameObject.transform.parent = this.transform;
+                //collision.gameObject.transform.parent = this.transform;
+                tocando = true;
             }
         }
 
@@ -146,11 +170,12 @@ public class PlataformaND1 : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
-        {
-            if (collision.gameObject.transform.parent == this.transform)
-            {
-                collision.gameObject.transform.parent=null;
-            }
+        {  tocando = false;
+            //if (collision.gameObject.transform.parent == this.transform)
+            //{
+            //    collision.gameObject.transform.parent = null;
+              
+            //}
         }
     }
 }

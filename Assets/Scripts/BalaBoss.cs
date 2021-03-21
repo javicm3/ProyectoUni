@@ -16,9 +16,9 @@ public class BalaBoss : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = Vector2.MoveTowards(this.transform.position, this.transform.position + direccion, velocidadBala * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(this.transform.position, this.transform.position + direccion, velocidadBala * Time.fixedDeltaTime);
     }
 
     void OnTriggerEnter2D(Collider2D coll)

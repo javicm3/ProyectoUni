@@ -37,7 +37,11 @@ public class VidaPlayer : MonoBehaviour
     //public AudioClip muertePlayer;
     //public AudioSource source;
 
-
+        public void tpCamera()
+    { GameObject cam = GameObject.FindObjectOfType<Camera>().gameObject;
+      cam.SetActive(false);
+        cam.SetActive(true);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -101,6 +105,7 @@ public class VidaPlayer : MonoBehaviour
                     cc.dashBloqueado = true;
 
                     reiniciando = true;
+              
                     if (FindObjectOfType<CinemachineTargetGroup>() != null)
                     {
                         for (int i = 0; i < targetGroup.m_Targets.Length; i++)
@@ -175,7 +180,7 @@ public class VidaPlayer : MonoBehaviour
 
 
         }
-
+        tpCamera();
         /*Checkpoint[] checkpoints = FindObjectsOfType<Checkpoint>();
         foreach (Checkpoint check in checkpoints)
         {

@@ -496,11 +496,20 @@ public class ControllerPersonaje : MonoBehaviour
                             if (!col.GetComponent<EnemigoPadre>().stun)
                             {
                                 if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
-                                {
-                                    enemigoSeleccionado = col.gameObject;
-                                    ultimoEnemigoDetectado = enemigoSeleccionado;
-                                    //print("LOG3enemigoselec" + enemigoSeleccionado);
-                                    mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
+                                { RaycastHit2D hit = Physics2D.Raycast(this.transform.position, col.gameObject.transform.position - this.transform.position, Vector2.Distance(this.transform.position, col.gameObject.transform.position) * 1.3f, capasEnemigos);
+
+                                    Debug.DrawRay(this.transform.position, col.gameObject.transform.position - this.transform.position, Color.magenta);
+                                    if (hit.collider != null)
+                                    {
+                                        print(hit.collider.name+"ptrimerray");
+                                        if (hit.collider.tag == "EnemigoDetectar" && Vector2.Distance(this.transform.position, col.gameObject.transform.position) < distanciaCombate)
+                                        {
+                                            enemigoSeleccionado = col.gameObject;
+                                            ultimoEnemigoDetectado = enemigoSeleccionado;
+                                            print("LOG3enemigoselec" + enemigoSeleccionado);
+                                            mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -512,15 +521,19 @@ public class ControllerPersonaje : MonoBehaviour
                 {
                     RaycastHit2D hit = Physics2D.Raycast(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position, Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) * 1.3f, capasEnemigos);
 
-                    Debug.DrawRay(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position);
+                    Debug.DrawRay(this.transform.position, ultimoEnemigoDetectado.transform.position - this.transform.position,Color.magenta);
                     if (hit.collider != null)
                     {
-                        //print(hit.collider.name);
-                        if (hit.collider.tag == "EnemigoDetectar" || Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) < distanciaCombate)
+                        print(hit.collider.name);
+                        if (hit.collider.tag == "EnemigoDetectar" && Vector2.Distance(this.transform.position, ultimoEnemigoDetectado.transform.position) < distanciaCombate)
                         {
                             destinoCombate = ultimoEnemigoDetectado.transform./*.parent.GetChild(0).transform.*/position;
                             //print("LOG5" + destinoCombate);
                             haciendoCombate = true;
+                        }
+                        else
+                        {
+                            //haciendoCombate = false;
                         }
                     }
                 }

@@ -26,7 +26,61 @@ public class GameManager : MonoBehaviour
 
     NewAudioManager NAM;
     public bool animDesbloquear;
-    
+
+    //  V O L U M E N   S O N I D O 
+
+    [Range(0, 1)]
+    float musicVolume = 0.5f;
+
+    [Range(0, 1)]
+    float sfxVolume = 0.5f;
+
+    public float MusicVolume
+    {
+        get
+        {
+            return musicVolume;
+        }
+        set
+        {
+            value = Mathf.Clamp(value, 0, 1);
+            musicVolume = value;
+        }
+    } //Hacer que la musica se cambie a tiempo real
+
+    public float SfxVolume
+    {
+        get
+        {
+            return sfxVolume;
+        }
+        set
+        {
+            value = Mathf.Clamp(value, 0, 1);
+            sfxVolume = value;
+        }
+    }
+
+    public float MusicVolumeSave
+    {
+        set
+        {
+            value = Mathf.Clamp(value, 0, 1);
+            PlayerPrefs.SetFloat("music", value);
+        } 
+    }
+
+    public float SfxVolumeSave
+    {
+        set
+        {
+            value = Mathf.Clamp(value, 0, 1);
+            PlayerPrefs.SetFloat("effects", value);
+        }
+    }
+
+
+
     //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
     [Header("FINGuardadasNivelPrueba")]

@@ -67,37 +67,41 @@ public class MovimientoEnemigoVolador : EnemigoPadre
             }
             else
             {
-
-                if (Vector3.Distance(this.transform.position, puntosPersonaje[indexArray].position) > 1 && !arrived)
+                if (puntosPersonaje[indexArray] != null)
                 {
-                    if (puntosPersonaje[indexArray].position.x < this.transform.position.x)
-                    {
-                        this.transform.localScale = new Vector3(-1, 1, 1);
-                    }
-                    else
-                    {
-                        this.transform.localScale = new Vector3(1, 1, 1);
-                    }
-                    this.transform.Translate((puntosPersonaje[indexArray].position - this.transform.position).normalized * Time.deltaTime * speed);
-                    animCC.SetBool("Moviendose", true);
 
-                }
-                else
-                {
-                    if (indexArray < puntosPersonaje.Length - 1)
+
+                    if (Vector3.Distance(this.transform.position, puntosPersonaje[indexArray].position) > 1 && !arrived)
                     {
-                        arrived = true;
-                        indexArray++;
-                        StartCoroutine("Wait");
+                        if (puntosPersonaje[indexArray].position.x < this.transform.position.x)
+                        {
+                            this.transform.localScale = new Vector3(-1, 1, 1);
+                        }
+                        else
+                        {
+                            this.transform.localScale = new Vector3(1, 1, 1);
+                        }
+                        this.transform.Translate((puntosPersonaje[indexArray].position - this.transform.position).normalized * Time.deltaTime * speed);
+                        animCC.SetBool("Moviendose", true);
 
                     }
                     else
                     {
-                        arrived = true;
-                        indexArray = 0;
-                        StartCoroutine("Wait");
+                        if (indexArray < puntosPersonaje.Length - 1)
+                        {
+                            arrived = true;
+                            indexArray++;
+                            StartCoroutine("Wait");
+
+                        }
+                        else
+                        {
+                            arrived = true;
+                            indexArray = 0;
+                            StartCoroutine("Wait");
 
 
+                        }
                     }
                 }
             }

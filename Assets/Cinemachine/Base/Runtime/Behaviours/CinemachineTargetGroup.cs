@@ -18,7 +18,8 @@ namespace Cinemachine
     {
         /// <summary>Holds the information that represents a member of the group</summary>
         [DocumentationSorting(19.1f, DocumentationSortingAttribute.Level.UserRef)]
-        [Serializable] public struct Target
+        [Serializable]
+        public struct Target
         {
             /// <summary>The target objects.  This object's position and orientation will contribute to the 
             /// group's average position and orientation, in accordance with its weight</summary>
@@ -93,7 +94,7 @@ namespace Cinemachine
                 float averageWeight;
                 Vector3 center = CalculateAveragePosition(out averageWeight);
                 bool gotOne = false;
-                Bounds b = new Bounds(center, new Vector3(m_lastRadius*2, m_lastRadius*2, m_lastRadius*2));
+                Bounds b = new Bounds(center, new Vector3(m_lastRadius * 2, m_lastRadius * 2, m_lastRadius * 2));
                 if (averageWeight > UnityVectorExtensions.Epsilon)
                 {
                     for (int i = 0; i < m_Targets.Length; ++i)
@@ -123,9 +124,9 @@ namespace Cinemachine
         }
 
         /// <summary>Return true if there are no members with weight > 0</summary>
-        public bool IsEmpty 
+        public bool IsEmpty
         {
-            get 
+            get
             {
                 for (int i = 0; i < m_Targets.Length; ++i)
                     if (m_Targets[i].target != null && m_Targets[i].weight > UnityVectorExtensions.Epsilon)
@@ -143,7 +144,7 @@ namespace Cinemachine
             float averageWeight;
             Vector3 center = inverseView.MultiplyPoint3x4(CalculateAveragePosition(out averageWeight));
             bool gotOne = false;
-            Bounds b = new Bounds(center, new Vector3(m_lastRadius*2, m_lastRadius*2, m_lastRadius*2));
+            Bounds b = new Bounds(center, new Vector3(m_lastRadius * 2, m_lastRadius * 2, m_lastRadius * 2));
             if (averageWeight > UnityVectorExtensions.Epsilon)
             {
                 for (int i = 0; i < m_Targets.Length; ++i)
@@ -251,25 +252,42 @@ namespace Cinemachine
                 case PositionMode.GroupCenter:
                     if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == false)
                     {
-                        transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 120 * Time.deltaTime);
+
+                        if (Vector2.Distance(FindObjectOfType<ControllerPersonaje>().gameObject.transform.position, this.gameObject.transform.position) > 30)
+                        {
+                            transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 3000);
+                        }
+                        else
+                        {
+                            transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 120 * Time.deltaTime);
+                        }
                     }
                     else if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == true)
                     {
-                        transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 3000 * Time.deltaTime);
+                        transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 3000);
                     }
-                 
+
                     break;
                 case PositionMode.GroupAverage:
                     float averageWeight;
                     if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == false)
                     {
-                        transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 120 * Time.deltaTime);
-                    }else if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == true)
+
+                        if (Vector2.Distance(FindObjectOfType<ControllerPersonaje>().gameObject.transform.position, this.gameObject.transform.position) > 30)
+                        {
+                            transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 3000);
+                        }
+                        else
+                        {
+                            transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 120 * Time.deltaTime);
+                        }
+                    }
+                    else if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == true)
                     {
-                        transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 3000 * Time.deltaTime);
+                        transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 3000);
                     }
 
-                        break;
+                    break;
             }
             switch (m_RotationMode)
             {
