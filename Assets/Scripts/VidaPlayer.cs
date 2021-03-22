@@ -70,8 +70,10 @@ public class VidaPlayer : MonoBehaviour
     public void RecibirDaño(float daño, Vector3 puntoimpacto, Vector3 puntocontacto)
     {//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de abajo
         if (daño != 0) daño = 55;
-        //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de arriba
-        if ((auxcdTrasdaño <= 0))
+        if (SceneManager.GetActiveScene().name != "NL-0")
+        { daño = 0; }
+            //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de arriba
+            if ((auxcdTrasdaño <= 0))
         {
             //if ((this.GetComponent<Movimiento>().cayendoS == false) && (this.GetComponent<CharacterController2D>().dashing == false) && (this.GetComponent<CharacterController2D>().justdashed == false) && (recienAtacado == false))
 
