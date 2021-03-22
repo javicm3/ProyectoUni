@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     public bool animDesbloquear;
 
     //  V O L U M E N   S O N I D O 
+    public AudioMixer audioMixer;
 
     [Range(0, 1)]
     float musicVolume = 0.5f;
@@ -37,27 +39,21 @@ public class GameManager : MonoBehaviour
 
     public float MusicVolume
     {
-        get
-        {
-            return musicVolume;
-        }
         set
         {
-            value = Mathf.Clamp(value, 0, 1);
+            value = Mathf.Clamp(value, 0.0001f, 1);
             musicVolume = value;
+            audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume)*20);
         }
-    } //Hacer que la musica se cambie a tiempo real
+    } 
 
     public float SfxVolume
     {
-        get
-        {
-            return sfxVolume;
-        }
         set
         {
-            value = Mathf.Clamp(value, 0, 1);
+            value = Mathf.Clamp(value, 0.0001f, 1);
             sfxVolume = value;
+            audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
         }
     }
 
@@ -65,8 +61,10 @@ public class GameManager : MonoBehaviour
     {
         set
         {
-            value = Mathf.Clamp(value, 0, 1);
+            value = Mathf.Clamp(value, 0.0001f, 1);
             PlayerPrefs.SetFloat("music", value);
+            if (PlayerPrefs.HasKey("music"))
+            { print(PlayerPrefs.GetFloat("music")); }
         } 
     }
 
@@ -74,12 +72,16 @@ public class GameManager : MonoBehaviour
     {
         set
         {
-            value = Mathf.Clamp(value, 0, 1);
+            value = Mathf.Clamp(value, 0.0001f, 1);
             PlayerPrefs.SetFloat("effects", value);
         }
     }
 
-
+    public void CargarVolumenGuardado()
+    {
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 20); 
+    }
 
     //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
@@ -247,7 +249,11 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         SistemaGuardado.Incializar();
+        SfxVolume = PlayerPrefs.GetFloat("effects");
+        MusicVolume = PlayerPrefs.GetFloat("music");
+        CargarVolumenGuardado();
     }
+
 
     public void ReiniciarEscena()
     {
