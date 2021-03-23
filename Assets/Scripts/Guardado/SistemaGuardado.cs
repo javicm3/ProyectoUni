@@ -6,6 +6,18 @@ using UnityEngine;
 public class SistemaGuardado : MonoBehaviour
 {
     public static readonly string Carpeta_Guardado = Application.dataPath + "/Guardado/";
+    public static int indiceIdioma = 0;
+
+    public static void CargarPlayerPrefs()
+    {
+        indiceIdioma = PlayerPrefs.GetInt("idioma");
+    }
+
+    public static void CambiarIndiceIdioma(int index)
+    {
+        indiceIdioma = index;
+        PlayerPrefs.SetInt("idioma",index);
+    }
 
     public static void Incializar()
     {
@@ -13,6 +25,8 @@ public class SistemaGuardado : MonoBehaviour
         {
             Directory.CreateDirectory(Carpeta_Guardado);
         }
+
+        CargarPlayerPrefs();
     }
 
     public static void Cargar()
