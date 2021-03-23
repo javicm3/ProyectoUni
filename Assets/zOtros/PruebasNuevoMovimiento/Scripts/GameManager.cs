@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         {
             value = Mathf.Clamp(value, 0.0001f, 1);
             musicVolume = value;
-            audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume)*20);
+          if(audioMixer!=null)  audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume)*20);
         }
     } 
 
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         {
             value = Mathf.Clamp(value, 0.0001f, 1);
             sfxVolume = value;
-            audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
+           if(audioMixer!=null) audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
         }
     }
 
@@ -79,8 +79,8 @@ public class GameManager : MonoBehaviour
 
     public void CargarVolumenGuardado()
     {
-        audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
-        audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 20); 
+        if (audioMixer != null) audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
+        if (audioMixer != null) audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 20); 
     }
 
     //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
