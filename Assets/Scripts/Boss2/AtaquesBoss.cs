@@ -13,6 +13,8 @@ public class AtaquesBoss : MonoBehaviour
     public GameObject rayoDiagonal2;
     public GameObject drones;
     public GameObject dronesFinal;
+    public GameObject chispasLaseres1;
+    public GameObject chispasLaseres2;
 
     //public GameObject[] chapasDestruibles;
 
@@ -126,17 +128,17 @@ public class AtaquesBoss : MonoBehaviour
         {
             vert1.transform.position = Vector3.MoveTowards(vert1.transform.position, posRayoVert2.position, speedRayosVert);
             vert2.transform.position = Vector3.MoveTowards(vert2.transform.position, posRayoVert1.position, speedRayosVert);
-            if (vert1.transform.position == posRayoVert2.position)
-            {               
-                eb.ataqueTerminado = true;
-                Destroy(vert1);
-            }
-            if (vert2.transform.position == posRayoVert1.position)
-            {                
-                eb.ataqueTerminado = true;
-                eb.acumulacion++;
-                Destroy(vert2);
-            }
+            //if (vert1.transform.position == posRayoVert2.position)
+            //{               
+            //    eb.ataqueTerminado = true;
+            //    Destroy(vert1);
+                
+            //}
+            //if (vert2.transform.position == posRayoVert1.position)
+            //{                
+            //    eb.ataqueTerminado = true;
+            //    Destroy(vert2);
+            //}
         }
 
         UpdateDiagonalLaser();
@@ -261,11 +263,15 @@ public class AtaquesBoss : MonoBehaviour
     {
         if (rayoDiagonal1.gameObject.activeSelf)
         {
+            chispasLaseres1.SetActive(true);
+            chispasLaseres2.SetActive(true);
             RaycastHit2D hit = Physics2D.Raycast(puntoDisparo.position, rayoDiagonal1.transform.right, Mathf.Infinity, layerM);
             rayoDiagonal1.GetComponent<LineRenderer>().SetPosition(0, puntoDisparo.position);
             if (hit)
             {
                 rayoDiagonal1.GetComponent<LineRenderer>().SetPosition(1, hit.point);
+                chispasLaseres1.transform.position = hit.point;
+                chispasLaseres1.transform.rotation = Quaternion.LookRotation(hit.normal, chispasLaseres1.transform.up);
             }
 
             RaycastHit2D hit2 = Physics2D.Raycast(puntoDisparo2.position, rayoDiagonal2.transform.right, Mathf.Infinity, layerM);
@@ -273,6 +279,8 @@ public class AtaquesBoss : MonoBehaviour
             if (hit2)
             {
                 rayoDiagonal2.GetComponent<LineRenderer>().SetPosition(1, hit2.point);
+                chispasLaseres2.transform.position = hit2.point;
+                chispasLaseres2.transform.rotation = Quaternion.LookRotation(hit2.normal, chispasLaseres2.transform.up);
             }
             if (hit2.collider.tag == "Player" || hit.collider.tag == "Player")
             {
@@ -296,6 +304,11 @@ public class AtaquesBoss : MonoBehaviour
                 MoverDiagonales();
             }
             
+        }
+        else
+        {
+            chispasLaseres1.SetActive(false);
+            chispasLaseres2.SetActive(false);
         }
     }
     void MoverDiagonales()

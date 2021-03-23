@@ -42,6 +42,7 @@ public class LaserVertical : MonoBehaviour
         {
             if (collision.tag == "LaseresBossFinal")
             {
+                eb.acumulacion++;
                 eb.ataqueTerminado = true;
                 Destroy(this.gameObject);
             }
