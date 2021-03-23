@@ -74,7 +74,6 @@ public class EstadosBoss2 : MonoBehaviour
                     {
                         ataqueTerminado = false;
                         ab.SeleccionarLaserHorizontal();
-                        
                     }
                     if(acumulacion >= ataquesFase1)
                     {
