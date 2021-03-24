@@ -22,6 +22,11 @@ public class MenuPrincipal : MonoBehaviour
     [SerializeField] Text españolT;
     [SerializeField] Text inglesT;
 
+    [Header("Controles")]
+    [SerializeField] Image imagenControles;
+    [SerializeField] Sprite controlesEsp;
+    [SerializeField] Sprite controlesIng;
+
 
     // Start is called before the first frame update
     void Start()
@@ -72,5 +77,19 @@ public class MenuPrincipal : MonoBehaviour
         controlesT.text = Idiomas.controles[i];
         españolT.text = Idiomas.español[i];
         inglesT.text = Idiomas.ingles[i];
+
+        switch (i) //Lo pongo con un switch por si queremos poner más idiomas
+        {
+            case 0:
+                imagenControles.sprite = controlesEsp;
+                break;
+
+            case 1:
+                imagenControles.sprite = controlesIng;
+                break;
+
+            default:
+                break;
+        }
     }
 }
