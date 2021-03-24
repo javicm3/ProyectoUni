@@ -12,6 +12,7 @@ public class PlataformaDash : MonoBehaviour
     public Transform puntoArriba;
     public Transform puntoArribaTodo;
     public Transform puntoAbajo;
+    public Transform alturaParaBajar;
     public bool subiendo1;
     public bool subiendo2;
     public bool bajando;
@@ -83,7 +84,7 @@ public class PlataformaDash : MonoBehaviour
                 {
                     if (playerporencimaunavez == true)
                     {
-                        if (player.transform.position.y < this.transform.position.y-3 && player.GetComponent<ControllerPersonaje>().grounded == true) {
+                        if (player.transform.position.y < alturaParaBajar.transform.position.y && player.GetComponent<ControllerPersonaje>().grounded == true) {
                             Bajar();
                         }
 

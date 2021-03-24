@@ -14,6 +14,8 @@ public class Escombro : MonoBehaviour
     public float velocidadVibracion = 1f;
     public float tiempoVibracion = 0.25f;
     Animator anim;
+    public float tiempoDestruir = 3f;
+   public  float auxTiempoDestruir = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +28,9 @@ public class Escombro : MonoBehaviour
         if (col.gameObject.tag == tagCollider)
         {
             rb.isKinematic = false;
-            CinemachineShake.Instance.ShakeCamera(intensidadVibracionBoss, velocidadVibracion, tiempoVibracion);
+           //CinemachineShake.Instance.ShakeCamera(intensidadVibracionBoss, velocidadVibracion, tiempoVibracion);
             particulas.SetActive(false);
+            auxTiempoDestruir = tiempoDestruir;
             anim.SetTrigger("Off");
         }
     }
@@ -39,6 +42,13 @@ public class Escombro : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (auxTiempoDestruir > 0)
+        {
+            auxTiempoDestruir -= Time.deltaTime;
+            if (auxTiempoDestruir <= 0)
+            {
+                Destroy(this.transform.parent.gameObject);
+            }
+        }
     }
 }
