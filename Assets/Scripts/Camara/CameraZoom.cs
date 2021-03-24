@@ -65,12 +65,14 @@ public class CameraZoom : MonoBehaviour
         escenaActual = SceneManager.GetActiveScene().name;
 
         cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z = -20;
+        targetGroup.GetComponent<CinemachineTargetGroup>().m_PositionMode = CinemachineTargetGroup.PositionMode.GroupCenter;
         if (GameObject.Find("ceboCamara") != null)
         {
             ceboCamara = GameObject.Find("ceboCamara");
             ceboCamara.transform.position = new Vector3(ceboCamara.transform.position.x, ceboCamara.transform.position.y, -10);
             targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[0].target = player.transform;
             targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets[1].target = ceboCamara.transform;
+         
             ceboCamara.transform.parent = null;
         }
 

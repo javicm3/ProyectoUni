@@ -7,33 +7,41 @@ using UnityEngine.SceneManagement;
 public class MenuPrincipal : MonoBehaviour
 {
     public GameObject controles;
-    bool controlesOn = false;
     public GameObject botonesPrincipales;
+    public GameObject opciones;
+
+    [Header("Textos")]
+    [SerializeField] Text jugarT;
+    [SerializeField] Text cargarT;
+    [SerializeField] Text opcionesT1;
+    [SerializeField] Text opcionesT2;
+    [SerializeField] Text salirT;
+    [SerializeField] Text volverT1;
+    [SerializeField] Text volverT2;
+    [SerializeField] Text controlesT;
+    [SerializeField] Text españolT;
+    [SerializeField] Text inglesT;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        ActualizarIdiomas();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void Opciones(bool op)
     {
-        
+        opciones.SetActive(op);
+        botonesPrincipales.SetActive(!op);
     }
-    public void Controles()
+
+    //Cambiar que cosas abre o cierra
+    public void Controles(bool cont)
     {
-        if(controlesOn == false)
-        {
-            controles.SetActive(true);
-            controlesOn = true;
-            botonesPrincipales.SetActive(false);
-        }
-        else
-        {
-            controles.SetActive(false);
-            controlesOn = false;
-            botonesPrincipales.SetActive(true);
-        }
+        controles.SetActive(cont);
+        opciones.SetActive(!cont);
+
     }
     public void Play()
     {
@@ -42,5 +50,27 @@ public class MenuPrincipal : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void CambiarIdioma(int index)
+    {
+        SistemaGuardado.CambiarIndiceIdioma(index);
+        ActualizarIdiomas();
+    }
+
+    void ActualizarIdiomas()
+    {
+        int i = SistemaGuardado.indiceIdioma;
+
+        jugarT.text = Idiomas.jugar[i];
+        cargarT.text = Idiomas.cargar[i];
+        opcionesT1.text = Idiomas.opciones[i];
+        opcionesT2.text = Idiomas.opciones[i];
+        salirT.text = Idiomas.salir[i];
+        volverT1.text = Idiomas.volver[i];
+        volverT2.text = Idiomas.volver[i];
+        controlesT.text = Idiomas.controles[i];
+        españolT.text = Idiomas.español[i];
+        inglesT.text = Idiomas.ingles[i];
     }
 }
