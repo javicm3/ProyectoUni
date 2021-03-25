@@ -8,20 +8,28 @@ public class IrANivel : MonoBehaviour
 {
     public string nivelDestino;
     public Canvas cartel;
-    public float requisitoEstrellas;
-    public Text textoEstrellas;
-    public Text textoEstrellasCogidas;
-    public Text textoColeccionablesCogidos;
+    public float requisitos;
+    public Text textoColeccionables;
+
+    Text textoColeccionablesCogidos;
+
+    [SerializeField] Material matRojo;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        textoColeccionables.text = "" + requisitos;
+        if (requisitos > GameManager.Instance.totalColeccionables.Count)
+        {print(GameManager.Instance.totalColeccionables.Count);
+            textoColeccionables.material = matRojo;
+        }
         cartel.enabled = false;
     }
 
     bool done = false;
     void Activar(string nivel)
     {
-        print("._.");
         if (!done)
         {
             done = true;
@@ -47,7 +55,7 @@ public class IrANivel : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")//CAMBIAR SI DECIDO BUSCAR LOS COLECCIONABLES AL INICIO DEL NIVEL
         {
-            int coleccionablesCogidos=0;
+            /*int coleccionablesCogidos=0;
             if (GameManager.Instance.ListaNiveles!=null)
             {
                 foreach (LevelInfo level in GameManager.Instance.ListaNiveles)
@@ -57,10 +65,13 @@ public class IrANivel : MonoBehaviour
                         coleccionablesCogidos = level.coleccionablesCogidos.Count;
                     }
                 }
-            }
+            }*/
 
 
-            //----------------------------------------------------------------------------------
+            /*/----------------------------------------------------------------------------------
+
+
+
             if (nivelDestino == "ND-1")
             {
                 textoColeccionablesCogidos.text = "Coleccionables" + coleccionablesCogidos.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[0];
@@ -73,49 +84,33 @@ public class IrANivel : MonoBehaviour
             {
                 textoColeccionablesCogidos.text = "Coleccionables" + coleccionablesCogidos.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[2];
             }
-            //-------------------------------------------------------------------------------------
+            //-------------------------------------------------------------------------------------*/
 
             cartel.enabled = true;
-            textoEstrellas.text = "Necesitas" + requisitoEstrellas.ToString();
-            if (nivelDestino == "NL-0")
+
+            if ((GameManager.Instance.totalColeccionables.Count >= requisitos))
             {
-                Activar(nivelDestino);
-            }
-            else
-            {if (GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick != null)
+                if (GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick != null)
                 {
                     if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
                     {
                         Activar(nivelDestino);
-                        /*if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
-                        {
-                            Activar(nivelDestino);
-                        }*/
                     }
-                }
-                else
-                {
-                    if (Input.GetButtonDown("Interact"))
-                    {
-                        Activar(nivelDestino);
-                        /*if (GameManager.Instance.totalEstrellas.Count >= requisitoEstrellas)
-                        {
-                            Activar(nivelDestino);
-                        }*/
-                    }
-                }               
-            }
-        }
-        else
-        {
 
+
+                }
+                else if (Input.GetButtonDown("Interact"))
+                {
+                    Activar(nivelDestino);
+                }
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            cartel.enabled = false;
+            cartel.enabled = false; 
         }
     }
 }
