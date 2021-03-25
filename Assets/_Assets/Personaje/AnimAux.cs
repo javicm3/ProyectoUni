@@ -8,6 +8,7 @@ public class AnimAux : MonoBehaviour
     public AudioClip pisada;
     public AudioClip escalada;
     public Transform suelo;
+    public Transform[] posicionesParticulasMuerte;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +64,14 @@ public class AnimAux : MonoBehaviour
     public void ParticulasDobleSalto()
     {
             GetComponentInParent<Particulas>().SpawnParticulas(GetComponentInParent<Particulas>().particulasDobleSalto, suelo.position, suelo);
+    }
+    public void ParticulasMuerte()
+    {
+        for(int i = 0; i < posicionesParticulasMuerte.Length; i++)
+        {
+            GetComponentInParent<Particulas>().SpawnParticulas(GetComponentInParent<Particulas>().particulasMuerte, posicionesParticulasMuerte[i].position, this.transform);
+        }
+            
     }
     // Update is called once per frame
     void Update()

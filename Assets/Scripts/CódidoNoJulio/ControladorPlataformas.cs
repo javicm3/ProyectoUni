@@ -136,7 +136,7 @@ public class ControladorPlataformas : MonoBehaviour
 
             source.PlayOneShot(clip);
             this.GetComponent<SpriteRenderer>().sprite = activado;
-            if (luz == true && luzGO != null)
+            if (luz == true && luzGO != null && luzGO.activeSelf == false)
             {
                 luzGO.SetActive(true);
             }

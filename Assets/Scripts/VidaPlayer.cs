@@ -100,6 +100,7 @@ public class VidaPlayer : MonoBehaviour
                     //if (this.GetComponent<AudioManager>().sonidosUnaVez.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().morir);
                     //GameManager.Instance.MuertePJ();
                     animCC.SetTrigger("Die");
+                    GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDaño, transform.position, transform);
                     cc.movimientoBloqueado = true;
                     cc.combateBloqueado = true;
 

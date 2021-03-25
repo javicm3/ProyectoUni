@@ -113,6 +113,8 @@ public class GameManager : MonoBehaviour
     public Text textoActualColecc;
     public Text textoMaxColecc;
 
+    //Variable para el tiempo de muerte
+    public float tiempoMuerte;
 
     //public bool desbloqueadoDash=true;
 
@@ -280,7 +282,7 @@ public class GameManager : MonoBehaviour
             //GameObject.Find("Player").GetComponent<Animator>().SetTrigger("Die");
             if (GameObject.Find("Player") != null) GameObject.Find("Player").GetComponent<ControllerPersonaje>().enabled = false;
             //GameObject.Find("Player").GetComponent<SpriteRenderer>().color = Color.black;
-            StartCoroutine(Tiemporeiniciar(0.6f));
+            StartCoroutine(Tiemporeiniciar(tiempoMuerte));
         }
 
     }
@@ -291,7 +293,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(tiempo);
         if (GameObject.Find("Player") != null)
         {
-            GameObject.Find("Player").GetComponent<Particulas>().SpawnParticulas(GameObject.FindObjectOfType<Particulas>().particulasExplosion, GameObject.Find("Player").transform.position, GameObject.Find("Player").transform);
+            GameObject.Find("Player").GetComponent<Particulas>().SpawnParticulas(GameObject.FindObjectOfType<Particulas>().particulasMuerte, GameObject.Find("Player").transform.position, GameObject.Find("Player").transform);
             renderers = GameObject.Find("Player").GetComponentsInChildren<SpriteRenderer>();
             foreach (SpriteRenderer sp in renderers)
             {
