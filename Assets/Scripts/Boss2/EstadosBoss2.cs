@@ -26,6 +26,7 @@ public class EstadosBoss2 : MonoBehaviour
     public GameObject laseresLimite;
     public GameObject[] chapasFinales;
     public GameObject cabeza;
+    public GameObject[] tentaculosCaer;
     
     // Start is called before the first frame update
     void Start()
@@ -154,6 +155,12 @@ public class EstadosBoss2 : MonoBehaviour
             }
             else if(brazosCortados >= 10)
             {
+                for(int i = 0; i < tentaculosCaer.Length; i++)
+                {
+                    tentaculosCaer[i].transform.parent = cabeza.transform;
+                    //tentaculosCaer[i].transform.position = new Vector3(0, 0, 0);
+                }
+
                 ab.drones.SetActive(false);
                 ab.dronesFinal.SetActive(false);
                 GetComponent<Animator>().enabled = false;
