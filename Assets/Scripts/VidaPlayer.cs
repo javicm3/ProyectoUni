@@ -17,7 +17,7 @@ public class VidaPlayer : MonoBehaviour
     public float vidaMax = 4f;
     public float vidaActual;
     public float dañoBalaVolador = 1;
-
+    public float tiempoMuerte;
     //public Image[] spritesvida;
     GameObject barraVida;
     Color colorinicial;
@@ -139,7 +139,7 @@ public class VidaPlayer : MonoBehaviour
                     }
                     else
                     {
-                        Invoke("IraCheckpoint", 1f); //---------------------------------> llamar esto cuando acabe la animación?
+                        Invoke("IraCheckpoint", tiempoMuerte); //---------------------------------> llamar esto cuando acabe la animación?
                     }
 
                     vidaActual = -1;

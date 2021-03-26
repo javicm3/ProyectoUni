@@ -69,7 +69,7 @@ public class AnimAux : MonoBehaviour
     {
         for(int i = 0; i < posicionesParticulasMuerte.Length; i++)
         {
-            GetComponentInParent<Particulas>().SpawnParticulas(GetComponentInParent<Particulas>().particulasMuerte, posicionesParticulasMuerte[i].position, this.transform);
+            GetComponentInParent<Particulas>().SpawnParticulas(GetComponentInParent<Particulas>().particulasMuerte, posicionesParticulasMuerte[i].position, posicionesParticulasMuerte[i].transform);
         }
             
     }

@@ -113,8 +113,7 @@ public class GameManager : MonoBehaviour
     public Text textoActualColecc;
     public Text textoMaxColecc;
 
-    //Variable para el tiempo de muerte
-    public float tiempoMuerte;
+    
 
     //public bool desbloqueadoDash=true;
 
@@ -282,7 +281,7 @@ public class GameManager : MonoBehaviour
             //GameObject.Find("Player").GetComponent<Animator>().SetTrigger("Die");
             if (GameObject.Find("Player") != null) GameObject.Find("Player").GetComponent<ControllerPersonaje>().enabled = false;
             //GameObject.Find("Player").GetComponent<SpriteRenderer>().color = Color.black;
-            StartCoroutine(Tiemporeiniciar(tiempoMuerte));
+            StartCoroutine(Tiemporeiniciar(0.6f));
         }
 
     }

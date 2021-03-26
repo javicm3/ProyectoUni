@@ -7,7 +7,7 @@ public class FadeInOut : MonoBehaviour
 {
     Image image;
     float opacity=1;
-
+    public GameObject particulasTransicion;
 
 
     void Start()
@@ -29,6 +29,8 @@ public class FadeInOut : MonoBehaviour
 
     public IEnumerator FadeOut()
     {
+        Instantiate(particulasTransicion, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0,2,0), Quaternion.identity);
+
         if (opacity<0) { opacity = 0; }
         while (opacity<1)
         {
