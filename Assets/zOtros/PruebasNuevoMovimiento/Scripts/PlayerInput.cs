@@ -293,15 +293,15 @@ public class PlayerInput : MonoBehaviour
                 //print(inputHorizontal + "horiz");
             }
 
-            if (Mathf.Abs(inputHorizontal) <= 0.2f)
+            if (Mathf.Abs(inputHorizontal) <= 0.8f)
             {
                 inputHorizontal = 0;
             }
-            else if (inputHorizontal > 0.2f)
+            else if (inputHorizontal > 0.6f)
             {
                 inputHorizontal = 1;
             }
-            else if (inputHorizontal < -0.2f)
+            else if (inputHorizontal < -0.6f)
             {
                 inputHorizontal = -1;
             }
@@ -332,11 +332,11 @@ public class PlayerInput : MonoBehaviour
                 inputVertical = Input.GetAxisRaw("Vertical");
             }
 
-            if (inputVertical > 0.05f)
+            if (inputVertical > 0.4f)
             {
                 inputVertical = 1;
             }
-            else if (inputVertical < -0.05f)
+            else if (inputVertical < -0.4f)
             {
                 inputVertical = -1;
             }
