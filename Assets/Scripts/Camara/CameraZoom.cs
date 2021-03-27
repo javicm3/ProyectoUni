@@ -114,13 +114,7 @@ public class CameraZoom : MonoBehaviour
     }
     void LateUpdate()
     {
-            if (this.GetComponent<ControllerPersonaje>().auxCdDashReal > 0.2f)
-            {
-                if (cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping < 1f)
-                {
-                    cinemakina.GetCinemachineComponent<CinemachineTransposer>().m_XDamping = 1f;
-                }
-            }
+           
           
            
             if (this.GetComponent<ControllerPersonaje>().dashEnCaida == true)
