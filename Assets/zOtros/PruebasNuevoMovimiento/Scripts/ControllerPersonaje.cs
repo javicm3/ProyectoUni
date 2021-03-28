@@ -214,6 +214,7 @@ public class ControllerPersonaje : MonoBehaviour
     //bool dashPulsado=false;
     public bool haciendoEnfoque = false;
     public bool pulsadoChispazo = false;
+    public GameObject feedbackMonedas;
     [Header("TRAMPOLIN")]
     public float auxTiempoTrasImpulso;
     public float tiempoTrasImpulso = 0.35f;
@@ -547,6 +548,7 @@ public class ControllerPersonaje : MonoBehaviour
                                         {
                                             enemigoSeleccionado = col.gameObject;
                                             ultimoEnemigoDetectado = enemigoSeleccionado;
+                                            //ultimoEnemigoDetectado.GetComponentInChildren<SpriteRenderer>().material.SetFloat("Grosor", Mathf.Lerp(0, 0.99f, 1));
                                             print("LOG3enemigoselec" + enemigoSeleccionado);
                                             mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
                                         }
@@ -4291,9 +4293,8 @@ public class ControllerPersonaje : MonoBehaviour
     {
         if (collision.tag == "Coleccionable")
         {
-
             GameManager.Instance.CogerColeccionableNivel(collision.gameObject);
-
+            Instantiate(feedbackMonedas, collision.gameObject.transform.position + new Vector3(0,2,0), Quaternion.identity);
         }
 
         if (collision.tag == "TriggerPausaBoss")
