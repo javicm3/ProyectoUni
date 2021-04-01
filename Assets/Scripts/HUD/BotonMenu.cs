@@ -10,6 +10,8 @@ public class BotonMenu : HUDObject
     Vector2 size1;
     Vector2 size2;
 
+    Outline outline;
+
     RectTransform rt;
     Button button;
     TextMeshProUGUI textMesh;
@@ -23,6 +25,7 @@ public class BotonMenu : HUDObject
 
     private void Awake()
     {
+        outline = GetComponent<Outline>();
         textMesh = GetComponentInChildren<TextMeshProUGUI>();
         rt = GetComponent<RectTransform>();
         button = GetComponent<Button>();
@@ -54,12 +57,14 @@ public class BotonMenu : HUDObject
     {
         doing = action.increase; print(mat);
         textMesh.fontSharedMaterial = mat;
+        outline.enabled = true;
     }
 
     public override void Diselect(Material mat)
     {
         doing = action.decrease;
         textMesh.fontSharedMaterial = mat;
+        outline.enabled = false;
 
     }
 

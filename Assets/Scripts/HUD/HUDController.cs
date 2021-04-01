@@ -45,6 +45,11 @@ public class HUDController : MonoBehaviour
                 selected.Use();
             }
 
+            if (Input.GetAxis("Horizontal")!=0)
+            {
+                selected.Slide(Input.GetAxis("Horizontal"));
+            }
+
             //Meter input sliders
         }
     }

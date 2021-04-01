@@ -39,21 +39,23 @@ public class GameManager : MonoBehaviour
 
     public float MusicVolume
     {
+        get { return musicVolume; }
         set
         {
             value = Mathf.Clamp(value, 0.0001f, 1);
             musicVolume = value;
-          if(audioMixer!=null)  audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume)*20);
+            if(audioMixer!=null)  audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume)*20);
         }
     } 
 
     public float SfxVolume
     {
+        get { return sfxVolume; }
         set
         {
             value = Mathf.Clamp(value, 0.0001f, 1);
             sfxVolume = value;
-           if(audioMixer!=null) audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
+            if(audioMixer!=null) audioMixer.SetFloat("SFXVolume", Mathf.Log10(sfxVolume) * 20);
         }
     }
 
@@ -250,8 +252,9 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         SistemaGuardado.Incializar();
-        SfxVolume = PlayerPrefs.GetFloat("effects");
-        MusicVolume = PlayerPrefs.GetFloat("music");
+        if (PlayerPrefs.HasKey("effects")) { SfxVolume = PlayerPrefs.GetFloat("effects"); }
+        if (PlayerPrefs.HasKey("music")) { MusicVolume = PlayerPrefs.GetFloat("music"); }
+
         CargarVolumenGuardado();
     }
 

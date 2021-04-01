@@ -13,5 +13,8 @@ public abstract class HUDObject : MonoBehaviour
     public virtual void Use() //Este aun no lo tengo demasiado claro
     { }
 
+    public virtual void Slide(float value)
+    { }
+
     //Metodo dcha izq para sliders (no implementar en otros objetos)
 }

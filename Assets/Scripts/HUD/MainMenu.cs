@@ -45,10 +45,15 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Image ticEspañol;
     [SerializeField] Image ticIngles;
 
+    [Header("Sliders")]
+    [SerializeField] Slider sfxSlider;
+    [SerializeField] Slider musicSlider;
 
     // Start is called before the first frame update
     void Start()
     {
+        musicSlider.value = GameManager.Instance.MusicVolume;
+        sfxSlider.value = GameManager.Instance.SfxVolume;
         ActualizarIdiomas();
     }
 
@@ -74,6 +79,24 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void OnMusicChange()
+    {
+        GameManager.Instance.MusicVolume = musicSlider.value;
+    }
+
+    public void OnEffectsChange()
+    {
+        GameManager.Instance.SfxVolume = sfxSlider.value;
+    }
+
+
+    public void SaveVolumeSettings()
+    {
+        GameManager.Instance.MusicVolumeSave = musicSlider.value;
+        GameManager.Instance.SfxVolumeSave = sfxSlider.value;
+    }
+
 
     public void CambiarIdioma(int index)
     {

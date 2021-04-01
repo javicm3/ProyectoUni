@@ -23,6 +23,10 @@ public class SliderMenu : HUDObject
     public override void Diselect(Material mat)
     {
         textMesh.fontSharedMaterial = mat;
+    }
 
+    public override void Slide(float value)
+    {
+        slider.value += value * Time.deltaTime;
     }
 }
