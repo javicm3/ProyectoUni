@@ -9,8 +9,16 @@ public class Idiomas
     public static string[] opciones = { "OPCIONES", "SETTINGS"};
     public static string[] salir = { "SALIR", "EXIT" };
     public static string[] volver = { "VOLVER", "BACK" };
-    public static string[] controles = { "CONTROLES", "CONTROLS" };
 
+    public static string[] controles = { "VER CONTROLES", "VI EW CONTROLS" };
+    public static string[] mando = { "MANDO", "CONTROLLER" };
+    public static string[] teclado = { "TECLADO", "KEYBOARD" };
+
+    public static string[] volumen = { "VOLUMEN", "VOLUME" };
+    public static string[] musica = { "MUSICA", "MUSIC" };
+    public static string[] sonido = { "SONIDO", "SOUND" };
+
+    public static string[] idioma = { "IDIOMA", "LANGUAJE" };
     public static string[] español = { "ESPAÑOL", "SPANISH" };
     public static string[] ingles = { "INGLES", "ENGLISH" };
 }

@@ -1,31 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
-public class MenuPrincipal : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
     public GameObject controles;
     public GameObject botonesPrincipales;
-    public GameObject opciones;
+    public GameObject opciones; 
+    
+    [Header("Textos Menu Principal")]
+    [SerializeField] TextMeshProUGUI jugarT;
+    [SerializeField] TextMeshProUGUI cargarT;
+    [SerializeField] TextMeshProUGUI opcionesT1;
+    
+    [SerializeField] TextMeshProUGUI salirT;
+    [SerializeField] TextMeshProUGUI volverT1;
+    
 
-    [Header("Textos")]
-    [SerializeField] Text jugarT;
-    [SerializeField] Text cargarT;
-    [SerializeField] Text opcionesT1;
-    [SerializeField] Text opcionesT2;
-    [SerializeField] Text salirT;
-    [SerializeField] Text volverT1;
-    [SerializeField] Text volverT2;
-    [SerializeField] Text controlesT;
-    [SerializeField] Text españolT;
-    [SerializeField] Text inglesT;
+    [Header("Textos Menu Opciones")]
+    [SerializeField] TextMeshProUGUI opcionesT2;
+
+    [SerializeField] TextMeshProUGUI idiomasT;
+    [SerializeField] TextMeshProUGUI españolT;
+    [SerializeField] TextMeshProUGUI inglesT;
+
+    [SerializeField] TextMeshProUGUI volumenT;
+    [SerializeField] TextMeshProUGUI musicaT;
+    [SerializeField] TextMeshProUGUI sonidoT;
+
+    [SerializeField] TextMeshProUGUI verControlesT;
+    [SerializeField] TextMeshProUGUI mandoT;
+    [SerializeField] TextMeshProUGUI tecladoT;
+    [SerializeField] TextMeshProUGUI volverT2;
 
     [Header("Controles")]
     [SerializeField] Image imagenControles;
     [SerializeField] Sprite controlesEsp;
     [SerializeField] Sprite controlesIng;
+
+    [Header("Tic Idiomas")]
+    [SerializeField] Image ticEspañol;
+    [SerializeField] Image ticIngles;
 
 
     // Start is called before the first frame update
@@ -72,20 +90,31 @@ public class MenuPrincipal : MonoBehaviour
         opcionesT1.text = Idiomas.opciones[i];
         opcionesT2.text = Idiomas.opciones[i];
         salirT.text = Idiomas.salir[i];
-        volverT1.text = Idiomas.volver[i];
+        //volverT1.text = Idiomas.volver[i];
         volverT2.text = Idiomas.volver[i];
-        controlesT.text = Idiomas.controles[i];
+
+        verControlesT.text = Idiomas.controles[i];
+        mandoT.text = Idiomas.mando[i];
+        tecladoT.text = Idiomas.teclado[i];
+
+        volumenT.text = Idiomas.volumen[i];
+        musicaT.text = Idiomas.musica[i];
+        sonidoT.text = Idiomas.sonido[i];
+
+        idiomasT.text = Idiomas.idioma[i];
         españolT.text = Idiomas.español[i];
         inglesT.text = Idiomas.ingles[i];
 
         switch (i) //Lo pongo con un switch por si queremos poner más idiomas
         {
             case 0:
-                imagenControles.sprite = controlesEsp;
+                //imagenControles.sprite = controlesEsp;
+                ticEspañol.enabled=true; ticIngles.enabled = false;
                 break;
 
             case 1:
-                imagenControles.sprite = controlesIng;
+                //imagenControles.sprite = controlesIng;
+                ticEspañol.enabled = false; ticIngles.enabled = true;
                 break;
 
             default:
