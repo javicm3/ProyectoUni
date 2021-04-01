@@ -230,6 +230,11 @@ public class GameManager : MonoBehaviour
     void HacerAnim()
     {
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Animator>().SetTrigger("Habilidad");
+        if (GameObject.Find("Maquina_Coleccionable Prefab") != null)
+        {
+            GameObject.Find("Maquina_Coleccionable Prefab").GetComponent<Animator>().SetTrigger("Coleccionable");
+        }
+        
         Invoke("DevolverInput", 7.45f);
     }
     void DevolverInput()
