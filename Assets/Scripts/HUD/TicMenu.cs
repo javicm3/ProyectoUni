@@ -21,16 +21,16 @@ public class TicMenu : HUDObject
         startColor = outline.effectColor;
     }
 
-    public override void Select(Material mat)
+    public override void Select()
     {
         outline.effectColor = newColor;
-        textMesh.fontSharedMaterial = mat;
+        textMesh.fontSharedMaterial = selectMat;
     }
 
-    public override void Diselect(Material mat)
+    public override void Diselect()
     {
         outline.effectColor = startColor;
-        textMesh.fontSharedMaterial = mat;
+        textMesh.fontSharedMaterial = startMat;
         //textMesh.fontSharedMaterial.SetColor("_GlowColor",Color.yellow);
     }
 

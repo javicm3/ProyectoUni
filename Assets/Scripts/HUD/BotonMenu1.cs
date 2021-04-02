@@ -17,15 +17,15 @@ public class BotonMenu1 : HUDObject
         outline = GetComponent<Outline>();
     }
 
-    public override void Select(Material mat)
+    public override void Select()
     {
-        textMesh.fontSharedMaterial = mat;
+        textMesh.fontSharedMaterial = selectMat;
         outline.enabled = true;
     }
 
-    public override void Diselect(Material mat)
+    public override void Diselect()
     {
-        textMesh.fontSharedMaterial = mat;
+        textMesh.fontSharedMaterial = startMat;
         outline.enabled = false;
 
     }

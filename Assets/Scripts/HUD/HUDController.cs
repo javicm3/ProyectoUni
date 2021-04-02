@@ -1,22 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class HUDController : MonoBehaviour
 {
+    InputDevice joystick;
     bool isController=false;
     HUDObject selected;
     int index=0;
 
     [SerializeField] HUDObject[] item;
-    [SerializeField] Material normal;
-    [SerializeField] Material select;
+    public Material normal;
+    public Material select;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        CheckController();
+        StartCoroutine(WaitCheckController());
     }
 
     // Update is called once per frame
@@ -26,14 +28,13 @@ public class HUDController : MonoBehaviour
 
         if (isController)
         {
-            if (Input.GetKeyDown(KeyCode.DownArrow)&& index+1<item.Length)
+            if (Input.GetKeyDown(KeyCode.DownArrow) && index + 1 < item.Length)
             {
-                print(":(");
                 index++;
                 SelectItem();
             }
 
-            if (Input.GetKeyDown(KeyCode.UpArrow) && index-1>=0)
+            if (Input.GetKeyDown(KeyCode.UpArrow) && index - 1 >= 0)
             {
                 index--;
                 SelectItem();
@@ -45,29 +46,39 @@ public class HUDController : MonoBehaviour
                 selected.Use();
             }
 
-            if (Input.GetAxis("Horizontal")!=0)
+            if (Input.GetAxis("Horizontal") != 0)
             {
                 selected.Slide(Input.GetAxis("Horizontal"));
             }
-
-            //Meter input sliders
+        }
+        else
+        {
+            CheckController();
         }
     }
 
     void SelectItem()
     {
-        selected.Diselect(normal);
+        selected.Diselect();
         selected = item[index];
-        selected.Select(select);
+        selected.Select();
+    }
+
+    IEnumerator WaitCheckController()
+    {
+        yield return new WaitForEndOfFrame();
+        CheckController();
     }
 
     void CheckController()
     {
-        if(true)
+        joystick = InputManager.ActiveDevice;
+        if (joystick.Name != "NullInputDevice")
         {
             isController = true;
             selected = item[index];
-            selected.Select(select);
+            selected.Select();
+            Cursor.visible = false;
         }
     }
 }

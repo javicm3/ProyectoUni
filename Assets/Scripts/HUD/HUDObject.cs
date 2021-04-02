@@ -4,10 +4,20 @@ using UnityEngine;
 
 public abstract class HUDObject : MonoBehaviour
 {
-    public virtual void Select(Material mat)
+    protected Material startMat;
+    protected Material selectMat;
+
+    private void Start()
+    {
+        HUDController contr = GetComponentInParent<HUDController>();
+        startMat = contr.normal;
+        selectMat = contr.select;
+    }
+
+    public virtual void Select()
     { }
 
-    public virtual void Diselect(Material mat)
+    public virtual void Diselect()
     { }
 
     public virtual void Use() //Este aun no lo tengo demasiado claro

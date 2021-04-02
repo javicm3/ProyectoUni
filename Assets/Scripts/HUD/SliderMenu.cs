@@ -15,14 +15,14 @@ public class SliderMenu : HUDObject
         slider = GetComponentInChildren<Slider>();
     }
 
-    public override void Select(Material mat)
+    public override void Select()
     {
-        textMesh.fontSharedMaterial = mat;
+        textMesh.fontSharedMaterial = selectMat;
     }
 
-    public override void Diselect(Material mat)
+    public override void Diselect()
     {
-        textMesh.fontSharedMaterial = mat;
+        textMesh.fontSharedMaterial = startMat;
     }
 
     public override void Slide(float value)

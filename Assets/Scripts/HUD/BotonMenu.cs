@@ -29,14 +29,12 @@ public class BotonMenu : HUDObject
         textMesh = GetComponentInChildren<TextMeshProUGUI>();
         rt = GetComponent<RectTransform>();
         button = GetComponent<Button>();
-    }
-
-    void Start()
-    {
         size = rt.sizeDelta;
         size1 = rt.sizeDelta;
         size2 = new Vector2(rt.sizeDelta.x + addWide, rt.sizeDelta.y);
+
     }
+
 
     private void Update()
     {
@@ -53,17 +51,17 @@ public class BotonMenu : HUDObject
         }
     }
 
-    public override void Select(Material mat)
+    public override void Select()
     {
-        doing = action.increase; print(mat);
-        textMesh.fontSharedMaterial = mat;
+        doing = action.increase; 
+        textMesh.fontSharedMaterial = selectMat;
         outline.enabled = true;
     }
 
-    public override void Diselect(Material mat)
+    public override void Diselect()
     {
         doing = action.decrease;
-        textMesh.fontSharedMaterial = mat;
+        textMesh.fontSharedMaterial = startMat;
         outline.enabled = false;
 
     }
