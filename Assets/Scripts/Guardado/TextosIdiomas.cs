@@ -21,4 +21,9 @@ public class Idiomas
     public static string[] idioma = { "IDIOMA", "LANGUAJE" };
     public static string[] español = { "ESPAÑOL", "SPANISH" };
     public static string[] ingles = { "INGLES", "ENGLISH" };
+
+    public static string[] para = {"Para","For" };
+    public static string[] zona = { "Zona", "Area" };
+    public static string[] nivel = { "Nivel", "Level" };
+    public static string[] lobby = { "Lobby Central", "Central Lobby" };
 }
