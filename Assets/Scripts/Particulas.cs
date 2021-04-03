@@ -12,6 +12,7 @@ public class Particulas : MonoBehaviour
     public GameObject particulasvelMax;
     public GameObject particulasvelMax2;
     public GameObject particulasMuerte;
+    public GameObject destelloMuerte;
     public GameObject particulasViajeCables;
     public GameObject particulasCaida;
     public GameObject particulasDaño;

@@ -73,6 +73,10 @@ public class AnimAux : MonoBehaviour
         }
             
     }
+    public void DestelloMuerte()
+    {
+        GetComponentInParent<Particulas>().SpawnParticulas(GetComponentInParent<Particulas>().destelloMuerte, this.transform.position + new Vector3(0,1,0), this.transform);
+    }
     // Update is called once per frame
     void Update()
     {

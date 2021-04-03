@@ -8,10 +8,12 @@ public class TriggerInicioBoss2 : MonoBehaviour
     public float tiempoInicio;
     public GameObject triggerInicioCamara;
     public GameObject triggerNormal;
+    CinematicaBoss cb;
     // Start is called before the first frame update
     void Start()
     {
         //triggerNormal.SetActive(false);
+        cb = boss.GetComponent<CinematicaBoss>();
     }
 
     // Update is called once per frame
@@ -28,6 +30,10 @@ public class TriggerInicioBoss2 : MonoBehaviour
     }
     IEnumerator InicioBoss()
     {
+        if(cb.primeravez == true)
+        {
+            StartCoroutine(cb.Encendiendo());
+        }
         yield return new WaitForSeconds(tiempoInicio/2);
         //triggerNormal.SetActive(true);
         //triggerInicioCamara.SetActive(false);
