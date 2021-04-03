@@ -46,8 +46,8 @@ public class MenuPrincipal : MonoBehaviour
     {
         controles.SetActive(cont);
         opciones.SetActive(!cont);
-
     }
+
     public void Play()
     {
         SceneManager.LoadScene("NL-0");
