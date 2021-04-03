@@ -28,7 +28,7 @@ public class HUDController : MonoBehaviour
 
         if (isController)
         {
-            if (Input.GetKeyDown(KeyCode.DownArrow) && index + 1 < item.Length)
+            /*if (Input.GetKeyDown(KeyCode.DownArrow) && index + 1 < item.Length)
             {
                 index++;
                 SelectItem();
@@ -38,15 +38,24 @@ public class HUDController : MonoBehaviour
             {
                 index--;
                 SelectItem();
+            }*/
+
+            if (joystick.LeftStickY.WasPressed && index - 1 >= 0)
+            {
+                if (Input.GetAxis("Vertical") > 0)
+                { index--; }
+                else { index++; }
+                
+                SelectItem();
             }
 
-            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+
+            if (joystick.Action2.WasPressed)
             {
-                print("use");
                 selected.Use();
             }
 
-            if (Input.GetAxis("Horizontal") != 0)
+            if (joystick.LeftStickX.IsPressed)
             {
                 selected.Slide(Input.GetAxis("Horizontal"));
             }
