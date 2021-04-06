@@ -47,7 +47,7 @@ public class Checkpoint : MonoBehaviour
         foreach (string go in aux)
         { GameManager.Instance.NivelActual.actualColeccionablesCogidos.Remove(go); }
  
-        GameManager.Instance.textoActualColecc.text = coleccionablesGuardados.Count.ToString();
+        GameManager.Instance.textoColecc.text = coleccionablesGuardados.Count.ToString() +"  /  "+ GameManager.Instance.NivelActual.maxColeccionables;
 
 
     }

@@ -52,10 +52,11 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ActualizarIdiomas();
         //Esto de momento da error porque no hay gm en la escena
         musicSlider.value = GameManager.Instance.MusicVolume;
         sfxSlider.value = GameManager.Instance.SfxVolume;
-        ActualizarIdiomas();
+        
     }
 
 
@@ -136,7 +137,7 @@ public class MainMenu : MonoBehaviour
                 ticEspañol.enabled=true; ticIngles.enabled = false;
                 break;
 
-            case 1:
+            case 1: 
                 //imagenControles.sprite = controlesIng;
                 ticEspañol.enabled = false; ticIngles.enabled = true;
                 break;
