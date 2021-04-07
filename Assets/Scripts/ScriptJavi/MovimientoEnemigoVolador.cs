@@ -50,22 +50,22 @@ public class MovimientoEnemigoVolador : EnemigoPadre
     }
     protected override void Update()
     {
+        if (stun == true)
+        {
+            if (auxTiempoStun > 0)
+            {
+                auxTiempoStun -= Time.deltaTime;
+                if (auxTiempoStun <= 0)
+                {
+                    Reactivar();
+                }
+            }
+        }
         base.Update();
         if (activado == true)
         {
 
-            if (stun == true)
-            {
-                if (auxTiempoStun > 0)
-                {
-                    auxTiempoStun -= Time.deltaTime;
-                    if (auxTiempoStun <= 0)
-                    {
-                        Reactivar();
-                    }
-                }
-            }
-            else
+            if(stun==false)
             {
                 if (puntosPersonaje[indexArray] != null)
                 {

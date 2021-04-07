@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -112,8 +113,8 @@ public class GameManager : MonoBehaviour
     public float[] coleccionablesMaxNv;
     public List<string> totalColeccionables;
     public GameObject PanelColeccionables;
-    public Text textoActualColecc;
-    public Text textoMaxColecc;
+    public TextMeshProUGUI textoColecc;
+
 
     
 
@@ -198,9 +199,8 @@ public class GameManager : MonoBehaviour
             }
 
 
-            textoActualColecc = GameObject.Find("Actual").GetComponent<Text>();
-            textoActualColecc.text = nivelActual.coleccionablesCogidos.Count.ToString();
-            GameObject.Find("Maximo").GetComponent<Text>().text = nivelActual.maxColeccionables.ToString();
+            textoColecc = GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>();
+            textoColecc.text = nivelActual.coleccionablesCogidos.Count + "  /  " + nivelActual.maxColeccionables; print(nivelActual.maxColeccionables);
 
             personajevivo = true;
 
@@ -350,7 +350,7 @@ public class GameManager : MonoBehaviour
         if (!nivelActual.actualColeccionablesCogidos.Contains(coleccionable.name))
         {
             nivelActual.actualColeccionablesCogidos.Add(coleccionable.name);
-            textoActualColecc.text = nivelActual.actualColeccionablesCogidos.Count.ToString();
+            textoColecc.text = nivelActual.actualColeccionablesCogidos.Count + "  /  " + nivelActual.maxColeccionables;
 
             coleccionable.AddComponent<Moneda>().Desactivar();           
 
@@ -371,31 +371,7 @@ public class GameManager : MonoBehaviour
                 if (level.nombreNivel == nombreEscena)
                 {
                     nivelEnLista = true;
-                    nivelActual = level;
-
-                    int i = 0;
-                    switch (nombreEscena)
-                    {
-                        case "ND-1":
-                            i = 0;
-                            break;
-                        case "ND-2":
-                            i = 1;
-                            break;
-                        case "ND-3":
-                            i = 2;
-                            break;
-                        case "ND-5":
-                            i = 3;
-                            break;
-                        case "ND-6":
-                            i = 4;
-                            break;
-                        case "ND-7":
-                            i = 5;
-                            break;
-                    }
-                    nivelActual.maxColeccionables = (int)coleccionablesMaxNv[i];
+                    nivelActual = level;              
                     break;
                 }
             }
@@ -410,6 +386,30 @@ public class GameManager : MonoBehaviour
             listaNiveles.Add(nuevoNivel);
             nivelActual = nuevoNivel;
         }
+
+        int i = 0;
+        switch (nombreEscena)
+        {
+            case "ND-1":
+                i = 0;
+                break;
+            case "ND-2":
+                i = 1;
+                break;
+            case "ND-3":
+                i = 2;
+                break;
+            case "ND-5":
+                i = 3;
+                break;
+            case "ND-6":
+                i = 4;
+                break;
+            case "ND-7":
+                i = 5;
+                break;
+        }
+        nivelActual.maxColeccionables = (int)coleccionablesMaxNv[i];
     }
 
 }

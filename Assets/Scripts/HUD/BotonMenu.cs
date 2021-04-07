@@ -66,6 +66,14 @@ public class BotonMenu : HUDObject
 
     }
 
+    public void ResetButton()
+    {
+        doing = action.nothing;
+        size = size1; rt.sizeDelta = size;
+        textMesh.fontSharedMaterial = startMat;
+        outline.enabled = false;
+    }
+
     public override void Use()
     {
         button.onClick.Invoke();

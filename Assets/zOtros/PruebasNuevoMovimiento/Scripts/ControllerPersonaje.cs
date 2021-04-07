@@ -1301,6 +1301,7 @@ public class ControllerPersonaje : MonoBehaviour
 
         if (pegadoPared)
         {
+            puedoDash = true;
             //if (pInput.inputVertical != 0)
             //{
             //    if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().moverPared);
