@@ -58,6 +58,7 @@ public class CinematicaBoss : MonoBehaviour
     {
         camara1.SetActive(true);
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().enabled = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         yield return new WaitForSeconds(tiempoNiebla);
         
         //camara2.SetActive(true);
@@ -97,6 +98,7 @@ public class CinematicaBoss : MonoBehaviour
         yield return new WaitForSeconds(segundosLaseres);
         camara1.SetActive(false);
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().enabled = true;
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         //camara2.SetActive(false);
     }
 }
