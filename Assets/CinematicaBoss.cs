@@ -57,6 +57,7 @@ public class CinematicaBoss : MonoBehaviour
     public IEnumerator Encendiendo()
     {
         camara1.SetActive(true);
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().enabled = false;
         yield return new WaitForSeconds(tiempoNiebla);
         
         //camara2.SetActive(true);
@@ -95,6 +96,7 @@ public class CinematicaBoss : MonoBehaviour
         }
         yield return new WaitForSeconds(segundosLaseres);
         camara1.SetActive(false);
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().enabled = true;
         //camara2.SetActive(false);
     }
 }
