@@ -26,4 +26,7 @@ public class Idiomas
     public static string[] zona = { "Zona", "Area" };
     public static string[] nivel = { "Nivel", "Level" };
     public static string[] lobby = { "Lobby Central", "Central Lobby" };
+
+    public static string[] pause = { "Pausa", "Pause" };
+    public static string[] resume = { "Continuar", "Resume" };
 }

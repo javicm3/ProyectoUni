@@ -153,8 +153,8 @@ public class MenuPausa : MonoBehaviour
     }
     public void CerrarMenu()
     {
-        GameObject.FindObjectOfType<FuncionalidadPausa>().Limpiar();
-        GameObject.FindObjectOfType<FuncionalidadPausa>().MostrarObjetos();
+        //GameObject.FindObjectOfType<FuncionalidadPausa>().Limpiar();
+        //GameObject.FindObjectOfType<FuncionalidadPausa>().MostrarObjetos();
         player.GetComponentInChildren<ComportamientoHUD>().bloqueado = false;
         for (int i = 0; i < targetGroup.GetComponent<CinemachineTargetGroup>().m_Targets.Length; i++)
         {
