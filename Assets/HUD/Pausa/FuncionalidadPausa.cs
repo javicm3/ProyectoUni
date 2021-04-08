@@ -52,6 +52,8 @@ public class FuncionalidadPausa : MonoBehaviour
     {
         fondo=GetComponent<Image>();
         ActualizarIdiomas();
+        musicSlider.value = GameManager.Instance.MusicVolume;
+        sfxSlider.value = GameManager.Instance.SfxVolume;
     }
 
     void Update()
@@ -85,9 +87,9 @@ public class FuncionalidadPausa : MonoBehaviour
         menuPausa.SetActive(!options);
     }
 
-    public void VolverLobby()
+    public void VolverLobby(string scene)
     {
-        GameManager.Instance.NextScene("NL-0");
+        GameManager.Instance.NextScene(scene);
         Time.timeScale = 1;
     }
 

@@ -259,7 +259,7 @@ namespace Cinemachine
                         }
                         else
                         {
-                            transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 120 * Time.deltaTime);
+                            transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 3000 * Time.deltaTime);
                         }
                     }
                     else if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == true)
@@ -279,7 +279,7 @@ namespace Cinemachine
                         }
                         else
                         {
-                            transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 120 * Time.deltaTime);
+                            transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 150 * Time.deltaTime);
                         }
                     }
                     else if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == true)

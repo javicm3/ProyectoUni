@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
     public bool puedoDisparar = false;
     [Header("NUEVAS VARIABLES")]
     //public float actualLevel = 0;
+    public float maxColeccionablesTotal;
     public float[] coleccionablesMaxNv;
     public List<string> totalColeccionables;
     public GameObject PanelColeccionables;
@@ -215,7 +216,7 @@ public class GameManager : MonoBehaviour
             //actualLevel = -1;
             personajevivo = true;
 
-            GameObject.Find("Actual").GetComponent<Text>().text = totalColeccionables.Count.ToString();
+            GameObject.Find("TextoColecc").GetComponent <TextMeshProUGUI > ().text = totalColeccionables.Count.ToString() + "  /  " + maxColeccionablesTotal;
             //textoMaxColecc = GameObject.Find("Maximo").GetComponent<Text>();
             //textoMaxColecc.text = coleccionablesMaxNv[(int)actualLevel].ToString();
 
@@ -248,19 +249,21 @@ public class GameManager : MonoBehaviour
     {
         if (_instance != null && _instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject); 
         }
         else
         {
             _instance = this;
+
+            SistemaGuardado.Incializar();
+            if (PlayerPrefs.HasKey("effects")) { SfxVolume = PlayerPrefs.GetFloat("effects"); }
+            if (PlayerPrefs.HasKey("music")) { MusicVolume = PlayerPrefs.GetFloat("music"); }
+
+            CargarVolumenGuardado();
         }
         DontDestroyOnLoad(gameObject);
 
-        SistemaGuardado.Incializar();
-        if (PlayerPrefs.HasKey("effects")) { SfxVolume = PlayerPrefs.GetFloat("effects"); }
-        if (PlayerPrefs.HasKey("music")) { MusicVolume = PlayerPrefs.GetFloat("music"); }
 
-        CargarVolumenGuardado();
     }
 
 
