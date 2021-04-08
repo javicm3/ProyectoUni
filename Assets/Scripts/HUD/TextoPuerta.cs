@@ -15,7 +15,7 @@ public class TextoPuerta : MonoBehaviour
 
     void Start()
     {
-        GetComponent<Text>();
+        texto = GetComponent<Text>();
         int i = SistemaGuardado.indiceIdioma;
 
         string comando = "E ";
@@ -35,7 +35,7 @@ public class TextoPuerta : MonoBehaviour
                 break;
 
             case tipoPuerta.lobby:
-                texto.text = comando + Idiomas.para + " " + Idiomas.lobby[i];
+                texto.text = comando + Idiomas.para[i] + " " + Idiomas.lobby[i];
                 break;
         }
 
