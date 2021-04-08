@@ -159,7 +159,7 @@ public class ControllerPersonaje : MonoBehaviour
     [Header("Loops")]
     public bool bocabajocambiotecla = false;
     float tiempoTrasSaltoLoop = 0.3f;
-    float auxTiempoTrasSaltoLoop;
+    public float auxTiempoTrasSaltoLoop;
     public bool looping = false;
     [SerializeField] public Vector2 normal;
     [SerializeField] public Vector2 ultimaNormal;
@@ -366,6 +366,10 @@ public class ControllerPersonaje : MonoBehaviour
         }
         if (auxTiempoTrasSalirCombate > 0)
         {
+            if (auxTiempoTrasSalirCombate < tiempoTrasSalirCombate * 0.5f)
+            {
+                dashBloqueado = false;
+            }
             auxTiempoTrasSalirCombate -= Time.deltaTime;
             if (auxTiempoTrasSalirCombate <= 0)
             {
@@ -585,12 +589,15 @@ public class ControllerPersonaje : MonoBehaviour
 
         if (haciendoCombate)
         {
+            ultimaNormal = Vector2.zero;
             bocabajocambiotecla = false;
             auxtiempoTrasSalirCombateInvuln = tiempoTrasSalirCombateInvuln;
             pInput.inputHorizBlock = true;
             movimientoBloqueado = true;
             saltoBloqueado = true;
             dashBloqueado = true;
+            if (saltoDobleHecho == true) saltoDobleHecho = false;
+            if (puedoDash == false) puedoDash = true;
             rb.gravityScale = 0;
             if (ultimoEnemigoDetectado != null)
             {
@@ -655,7 +662,8 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                             ultimoEnemigoDetectado.GetComponent<EnemigoPadre>().Stun();
-                            mEnergy.actualEnergy -= mEnergy.energiaxEnemigoCombate;
+                            mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
+                            mEnergy.tiempoAux = 0.15f;
                             float offset = 0;
                             if (ultimoEnemigoDetectado.GetComponent<EnemigoEmbestida2>() != null)
                             { offset = offsetSalidaEnemigoTerrestreY; }
@@ -704,7 +712,8 @@ public class ControllerPersonaje : MonoBehaviour
 
                     float offset = 0;
                     ultimoEnemigoPasado.GetComponent<EnemigoPadre>().Stun();
-                    mEnergy.actualEnergy -= mEnergy.energiaxEnemigoCombate;
+                    mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
+                    mEnergy.tiempoAux = 0.15f;
                     if (ultimoEnemigoPasado.GetComponent<EnemigoEmbestida2>() != null)
                     {
                         offset = offsetSalidaEnemigoTerrestreY;
@@ -727,6 +736,8 @@ public class ControllerPersonaje : MonoBehaviour
             //{
             //    pulsadoChispazo = false;
             //}
+         
+          if(haciendoCombate==true)  dashBloqueado = false;
             haciendoCombate = false;
             if (rb.gravityScale == 0)
             {
@@ -747,7 +758,8 @@ public class ControllerPersonaje : MonoBehaviour
                     if (ultimoEnemigoPasado != null)
                     {
                         ultimoEnemigoPasado.GetComponent<EnemigoPadre>().Stun();
-                        mEnergy.actualEnergy -= mEnergy.energiaxEnemigoCombate;
+                        mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
+                        mEnergy.tiempoAux = 0.15f;
                         Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);
 
                         rb.velocity = resultante * salirCombate;
@@ -756,7 +768,8 @@ public class ControllerPersonaje : MonoBehaviour
                     {
 
                         ultimoEnemigoDetectado.GetComponent<EnemigoPadre>().Stun();
-                        mEnergy.actualEnergy -= mEnergy.energiaxEnemigoCombate;
+                        mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
+                        mEnergy.tiempoAux = 0.15f;
                         Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);
 
                         rb.velocity = resultante * salirCombate;
@@ -2101,13 +2114,13 @@ public class ControllerPersonaje : MonoBehaviour
                                         //    this.rb.AddForce(direccion * fuerzaCambioSentido * 2f * Time.deltaTime);
                                         //}
                                         //else
-                                        {
-                                            //print("cambiorerer2air");
+                                       
+                                            print("cambiorerer2air");
 
 
                                             Vector2 direccion = new Vector2(1, 0) * coefDeceleracion * pInput.inputHorizontal;
                                             this.rb.AddForce(direccion * fuerzaCambioSentidoAire * 0.8f * Time.deltaTime);
-                                        }
+                                        
                                         //if (pInput.ultimoInputHorizontal == 1)
                                         //{
                                         //    Vector2 direccion = new Vector2(1, 0).normalized * coefDeceleracion * pInput.inputHorizontal;
@@ -2127,6 +2140,23 @@ public class ControllerPersonaje : MonoBehaviour
                                 cambioSentidoReciente = true;
                                 StopCoroutine(CambioAireReciente(tiempoTrasCambioSentido));
                                 StartCoroutine(CambioAireReciente(tiempoTrasCambioSentido));
+                             
+                            }
+                            else
+                            {
+                                //if (ultimaNormal.y < 0)
+                                //{
+                                //    print("Cambiaso");
+
+
+                                //    Vector2 direccion = new Vector2(1, 0) * coefDeceleracion * pInput.inputHorizontal;
+                                //    this.rb.AddForce(direccion * fuerzaCambioSentidoAire * 0.8f * Time.deltaTime);
+                                //    speed = 0;
+                                //    //if (lastJumpPared == true) lastJumpPared = false;
+                                //    cambioSentidoReciente = true;
+                                //    StopCoroutine(CambioAireReciente(tiempoTrasCambioSentido));
+                                //    StartCoroutine(CambioAireReciente(tiempoTrasCambioSentido));
+                                //}
                             }
                         }
 
@@ -3103,6 +3133,7 @@ public class ControllerPersonaje : MonoBehaviour
                                 animCC.SetTrigger("DobleSalto");
                                 //GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
                                 saltoDobleHecho = true;
+                                ultimaNormal = Vector2.zero;
                                 dashEnCaida = false;
                                 estoyDasheando = false;
                                 float speedx = rb.velocity.x;
@@ -3282,6 +3313,8 @@ public class ControllerPersonaje : MonoBehaviour
                                 animCC.SetTrigger("DobleSalto");
                                 //GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
                                 saltoDobleHecho = true;
+                                ultimaNormal = Vector2.zero;
+
                                 dashEnCaida = false;
                                 estoyDasheando = false;
                                 float speedx = rb.velocity.x;

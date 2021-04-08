@@ -46,7 +46,7 @@ public class PlataformaDash : MonoBehaviour
 
     }
     private void Update()
-    {
+    {if (player.GetComponent<VidaPlayer>().reiniciando == true) bajando = true;
 
         if (collideractivado)
         {

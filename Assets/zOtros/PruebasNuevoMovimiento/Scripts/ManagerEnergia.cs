@@ -13,6 +13,7 @@ public class ManagerEnergia : MonoBehaviour
     public float energiaDashAbajo = 15f;
     public float energiaDisparo = 25f;
     public float energiaxEnemigoCombate = 10f;
+    public float tiempoAux = -1;
     GameObject barraEnergia;
     ControllerPersonaje cc;
     public float indiceMultiplicador = 2;
@@ -24,9 +25,14 @@ public class ManagerEnergia : MonoBehaviour
         cc = GetComponent<ControllerPersonaje>();
     }
    public  void RestarEnergia(float valor)
-    {
-       actualEnergy -= valor;
-        if (actualEnergy <= 0) actualEnergy = 0;
+    { if (tiempoAux <= 0)
+        {
+            actualEnergy -= valor;
+            if (actualEnergy <= 0) actualEnergy = 0;
+        }
+     
+       
+
     }
     public void SumarEnergia(float valor)
     {
@@ -39,6 +45,10 @@ public class ManagerEnergia : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (tiempoAux >= 0)
+        {
+            tiempoAux -= Time.deltaTime;
+        }
         //if (cc.haciendoCombate == true)
         //{
         //    actualEnergy -= energiaxSegCombate*Time.deltaTime;
