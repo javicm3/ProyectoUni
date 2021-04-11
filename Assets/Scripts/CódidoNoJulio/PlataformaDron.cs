@@ -61,6 +61,7 @@ public class PlataformaDron : MonoBehaviour
             go.SetBool("Activado", false); //En caso de que se desactive desde el controlador y no por tiempo
         }
         transform.gameObject.SetActive(false);
+        auxtiempoParada = tiempoParada;
     }
 
     public void Activar()

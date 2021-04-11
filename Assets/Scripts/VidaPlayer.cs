@@ -103,7 +103,7 @@ public class VidaPlayer : MonoBehaviour
                     GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDaño, transform.position, transform);
                     cc.movimientoBloqueado = true;
                     cc.combateBloqueado = true;
-
+                    cc.pulsadoEspacio = false;
                     cc.saltoBloqueado = true;
                     cc.dashBloqueado = true;
 
