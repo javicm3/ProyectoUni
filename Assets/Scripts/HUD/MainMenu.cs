@@ -53,7 +53,6 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         ActualizarIdiomas();
-        //Esto de momento da error porque no hay gm en la escena
         musicSlider.value = GameManager.Instance.MusicVolume;
         sfxSlider.value = GameManager.Instance.SfxVolume;
         

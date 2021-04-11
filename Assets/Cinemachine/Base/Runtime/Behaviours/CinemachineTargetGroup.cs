@@ -253,13 +253,13 @@ namespace Cinemachine
                     if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == false)
                     {
 
-                        if (Vector2.Distance(FindObjectOfType<ControllerPersonaje>().gameObject.transform.position, this.gameObject.transform.position) > 30)
+                        if (Vector2.Distance(FindObjectOfType<ControllerPersonaje>().gameObject.transform.position, this.gameObject.transform.position) > 50)
                         {
                             transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 3000);
                         }
                         else
                         {
-                            transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 3000 * Time.deltaTime);
+                            transform.position = Vector3.MoveTowards(transform.position, BoundingBox.center, 120 * Time.deltaTime);
                         }
                     }
                     else if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == true)
@@ -273,13 +273,13 @@ namespace Cinemachine
                     if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == false)
                     {
 
-                        if (Vector2.Distance(FindObjectOfType<ControllerPersonaje>().gameObject.transform.position, this.gameObject.transform.position) > 30)
+                        if (Vector2.Distance(FindObjectOfType<ControllerPersonaje>().gameObject.transform.position, this.gameObject.transform.position) > 50)
                         {
                             transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 3000);
                         }
                         else
                         {
-                            transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 150 * Time.deltaTime);
+                            transform.position = Vector3.MoveTowards(transform.position, CalculateAveragePosition(out averageWeight), 120 * Time.deltaTime);
                         }
                     }
                     else if (FindObjectOfType<VidaPlayer>() != null && FindObjectOfType<VidaPlayer>().reiniciando == true)

@@ -125,7 +125,7 @@ public class ControladorPlataformas : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!activadoBool && collision.gameObject.tag == "Player")
+        if (!activadoBool && collision.gameObject.tag == "Player" && this.GetComponent<SpriteRenderer>().sprite != activado)
         {
             activadoBool=true;
             if (secuenciaPlat)
