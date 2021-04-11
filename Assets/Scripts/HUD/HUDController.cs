@@ -24,8 +24,6 @@ public class HUDController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Metodo para detectar si hay mando?
-
         if (isController)
         {
             /*if (Input.GetKeyDown(KeyCode.DownArrow) && index + 1 < item.Length)
