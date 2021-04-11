@@ -381,7 +381,7 @@ public class ControllerPersonaje : MonoBehaviour
         {
             if (haciendoEnfoque == false) if (GetComponent<VidaPlayer>().reiniciando == false) dashBloqueado = false;
         }
-
+       
         if (!saltoBloqueado)
         {
             SaltoNormal();
@@ -2985,7 +2985,7 @@ public class ControllerPersonaje : MonoBehaviour
     }
     void SaltoNormal()
     {
-
+       
         //if (Input.GetButtonDown("Jump"))
         if (joystick != null)
         {
@@ -3347,7 +3347,45 @@ public class ControllerPersonaje : MonoBehaviour
                 }
             }
         }
+        if (joystick != null)
+        {
+            if (joystick.Action1.WasReleased || Input.GetButtonUp("Jump"))
+            {
+                if ((tiempoPulsadoEspacio < tiempoSaltoCompleto) && (rb.velocity.y > 0))
+                {
 
+                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+                }
+
+                auxpresalto = tiempoPreSalto;
+                pulsadoEspacio = false;
+                tiempoPulsadoEspacio = 0;
+                //saltoSoltado = false;
+
+            }
+        }
+        else
+        {
+            if (Input.GetButtonUp("Jump"))
+            {
+                print("buttonup");
+
+                if ((tiempoPulsadoEspacio < tiempoSaltoCompleto) && (rb.velocity.y > 0))
+                {
+                    //print("negar2");
+                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+                }
+
+
+
+                auxpresalto = tiempoPreSalto;
+                pulsadoEspacio = false;
+                tiempoPulsadoEspacio = 0;
+                print("TIEMPOESP" + tiempoPulsadoEspacio + pulsadoEspacio);
+                //saltoSoltado = false;
+
+            }
+        }
         if (grounded)
         {
             dashEnCaida = false;
@@ -3458,44 +3496,7 @@ public class ControllerPersonaje : MonoBehaviour
             }
 
         }
-        if (joystick != null)
-        {
-            if (joystick.Action1.WasReleased || Input.GetButtonUp("Jump"))
-            {
-                if ((tiempoPulsadoEspacio < tiempoSaltoCompleto) && (rb.velocity.y > 0))
-                {
-
-                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-                }
-
-                auxpresalto = tiempoPreSalto;
-                pulsadoEspacio = false;
-                tiempoPulsadoEspacio = 0;
-                //saltoSoltado = false;
-
-            }
-        }
-        else
-        {
-            if (Input.GetButtonUp("Jump"))
-            {
-
-
-                if ((tiempoPulsadoEspacio < tiempoSaltoCompleto) && (rb.velocity.y > 0))
-                {
-                    //print("negar2");
-                    rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-                }
-
-
-
-                auxpresalto = tiempoPreSalto;
-                pulsadoEspacio = false;
-                tiempoPulsadoEspacio = 0;
-                //saltoSoltado = false;
-
-            }
-        }
+       
         if (!pegadoPared)
         { /*if (Input.GetButton("Jump"))*/
             if (joystick != null)
@@ -3679,16 +3680,17 @@ public class ControllerPersonaje : MonoBehaviour
             }
             else
             {
+               
                 if (Input.GetButton("Jump"))
                 {
-
+                   
 
                     if ((pulsadoEspacio) && (saltoInmediato == false))
                     {
 
-
+                        
                         tiempoPulsadoEspacio += Time.deltaTime;
-
+                       
 
                         if (tiempoPulsadoEspacio < tiempoSaltoCompleto && tiempoPulsadoEspacio > 0.1f)
                         {
