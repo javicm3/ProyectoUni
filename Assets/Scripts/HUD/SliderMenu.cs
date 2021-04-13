@@ -15,8 +15,8 @@ public class SliderMenu : HUDObject
     private void Awake()
     {
         textMesh = GetComponentInChildren<TextMeshProUGUI>();
-        slider = GetComponentInChildren<Slider>();
-        fill = transform.Find("Slider_/Fill Area/Fill").GetComponent<Image>(); print(fill);
+        slider = GetComponentInChildren<Slider>(); 
+        fill = transform.Find("Slider_/Fill Area/Fill").GetComponent<Image>(); 
     }
 
     public override void Select()
@@ -33,6 +33,6 @@ public class SliderMenu : HUDObject
 
     public override void Slide(float value)
     {
-        slider.value += value * Time.deltaTime;
+        slider.value += value*0.1f;
     }
 }

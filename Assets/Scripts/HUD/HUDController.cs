@@ -38,11 +38,11 @@ public class HUDController : MonoBehaviour
                 SelectItem();
             }*/
 
-            if (joystick.LeftStickY.WasPressed && index - 1 >= 0)
+            if (joystick.LeftStickY.WasPressed)
             {
-                if (Input.GetAxis("Vertical") > 0)
+                if (Input.GetAxis("Vertical") > 0.2f && index - 1 >= 0)
                 { index--; }
-                else { index++; }
+                else if(Input.GetAxis("Vertical") < -0.2f && index + 1 < item.Length) { index++; }
                 
                 SelectItem();
             }
@@ -53,7 +53,7 @@ public class HUDController : MonoBehaviour
                 selected.Use();
             }
 
-            if (joystick.LeftStickX.IsPressed)
+            if (joystick.LeftStickX.IsPressed && Mathf.Abs(Input.GetAxis("Horizontal"))>0.2f )
             {
                 selected.Slide(Input.GetAxis("Horizontal"));
             }
@@ -79,7 +79,7 @@ public class HUDController : MonoBehaviour
 
     void CheckController()
     {
-        joystick = InputManager.ActiveDevice;
+        joystick = InputManager.ActiveDevice; print(joystick);
         if (joystick.Name != "NullInputDevice")
         {
             isController = true;
