@@ -125,6 +125,7 @@ public class ControllerPersonaje : MonoBehaviour
     public float velocidadCombate = 10f;
     GameObject enemigoSeleccionado = null;
     GameObject ultimoEnemigoPasado;
+    public GameObject enemigoTemporal = null;
     public Vector3 direccionCombate;
     public Vector3 velocidadCombateUltima;
     public float tiempoTrasSalirCombate = 0.3f;
@@ -519,6 +520,83 @@ public class ControllerPersonaje : MonoBehaviour
         }
         if (enemigoCerca && mEnergy.actualEnergy >= mEnergy.energiaxEnemigoCombate)
         {
+            Collider2D[] hitCirculo2 = Physics2D.OverlapCircleAll(this.transform.position, distanciaCombate);
+            float mejorDistancia2 = 900000f;
+
+            
+            foreach (Collider2D col in hitCirculo2)
+            {
+                if (col != null)
+                {
+                    if (col.GetComponent<EnemigoPadre>() != null && !enemigosPasados.Contains(col.gameObject))
+                    {
+                        if (!col.GetComponent<EnemigoPadre>().stun)
+                        {
+                            if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia2)
+                            {
+                                RaycastHit2D hit = Physics2D.Raycast(this.transform.position, col.gameObject.transform.position - this.transform.position, Vector2.Distance(this.transform.position, col.gameObject.transform.position) * 1.3f, capasEnemigos);
+
+                                Debug.DrawRay(this.transform.position, col.gameObject.transform.position - this.transform.position, Color.magenta);
+                                if (hit.collider != null)
+                                {
+                                    print(hit.collider.name + "hhhhhhhhhhhhhhjjjjj");
+                                    if (hit.collider.tag == "EnemigoDetectar" && Vector2.Distance(this.transform.position, col.gameObject.transform.position) < distanciaCombate)
+                                    {
+                                        
+                                        enemigoTemporal = col.gameObject;
+                                        mejorDistancia2 = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
+                                    }
+                                    else
+                                    {
+                                        if (enemigoTemporal.gameObject.GetComponent<EnemigoPadre>() != null)
+                                        {
+                                            foreach (SpriteRenderer sr in enemigoTemporal.gameObject.GetComponentsInChildren<SpriteRenderer>())
+                                            {
+                                                sr.material.SetFloat("Grosor", 0f);
+                                            }
+                                        }
+                                        EnemigoPadre[] enemigosTotal = GameObject.FindObjectsOfType<EnemigoPadre>();
+                                        foreach (EnemigoPadre ep in enemigosTotal)
+                                        {
+                                            if (ep.GetComponent<SpriteRenderer>() != null)
+                                            {
+                                                ep.gameObject.GetComponent<SpriteRenderer>().material.SetFloat("Grosor", 0f);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            if (enemigoTemporal != null)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(this.transform.position, enemigoTemporal.transform.position - this.transform.position, Vector2.Distance(this.transform.position, enemigoTemporal.transform.position) * 1.3f, capasEnemigos);
+
+                Debug.DrawRay(this.transform.position, enemigoTemporal.transform.position - this.transform.position, Color.magenta);
+                if (hit.collider != null)
+                {
+                    print(hit.collider.name);
+                    if (hit.collider.tag == "EnemigoDetectar" && Vector2.Distance(this.transform.position, enemigoTemporal.transform.position) < distanciaCombate)
+                    {
+                        if (enemigoTemporal.gameObject.GetComponent<EnemigoPadre>() != null)
+                        {
+                            foreach (SpriteRenderer sr in enemigoTemporal.gameObject.GetComponentsInChildren<SpriteRenderer>())
+                            {
+                                sr.material.SetFloat("Grosor", 0.99f);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                   
+                }
+            }
+
             if ((joystick != null && joystick.RightTrigger.IsPressed) || Input.GetKey(KeyCode.LeftControl))
             {
                 pulsadoChispazo = true;
@@ -550,11 +628,23 @@ public class ControllerPersonaje : MonoBehaviour
                                         print(hit.collider.name+"ptrimerray");
                                         if (hit.collider.tag == "EnemigoDetectar" && Vector2.Distance(this.transform.position, col.gameObject.transform.position) < distanciaCombate)
                                         {
+                                            
                                             enemigoSeleccionado = col.gameObject;
                                             ultimoEnemigoDetectado = enemigoSeleccionado;
                                             //ultimoEnemigoDetectado.GetComponentInChildren<SpriteRenderer>().material.SetFloat("Grosor", Mathf.Lerp(0, 0.99f, 1));
                                             print("LOG3enemigoselec" + enemigoSeleccionado);
                                             mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
+                                        }
+                                        else
+                                        {
+                                            EnemigoPadre[] enemigosTotal = GameObject.FindObjectsOfType<EnemigoPadre>();
+                                            foreach(EnemigoPadre ep in enemigosTotal)
+                                            {
+                                                if(ep.GetComponent<SpriteRenderer>() != null)
+                                                {
+                                                    ep.gameObject.GetComponent<SpriteRenderer>().material.SetFloat("Grosor", 0f);
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -673,6 +763,13 @@ public class ControllerPersonaje : MonoBehaviour
                             print("RESULTANTE" + resultante * salirCombate);
 
                             enemigosPasados.Add(ultimoEnemigoDetectado);
+                            foreach (SpriteRenderer sr in ultimoEnemigoDetectado.GetComponentsInChildren<SpriteRenderer>())
+                            {
+                                if (sr.GetComponent<SpriteRenderer>() != null)
+                                {
+                                    sr.gameObject.GetComponent<SpriteRenderer>().material.SetFloat("Grosor", 0f);
+                                }
+                            }
                             //RESETEAR ENEMIGO
 
                             constantegravedad = 1;
@@ -696,7 +793,18 @@ public class ControllerPersonaje : MonoBehaviour
 
 
 
-                if (!enemigosPasados.Contains(ultimoEnemigoPasado)) enemigosPasados.Add(ultimoEnemigoPasado);
+                if (!enemigosPasados.Contains(ultimoEnemigoPasado))
+                {
+                    enemigosPasados.Add(ultimoEnemigoPasado);
+                    foreach (SpriteRenderer sr in ultimoEnemigoPasado.GetComponentsInChildren<SpriteRenderer>())
+                    {
+                        if (sr.GetComponent<SpriteRenderer>() != null)
+                        {
+                            sr.gameObject.GetComponent<SpriteRenderer>().material.SetFloat("Grosor", 0f);
+                        }
+                    }
+                }
+                
 
 
                 haciendoCombate = false;
@@ -746,8 +854,17 @@ public class ControllerPersonaje : MonoBehaviour
             if (enemigosPasados.Count >= 0)
             {
                 pulsadoChispazo = false;
-                if (!enemigosPasados.Contains(ultimoEnemigoDetectado)) enemigosPasados.Add(ultimoEnemigoDetectado);
-
+                if (!enemigosPasados.Contains(ultimoEnemigoDetectado))
+                {
+                    enemigosPasados.Add(ultimoEnemigoDetectado);
+                    //foreach (SpriteRenderer sr in ultimoEnemigoDetectado.GetComponentsInChildren<SpriteRenderer>())
+                    //{
+                    //    if (sr.GetComponent<SpriteRenderer>() != null)
+                    //    {
+                    //        sr.gameObject.GetComponent<SpriteRenderer>().material.SetFloat("Grosor", 0f);
+                    //    }
+                    //}
+                }
 
                 auxTiempoTrasSalirCombate = tiempoTrasSalirCombate;
                 //if (pulsadoChispazo == true) { }

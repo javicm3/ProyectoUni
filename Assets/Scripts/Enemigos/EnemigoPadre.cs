@@ -34,6 +34,26 @@ public class EnemigoPadre : MonoBehaviour
     }
     protected virtual void Update()
     {
+        if(stun == true)
+        {
+            foreach (SpriteRenderer sr in this.GetComponentsInChildren<SpriteRenderer>())
+            {
+                if (sr.GetComponent<SpriteRenderer>() != null)
+                {
+                    sr.gameObject.GetComponent<SpriteRenderer>().material.SetFloat("Grosor", 0f);
+                }
+            }
+        }
+        else
+        {
+            if(Vector2.Distance(player.transform.position, this.transform.position) > player.GetComponent<ControllerPersonaje>().distanciaCombate - 1)
+            {
+                foreach (SpriteRenderer sr in this.gameObject.GetComponentsInChildren<SpriteRenderer>())
+                {
+                    sr.material.SetFloat("Grosor", 0f);
+                }
+            }
+        }
         if (seActivaPorCercania && activado==false)ActivarPrimeraVez();
         DesactivarEnemigo();
     }
