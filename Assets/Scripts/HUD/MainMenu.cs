@@ -9,7 +9,12 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject controles;
     public GameObject botonesPrincipales;
-    public GameObject opciones; 
+    public GameObject opciones;
+    public GameObject slotsMenu;
+    public GameObject confirmacion;
+    public GameObject noArchivo;
+    public Button[] slots;
+    bool newGame = false;
     
     [Header("Textos Menu Principal")]
     [SerializeField] TextMeshProUGUI jugarT;
@@ -36,6 +41,14 @@ public class MainMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI tecladoT;
     [SerializeField] TextMeshProUGUI volverT2;
 
+    [Header("Textos Menu Slots")]
+    [SerializeField] TextMeshProUGUI sobreescribirT;
+    [SerializeField] TextMeshProUGUI siT;
+    [SerializeField] TextMeshProUGUI noT;
+
+    [SerializeField] TextMeshProUGUI aceptar;
+    [SerializeField] TextMeshProUGUI vacioT;
+
     [Header("Controles")]
     [SerializeField] Image imagenControles;
     [SerializeField] Sprite controlesEsp;
@@ -49,13 +62,15 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider musicSlider;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         ActualizarIdiomas();
+        ChargeSlotInfo(); //Igual poner esto cuando se abra el menu de slots
         musicSlider.value = GameManager.Instance.MusicVolume;
-        sfxSlider.value = GameManager.Instance.SfxVolume;
-        
+        sfxSlider.value = GameManager.Instance.SfxVolume;        
     }
 
 
@@ -72,10 +87,78 @@ public class MainMenu : MonoBehaviour
         opciones.SetActive(!cont);
     }
 
-    public void Play()
+    public void NewGame(bool newGame)
+    {
+        this.newGame = newGame;
+    }
+
+    public void OpenSlots(bool open )
+    {        
+        slotsMenu.SetActive(open);
+        botonesPrincipales.SetActive(!open);
+
+    }
+
+    void ChargeSlotInfo()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (SistemaGuardado.slotExists[i]==0)
+            {
+                //Lo que sea que haga cuando no existe
+            }
+            else
+            {
+                //Lo que sea que haga cuando si existe
+                //Placeholder
+                slots[i].transform.Find("Empty").gameObject.SetActive(false);
+            }
+        }
+    }
+
+
+    public void ClickSlot(int slot) 
+    {
+        SistemaGuardado.indiceSlot = slot;
+        if (newGame)
+        {
+            //Comprobar si el archivo ya existe, si es así pantalla sobreescribir
+            if (SistemaGuardado.slotExists[slot] != 0)
+            {
+                confirmacion.SetActive(true);
+                slotsMenu.SetActive(false);
+            }
+            else { SceneManager.LoadScene("NL-0"); }
+        }
+        else
+        {
+            //Comprobar si el archivo existe, si es asi decir que no se puede cargar el archivo porque está vacio
+            if (SistemaGuardado.slotExists[slot] != 0)
+            {
+                SistemaGuardado.Cargar();
+                SceneManager.LoadScene("NL-0");
+            }
+            else
+            {
+                noArchivo.SetActive(true);
+                slotsMenu.SetActive(false);
+            }            
+        }
+    }
+
+    public void Confirmar()
     {
         SceneManager.LoadScene("NL-0");
     }
+
+    public void CerrarPanel(GameObject panel)
+    {
+        panel.SetActive(false);
+        slotsMenu.SetActive(true);
+    }
+
+
+
     public void Exit()
     {
         Application.Quit();
