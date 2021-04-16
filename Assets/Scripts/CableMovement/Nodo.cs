@@ -26,6 +26,8 @@ public class Nodo : MonoBehaviour
     cableadoviaje cab;
     public float auxtime = 0.15f;
 
+    public bool modificaMaxZoomViaje = true;
+    public float tamañoCamaraViaje = 40;
 
 
     public GameObject cartel;
@@ -72,9 +74,9 @@ public class Nodo : MonoBehaviour
                 {
                     if (cartel != null) cartel.gameObject.SetActive(true);
                     auxtime = 0.15f;
-                    print(auxtime + "prineeeetweito");
+               
                     //if (Input.GetButtonDown("Interact")|| GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
-                    if (Input.GetButtonDown("Interact") && player.GetComponent<ControllerPersonaje>().joystick == null)
+                    if (Input.GetButtonDown("Interact") && player.GetComponent<ControllerPersonaje>().joystick == null&& player.GetComponent<ControllerPersonaje>().movCablesUnlook)
                     {
                         if (cab.viajando == false)
                         {
@@ -83,6 +85,7 @@ public class Nodo : MonoBehaviour
                             print(auxtime + "printweito");
                             player.GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().entradaCables);
                             cab.viajando = true;
+                            player.GetComponent<CameraZoom>().tamañoCamaraViaje = tamañoCamaraViaje;
                             player.transform.position = this.transform.position;
                             //if (puedeAbajo)
                             //{
@@ -103,7 +106,7 @@ public class Nodo : MonoBehaviour
 
                         }
                     }
-                    else if (player.GetComponent<ControllerPersonaje>().joystick != null)
+                    else if (player.GetComponent<ControllerPersonaje>().joystick != null && player.GetComponent<ControllerPersonaje>().movCablesUnlook)
                     {
                         if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
                         {
@@ -115,6 +118,7 @@ public class Nodo : MonoBehaviour
                                 player.GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().entradaCables);
                                 cab.viajando = true;
                                 player.transform.position = this.transform.position;
+                                player.GetComponent<CameraZoom>().tamañoCamaraViaje = tamañoCamaraViaje;
                                 //if (puedeAbajo)
                                 //{
                                 //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(0, -1);

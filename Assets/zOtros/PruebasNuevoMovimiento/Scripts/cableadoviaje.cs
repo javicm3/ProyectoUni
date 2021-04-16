@@ -420,6 +420,8 @@ public class cableadoviaje : MonoBehaviour
                     //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                     this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(0, -2);
                     viajando = false;
+                    this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
+                    this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
 
                     m_Rigidbody2D.isKinematic = false;
                     //
@@ -448,6 +450,9 @@ public class cableadoviaje : MonoBehaviour
                     // GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                     this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(0, +2);
                     viajando = false;
+                    this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
+                    this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
+
                     m_Rigidbody2D.isKinematic = false;
                     //
                     if (unavez == true)
@@ -476,6 +481,9 @@ public class cableadoviaje : MonoBehaviour
                     //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                     this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(2, 0);
                     viajando = false;
+                    this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
+                    this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
+
                     m_Rigidbody2D.isKinematic = false;
                     //
                     if (unavez == true)
@@ -504,6 +512,9 @@ public class cableadoviaje : MonoBehaviour
                     //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
                     this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(-2, 0);
                     viajando = false;
+                    this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
+                    this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
+
                     nodoElegido = null;
                     m_Rigidbody2D.isKinematic = false;
                     //
@@ -599,6 +610,8 @@ public class cableadoviaje : MonoBehaviour
                 {
                     if (node.salida == true)
                     {
+                        this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
+
                         viajando = false;
                     }
                 }
