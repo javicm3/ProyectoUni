@@ -548,7 +548,7 @@ public class ControllerPersonaje : MonoBehaviour
                                     }
                                     else
                                     {
-                                        if (enemigoTemporal.gameObject.GetComponent<EnemigoPadre>() != null)
+                                        if (enemigoTemporal.gameObject.GetComponent<EnemigoPadre>() != null && enemigoTemporal != null)
                                         {
                                             foreach (SpriteRenderer sr in enemigoTemporal.gameObject.GetComponentsInChildren<SpriteRenderer>())
                                             {
