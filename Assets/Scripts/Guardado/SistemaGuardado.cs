@@ -7,11 +7,18 @@ public class SistemaGuardado : MonoBehaviour
 {
     public static readonly string Carpeta_Guardado = Application.dataPath + "/Guardado/";
     public static int indiceIdioma = 0;
+    public static readonly string[] slots = new string[3] {"Slot 1","Slot 2","Slot 3" };
+    public static int indiceSlot = 0;
+    public static int[] slotExists = new int[3] {0,0,0};
 
     public static void CargarPlayerPrefs()
     {
         indiceIdioma = PlayerPrefs.GetInt("idioma");
+        slotExists[0] = PlayerPrefs.GetInt("slot0");
+        slotExists[1] = PlayerPrefs.GetInt("slot1");
+        slotExists[2] = PlayerPrefs.GetInt("slot2");
     }
+
 
     public static void CambiarIndiceIdioma(int index)
     {
@@ -33,9 +40,9 @@ public class SistemaGuardado : MonoBehaviour
     {
         string json;
 
-        if (File.Exists(Carpeta_Guardado + "save_DatosGM.txt"))
+        if (File.Exists(Carpeta_Guardado + slots[indiceSlot]))
         {
-            json = File.ReadAllText(Carpeta_Guardado + "save_DatosGM.txt");
+            json = File.ReadAllText(Carpeta_Guardado + slots[indiceSlot]);
 
             DataGuardadoJSON datos = JsonUtility.FromJson<DataGuardadoJSON>(json);
 
@@ -57,9 +64,6 @@ public class SistemaGuardado : MonoBehaviour
             GameManager.Instance.Habilidades.movParedes = datos.habilidades.movParedes;
             GameManager.Instance.Habilidades.movCables = datos.habilidades.movCables;
 
-            print(GameManager.Instance.Habilidades.movParedes);
-
-            //En el lobby no se cambia el numero al guardar pero en principio da igual porque no se deberá cargar la partida ahi
         }
     }
 
@@ -70,10 +74,12 @@ public class SistemaGuardado : MonoBehaviour
         datosGuardado.habilidades = GameManager.Instance.Habilidades;
 
         string datos = JsonUtility.ToJson(datosGuardado);
-        File.WriteAllText(Carpeta_Guardado + "save_DatosGM.txt", datos);
+        File.WriteAllText(Carpeta_Guardado + slots[indiceSlot], datos);
 
         ListaHabilidades habilidades = GameManager.Instance.Habilidades;
 
+        Debug.Log("guardando");
+        PlayerPrefs.SetInt("slot"+indiceSlot, 1);
         GameManager.Instance.MostrarSaveIcon = true;
     }
 }

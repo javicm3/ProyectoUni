@@ -11,7 +11,7 @@ public class EnemigoEmbestida2 : EnemigoPadre
         Andar,
         Perseguir,
         Embestir,
-        //Idle,
+        Idle,
         Muerte,
         Stun
     }
@@ -38,11 +38,11 @@ public class EnemigoEmbestida2 : EnemigoPadre
     public bool mirandoDerecha = true;
     public SpriteRenderer cuerpo;
     public float speed = 2;
-
+    float tiempoGround = 0;
     Animator anim;
     public float tiempoStun = 2f;
     public float auxTiempoStun;
-
+    public float tiempoGirar = 1.3f;
     public GameObject escudo;
 
     public List<Light2D> luces;
@@ -96,6 +96,15 @@ public class EnemigoEmbestida2 : EnemigoPadre
     // Update is called once per frame
     protected override void Update()
     {
+        if (player.GetComponent<ControllerPersonaje>().grounded)
+        {
+            tiempoGround += Time.deltaTime;
+
+        }
+        else
+        {
+            tiempoGround = 0;
+        }
 
         base.Update();
         if (auxTiempoStun > 0)
@@ -105,16 +114,20 @@ public class EnemigoEmbestida2 : EnemigoPadre
             {
                 auxTiempoStun = 0;
                 Reactivar();
-                
+
             }
         }
         if (activado == true)
         {
             if (auxCdEmbestida > 0)
             {
+
+
                 auxCdEmbestida -= Time.deltaTime;
                 if (auxCdEmbestida <= 0)
                 {
+                    estado = States.Idle;
+                    aux = Random.Range(mintiempoIdle, maxtiempoIdle);
                     auxCdEmbestida = 0;
                 }
             }
@@ -172,7 +185,7 @@ public class EnemigoEmbestida2 : EnemigoPadre
                 anim.SetBool("Andar", false);
                 anim.SetBool("Atacar", false);
                 anim.SetBool("Chase", false);
-                
+
             }
             if (estado == States.Andar)
             {
@@ -213,23 +226,23 @@ public class EnemigoEmbestida2 : EnemigoPadre
                     ComprobarDistPlayer();
 
                 }
-                //if (estado == States.Idle)
-                //{
-                //    anim.SetBool("Idle", true);
-                //    anim.SetBool("Andar", false);
-                //    anim.SetBool("Atacar", false);
-                //    anim.SetBool("Chase", false);
-                //    if (aux > 0)
-                //    {
-                //        aux -= Time.deltaTime;
-                //    }
-                //    else aux = 0;
-                //    if (aux == 0)
-                //    {
-                //        estado = States.Andar;
-                //    }
-                //    ComprobarSiEmbestir();
-                //}
+                if (estado == States.Idle)
+                {
+                    anim.SetBool("Idle", true);
+                    anim.SetBool("Andar", false);
+                    anim.SetBool("Atacar", false);
+                    anim.SetBool("Chase", false);
+                    if (aux > 0)
+                    {
+                        aux -= Time.deltaTime;
+                    }
+                    else aux = 0;
+                    if (aux == 0)
+                    {
+                        estado = States.Andar;
+                    }
+
+                }
                 if (estado == States.Embestir)
                 {
                     anim.SetBool("Atacar", true);
@@ -281,14 +294,18 @@ public class EnemigoEmbestida2 : EnemigoPadre
                 {
                     if (reciengolpeado == false)
                     {
-                        if (Mathf.Sign((this.transform.position - player.transform.position).x) <= 0)
+                        if (player.GetComponent<ControllerPersonaje>().grounded&&tiempoGround>tiempoGirar)
                         {
-                            posicionDestino = new Vector3(player.transform.position.x + 8f, this.transform.position.y, this.transform.position.z);
+                            if (Mathf.Sign((this.transform.position - player.transform.position).x) <= 0)
+                            {
+                                posicionDestino = new Vector3(player.transform.position.x + 8f, this.transform.position.y, this.transform.position.z);
+                            }
+                            else
+                            {
+                                posicionDestino = new Vector3(player.transform.position.x - 8f, this.transform.position.y, this.transform.position.z);
+                            }
                         }
-                        else
-                        {
-                            posicionDestino = new Vector3(player.transform.position.x - 8f, this.transform.position.y, this.transform.position.z);
-                        }
+
                         if ((player.transform.position.x < maxPuntoPatrullaIzq.transform.position.x) || (player.transform.position.x > maxPuntoPatrullaDer.transform.position.x))
                         {
                             //SetRandomPoint();
@@ -315,13 +332,16 @@ public class EnemigoEmbestida2 : EnemigoPadre
                     {
 
 
-                        if (Mathf.Sign((this.transform.position - player.transform.position).x) <= 0)
+                        if (player.GetComponent<ControllerPersonaje>().grounded&&tiempoGround>tiempoGirar)
                         {
-                            posicionDestino = new Vector3(player.transform.position.x + 4f, this.transform.position.y, this.transform.position.z);
-                        }
-                        else
-                        {
-                            posicionDestino = new Vector3(player.transform.position.x - 4f, this.transform.position.y, this.transform.position.z);
+                            if (Mathf.Sign((this.transform.position - player.transform.position).x) <= 0)
+                            {
+                                posicionDestino = new Vector3(player.transform.position.x + 4f, this.transform.position.y, this.transform.position.z);
+                            }
+                            else
+                            {
+                                posicionDestino = new Vector3(player.transform.position.x - 4f, this.transform.position.y, this.transform.position.z);
+                            }
                         }
                         if ((player.transform.position.x < maxPuntoPatrullaIzq.transform.position.x) || (player.transform.position.x > maxPuntoPatrullaDer.transform.position.x))
                         {

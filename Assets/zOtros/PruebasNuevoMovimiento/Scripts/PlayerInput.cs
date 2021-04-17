@@ -15,6 +15,8 @@ public class PlayerInput : MonoBehaviour
     public bool inputVerticBlock = false;
     ControllerPersonaje cp;
     Vector2 originalScale;
+    public float Xinput;
+    public float Yinput;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -70,7 +72,7 @@ public class PlayerInput : MonoBehaviour
 
                 }
             }
-            else if (inputHorizontal == -1 && personajeInvertido == false && (Mathf.Sign(cp.ultimaNormal.y) > 0) && (cp.grounded)&& !cp.looping)
+            else if (inputHorizontal == -1 && personajeInvertido == false && (Mathf.Sign(cp.ultimaNormal.y) > 0) && (cp.grounded) && !cp.looping)
             {
                 particulasVelMax.localScale = new Vector2(-1, 1);
                 transform.Find("Cuerpo").localScale *= new Vector2(-1, 1);
@@ -246,7 +248,7 @@ public class PlayerInput : MonoBehaviour
                     personajeInvertido = true;
                 }
             }
-            else if ((!cp.grounded) )
+            else if ((!cp.grounded))
             {
                 if (rb.velocity.x > 0.05f)
                 {
@@ -282,29 +284,44 @@ public class PlayerInput : MonoBehaviour
         if (inputHorizBlock == false)
         {
             //inputHorizontal =Input.GetAxis("Horizontal");
-            if (cp.joystick != null)
+            if (cp.joystick != null&& cp.joystick.LeftStickX!=0)
             {
                 inputHorizontal = cp.joystick.LeftStickX + Input.GetAxisRaw("Horizontal");
+                Xinput = inputHorizontal;
+                if (Mathf.Abs(inputHorizontal) <= 1.1f)
+                {
+                    inputHorizontal = 0;
+                }
+                else if (inputHorizontal > 1.1f)
+                {
+                    inputHorizontal = 1;
+                }
+                else if (inputHorizontal < -1.1f)
+                {
+                    inputHorizontal = -1;
+                }
                 //print(inputHorizontal + "horiz22");
             }
             else
             {
                 inputHorizontal = Input.GetAxisRaw("Horizontal");
+                Xinput = inputHorizontal;
+                if (Mathf.Abs(inputHorizontal) <= 0.6f)
+                {
+                    inputHorizontal = 0;
+                }
+                else if (inputHorizontal > 0.6f)
+                {
+                    inputHorizontal = 1;
+                }
+                else if (inputHorizontal < -0.6f)
+                {
+                    inputHorizontal = -1;
+                }
                 //print(inputHorizontal + "horiz");
             }
 
-            if (Mathf.Abs(inputHorizontal) <= 0.8f)
-            {
-                inputHorizontal = 0;
-            }
-            else if (inputHorizontal > 0.6f)
-            {
-                inputHorizontal = 1;
-            }
-            else if (inputHorizontal < -0.6f)
-            {
-                inputHorizontal = -1;
-            }
+
 
 
             if (inputHorizontal != 0)
@@ -323,27 +340,43 @@ public class PlayerInput : MonoBehaviour
         if (inputVerticBlock == false)
         {
             //inputVertical = Input.GetAxis("Vertical");
-            if (cp.joystick != null)
+            if (cp.joystick != null&&cp.joystick.LeftStickY!=0)
             {
+               
                 inputVertical = cp.joystick.LeftStickY + Input.GetAxisRaw("Vertical");
+                Yinput = inputVertical;
+                if (inputVertical > 1.75f)
+                {
+                    inputVertical = 1;
+                }
+                else if (inputVertical < -1.75f)
+                {
+                    inputVertical = -1;
+                }
+                else
+                {
+                    inputVertical = 0;
+                }
             }
             else
             {
                 inputVertical = Input.GetAxisRaw("Vertical");
+                Yinput = inputVertical;
+                if (inputVertical > 0.6f)
+                {
+                    inputVertical = 1;
+                }
+                else if (inputVertical < -0.6f)
+                {
+                    inputVertical = -1;
+                }
+                else
+                {
+                    inputVertical = 0;
+                }
             }
 
-            if (inputVertical > 0.4f)
-            {
-                inputVertical = 1;
-            }
-            else if (inputVertical < -0.4f)
-            {
-                inputVertical = -1;
-            }
-            else
-            {
-                inputVertical = 0;
-            }
+           
 
         }
         else

@@ -22,7 +22,7 @@ public class ControllerPersonaje : MonoBehaviour
     bool dashUnlock;
     bool chispazoUnlook;
     bool movParedesUnlook;
-    bool movCablesUnlook;
+    public bool movCablesUnlook;
 
 
     Vector2 ultimaParedPosicion;
@@ -420,7 +420,7 @@ public class ControllerPersonaje : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!combateBloqueado) Combate();
+       if(chispazoUnlook) if (!combateBloqueado) Combate();
         DetectarSuelo();
 
         if (grounded && tengoMaxspeed)
@@ -430,7 +430,7 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax2, VFX.position, VFX.transform);
             }
-            else
+            else 
             {
                 GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasvelMax, VFX.position, VFX.transform);
             }
@@ -457,7 +457,7 @@ public class ControllerPersonaje : MonoBehaviour
             MoverPersonaje();
         }
         GirarPersonaje();
-        MovimientoPared();
+       if(movParedesUnlook) if(movParedBloq==false) MovimientoPared();
 
 
 
@@ -548,7 +548,7 @@ public class ControllerPersonaje : MonoBehaviour
                                     }
                                     else
                                     {
-                                        if (enemigoTemporal.gameObject.GetComponent<EnemigoPadre>() != null && enemigoTemporal != null)
+                                        if (enemigoTemporal!=null&&enemigoTemporal.gameObject.GetComponent<EnemigoPadre>() != null)
                                         {
                                             foreach (SpriteRenderer sr in enemigoTemporal.gameObject.GetComponentsInChildren<SpriteRenderer>())
                                             {
@@ -1481,7 +1481,7 @@ public class ControllerPersonaje : MonoBehaviour
                 }
                 //this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
                 heEntradoParedUnaVez = false;
-                movimientoBloqueado = false;
+                //movimientoBloqueado = false;
                 ultimaNormal = new Vector2(0, 1);
                 //VELOCIDAD A LA QUE SALE DE LA PARED POR ARRIBA
                 if (auxtiempoTrasSaltoPared <= 0) rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
@@ -2581,7 +2581,7 @@ public class ControllerPersonaje : MonoBehaviour
             //if (Input.GetButtonDown("Dash") && mEnergy.actualEnergy > mEnergy.energiaDash && pInput.inputVertical!=-1)
             if (joystick != null)
             {
-                if ((joystick.Action3.WasPressed || Input.GetButtonDown("Dash")) && mEnergy.actualEnergy > mEnergy.energiaDash && (Mathf.Abs(joystick.LeftStick.X) > 0.3f || pInput.inputVertical > -1))
+                if ((joystick.Action3.WasPressed || Input.GetButtonDown("Dash")) && mEnergy.actualEnergy > mEnergy.energiaDash && (Mathf.Abs(joystick.LeftStick.X) >= 1.2f || Mathf.Abs(pInput.Yinput) < 1.8))
                 {
                     //if (dashPulsado && mEnergy.actualEnergy > mEnergy.energiaDash)
                     //{
@@ -3000,7 +3000,7 @@ public class ControllerPersonaje : MonoBehaviour
     void DashEnCaida()
     {
         if (dashEnCaida)
-        {
+        {if (saltoDobleHecho ||  rb.velocity.y > 0) dashEnCaida = false;
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
         if (rb.velocity.y == 0)
@@ -3011,7 +3011,7 @@ public class ControllerPersonaje : MonoBehaviour
         if (joystick != null)
         {
             //if (!grounded && pegadoPared == false && (pInput.inputVertical == -1 || (joystick.Action2.WasPressed || Input.GetButtonDown("Dash"))))
-            if (!grounded && pInput.inputVertical == -1 && pegadoPared == false && joystick.LeftStickY == 0 || (joystick.Action3.WasPressed && pInput.inputVertical == -1 /*&& joystick.LeftStick.Y <=-0.7f*/ && Mathf.Abs(joystick.LeftStick.X) < 0.3f/*|| Input.GetButtonDown("Dash")*/))
+            if (!grounded && pInput.inputVertical == -1 && pegadoPared == false && joystick.LeftStickY == 0 || (joystick.Action3.WasPressed && pInput.inputVertical == -1 /*&& joystick.LeftStick.Y <=-0.7f*/ /*&& Mathf.Abs(joystick.LeftStick.X) < 1.25f*//*|| Input.GetButtonDown("Dash")*/))
             {
                 if (dashEnCaida == false)
                 {
@@ -3026,6 +3026,7 @@ public class ControllerPersonaje : MonoBehaviour
                             dashEnCaida = true;
                             GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDashCaida, posGround.position, posGround);
                             GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
+                            rb.velocity = new Vector2(rb.velocity.x, -1);
                         }
                     }
                     else
@@ -3039,6 +3040,7 @@ public class ControllerPersonaje : MonoBehaviour
                             dashEnCaida = true;
                             GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDashCaida, posGround.position, posGround);
                             GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
+                            rb.velocity = new Vector2(rb.velocity.x, -1);
                         }
                     }
                 }
@@ -3063,13 +3065,15 @@ public class ControllerPersonaje : MonoBehaviour
                         if (tiempoCOYOTE < -0.2f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
                         {
                             mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
-                            //Si lo lees tienes CoVid-19
+                    
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                             dashEnCaida = true;
                             GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDashCaida, posGround.position, posGround);
                             GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
+                            if (rb.velocity.y > -1) rb.velocity = new Vector2(rb.velocity.x, -1);
+
                         }
                     }
                     else
@@ -3081,8 +3085,9 @@ public class ControllerPersonaje : MonoBehaviour
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                             dashEnCaida = true;
-
+                            GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDashCaida, posGround.position, posGround);
                             GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
+                            if(rb.velocity.y>-1)rb.velocity = new Vector2(rb.velocity.x, -1);
 
                         }
                     }

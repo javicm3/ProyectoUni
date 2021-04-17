@@ -246,7 +246,7 @@ public class VidaPlayer : MonoBehaviour
         {
             this.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
         }
-        else if (auxcdTrasdaño > 0.0f)
+        else if ((auxcdTrasdaño > 0.0f)&&(reiniciando ==false))
         {
             this.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
         }

@@ -341,6 +341,7 @@ public class GameManager : MonoBehaviour
             if (p!=null)
             { p.CargarHabilidadesGM(); }
         }
+        print(habilidades.dash + "dash" + habilidades.chispazo + "chisp" + habilidades.movParedes + "paredes");
     }
 
 
