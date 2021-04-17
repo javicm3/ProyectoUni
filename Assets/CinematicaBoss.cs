@@ -16,8 +16,8 @@ public class CinematicaBoss : MonoBehaviour
     public GameObject[] laseres3;
     public GameObject particulasNiebla;
     public SpriteRenderer[] partesBoss;
-    public Sprite mensaje1;
-    public Sprite mensaje2;
+    public Texture2D mensaje1;
+    public Texture2D mensaje2;
     public bool primeravez;
     public Transform puntoNiebla;
     float t;
@@ -72,9 +72,9 @@ public class CinematicaBoss : MonoBehaviour
         holograma.SetActive(true);
         yield return new WaitForSeconds(tiempoOpacidad);
 
-        holograma.GetComponent<SpriteRenderer>().sprite = mensaje1;
+        holograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensaje1);
         yield return new WaitForSeconds(tiempoMensajes);
-        holograma.GetComponent<SpriteRenderer>().sprite = mensaje2;
+        holograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensaje2);
         yield return new WaitForSeconds(tiempoMensajes);
         StartCoroutine(Laseres());
 
