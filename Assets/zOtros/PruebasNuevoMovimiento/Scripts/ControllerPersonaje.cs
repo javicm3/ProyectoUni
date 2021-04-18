@@ -1933,17 +1933,17 @@ public class ControllerPersonaje : MonoBehaviour
                 if (Mathf.Abs(rb.velocity.x) < (velMinima))
                 {
                     AnimatorClipInfo[] animInfo = animCC.GetCurrentAnimatorClipInfo(0);
-                    if (animInfo[0].clip != null)
-                    {
-                        if (animInfo[0].clip.name == ("Sprintar"))
-                        {
-                            animCC.speed = Mathf.Clamp(Mathf.Abs(rb.velocity.x) * 0.035f, 1, 1.25f);
-                        }
-                        else if (animInfo[0].clip.name == ("Trotar"))
-                        {
-                            animCC.speed = Mathf.Clamp(Mathf.Abs(rb.velocity.x) * 0.05f, 0.6f, 1f);
-                        }
-                    }
+                    //if (animInfo[0].clip != null)
+                    //{
+                    //    if (animInfo[0].clip.name == ("Sprintar"))
+                    //    {
+                    //        animCC.speed = Mathf.Clamp(Mathf.Abs(rb.velocity.x) * 0.035f, 1, 1.25f);
+                    //    }
+                    //    else if (animInfo[0].clip.name == ("Trotar"))
+                    //    {
+                    //        animCC.speed = Mathf.Clamp(Mathf.Abs(rb.velocity.x) * 0.05f, 0.6f, 1f);
+                    //    }
+                    //}
 
                     //print("velminnn");
                     speed = velMinima;
@@ -1996,17 +1996,17 @@ public class ControllerPersonaje : MonoBehaviour
                 else if (Mathf.Abs(this.rb.velocity.x) < velMaxima)
                 {
                     AnimatorClipInfo[] animInfo = animCC.GetCurrentAnimatorClipInfo(0);
-                    if (animInfo[0].clip != null)
-                    {
-                        if (animInfo[0].clip.name == ("Sprintar"))
-                        {
-                            animCC.speed = Mathf.Clamp(Mathf.Abs(rb.velocity.x) * 0.035f, 1, 1.25f);
-                        }
-                        else if (animInfo[0].clip.name == ("Trotar"))
-                        {
-                            animCC.speed = Mathf.Clamp(Mathf.Abs(rb.velocity.x) * 0.05f, 0.6f, 1f);
-                        }
-                    }
+                    //if (animInfo[0].clip != null)
+                    //{
+                    //    if (animInfo[0].clip.name == ("Sprintar"))
+                    //    {
+                    //        animCC.speed = Mathf.Clamp(Mathf.Abs(rb.velocity.x) * 0.035f, 1, 1.25f);
+                    //    }
+                    //    else if (animInfo[0].clip.name == ("Trotar"))
+                    //    {
+                    //        animCC.speed = Mathf.Clamp(Mathf.Abs(rb.velocity.x) * 0.05f, 0.6f, 1f);
+                    //    }
+                    //}
 
                     //print("velmeddd ut");
                     //if (pInput.inputHorizontal > 0)
