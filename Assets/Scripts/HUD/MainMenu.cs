@@ -43,11 +43,13 @@ public class MainMenu : MonoBehaviour
 
     [Header("Textos Menu Slots")]
     [SerializeField] TextMeshProUGUI sobreescribirT;
+    [SerializeField] TextMeshProUGUI noArchivoT;
     [SerializeField] TextMeshProUGUI siT;
-    [SerializeField] TextMeshProUGUI noT;
+    //[SerializeField] TextMeshProUGUI noT; Añadir si se ponen más idiomas
 
-    [SerializeField] TextMeshProUGUI aceptar;
-    [SerializeField] TextMeshProUGUI vacioT;
+    [SerializeField] TextMeshProUGUI aceptarT;
+    [SerializeField] TextMeshProUGUI[] slotT;
+    [SerializeField] TextMeshProUGUI volverT3;
 
     [Header("Controles")]
     [SerializeField] Image imagenControles;
@@ -199,6 +201,7 @@ public class MainMenu : MonoBehaviour
         salirT.text = Idiomas.salir[i];
         //volverT1.text = Idiomas.volver[i];
         volverT2.text = Idiomas.volver[i];
+        volverT3.text = Idiomas.volver[i];
 
         verControlesT.text = Idiomas.controles[i];
         mandoT.text = Idiomas.mando[i];
@@ -211,6 +214,15 @@ public class MainMenu : MonoBehaviour
         idiomasT.text = Idiomas.idioma[i];
         españolT.text = Idiomas.español[i];
         inglesT.text = Idiomas.ingles[i];
+
+        sobreescribirT.text = Idiomas.overwrite[i];
+        noArchivoT.text = Idiomas.emptyFile[i];
+        aceptarT.text = Idiomas.acept[i];
+        siT.text = Idiomas.yes[i];
+        for (int j = 0; j < slotT.Length; j++)
+        {
+            slotT[j].text = Idiomas.slot[i] + (j + 1);
+        }
 
         switch (i) //Lo pongo con un switch por si queremos poner más idiomas
         {

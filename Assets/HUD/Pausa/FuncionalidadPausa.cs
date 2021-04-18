@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using InControl;
 
 public class FuncionalidadPausa : MonoBehaviour
 {
@@ -54,11 +55,14 @@ public class FuncionalidadPausa : MonoBehaviour
         ActualizarIdiomas();
         musicSlider.value = GameManager.Instance.MusicVolume;
         sfxSlider.value = GameManager.Instance.SfxVolume;
+        joystick = FindObjectOfType<ControllerPersonaje>().joystick;
     }
+
+    InputDevice joystick;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || (joystick.Name != "NullInputDevice" && joystick.Action3.WasPressed))
         {
             if (Time.timeScale == 1)
             {
