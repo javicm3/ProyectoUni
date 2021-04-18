@@ -29,6 +29,7 @@ public class HUDController : MonoBehaviour
             selected = item[index];
             selected.Select();
         }
+        else { Cursor.visible = true; }
     }
 
     // Update is called once per frame

@@ -19,9 +19,9 @@ public class TextoPuerta : MonoBehaviour
         int i = SistemaGuardado.indiceIdioma;
 
         string comando = "E ";
-        if (FindObjectOfType<ControllerPersonaje>().joystick != null)
+        if (FindObjectOfType<ControllerPersonaje>().joystick.Name != "NullInputDevice")
         {
-            comando = "X ";
+            comando = "A ";
         }
 
         switch (tipo)

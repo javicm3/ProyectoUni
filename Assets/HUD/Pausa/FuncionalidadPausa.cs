@@ -51,7 +51,7 @@ public class FuncionalidadPausa : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fondo=GetComponent<Image>();
+        fondo = GetComponent<Image>();
         ActualizarIdiomas();
         musicSlider.value = GameManager.Instance.MusicVolume;
         sfxSlider.value = GameManager.Instance.SfxVolume;
@@ -82,7 +82,7 @@ public class FuncionalidadPausa : MonoBehaviour
         fondo.enabled = menu;
 
         if (menu) { Time.timeScale = 0; }
-        else { Time.timeScale = 1; }
+        else { Time.timeScale = 1; Cursor.visible = false; }
     }
 
     public void OnOptions(bool options)
