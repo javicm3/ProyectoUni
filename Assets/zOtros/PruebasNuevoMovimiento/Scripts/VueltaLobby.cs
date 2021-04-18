@@ -63,11 +63,7 @@ public class VueltaLobby : MonoBehaviour
     }
 
     void IrLobby()
-    {
-        GhostData.Instance.TerminarNivel(SceneManager.GetActiveScene().name);
-SceneManager.LoadScene("NL-0", LoadSceneMode.Single);
-
-    }
+    { SceneManager.LoadScene("NL-0", LoadSceneMode.Single); }
 
     private void OnTriggerExit2D(Collider2D collision)
     {

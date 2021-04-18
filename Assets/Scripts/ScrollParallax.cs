@@ -32,7 +32,7 @@ public class ScrollParallax : MonoBehaviour
             {
                 posicionFinal = posicionCam.position + player.transform.position;
                 nearBackground.transform.position = new Vector3(posNB.x - (posicionFinal.x * 0.030f), nearBackground.transform.position.y, nearBackground.transform.position.z);
-            if(Background!=null)    Background.transform.position = new Vector3(posB.x - (posicionFinal.x * 0.015f), Background.transform.position.y, Background.transform.position.z);
+                Background.transform.position = new Vector3(posB.x - (posicionFinal.x * 0.015f), Background.transform.position.y, Background.transform.position.z);
             }
         }
 

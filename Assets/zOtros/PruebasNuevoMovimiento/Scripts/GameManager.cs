@@ -224,13 +224,7 @@ public class GameManager : MonoBehaviour
             {
                 Invoke("HacerAnim", 1);
                 animDesbloquear = false;
-             
-                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().inputHorizBlock = true;
-        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().inputVerticBlock = true;
-                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().dashBloqueado = true;
-                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().saltoBloqueado = true;
-                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().dashCaidaBloqueado = true;
-                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().movimientoBloqueado = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().enabled = false;
             }
 
         }
@@ -248,13 +242,7 @@ public class GameManager : MonoBehaviour
     }
     void DevolverInput()
     {
-
-        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().inputHorizBlock = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().inputVerticBlock = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().dashBloqueado = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().saltoBloqueado = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().dashCaidaBloqueado = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().movimientoBloqueado = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().enabled = true;
     }
 
     void Awake()
