@@ -28,9 +28,6 @@ public class GameManager : MonoBehaviour
 
     NewAudioManager NAM;
     public bool animDesbloquear;
-    public DesbloquearHabilidades.habilidad habilidad;
-
-    GameObject playerGO;
 
     //  V O L U M E N   S O N I D O 
     public AudioMixer audioMixer;
@@ -188,7 +185,6 @@ public class GameManager : MonoBehaviour
         }
         if (tieneColeccionables)
         {
-            Cursor.visible=false;
             CheckLevelList(scene.name);//Dentro de este método se seteea el nivel actual
             UltimoCheck = null;
 
@@ -217,7 +213,6 @@ public class GameManager : MonoBehaviour
         }
         else if(scene.name=="NL-0") 
         {
-            Cursor.visible = false;
             //actualLevel = -1;
             personajevivo = true;
 
@@ -229,24 +224,21 @@ public class GameManager : MonoBehaviour
             {
                 Invoke("HacerAnim", 1);
                 animDesbloquear = false;
-
-                playerGO = GameObject.FindGameObjectWithTag("Player");
-                PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
-                plInput.inputHorizBlock = true;
-                plInput.inputVerticBlock = true;
-
-                ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
-                per.dashBloqueado = true;
-                per.saltoBloqueado = true;
-                per.dashCaidaBloqueado = true;
-                per.movimientoBloqueado = true;
+             
+                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().inputHorizBlock = true;
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().inputVerticBlock = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().dashBloqueado = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().saltoBloqueado = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().dashCaidaBloqueado = true;
+                GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().movimientoBloqueado = true;
             }
+
         }
     }
 
     void HacerAnim()
     {
-        playerGO.GetComponentInChildren<Animator>().SetTrigger("Habilidad");
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Animator>().SetTrigger("Habilidad");
         if (GameObject.Find("Maquina_Coleccionable Prefab") != null)
         {
             GameObject.Find("Maquina_Coleccionable Prefab").GetComponent<Animator>().SetTrigger("Coleccionable");
@@ -254,20 +246,15 @@ public class GameManager : MonoBehaviour
         
         Invoke("DevolverInput", 7.45f);
     }
-
     void DevolverInput()
     {
-        PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
-        ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
 
-        plInput.inputHorizBlock = false;
-        plInput.inputVerticBlock = false;
-        per.dashBloqueado = false;
-        per.saltoBloqueado = false;
-        per.dashCaidaBloqueado = false;
-        per.movimientoBloqueado = false;
-
-        FindObjectOfType<Pantalla>().ChangeScreen(habilidad);
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().inputHorizBlock = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().inputVerticBlock = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().dashBloqueado = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().saltoBloqueado = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().dashCaidaBloqueado = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<ControllerPersonaje>().movimientoBloqueado = false;
     }
 
     void Awake()

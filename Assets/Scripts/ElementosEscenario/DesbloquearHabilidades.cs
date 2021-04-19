@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DesbloquearHabilidades : MonoBehaviour
 {
-    public enum habilidad
+    enum habilidad
     {
         dash,
         chispazo,
@@ -45,7 +45,6 @@ public class DesbloquearHabilidades : MonoBehaviour
                 break;
         }
         GameManager.Instance.animDesbloquear = true;
-        GameManager.Instance.habilidad = desbloquear;
         usado = true;
     }
 }
