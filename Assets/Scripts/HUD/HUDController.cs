@@ -21,6 +21,17 @@ public class HUDController : MonoBehaviour
         StartCoroutine(WaitCheckController());
     }
 
+    private void OnEnable()
+    {
+        if (isController)
+        {
+            index = 0;
+            selected = item[index];
+            selected.Select();
+        }
+        else { Cursor.visible = true; }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -40,9 +51,9 @@ public class HUDController : MonoBehaviour
 
             if (joystick.LeftStickY.WasPressed)
             {
-                if (Input.GetAxis("Vertical") > 0.2f && index - 1 >= 0)
+                if (Input.GetAxis("Vertical") > 0.05f && index - 1 >= 0)
                 { index--; }
-                else if(Input.GetAxis("Vertical") < -0.2f && index + 1 < item.Length) { index++; }
+                else if(Input.GetAxis("Vertical") < -0.05f && index + 1 < item.Length) { index++; }
                 
                 SelectItem();
             }
@@ -53,7 +64,7 @@ public class HUDController : MonoBehaviour
                 selected.Use();
             }
 
-            if (joystick.LeftStickX.IsPressed && Mathf.Abs(Input.GetAxis("Horizontal"))>0.2f )
+            if (joystick.LeftStickX.IsPressed && Mathf.Abs(Input.GetAxis("Horizontal"))>0.1f )
             {
                 selected.Slide(Input.GetAxis("Horizontal"));
             }
