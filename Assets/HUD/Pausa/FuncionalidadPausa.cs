@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using InControl;
 
 public class FuncionalidadPausa : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class FuncionalidadPausa : MonoBehaviour
 
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
+
+    InputDevice joystick;
 
     [Header("Textos")]
     [SerializeField] TextMeshProUGUI pauseT;
@@ -54,11 +57,12 @@ public class FuncionalidadPausa : MonoBehaviour
         ActualizarIdiomas();
         musicSlider.value = GameManager.Instance.MusicVolume;
         sfxSlider.value = GameManager.Instance.SfxVolume;
+        joystick = FindObjectOfType<ControllerPersonaje>().joystick;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || (joystick.Name != "NullInputDevice" && joystick.Action3.WasPressed))
         {
             if (Time.timeScale == 1)
             {
@@ -78,7 +82,7 @@ public class FuncionalidadPausa : MonoBehaviour
         fondo.enabled = menu;
 
         if (menu) { Time.timeScale = 0; }
-        else { Time.timeScale = 1; }
+        else { Time.timeScale = 1; Cursor.visible = false; }
     }
 
     public void OnOptions(bool options)

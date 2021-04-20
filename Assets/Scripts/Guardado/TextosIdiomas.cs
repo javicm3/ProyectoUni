@@ -29,4 +29,13 @@ public class Idiomas
 
     public static string[] pause = { "Pausa", "Pause" };
     public static string[] resume = { "Continuar", "Resume" };
+
+    public static string[] acept = { "Aceptar", "Acept" };
+    public static string[] yes = { "Si", "Yes" };
+    public static string[] slot = { "Archivo ", "Slot " };
+    public static string[] overwrite = { "¿Quieres sobreescribir este archivo?", "Do you want yo overwrite this file?" };
+    public static string[] emptyFile = { "No se puede cargar porque no hay datos en el archivo.", "Can't load the file because it's empty." };
+    public static string[] time = { "Tiempo de juego", "Time played" };
+    public static string[] collectibles = { "Coleccionables", "Collectibles" };
+    public static string[] empty = { "Archivo vacio", "Empty file" };
 }
