@@ -936,6 +936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2098227749811648922}
   tocandoRebote: 0
+  movCablesUnlook: 0
   distanciaPared: 0.4
   lastJumpPared: 0
   deteccionParedes: 1
@@ -979,7 +980,7 @@ MonoBehaviour:
   estoyDasheando: 0
   auxdash: 0
   cooldownDashAtravesar: 1
-  cooldownDashReal: 0.2
+  cooldownDashReal: 0.8
   auxCdDashAtravesar: 0
   auxCdDashReal: 0
   distanciaBorde: 0.4
@@ -999,6 +1000,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   enemigosPasados: []
   velocidadCombate: 100
+  enemigoTemporal: {fileID: 0}
   direccionCombate: {x: 0, y: 0, z: 0}
   velocidadCombateUltima: {x: 0, y: 0, z: 0}
   tiempoTrasSalirCombate: 0.3
@@ -1080,6 +1082,8 @@ MonoBehaviour:
   personajeInvertido: 0
   inputHorizBlock: 0
   inputVerticBlock: 0
+  Xinput: 0
+  Yinput: 0
 --- !u!114 &2098227749811648896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1428,6 +1432,7 @@ MonoBehaviour:
   finalsize: 40
   auxstartsize: 0
   auxfinalsize: 0
+  "tama\xF1oCamaraViaje": 40
   "tama\xF1oCamaraPausa": 2.2
   segundorb: {fileID: 0}
   indiceMultiplicador: 0.1
@@ -1454,6 +1459,7 @@ MonoBehaviour:
   distanciaCeboNosolo: 45
   tiempoTrasTransicion: 0.7
   auxtiempoTrasTrans: 0
+  "originalTama\xF1oCamaraViaje": 0
 --- !u!114 &2087127876
 MonoBehaviour:
   m_ObjectHideFlags: 0
