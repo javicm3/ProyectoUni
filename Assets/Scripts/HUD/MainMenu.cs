@@ -103,15 +103,26 @@ public class MainMenu : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            if (SistemaGuardado.slotExists[i]==0)
+            if (SistemaGuardado.dataSlots.slotArray[i].exists)
             {
+                Transform d = slots[i].transform.Find("Datos");
+                d.gameObject.SetActive(true);
+                d.Find("Coleccionables").GetComponent<TextMeshProUGUI>().text = ""+SistemaGuardado.dataSlots.slotArray[i].coleccionables;
+
+                float t = SistemaGuardado.dataSlots.slotArray[i].gameTime/60;
+                string hours = Mathf.Floor(t/60).ToString("00");
+                string minutes = Mathf.Floor(t % 60).ToString("00");
+
+                d.Find("Tiempo").GetComponent<TextMeshProUGUI>().text = hours+" : " +minutes;
+
+                slots[i].transform.Find("Vacio").gameObject.SetActive(false);
                 //Lo que sea que haga cuando no existe
             }
             else
             {
                 //Lo que sea que haga cuando si existe
                 //Placeholder
-                slots[i].transform.Find("Empty").gameObject.SetActive(false);
+                slots[i].transform.Find("Vacio").gameObject.SetActive(true);
             }
         }
     }
@@ -123,18 +134,23 @@ public class MainMenu : MonoBehaviour
         if (newGame)
         {
             //Comprobar si el archivo ya existe, si es así pantalla sobreescribir
-            if (SistemaGuardado.slotExists[slot] != 0)
+            if (SistemaGuardado.dataSlots.slotArray[slot].exists)
             {
                 confirmacion.SetActive(true);
                 slotsMenu.SetActive(false);
             }
-            else { SceneManager.LoadScene("NL-0"); }
+            else
+            {
+                SistemaGuardado.timeToIgnore = Time.time;
+                SceneManager.LoadScene("NL-0");
+            }
         }
         else
         {
             //Comprobar si el archivo existe, si es asi decir que no se puede cargar el archivo porque está vacio
-            if (SistemaGuardado.slotExists[slot] != 0)
+            if (SistemaGuardado.dataSlots.slotArray[slot].exists)
             {
+                SistemaGuardado.timeToIgnore = Time.time;
                 SistemaGuardado.Cargar();
                 SceneManager.LoadScene("NL-0");
             }

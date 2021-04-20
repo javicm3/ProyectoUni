@@ -79,7 +79,7 @@ public class HUDController : MonoBehaviour
 
     void CheckController()
     {
-        joystick = InputManager.ActiveDevice; print(joystick);
+        joystick = InputManager.ActiveDevice; 
         if (joystick.Name != "NullInputDevice")
         {
             isController = true;

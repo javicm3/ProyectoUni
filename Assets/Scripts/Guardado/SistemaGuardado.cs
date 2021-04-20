@@ -9,15 +9,14 @@ public class SistemaGuardado : MonoBehaviour
     public static int indiceIdioma = 0;
     public static readonly string[] slots = new string[3] {"Slot 1","Slot 2","Slot 3" };
     public static int indiceSlot = 0;
-    public static int[] slotExists = new int[3] {0,0,0};
+    public static DataSlots dataSlots = new DataSlots();
+    public static float timeToIgnore;
 
     public static void CargarPlayerPrefs()
     {
         indiceIdioma = PlayerPrefs.GetInt("idioma");
-        slotExists[0] = PlayerPrefs.GetInt("slot0");
-        slotExists[1] = PlayerPrefs.GetInt("slot1");
-        slotExists[2] = PlayerPrefs.GetInt("slot2");
     }
+
 
 
     public static void CambiarIndiceIdioma(int index)
@@ -33,6 +32,17 @@ public class SistemaGuardado : MonoBehaviour
             Directory.CreateDirectory(Carpeta_Guardado);
         }
 
+        if (File.Exists(Carpeta_Guardado + "slotsData.txt"))
+        {
+            string json = File.ReadAllText(Carpeta_Guardado + "slotsData.txt");
+            dataSlots = JsonUtility.FromJson<DataSlots>(json);
+        }
+        else
+        {
+            string datos = JsonUtility.ToJson(dataSlots);
+            File.WriteAllText(Carpeta_Guardado + "slotsData.txt", datos);
+        }
+
         CargarPlayerPrefs();
     }
 
@@ -40,9 +50,9 @@ public class SistemaGuardado : MonoBehaviour
     {
         string json;
 
-        if (File.Exists(Carpeta_Guardado + slots[indiceSlot]))
+        if (File.Exists(Carpeta_Guardado + slots[indiceSlot]+".txt"))
         {
-            json = File.ReadAllText(Carpeta_Guardado + slots[indiceSlot]);
+            json = File.ReadAllText(Carpeta_Guardado + slots[indiceSlot] + ".txt");
 
             DataGuardadoJSON datos = JsonUtility.FromJson<DataGuardadoJSON>(json);
 
@@ -74,13 +84,46 @@ public class SistemaGuardado : MonoBehaviour
         datosGuardado.habilidades = GameManager.Instance.Habilidades;
 
         string datos = JsonUtility.ToJson(datosGuardado);
-        File.WriteAllText(Carpeta_Guardado + slots[indiceSlot], datos);
+        File.WriteAllText(Carpeta_Guardado + slots[indiceSlot]+ ".txt", datos);
 
         ListaHabilidades habilidades = GameManager.Instance.Habilidades;
 
         Debug.Log("guardando");
-        PlayerPrefs.SetInt("slot"+indiceSlot, 1);
         GameManager.Instance.MostrarSaveIcon = true;
+
+        if (File.Exists(Carpeta_Guardado + "slotsData.txt"))
+        {
+            string json = File.ReadAllText(Carpeta_Guardado + "slotsData.txt");
+
+            dataSlots = JsonUtility.FromJson<DataSlots>(json);           
+        }
+
+        SaveSlotsData();
+        timeToIgnore = Time.time;
+    }
+
+    static void SaveSlotsData()
+    {
+        dataSlots.slotArray[indiceSlot].exists = true;
+        dataSlots.slotArray[indiceSlot].coleccionables = GameManager.Instance.totalColeccionables.Count;
+        dataSlots.slotArray[indiceSlot].gameTime += (Time.time-timeToIgnore);
+
+
+        string datos = JsonUtility.ToJson(dataSlots);
+        File.WriteAllText(Carpeta_Guardado + "slotsData.txt", datos);
+    }
+
+    [System.Serializable]
+    public class DataSlots
+    {
+        public Slot[] slotArray = new Slot[] { new Slot(), new Slot(), new Slot() };
+    }
+    [System.Serializable]
+    public class Slot
+    {
+        public bool exists;
+        public float gameTime;
+        public int coleccionables;
     }
 }
 
