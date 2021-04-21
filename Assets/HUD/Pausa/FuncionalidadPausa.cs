@@ -57,6 +57,12 @@ public class FuncionalidadPausa : MonoBehaviour
         ActualizarIdiomas();
         musicSlider.value = GameManager.Instance.MusicVolume;
         sfxSlider.value = GameManager.Instance.SfxVolume;
+        StartCoroutine(FindJoystick());
+    }
+
+    IEnumerator FindJoystick()
+    {
+        yield return new WaitForEndOfFrame();
         joystick = FindObjectOfType<ControllerPersonaje>().joystick;
     }
 
@@ -78,11 +84,18 @@ public class FuncionalidadPausa : MonoBehaviour
 
     public void OnPause(bool menu)
     {
+        if (menu) { Time.timeScale = 0; }
+        else
+        {
+            Time.timeScale = 1;
+            Cursor.visible = false;
+            foreach (HUDController hud in GetComponentsInChildren<HUDController>())
+            {
+                hud.DiselectAllItems();
+            }
+        }
         menuPausa.SetActive(menu);
         fondo.enabled = menu;
-
-        if (menu) { Time.timeScale = 0; }
-        else { Time.timeScale = 1; Cursor.visible = false; }
     }
 
     public void OnOptions(bool options)

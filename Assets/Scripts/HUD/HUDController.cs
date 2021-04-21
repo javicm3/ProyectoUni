@@ -81,6 +81,14 @@ public class HUDController : MonoBehaviour
         selected.Select();
     }
 
+    public void DiselectAllItems()
+    {
+        foreach (HUDObject obj in item)
+        {
+            obj.Diselect();
+        }
+    }
+
     IEnumerator WaitCheckController()
     {
         yield return new WaitForEndOfFrame();
