@@ -42,12 +42,14 @@ public class MainMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI volverT2;
 
     [Header("Textos Menu Slots")]
+    [SerializeField] TextMeshProUGUI noArchivoT;
     [SerializeField] TextMeshProUGUI sobreescribirT;
     [SerializeField] TextMeshProUGUI siT;
-    [SerializeField] TextMeshProUGUI noT;
+    //[SerializeField] TextMeshProUGUI noT; Añadir si se ponen más idiomas
 
-    [SerializeField] TextMeshProUGUI aceptar;
-    [SerializeField] TextMeshProUGUI vacioT;
+    [SerializeField] TextMeshProUGUI aceptarT;
+    [SerializeField] TextMeshProUGUI[] slotT;
+    [SerializeField] TextMeshProUGUI volverT3;
 
     [Header("Controles")]
     [SerializeField] Image imagenControles;
@@ -103,15 +105,23 @@ public class MainMenu : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            if (SistemaGuardado.slotExists[i]==0)
+            if (SistemaGuardado.dataSlots.slotArray[i].exists)
             {
-                //Lo que sea que haga cuando no existe
+                Transform d = slots[i].transform.Find("Slot/Datos");
+                d.gameObject.SetActive(true);
+                d.Find("Coleccionables").GetComponent<TextMeshProUGUI>().text = ""+SistemaGuardado.dataSlots.slotArray[i].coleccionables;
+
+                float t = SistemaGuardado.dataSlots.slotArray[i].gameTime/60;
+                string hours = Mathf.Floor(t/60).ToString("00");
+                string minutes = Mathf.Floor(t % 60).ToString("00");
+
+                d.Find("Tiempo").GetComponent<TextMeshProUGUI>().text = hours+" : " +minutes;
+
+                slots[i].transform.Find("Slot/Vacio").gameObject.SetActive(false);
             }
             else
             {
-                //Lo que sea que haga cuando si existe
-                //Placeholder
-                slots[i].transform.Find("Empty").gameObject.SetActive(false);
+                slots[i].transform.Find("Slot/Vacio").gameObject.SetActive(true);
             }
         }
     }
@@ -123,18 +133,23 @@ public class MainMenu : MonoBehaviour
         if (newGame)
         {
             //Comprobar si el archivo ya existe, si es así pantalla sobreescribir
-            if (SistemaGuardado.slotExists[slot] != 0)
+            if (SistemaGuardado.dataSlots.slotArray[slot].exists)
             {
                 confirmacion.SetActive(true);
                 slotsMenu.SetActive(false);
             }
-            else { SceneManager.LoadScene("NL-0"); }
+            else
+            {
+                SistemaGuardado.timeToIgnore = Time.time;
+                SceneManager.LoadScene("NL-0");
+            }
         }
         else
         {
             //Comprobar si el archivo existe, si es asi decir que no se puede cargar el archivo porque está vacio
-            if (SistemaGuardado.slotExists[slot] != 0)
+            if (SistemaGuardado.dataSlots.slotArray[slot].exists)
             {
+                SistemaGuardado.timeToIgnore = Time.time;
                 SistemaGuardado.Cargar();
                 SceneManager.LoadScene("NL-0");
             }
@@ -199,6 +214,7 @@ public class MainMenu : MonoBehaviour
         salirT.text = Idiomas.salir[i];
         //volverT1.text = Idiomas.volver[i];
         volverT2.text = Idiomas.volver[i];
+        volverT3.text = Idiomas.volver[i];
 
         verControlesT.text = Idiomas.controles[i];
         mandoT.text = Idiomas.mando[i];
@@ -211,6 +227,19 @@ public class MainMenu : MonoBehaviour
         idiomasT.text = Idiomas.idioma[i];
         españolT.text = Idiomas.español[i];
         inglesT.text = Idiomas.ingles[i];
+
+        sobreescribirT.text = Idiomas.overwrite[i];
+        noArchivoT.text = Idiomas.emptyFile[i];
+        aceptarT.text = Idiomas.acept[i];
+        siT.text = Idiomas.yes[i];
+
+        for (int j = 0; j < slotT.Length; j++)
+        {
+            slotT[j].text = Idiomas.slot[i] + (j + 1);
+            slotT[j].transform.Find("Datos/t").GetComponent<TextMeshProUGUI>().text = Idiomas.time[i];
+            slotT[j].transform.Find("Datos/c").GetComponent<TextMeshProUGUI>().text = Idiomas.collectibles[i];
+            slotT[j].transform.Find("Vacio").GetComponent<TextMeshProUGUI>().text = Idiomas.empty[i];
+        }
 
         switch (i) //Lo pongo con un switch por si queremos poner más idiomas
         {
