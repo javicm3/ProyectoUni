@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]
-public class Posiciones 
+public class Posiciones
 {
     public Vector3 posicion;
     public Vector3 velocidad;
     public float tiempo;
-    public  Posiciones(Vector3 pos, Vector3 velocity, float time)
+    public Posiciones(Vector3 pos, Vector3 velocity, float time)
     {
         tiempo = time;
         posicion = pos;
@@ -47,13 +47,22 @@ public class GhostData : MonoBehaviour
     public int actualposRepro = 0;
 
     public bool nivelCompletado1 = false;
-    public List<Posiciones> posN1=new List<Posiciones>();
+    public List<Posiciones> posN1 = new List<Posiciones>();
     public List<Posiciones> posN1Temp = new List<Posiciones>();
     public float actualTiempoNivel1;
     public float mejorTiempoNivel1 = 999999999999999999;
 
-    public List<Posiciones> posN2;
-    public List<Posiciones> posN3;
+    public bool nivelCompletado2 = false;
+    public List<Posiciones> posN2 = new List<Posiciones>();
+    public List<Posiciones> posN2Temp = new List<Posiciones>();
+    public float actualTiempoNivel2;
+    public float mejorTiempoNivel2 = 999999999999999999;
+    public bool nivelCompletado3 = false;
+    public List<Posiciones> posN3 = new List<Posiciones>();
+    public List<Posiciones> posN3Temp = new List<Posiciones>();
+    public float actualTiempoNivel3;
+    public float mejorTiempoNivel3 = 999999999999999999;
+
     public List<Posiciones> posN4;
     public List<Posiciones> posN5;
     public List<Posiciones> posN6;
@@ -62,7 +71,7 @@ public class GhostData : MonoBehaviour
     public List<Posiciones> posN9;
     public List<Posiciones> posN10;
     public List<Posiciones> posN11;
-    float tiempoEntreGrabaciones = 0.05f;
+    float tiempoEntreGrabaciones = 0.02f;
     float tiempoFuturaGrabacion = 0;
     public GameObject player;
     public Rigidbody2D rb;
@@ -89,6 +98,8 @@ public class GhostData : MonoBehaviour
         tiempoNivel = 0;
         actualLevel = 0;
         actualTiempoNivel1 = 0;
+        actualTiempoNivel2 = 0;
+        actualTiempoNivel3 = 0;
         actualpos = 0;
         actualposRepro = 0;
         tiempoFuturaGrabacion = 0;
@@ -106,10 +117,37 @@ public class GhostData : MonoBehaviour
             }
             else
             {
-               fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
             }
 
         }
+        if (scene.name == "ND-2")
+        {
+            actualLevel = 2;
+            if (nivelCompletado2 == false)
+            {
+                posN1Temp.Clear();
+            }
+            else
+            {
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+            }
+
+        }
+        if (scene.name == "ND-3")
+        {
+            actualLevel = 3;
+            if (nivelCompletado3 == false)
+            {
+                posN1Temp.Clear();
+            }
+            else
+            {
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+            }
+
+        }
+
     }
     public void TerminarNivel(string nivel)
     {
@@ -119,19 +157,64 @@ public class GhostData : MonoBehaviour
             nivelCompletado1 = true;
             if (actualTiempoNivel1 < mejorTiempoNivel1)
             {
+                posN1.Clear();
                 for (int i = 0; i < posN1Temp.Count; i++)
                 {
                     posN1.Add(posN1Temp[i]);
-                  
-               
+
+
                 }
                 posN1Temp.Clear();
                 mejorTiempoNivel1 = actualTiempoNivel1;
-                print(mejorTiempoNivel1+"besttime");
+                print(mejorTiempoNivel1 + "besttime");
             }
             else
             {
                 posN1Temp.Clear();
+            }
+        }
+        if (nivel == "ND-2")
+        {
+            actualTiempoNivel2 = tiempoNivel;
+            nivelCompletado2 = true;
+            if (actualTiempoNivel2 < mejorTiempoNivel2)
+            {
+                posN2.Clear();
+                for (int i = 0; i < posN2Temp.Count; i++)
+                {
+                    posN2.Add(posN2Temp[i]);
+
+
+                }
+                posN2Temp.Clear();
+                mejorTiempoNivel2 = actualTiempoNivel2;
+                print(mejorTiempoNivel2 + "besttime");
+            }
+            else
+            {
+                posN2Temp.Clear();
+            }
+        }
+        if (nivel == "ND-3")
+        {
+            actualTiempoNivel3 = tiempoNivel;
+            nivelCompletado3 = true;
+            if (actualTiempoNivel3 < mejorTiempoNivel1)
+            {
+                posN3.Clear();
+                for (int i = 0; i < posN3Temp.Count; i++)
+                {
+                    posN3.Add(posN3Temp[i]);
+
+
+                }
+                posN3Temp.Clear();
+                mejorTiempoNivel3 = actualTiempoNivel3;
+                print(mejorTiempoNivel3 + "besttime");
+            }
+            else
+            {
+                posN3Temp.Clear();
             }
         }
     }
@@ -141,8 +224,24 @@ public class GhostData : MonoBehaviour
         if (actualLevel == 1)
         {
             posN1Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
-            posN1Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity,tiempoNivel);
-       
+            posN1Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
+            actualpos++;
+
+        }
+        if (actualLevel == 2)
+        {
+            posN2Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
+            posN2Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
+            actualpos++;
+
+        }
+        if (actualLevel == 3)
+        {
+            posN3Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
+            posN3Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
             actualpos++;
 
         }
@@ -166,7 +265,7 @@ public class GhostData : MonoBehaviour
             {
                 if (tiempoFuturaGrabacion == 0)
                 {
-                    tiempoFuturaGrabacion =tiempoNivel + tiempoEntreGrabaciones;
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
                     HacerGrabacion(actualLevel);
 
                 }
@@ -182,11 +281,113 @@ public class GhostData : MonoBehaviour
             }
             else
             {
-               if(fantasma!=null) MoverFantasma();
+                if (fantasma != null) MoverFantasma();
 
                 if (tiempoFuturaGrabacion == 0)
                 {
-                    tiempoFuturaGrabacion =tiempoNivel + tiempoEntreGrabaciones;
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+            }
+
+
+        }
+        if (actualLevel == 2)
+        {
+            tiempoNivel += Time.deltaTime;
+            if (nivelCompletado2)
+            {
+                estado = States.Reproducir;
+            }
+            else
+            {
+                estado = States.Grabar;
+            }
+            if (estado == States.Grabar)
+            {
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+
+            }
+            else
+            {
+                if (fantasma != null) MoverFantasma();
+
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+            }
+
+
+        }
+        if (actualLevel == 3)
+        {
+            tiempoNivel += Time.deltaTime;
+            if (nivelCompletado3)
+            {
+                estado = States.Reproducir;
+            }
+            else
+            {
+                estado = States.Grabar;
+            }
+            if (estado == States.Grabar)
+            {
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+
+            }
+            else
+            {
+                if (fantasma != null) MoverFantasma();
+
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
                     HacerGrabacion(actualLevel);
 
                 }
@@ -205,19 +406,30 @@ public class GhostData : MonoBehaviour
     }
     public void MoverFantasma()
     {
-    
-        if (actualpos<posN1.Count)
-        {   
-            //if (Time.timeSinceLevelLoad < posN1[actualposRepro + 1].tiempo)
-            //{
-            //    print("MOVEF");
-            //    //fantasma.GetComponent<Rigidbody2D>().velocity = posN1[actualposRepro].velocidad;
-              
-            //}
-            //else
-            //{if(actualposRepro + 1 < posN1.Count)actualposRepro++;
-            //}
-            fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN1[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+        if (actualLevel == 1)
+        {
+            if (actualpos < posN1.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN1[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
         }
+        if (actualLevel == 2)
+        {
+            if (actualpos < posN2.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN2[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
+        }
+        if (actualLevel == 3)
+        {
+            if (actualpos < posN3.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN3[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
+        }
+
     }
 }
