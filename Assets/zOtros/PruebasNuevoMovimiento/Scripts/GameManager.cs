@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public List<LevelInfo> ListaNiveles { get => listaNiveles; }
     LevelInfo nivelActual;
     public LevelInfo NivelActual { get => nivelActual; }
-    public string[] escenasSinColeccionables = new string[] { "PantallaInicio", "NL-0" };
+    public string[] escenasSinColeccionables = new string[] { "PantallaInicio", "Lobby" };
     Checkpoint ultimoCheck;
     public Checkpoint UltimoCheck { get => ultimoCheck; set => ultimoCheck = value; }
 
@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
-        else if(scene.name=="NL-0") 
+        else if(scene.name=="Lobby") 
         {
             Cursor.visible = false;
             personajevivo = true;
