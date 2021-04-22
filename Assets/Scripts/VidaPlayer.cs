@@ -177,6 +177,8 @@ public class VidaPlayer : MonoBehaviour
             cc.rb.velocity = Vector3.zero;
             this.transform.position = GameObject.FindGameObjectWithTag("InicioNivel").gameObject.transform.position;
 
+            GameManager.Instance.NivelActual.actualColeccionablesCogidos.Clear();
+            GameManager.Instance.textoColecc.text = GameManager.Instance.NivelActual.coleccionablesCogidos.Count.ToString() + "  /  " + GameManager.Instance.NivelActual.maxColeccionables;
 
             GetComponent<CameraZoom>().ceboCamara.transform.position = this.transform.position;
             puedoReiniciar = true;

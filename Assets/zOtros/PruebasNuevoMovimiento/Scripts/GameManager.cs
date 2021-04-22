@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
 
 
             textoColecc = GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>();
-            textoColecc.text = nivelActual.coleccionablesCogidos.Count + "  /  " + nivelActual.maxColeccionables; print(nivelActual.maxColeccionables);
+            textoColecc.text = nivelActual.coleccionablesCogidos.Count + "  /  " + nivelActual.maxColeccionables; 
 
             personajevivo = true;
 
