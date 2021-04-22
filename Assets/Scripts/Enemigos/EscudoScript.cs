@@ -31,6 +31,7 @@ public class EscudoScript : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<ControllerPersonaje>().haciendoCombate == true)
             {
+                FindObjectOfType<NewAudioManager>().Play("EnemigoEmbestidaRebotarEscudo");
 
                 collision.gameObject.GetComponent<ControllerPersonaje>().combateBloqueado = true;
                 collision.gameObject.GetComponent<ControllerPersonaje>().rb.velocity = Vector3.zero;

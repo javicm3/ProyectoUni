@@ -165,7 +165,7 @@ public class VidaPlayer : MonoBehaviour
             cc.rb.velocity = Vector3.zero;
             Checkpoint check = GameManager.Instance.UltimoCheck;
             this.transform.position = check.transform.position;
-
+            
             puedoReiniciar = true;
 
             GetComponent<CameraZoom>().ceboCamara.transform.position = this.transform.position;
@@ -316,7 +316,7 @@ public class VidaPlayer : MonoBehaviour
 
             if (Vector2.Distance(GetComponent<CameraZoom>().targetGroup.transform.position, this.transform.position) < 1)
             {
-
+                FindObjectOfType<NewAudioManager>().Play("PlayerReaparecer");
                 vidaActual = vidaMax;
                 this.GetComponent<ManagerEnergia>().actualEnergy = 0;
                 cc.movimientoBloqueado = false;

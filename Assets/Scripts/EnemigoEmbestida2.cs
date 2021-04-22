@@ -72,6 +72,7 @@ public class EnemigoEmbestida2 : EnemigoPadre
     }
     public override void Stun()
     {
+        FindObjectOfType<NewAudioManager>().Play("EnemigoStun");
         escudo.SetActive(false);
         stun = true;
 

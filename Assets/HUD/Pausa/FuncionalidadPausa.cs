@@ -72,10 +72,12 @@ public class FuncionalidadPausa : MonoBehaviour
         {
             if (Time.timeScale == 1)
             {
+                FindObjectOfType<NewAudioManager>().Play("Pausa");
                 OnPause(true);                
             }
             else
             {
+                FindObjectOfType<NewAudioManager>().Play("SalirPausa");
                 OnPause(false);
                 menuOpciones.SetActive(false);
             }

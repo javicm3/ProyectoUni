@@ -39,6 +39,7 @@ public class Trampolin : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
+            FindObjectOfType<NewAudioManager>().Play("Trampolín");
             if (player.GetComponent<ControllerPersonaje>().yaimpulsado == false)
             {
                 collision.gameObject.transform.position = posicionSalto.transform.position;

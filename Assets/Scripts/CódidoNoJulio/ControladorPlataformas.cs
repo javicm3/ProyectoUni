@@ -47,6 +47,7 @@ public class ControladorPlataformas : MonoBehaviour
     {
         print("Controlador Reactivado");
         activadoBool = false;
+        FindObjectOfType<NewAudioManager>().Play("ActivadorApagado");
         this.GetComponent<SpriteRenderer>().sprite = apagado;
         if (luz == true && luzGO != null)
         {
@@ -135,6 +136,7 @@ public class ControladorPlataformas : MonoBehaviour
             else ActivarSinSecuencia();
 
             source.PlayOneShot(clip);
+            FindObjectOfType<NewAudioManager>().Play("ActivadorEncendido");
             this.GetComponent<SpriteRenderer>().sprite = activado;
             if (luz == true && luzGO != null && luzGO.activeSelf == false)
             {

@@ -33,7 +33,7 @@ public class MovimientoEnemigoVolador : EnemigoPadre
     }
     public override void Stun()
     {
-
+        FindObjectOfType<NewAudioManager>().Play("EnemigoStun");
         stun = true;
         animCC.SetBool("Dañado", true);
 

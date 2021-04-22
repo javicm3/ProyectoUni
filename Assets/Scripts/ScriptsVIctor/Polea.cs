@@ -34,6 +34,7 @@ public class Polea : MonoBehaviour
 
             if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
             {
+                FindObjectOfType<NewAudioManager>().Play("CortarCable");
                 if (animCuerda != null) animCuerda.SetTrigger("DashHecho");
 
                 if (escombroSegundo != null)

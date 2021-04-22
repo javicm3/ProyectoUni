@@ -15,7 +15,7 @@ public class Checkpoint : MonoBehaviour
             used = true;
             GameManager.Instance.UltimoCheck = this;
             // AQUI HABRIA QUE METER ALGUN TIPO DE FEEDBACK SOBRE QUE SE HA USADO EL CHECKPOINT
-
+            FindObjectOfType<NewAudioManager>().Play("Checkpoint");
             GuardarColeccionables();
         }
     }
