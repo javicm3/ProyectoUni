@@ -130,8 +130,8 @@ public class ControllerPersonaje : MonoBehaviour
     public Vector3 velocidadCombateUltima;
     public float tiempoTrasSalirCombate = 0.3f;
     public float auxTiempoTrasSalirCombate;
+    public GameObject trailChispazo;
     [Range(0.0f, 1f)]
-
     public float salirCombate;
     //public bool puedeSalirChispazo = false;
     //public float tiempoAntesChispazo = 1f;
@@ -518,6 +518,15 @@ public class ControllerPersonaje : MonoBehaviour
         if (haciendoCombate == false)
         {
             auxtiempoTrasSalirCombateInvuln -= Time.deltaTime;
+            if(auxtiempoTrasSalirCombateInvuln <= 0.5F)
+            {
+                trailChispazo.GetComponent<TrailRenderer>().time -= Time.deltaTime;
+            
+                if(trailChispazo.GetComponent<TrailRenderer>().time < 0f)
+                {
+                    trailChispazo.SetActive(false);
+                }
+            }
         }
         if (enemigoCerca && mEnergy.actualEnergy >= mEnergy.energiaxEnemigoCombate)
         {
@@ -630,7 +639,8 @@ public class ControllerPersonaje : MonoBehaviour
                                         print(hit.collider.name + "ptrimerray");
                                         if (hit.collider.tag == "EnemigoDetectar" && Vector2.Distance(this.transform.position, col.gameObject.transform.position) < distanciaCombate)
                                         {
-
+                                            trailChispazo.SetActive(true);
+                                            trailChispazo.GetComponent<TrailRenderer>().time = 0.5f;
                                             enemigoSeleccionado = col.gameObject;
                                             ultimoEnemigoDetectado = enemigoSeleccionado;
                                             //ultimoEnemigoDetectado.GetComponentInChildren<SpriteRenderer>().material.SetFloat("Grosor", Mathf.Lerp(0, 0.99f, 1));
@@ -691,6 +701,8 @@ public class ControllerPersonaje : MonoBehaviour
             if (saltoDobleHecho == true) saltoDobleHecho = false;
             if (puedoDash == false) puedoDash = true;
             rb.gravityScale = 0;
+
+            
             if (ultimoEnemigoDetectado != null)
             {
                 //print("LOGultnonull");
