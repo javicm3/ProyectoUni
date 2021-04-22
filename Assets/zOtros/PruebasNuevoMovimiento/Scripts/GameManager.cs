@@ -345,6 +345,11 @@ public class GameManager : MonoBehaviour
         ReiniciarEscena();
     }
 
+
+    //-------------------------------------------------------------------------------------------------------------------------------
+    //                      Q U I T A R   T E C L A S   D E S A R R O L L A D O R   P A R A   F I N A L
+    //-------------------------------------------------------------------------------------------------------------------------------
+
     void Update()
     {
         if (Input.GetKey(KeyCode.R))
@@ -362,7 +367,15 @@ public class GameManager : MonoBehaviour
             if (p!=null)
             { p.CargarHabilidadesGM(); }
         }
-
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            int count = totalColeccionables.Count;
+            for (int i = count; i < 1000; i++)
+            {
+                totalColeccionables.Add("fake"+i);
+                GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>().text = totalColeccionables.Count.ToString() + "  /  " + maxColeccionablesTotal;
+            }
+        }
     }
 
 

@@ -25,11 +25,11 @@ public class Nodo : MonoBehaviour
     GameObject player;
     cableadoviaje cab;
     public float auxtime = 0.15f;
-
+    public float time=0.2f;
     public bool modificaMaxZoomViaje = true;
     public float tamañoCamaraViaje = 40;
-
-
+    public float tiempoSinabsorber = 0.4f;
+    float auxtiempoSin;
     public GameObject cartel;
 
     // Start is called before the first frame update
@@ -42,18 +42,27 @@ public class Nodo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (auxtiempoSin > 0)
+        {
+            auxtiempoSin -= Time.deltaTime;
+            if (auxtiempoSin < 0)
+            {
+                auxtiempoSin = 0;
+            }
+        }
         if (auxtime > 0)
         {
             auxtime -= Time.deltaTime;
             if (auxtime <= 0)
             {
-                auxtime = 0.15f;
+                auxtime = time;
                 if (cab.viajando == false)
                 {
                     if (salida)
                     {
                         salida = false;
                         entrada = true;
+                        auxtiempoSin = tiempoSinabsorber;
                     }
                 }
                 else
@@ -72,79 +81,84 @@ public class Nodo : MonoBehaviour
         {
             if (GameObject.FindGameObjectWithTag("Player") != null) if ((Vector2.Distance(player.transform.position, this.transform.position) < 10) && (cab.viajando == false))
                 {
-                    if (cartel != null) cartel.gameObject.SetActive(true);
-                    auxtime = 0.15f;
-               
-                    //if (Input.GetButtonDown("Interact")|| GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
-                    if (Input.GetButtonDown("Interact") && player.GetComponent<ControllerPersonaje>().joystick == null&& player.GetComponent<ControllerPersonaje>().movCablesUnlook)
-                    {
-                        if (cab.viajando == false)
-                        {
-                            auxtime = 0.15f;
+                    //if (cartel != null) cartel.gameObject.SetActive(true);
+                    auxtime =time;
 
-                            print(auxtime + "printweito");
+                    //if (Input.GetButtonDown("Interact")|| GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
+                    //if (Input.GetButtonDown("Interact") && player.GetComponent<ControllerPersonaje>().joystick == null&& player.GetComponent<ControllerPersonaje>().movCablesUnlook)
+                    //{
+                    if (cab.viajando == false)
+                    {
+                      
+                        if(auxtiempoSin<=0) player.transform.position = Vector2.MoveTowards(player.transform.position, this.transform.position, 50f * Time.deltaTime);
+                        if(Vector2.Distance(player.transform.position, this.transform.position) < 2){
+                            player.transform.position = this.transform.position;
+                            auxtime =time;
+
+
                             player.GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().entradaCables);
                             cab.viajando = true;
                             player.GetComponent<CameraZoom>().tamañoCamaraViaje = tamañoCamaraViaje;
-                            player.transform.position = this.transform.position;
-                            //if (puedeAbajo)
-                            //{
-                            //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(0, -1);
-                            //}
-                            //else if (puedeArriba)
-                            //{
-                            //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(0, 1);
-                            //}
-                            //else if (puedeDerecha)
-                            //{
-                            //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(1, 0);
-                            //}
-                            //else if (puedeIzquierda)
-                            //{
-                            //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(-1, 0);
-                            //}
-
                         }
-                    }
-                    else if (player.GetComponent<ControllerPersonaje>().joystick != null && player.GetComponent<ControllerPersonaje>().movCablesUnlook)
-                    {
-                        if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
-                        {
-                            if (cab.viajando == false)
-                            {
-                                auxtime = 0.15f;
+                        //if (puedeAbajo)
+                        //{
+                        //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(0, -1);
+                        //}
+                        //else if (puedeArriba)
+                        //{
+                        //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(0, 1);
+                        //}
+                        //else if (puedeDerecha)
+                        //{
+                        //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(1, 0);
+                        //}
+                        //else if (puedeIzquierda)
+                        //{
+                        //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(-1, 0);
+                        //}
 
-                                print(auxtime+"printeito");
-                                player.GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().entradaCables);
-                                cab.viajando = true;
-                                player.transform.position = this.transform.position;
-                                player.GetComponent<CameraZoom>().tamañoCamaraViaje = tamañoCamaraViaje;
-                                //if (puedeAbajo)
-                                //{
-                                //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(0, -1);
-                                //}
-                                //else if (puedeArriba)
-                                //{
-                                //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(0, 1);
-                                //}
-                                //else if (puedeDerecha)
-                                //{
-                                //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(1, 0);
-                                //}
-                                //else if (puedeIzquierda)
-                                //{
-                                //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(-1, 0);
-                                //}
-
-                            }
-                        }
                     }
-                }
-                else
-                {
-                    cartel.gameObject.SetActive(false);
+                    //}
+                    //    else if (player.GetComponent<ControllerPersonaje>().joystick != null && player.GetComponent<ControllerPersonaje>().movCablesUnlook)
+                    //    {
+                    //        //if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
+                    //        //{
+                    //            if (cab.viajando == false)
+                    //            {
+                    //                auxtime = 0.15f;
+
+
+                    //                player.GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().entradaCables);
+                    //                cab.viajando = true;
+                    //                player.transform.position = Vector2.MoveTowards(player.transform.position,this.transform.position,50f*Time.deltaTime);
+                    //                player.GetComponent<CameraZoom>().tamañoCamaraViaje = tamañoCamaraViaje;
+                    //                //if (puedeAbajo)
+                    //                //{
+                    //                //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(0, -1);
+                    //                //}
+                    //                //else if (puedeArriba)
+                    //                //{
+                    //                //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(0, 1);
+                    //                //}
+                    //                //else if (puedeDerecha)
+                    //                //{
+                    //                //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(1, 0);
+                    //                //}
+                    //                //else if (puedeIzquierda)
+                    //                //{
+                    //                //    //GameObject.FindGameObjectWithTag("Player").GetComponent<cableadoviaje>().ordenDireccion = new Vector2(-1, 0);
+                    //                //}
+
+                    //            }
+                    //        //}
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //cartel.gameObject.SetActive(false);
+                    //}
                 }
         }
-    }
 
+    }
 }
