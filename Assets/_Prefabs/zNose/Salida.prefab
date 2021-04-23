@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.89164263, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -260,6 +261,7 @@ GameObject:
   - component: {fileID: 5381463693598900580}
   - component: {fileID: 4912857180051227205}
   - component: {fileID: 4819909115992766768}
+  - component: {fileID: 8910483238262646661}
   m_Layer: 0
   m_Name: Salida
   m_TagString: Nodo
@@ -274,7 +276,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7871510266077241854}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 590.84, y: 97.264, z: 0}
   m_LocalScale: {x: -2.0659, y: 2.0659, z: 2.0659}
   m_Children:
@@ -301,7 +303,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 49bfb19364cde2243bbab1df86a80d87, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -374,4 +376,32 @@ MonoBehaviour:
   salidaIzquierda: 0
   direccionDefault: 2
   entrada: 0
+  entradaArriba: 0
+  entradaAbajo: 0
+  entradaDerecha: 0
+  entradaIzquierda: 0
+  auxtime: 0.15
+  time: 0.2
+  modificaMaxZoomViaje: 1
+  "tama\xF1oCamaraViaje": 40
+  tiempoSinabsorber: 0.4
   cartel: {fileID: 2538281062993571047}
+--- !u!95 &8910483238262646661
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7871510266077241854}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4613e05878ddafe4db82d4dc58b87b5c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
