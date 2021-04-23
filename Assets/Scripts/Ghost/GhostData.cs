@@ -108,7 +108,7 @@ public class GhostData : MonoBehaviour
             player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
             rb = player.GetComponent<Rigidbody2D>();
         }
-        if (scene.name == "ND-1")
+        if (scene.name == "Nivel_1")
         {
             actualLevel = 1;
             if (nivelCompletado1 == false)
@@ -121,7 +121,7 @@ public class GhostData : MonoBehaviour
             }
 
         }
-        if (scene.name == "ND-2")
+        if (scene.name == "Nivel_2")
         {
             actualLevel = 2;
             if (nivelCompletado2 == false)
@@ -134,7 +134,7 @@ public class GhostData : MonoBehaviour
             }
 
         }
-        if (scene.name == "ND-3")
+        if (scene.name == "Nivel_3")
         {
             actualLevel = 3;
             if (nivelCompletado3 == false)
@@ -151,7 +151,7 @@ public class GhostData : MonoBehaviour
     }
     public void TerminarNivel(string nivel)
     {
-        if (nivel == "ND-1")
+        if (nivel == "Nivel_1")
         {
             actualTiempoNivel1 = tiempoNivel;
             nivelCompletado1 = true;
@@ -173,7 +173,7 @@ public class GhostData : MonoBehaviour
                 posN1Temp.Clear();
             }
         }
-        if (nivel == "ND-2")
+        if (nivel == "Nivel_2")
         {
             actualTiempoNivel2 = tiempoNivel;
             nivelCompletado2 = true;
@@ -195,7 +195,7 @@ public class GhostData : MonoBehaviour
                 posN2Temp.Clear();
             }
         }
-        if (nivel == "ND-3")
+        if (nivel == "Nivel_3")
         {
             actualTiempoNivel3 = tiempoNivel;
             nivelCompletado3 = true;
