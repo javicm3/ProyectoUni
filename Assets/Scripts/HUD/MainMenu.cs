@@ -141,7 +141,7 @@ public class MainMenu : MonoBehaviour
             else
             {
                 SistemaGuardado.timeToIgnore = Time.time;
-                SceneManager.LoadScene("NL-0");
+                SceneManager.LoadScene("Lobby");
             }
         }
         else
@@ -151,7 +151,7 @@ public class MainMenu : MonoBehaviour
             {
                 SistemaGuardado.timeToIgnore = Time.time;
                 SistemaGuardado.Cargar();
-                SceneManager.LoadScene("NL-0");
+                SceneManager.LoadScene("Lobby");
             }
             else
             {
@@ -163,7 +163,7 @@ public class MainMenu : MonoBehaviour
 
     public void Confirmar()
     {
-        SceneManager.LoadScene("NL-0");
+        SceneManager.LoadScene("Lobby");
     }
 
     public void CerrarPanel(GameObject panel)

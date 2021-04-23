@@ -64,8 +64,12 @@ public class VueltaLobby : MonoBehaviour
 
     void IrLobby()
     {
-        GhostData.Instance.TerminarNivel(SceneManager.GetActiveScene().name);
-SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+        if (GhostData.Instance!=null )
+        {
+            GhostData.Instance.TerminarNivel(SceneManager.GetActiveScene().name);
+        }
+        
+        SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
 
     }
 
