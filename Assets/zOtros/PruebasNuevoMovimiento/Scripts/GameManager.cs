@@ -202,6 +202,7 @@ public class GameManager : MonoBehaviour
                 print("destroy " + go);
             }
 
+            nivelActual.maxColeccionables = GameObject.FindGameObjectsWithTag("Coleccionable").Length;
 
             textoColecc = GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>();
             textoColecc.text = nivelActual.coleccionablesCogidos.Count + "  /  " + nivelActual.maxColeccionables; 
@@ -218,8 +219,8 @@ public class GameManager : MonoBehaviour
         {
             Cursor.visible = false;
             personajevivo = true;
-
-            GameObject.Find("TextoColecc").GetComponent <TextMeshProUGUI > ().text = totalColeccionables.Count.ToString() + "  /  " + maxColeccionablesTotal;
+            print(totalColeccionables.Count);
+            GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>().text = totalColeccionables.Count.ToString() + "  /  " + maxColeccionablesTotal;
 
             if (animDesbloquear)
             {
@@ -331,7 +332,6 @@ public class GameManager : MonoBehaviour
                 sp.enabled = false;
             }
         }
-
 
 
         //if (GameObject.Find("Player") != null) Destroy(GameObject.Find("Player").GetComponentInChildren<Animator>());

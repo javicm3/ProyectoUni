@@ -19,7 +19,8 @@ public class TextoPuerta : MonoBehaviour
         int i = SistemaGuardado.indiceIdioma;
 
         string comando = "E ";
-        if (FindObjectOfType<ControllerPersonaje>().joystick.Name != "NullInputDevice")
+
+        if (FindObjectOfType<ControllerPersonaje>().joystick!=null && FindObjectOfType<ControllerPersonaje>().joystick.Name != "NullInputDevice")
         {
             comando = "B ";
         }
@@ -38,8 +39,5 @@ public class TextoPuerta : MonoBehaviour
                 texto.text = comando + Idiomas.para[i] + " " + Idiomas.lobby[i];
                 break;
         }
-
     }
-
-
 }
