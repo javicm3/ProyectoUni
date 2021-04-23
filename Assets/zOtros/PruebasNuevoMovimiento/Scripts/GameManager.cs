@@ -421,35 +421,6 @@ public class GameManager : MonoBehaviour
             nivelActual = nuevoNivel;
         }
 
-        int i = 0;
-        switch (nombreEscena)
-        {
-            case "ND-1":
-                i = 0;
-                break;
-            case "ND-2":
-                i = 1;
-                break;
-            case "ND-3":
-                i = 2;
-                break;
-            case "ND-5":
-                i = 3;
-                break;
-            case "ND-6":
-                i = 4;
-                break;
-            case "ND-7":
-                i = 5;
-                break;
-            case "ND-8":
-                i = 6 ;
-                break;
-            case "ND-9":
-                i = 7;            
-                break;
-        }
-        nivelActual.maxColeccionables = (int)coleccionablesMaxNv[i];
     }
 
 }
