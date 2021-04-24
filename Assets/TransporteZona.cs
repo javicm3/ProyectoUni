@@ -17,7 +17,15 @@ public class TransporteZona : MonoBehaviour
             {
                 if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
                 {
-                    Player.transform.position = Ir.transform.position;
+                   
+                    FadeInOut fade = FindObjectOfType<FadeInOut>();
+                    if (fade != null)
+                    {
+                       
+                        StartCoroutine(fade.FadeOut());
+                        Invoke("IrZona", 1.0f);
+
+                    }
 
                 }
             }
@@ -25,11 +33,36 @@ public class TransporteZona : MonoBehaviour
             {
                 if (Input.GetButtonDown("Interact"))
                 {
-                    Player.transform.position = Ir.transform.position;
+                  
+                    FadeInOut fade = FindObjectOfType<FadeInOut>();
+                    if (fade != null)
+                    {
+                       
+                        StartCoroutine(fade.FadeOut());
+                        Invoke("IrZona", 1.0f);
+
+                    }
 
                 }
             }
         }
             
+    }
+    void IrZona()
+    {
+        Player.transform.position = Ir.transform.position;
+        Invoke("QuitarFade", 0.6f);
+
+    }
+    void QuitarFade()
+    {
+        FadeInOut fade = FindObjectOfType<FadeInOut>();
+        if (fade != null)
+        {
+          
+            StartCoroutine(fade.FadeIn());
+
+
+        }
     }
 }

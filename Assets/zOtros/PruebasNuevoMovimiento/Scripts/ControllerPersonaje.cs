@@ -4543,6 +4543,10 @@ public class ControllerPersonaje : MonoBehaviour
             GameManager.Instance.CogerColeccionableNivel(collision.gameObject);
             Instantiate(feedbackMonedas, collision.gameObject.transform.position + new Vector3(0, 2, 0), Quaternion.identity);
         }
+        if (collision.tag == "Estrella")
+        {
+            Destroy(collision.gameObject);
+        }
 
         if (collision.tag == "TriggerPausaBoss")
         {

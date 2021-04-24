@@ -68,7 +68,7 @@ public class FuncionalidadPausa : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || (joystick.Name != "NullInputDevice" && joystick.MenuWasPressed))
+        if (Input.GetKeyDown(KeyCode.Escape) || (joystick!=null && joystick.Name != "NullInputDevice" && joystick.MenuWasPressed))
         {
             if (Time.timeScale == 1)
             {

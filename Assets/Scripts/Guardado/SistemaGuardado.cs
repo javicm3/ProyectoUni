@@ -61,10 +61,7 @@ public class SistemaGuardado : MonoBehaviour
             foreach (LevelInfo level in datos.listaNivel)
             {
                 GameManager.Instance.ListaNiveles.Add(level);
-                foreach (string item in level.coleccionablesCogidos)
-                {
-                    GameManager.Instance.totalColeccionables.Add(item);
-                }                
+                GameManager.Instance.totalColeccionables.AddRange(level.coleccionablesCogidos);             
             }
 
 

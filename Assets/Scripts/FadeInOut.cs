@@ -6,18 +6,18 @@ using UnityEngine.UI;
 public class FadeInOut : MonoBehaviour
 {
     Image image;
-    float opacity=1;
+    float opacity = 1;
     public GameObject particulasTransicion;
 
 
     void Start()
     {
         image = GetComponent<Image>();
-        image.color = new Color(0,0,0,1);
+        image.color = new Color(0, 0, 0, 1);
         StartCoroutine(FadeIn());
     }
 
-    IEnumerator FadeIn()
+    public IEnumerator FadeIn()
     {
         while (opacity > 0)
         {
@@ -29,14 +29,19 @@ public class FadeInOut : MonoBehaviour
 
     public IEnumerator FadeOut()
     {
-        Instantiate(particulasTransicion, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0,2,0), Quaternion.identity);
+   Instantiate(particulasTransicion, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0, 2, 0), Quaternion.identity);
 
-        if (opacity<0) { opacity = 0; }
-        while (opacity<1)
+        if (opacity < 0) { opacity = 0; }
+        while (opacity < 1)
         {
             opacity += Time.deltaTime;
+            if (opacity >= 1)
+            {
+              
+             
+            }
             image.color = new Color(0, 0, 0, opacity);
-            yield return new WaitForSeconds(Time.deltaTime); 
+            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
 
