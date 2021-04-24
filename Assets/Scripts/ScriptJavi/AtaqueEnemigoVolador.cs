@@ -44,6 +44,7 @@ public class AtaqueEnemigoVolador : MonoBehaviour
             else
             {
                 atacando = false;
+                auxTiempo = tiempoEntreDisparos;
             }
 
             auxComprobaciones = tiempoComprobaciones;
@@ -61,6 +62,7 @@ public class AtaqueEnemigoVolador : MonoBehaviour
                 if (auxTiempo <= 0)
                 {
                     auxTiempo += tiempoEntreDisparos;
+                    NewAudioManager.Instance.Play("EnemigoVoladorDisparo");
                     GameObject balita = Instantiate(bala, pos1.transform.position,Quaternion.identity);
                     balita.GetComponent<BalaBoss>().objetivo = new Vector2(player.transform.position.x + Random.Range(-porcentajeDesvio, porcentajeDesvio), player.transform.position.y + Random.Range(-porcentajeDesvio, porcentajeDesvio));
                     index++;
@@ -71,6 +73,7 @@ public class AtaqueEnemigoVolador : MonoBehaviour
             {
                 if (auxTiempo <= 0)
                 {
+                    NewAudioManager.Instance.Play("EnemigoVoladorDisparo");
                     auxTiempo += tiempoEntreDisparos;
                     GameObject balita = Instantiate(bala, pos2.transform.position, Quaternion.identity);
                     balita.GetComponent<BalaBoss>().objetivo = new Vector2(player.transform.position.x + Random.Range(-porcentajeDesvio, porcentajeDesvio), player.transform.position.y + Random.Range(-porcentajeDesvio, porcentajeDesvio));

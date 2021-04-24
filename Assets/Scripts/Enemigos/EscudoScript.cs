@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class EscudoScript : MonoBehaviour
 {
-   
+
     //public GameObject enemigoSeguido;
     //Vector2 distanciaEnemigo;
     // Vector2 distanciaEnemigoNeg;
     // Start is called before the first frame update
+    public GameObject padre;
     void Start()
     {
-        
+        padre = this.transform.parent.gameObject;
         //distanciaEnemigo =this.gameObject.transform.position-enemigoSeguido.transform.position;
         //distanciaEnemigoNeg = -distanciaEnemigo;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-       
+        //if (padre.GetComponent<EnemigoEmbestida2>().stun == true)
+        //{
+        //    this.GetComponent<Collider2D>().enabled = false;
+        //}
+        //else
+        //{
+        //    this.GetComponent<Collider2D>().enabled = true;
+        //}
         //if (enemigoSeguido.transform.localScale.x == 1)
         //{
         //    this.transform.position = new Vector2(distanciaEnemigo.x + enemigoSeguido.transform.position.x, distanciaEnemigo.y + enemigoSeguido.transform.position.y);
@@ -27,10 +35,11 @@ public class EscudoScript : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.GetComponent<ControllerPersonaje>()!=null)
         {
             if (collision.gameObject.GetComponent<ControllerPersonaje>().haciendoCombate == true)
             {
+                print("AAAAA");
                 FindObjectOfType<NewAudioManager>().Play("EnemigoEmbestidaRebotarEscudo");
 
                 collision.gameObject.GetComponent<ControllerPersonaje>().combateBloqueado = true;
@@ -56,6 +65,7 @@ public class EscudoScript : MonoBehaviour
             }
             else
             {
+                print("eeeeeeeeeeeeeeeeeee");
                 collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(1, this.transform.position, collision.GetContact(0).point + new Vector2(1 * Mathf.Sign(Vector2.Distance(collision.GetContact(0).point, this.transform.position)), -0.5f));
                 //collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(1, collision.transform.position + new Vector3(0, -1f), collision.GetContact(0).point /*+ new Vector2(0, -1f)*/);
             }
@@ -64,7 +74,7 @@ public class EscudoScript : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.GetComponent<ControllerPersonaje>() != null)
         {
             if (collision.gameObject.GetComponent<ControllerPersonaje>().haciendoCombate == true)
             {
@@ -93,6 +103,7 @@ public class EscudoScript : MonoBehaviour
             }
             else
             {
+                print("4444444444444");
                 collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(1, this.transform.position, collision.GetContact(0).point + new Vector2(1 * Mathf.Sign(Vector2.Distance(collision.GetContact(0).point, this.transform.position)), -0.5f));
                 //collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(1, collision.transform.position + new Vector3(0, -1f), collision.GetContact(0).point /*+ new Vector2(0, -1f)*/);
             }

@@ -70,6 +70,7 @@ public class EnemigoEmbestida2 : EnemigoPadre
             if (luces != null) luces.Add(go);
         }
     }
+   
     public override void Stun()
     {
         FindObjectOfType<NewAudioManager>().Play("EnemigoStun");

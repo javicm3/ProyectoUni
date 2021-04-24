@@ -74,8 +74,12 @@ public class DañoEnemigos : MonoBehaviour
 
         if (collision.gameObject.GetComponent<ControllerPersonaje>() != null)
         {
-            print("EUwwwwwwwwwwwwwwwwwwwIHWEIH" + this.gameObject.transform.parent.name);
-            player.GetComponentInChildren<VidaPlayer>().RecibirDaño(dañoQueHace, this.transform.position, collision.GetContact(0).point+new Vector2(0,-1));
+            if (player.GetComponent<ControllerPersonaje>().haciendoCombate == false)
+            {
+                player.GetComponentInChildren<VidaPlayer>().RecibirDaño(dañoQueHace, this.transform.position, collision.GetContact(0).point + new Vector2(0, -1));
+                print("52353");
+            }
+         
         }
 
     }

@@ -23,8 +23,8 @@ public class ControllerPersonaje : MonoBehaviour
     bool chispazoUnlook;
     bool movParedesUnlook;
     public bool movCablesUnlook;
-
-
+    float auxTiempoSonidoSinEnergia;
+    float tiempoSonidoSinEnergia = 0.5f;
     Vector2 ultimaParedPosicion;
 
     [Header("EscaladaYSaltoPared")]
@@ -279,6 +279,11 @@ public class ControllerPersonaje : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (auxTiempoSonidoSinEnergia > 0)
+        {
+            auxTiempoSonidoSinEnergia -= Time.deltaTime;
+            if (auxTiempoSonidoSinEnergia < 0) auxTiempoSonidoSinEnergia = 0;
+        }
         if (auxCheckJoystick <= 0)
         {
             auxCheckJoystick += 2;
@@ -518,11 +523,11 @@ public class ControllerPersonaje : MonoBehaviour
         if (haciendoCombate == false)
         {
             auxtiempoTrasSalirCombateInvuln -= Time.deltaTime;
-            if(auxtiempoTrasSalirCombateInvuln <= 0.5F)
+            if (auxtiempoTrasSalirCombateInvuln <= 0.5F)
             {
                 trailChispazo.GetComponent<TrailRenderer>().time -= Time.deltaTime;
-            
-                if(trailChispazo.GetComponent<TrailRenderer>().time < 0f)
+
+                if (trailChispazo.GetComponent<TrailRenderer>().time < 0f)
                 {
                     trailChispazo.SetActive(false);
                 }
@@ -688,6 +693,15 @@ public class ControllerPersonaje : MonoBehaviour
                 }
             }
         }
+        else if ((joystick != null && joystick.RightTrigger.IsPressed) || Input.GetKey(KeyCode.LeftControl) && mEnergy.actualEnergy < mEnergy.energiaxEnemigoCombate)
+        {
+            if (auxTiempoSonidoSinEnergia == 0)
+            {
+                NewAudioManager.Instance.Play("PlayerNoEnergy");
+                auxTiempoSonidoSinEnergia = tiempoSonidoSinEnergia;
+            }
+
+        }
 
         if (haciendoCombate)
         {
@@ -702,7 +716,7 @@ public class ControllerPersonaje : MonoBehaviour
             if (puedoDash == false) puedoDash = true;
             rb.gravityScale = 0;
 
-            
+
             if (ultimoEnemigoDetectado != null)
             {
                 //print("LOGultnonull");
@@ -763,9 +777,18 @@ public class ControllerPersonaje : MonoBehaviour
                             {
                                 this.transform.position = ultimoEnemigoDetectado.transform.position;
                             }
-
+                            if (ultimoEnemigoDetectado.GetComponent<EnemigoEmbestida2>() != null)
+                            {
+                                if (ultimoEnemigoDetectado.GetComponent<EnemigoEmbestida2>() != null)
+                                {
+                                    ultimoEnemigoDetectado.GetComponent<EnemigoEmbestida2>().escudo.SetActive(false);
+                                }
+                            }
+                           
 
                             ultimoEnemigoDetectado.GetComponent<EnemigoPadre>().Stun();
+                            NewAudioManager.Instance.Play("PlayerChispazo");
+                            NewAudioManager.Instance.Play("EnemigosStun");
                             mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
                             mEnergy.tiempoAux = 0.15f;
                             float offset = 0;
@@ -833,6 +856,13 @@ public class ControllerPersonaje : MonoBehaviour
                     auxTiempoTrasSalirCombate = tiempoTrasSalirCombate;
 
                     float offset = 0;
+                    if (ultimoEnemigoPasado.GetComponent<EnemigoEmbestida2>() != null)
+                    {
+                        if (ultimoEnemigoPasado.GetComponent<EnemigoEmbestida2>() != null)
+                        {
+                            ultimoEnemigoPasado.GetComponent<EnemigoEmbestida2>().escudo.SetActive(false);
+                        }
+                    }
                     ultimoEnemigoPasado.GetComponent<EnemigoPadre>().Stun();
                     mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
                     mEnergy.tiempoAux = 0.15f;
@@ -843,8 +873,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                     Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y);
                     rb.velocity = resultante * salirCombate;
-                    print("RESULTANTEw" + resultante * salirCombate);
-
+              
                 }
 
                 direccionCombate = Vector3.zero;
@@ -1745,7 +1774,7 @@ public class ControllerPersonaje : MonoBehaviour
 
             if ((ultimaNormal.y > 0.8f) && (looping == false))
             {
-               
+
                 if (Math.Sign(pInput.ultimoInputHorizontal) != Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 1)
                 {
 
@@ -1784,8 +1813,8 @@ public class ControllerPersonaje : MonoBehaviour
             }
             else if ((ultimaNormal.y > 0.0f) && (looping == true))
             {
-               
-                
+
+
                 if (Math.Sign(pInput.ultimoInputHorizontal) != Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 1)
                 {
 
@@ -1805,7 +1834,7 @@ public class ControllerPersonaje : MonoBehaviour
                             }
 
                             //print("cambiosentido2" + ultimaNormal.y + grounded);
-                          
+
 
 
                         }
@@ -1845,7 +1874,7 @@ public class ControllerPersonaje : MonoBehaviour
                     if (Math.Sign(pInput.ultimoInputHorizontal) == Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 1)
                     {
                         bocabajocambiotecla = true;
-                      
+
                     }
                     if (Math.Sign(pInput.ultimoInputHorizontal) != Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 1)
                     {
@@ -2819,6 +2848,14 @@ public class ControllerPersonaje : MonoBehaviour
                     //es normal esa ç?
 
                 }
+                else if ((joystick.Action3.WasPressed || Input.GetButtonDown("Dash")) && mEnergy.actualEnergy < mEnergy.energiaDash)
+                {
+                    if (auxTiempoSonidoSinEnergia == 0)
+                    {
+                        NewAudioManager.Instance.Play("PlayerNoEnergy");
+                        auxTiempoSonidoSinEnergia = tiempoSonidoSinEnergia;
+                    }
+                }
 
             }
             else
@@ -2961,6 +2998,14 @@ public class ControllerPersonaje : MonoBehaviour
                     //anim.SetTrigger("Dash");
                     Transform m_GroundCheck = transform.Find("GroundCheckç");
 
+                }
+                else if ((Input.GetButtonDown("Dash")) && mEnergy.actualEnergy < mEnergy.energiaDash)
+                {
+                    if (auxTiempoSonidoSinEnergia == 0)
+                    {
+                        NewAudioManager.Instance.Play("PlayerNoEnergy");
+                        auxTiempoSonidoSinEnergia = tiempoSonidoSinEnergia;
+                    }
                 }
             }
             //if (auxCdDash <= cooldownDash*0.8f)
@@ -3121,6 +3166,14 @@ public class ControllerPersonaje : MonoBehaviour
                             GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
                             rb.velocity = new Vector2(rb.velocity.x, -1);
                         }
+                        else if (mEnergy.actualEnergy < mEnergy.energiaDashAbajo)
+                        {
+                            if (auxTiempoSonidoSinEnergia == 0)
+                            {
+                                NewAudioManager.Instance.Play("PlayerNoEnergy");
+                                auxTiempoSonidoSinEnergia = tiempoSonidoSinEnergia;
+                            }
+                        }
                     }
                     else
                     {
@@ -3134,6 +3187,14 @@ public class ControllerPersonaje : MonoBehaviour
                             GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDashCaida, posGround.position, posGround);
                             GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
                             rb.velocity = new Vector2(rb.velocity.x, -1);
+                        }
+                        else if (mEnergy.actualEnergy < mEnergy.energiaDashAbajo)
+                        {
+                            if (auxTiempoSonidoSinEnergia == 0)
+                            {
+                                NewAudioManager.Instance.Play("PlayerNoEnergy");
+                                auxTiempoSonidoSinEnergia = tiempoSonidoSinEnergia;
+                            }
                         }
                     }
                 }
@@ -3151,7 +3212,7 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 if (dashEnCaida == false)
                 {
-
+                    print("entro3");
 
                     if (rb.velocity.y > 0)
                     {
@@ -3168,6 +3229,14 @@ public class ControllerPersonaje : MonoBehaviour
                             if (rb.velocity.y > -1) rb.velocity = new Vector2(rb.velocity.x, -1);
 
                         }
+                        else if (mEnergy.actualEnergy < mEnergy.energiaDashAbajo)
+                        {
+                            if (auxTiempoSonidoSinEnergia == 0)
+                            {
+                                NewAudioManager.Instance.Play("PlayerNoEnergy");
+                                auxTiempoSonidoSinEnergia = tiempoSonidoSinEnergia;
+                            }
+                        }
                     }
                     else
                     {
@@ -3182,6 +3251,14 @@ public class ControllerPersonaje : MonoBehaviour
                             GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
                             if (rb.velocity.y > -1) rb.velocity = new Vector2(rb.velocity.x, -1);
 
+                        }
+                        else if (mEnergy.actualEnergy < mEnergy.energiaDashAbajo)
+                        {
+                            if (auxTiempoSonidoSinEnergia == 0)
+                            {
+                                NewAudioManager.Instance.Play("PlayerNoEnergy");
+                                auxTiempoSonidoSinEnergia = tiempoSonidoSinEnergia;
+                            }
                         }
                     }
                 }
@@ -3260,7 +3337,7 @@ public class ControllerPersonaje : MonoBehaviour
                                 if (looping)
                                 {
                                     auxTiempoTrasSaltoLoop = tiempoTrasSaltoLoop;
-                                    if (normal.y < 0.8f&&normal.y>-0.8f) rb.velocity = Vector2.zero;
+                                    if (normal.y < 0.8f && normal.y > -0.8f) rb.velocity = Vector2.zero;
                                     //rb.velocity = (ultimaNormal.normalized * fuerzaSaltoMin);
                                     //print("saltospeed" + rb.velocity);
                                 }

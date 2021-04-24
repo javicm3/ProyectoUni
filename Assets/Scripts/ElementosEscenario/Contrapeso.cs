@@ -32,7 +32,7 @@ public class Contrapeso : MonoBehaviour
         {
             if(collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-
+                NewAudioManager.Instance.Play("CaidaEscombroRoto");
                 animacionRompiendo.Play("ContrapesoRompiendo");
                 posicionParticulas = collision.contacts[0].point;
 
@@ -42,15 +42,28 @@ public class Contrapeso : MonoBehaviour
         {
             if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-               if (GetComponent<Rigidbody2D>().velocity.y < 1)
+                if (GetComponent<Rigidbody2D>().velocity.y < 1)
                 {
                     GetComponent<Rigidbody2D>().isKinematic = true;
                     velocidadSubida = 0;
                 }
-                
+
 
             }
-          
+
+        }
+        else
+        {
+            if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                if (GetComponent<Rigidbody2D>().velocity.y < 1f)
+                {
+                    GetComponent<Rigidbody2D>().isKinematic = true;
+                   
+                    NewAudioManager.Instance.Play("CaidaEscombros");
+                }
+               
+            }
         }
         
     }

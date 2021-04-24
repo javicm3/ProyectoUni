@@ -24,14 +24,16 @@ public class ManagerEnergia : MonoBehaviour
         actualEnergy = 0;
         cc = GetComponent<ControllerPersonaje>();
     }
-   public  void RestarEnergia(float valor)
-    { if (tiempoAux <= 0)
+    public void RestarEnergia(float valor)
+    {
+        if (tiempoAux <= 0)
         {
             actualEnergy -= valor;
-            if (actualEnergy <= 0) actualEnergy = 0;
-        }
-     
-       
+            if (actualEnergy <= 0) { actualEnergy = 0; NewAudioManager.Instance.Play("PlayerNoEnergy"); }
+
+            }
+
+
 
     }
     public void SumarEnergia(float valor)
@@ -59,7 +61,7 @@ public class ManagerEnergia : MonoBehaviour
             maxEnergy = 10000;
             actualEnergy = 10000;
         }
-       if(barraEnergia!=null) barraEnergia.GetComponent<Image>().fillAmount = actualEnergy / maxEnergy;
+        if (barraEnergia != null) barraEnergia.GetComponent<Image>().fillAmount = actualEnergy / maxEnergy;
         if (cc.grounded)
         {
             if (actualEnergy < maxEnergy)
@@ -71,12 +73,12 @@ public class ManagerEnergia : MonoBehaviour
 
                         actualEnergy += Mathf.Abs(cc.rb.velocity.x) * indiceMultiplicador * Time.deltaTime;
                     }
-                   
+
                 }
             }
             else actualEnergy = maxEnergy;
 
         }
-        
+
     }
 }

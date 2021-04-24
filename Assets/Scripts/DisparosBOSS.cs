@@ -41,6 +41,7 @@ public class DisparosBOSS : MonoBehaviour
                 {
                      GameObject balad=Instantiate(balaRapida, puntoDisparo.position, Quaternion.identity);
                     Instantiate(particulasBoss, puntoParticulas.position, particulasBoss.transform.rotation);
+                    NewAudioManager.Instance.Play("BossDisparo");
                     balad.GetComponent<BalaBoss>().objetivo = targets[posicionArray].position;
                     auxTiempoEntreBalas += tiempoEntreBalasPrimeras;
                     posicionArray++;
@@ -59,6 +60,7 @@ public class DisparosBOSS : MonoBehaviour
                         Vector3 objetivoAux = RandomVector2(min,max);
                         GameObject balon=Instantiate(bala, puntoDisparo.position, Quaternion.identity);
                         Instantiate(particulasBoss, puntoParticulas.position, particulasBoss.transform.rotation);
+                        NewAudioManager.Instance.Play("BossDisparo");
                         balon.GetComponent<BalaBoss>().objetivo = objetivoAux;
                         balon= Instantiate(bala, puntoDisparo.position, Quaternion.identity);
                         balon.GetComponent<BalaBoss>().objetivo = objetivoAux + new Vector3(0, 50, 0);

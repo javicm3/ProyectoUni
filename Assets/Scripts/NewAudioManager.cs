@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class NewAudioManager : MonoBehaviour
 {
+    private static NewAudioManager _instance;
+
+    public static NewAudioManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<NewAudioManager>();
+            }
+
+            return _instance;
+        }
+    }
 
     public Sound[] sounds;
 
