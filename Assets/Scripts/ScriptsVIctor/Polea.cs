@@ -8,8 +8,11 @@ public class Polea : MonoBehaviour
     ControllerPersonaje CP;
     public Animator animCuerda;
     public Animator animGancho;
+    public Animator animPuerta;
+
 
     public GameObject escombroPrimero;
+    public GameObject puerta;
     public bool primerovaArriba = false;
     public float velocidadPrimeroArriba = 5;
     public GameObject escombroSegundo;
@@ -36,6 +39,11 @@ public class Polea : MonoBehaviour
             {
                 FindObjectOfType<NewAudioManager>().Play("CortarCable");
                 if (animCuerda != null) animCuerda.SetTrigger("DashHecho");
+                if (animPuerta != null)
+                {
+                    animPuerta.SetTrigger("DashHecho");
+                    puerta.GetComponent<BoxCollider2D>().enabled = false;
+                }
 
                 if (escombroSegundo != null)
                 {
