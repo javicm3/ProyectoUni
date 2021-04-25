@@ -353,7 +353,7 @@ public class VidaPlayer : MonoBehaviour
         }
         if (collision.gameObject.tag == "BossFinal")
         {
-            SceneManager.LoadScene("ND-FINAL");
+            SceneManager.LoadScene("Nivel_12_BossFinal");
         }
         if (collision.gameObject.tag == "LaseresBossFinal")
         {
