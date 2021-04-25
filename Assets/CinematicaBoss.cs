@@ -21,6 +21,8 @@ public class CinematicaBoss : MonoBehaviour
     public Texture2D mensaje2;
     public bool primeravez;
     public Transform puntoNiebla;
+    public GameObject lucesFondo;
+    bool luces =  false;
     float t;
     // Start is called before the first frame update
     void Start()
@@ -48,11 +50,13 @@ public class CinematicaBoss : MonoBehaviour
             partesBoss[i].enabled = false;
         }
         holograma.SetActive(false);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        
     }
 
     public IEnumerator Encendiendo()
@@ -65,17 +69,23 @@ public class CinematicaBoss : MonoBehaviour
         //camara2.SetActive(true);
         Instantiate(particulasNiebla, puntoNiebla.transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.7f);
+
         StartCoroutine(FadeIn());
         yield return new WaitForSeconds(1.7f);
+
         holograma.SetActive(true);
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(Laseres());
 
+        StartCoroutine(Laseres());
+        lucesFondo.GetComponent<Animator>().SetTrigger("On");
         textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensaje1);
         yield return new WaitForSeconds(tiempoMensajes);
+
         textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensaje2);
         yield return new WaitForSeconds(tiempoMensajes);
+
         camara1.SetActive(false);
+        
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().enabled = true;
         GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
