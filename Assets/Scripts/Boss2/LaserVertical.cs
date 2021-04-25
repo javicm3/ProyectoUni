@@ -29,6 +29,7 @@ public class LaserVertical : MonoBehaviour
             if (player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.2f)
             {
                 this.GetComponent<BoxCollider2D>().enabled = false;
+                
             }
             else
             {
