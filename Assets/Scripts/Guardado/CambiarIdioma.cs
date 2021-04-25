@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class CambiarIdioma : MonoBehaviour
 {
@@ -12,6 +12,6 @@ public class CambiarIdioma : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Text>().text = idiomas[SistemaGuardado.indiceIdioma];
+        GetComponent<TextMeshProUGUI>().text = idiomas[SistemaGuardado.indiceIdioma];
     }
 }
