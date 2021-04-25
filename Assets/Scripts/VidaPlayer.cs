@@ -37,9 +37,10 @@ public class VidaPlayer : MonoBehaviour
     //public AudioClip muertePlayer;
     //public AudioSource source;
 
-        public void tpCamera()
-    { GameObject cam = GameObject.FindObjectOfType<Camera>().gameObject;
-      cam.SetActive(false);
+    public void tpCamera()
+    {
+        GameObject cam = GameObject.FindObjectOfType<Camera>().gameObject;
+        cam.SetActive(false);
         cam.SetActive(true);
     }
     // Start is called before the first frame update
@@ -69,11 +70,14 @@ public class VidaPlayer : MonoBehaviour
 
     public void RecibirDaño(float daño, Vector3 puntoimpacto, Vector3 puntocontacto)
     {//EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de abajo
+      
         if (daño != 0) daño = 55;
-        if (SceneManager.GetActiveScene().name == "NL-0")
-        { daño = 0; }
-            //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de arriba
-            if ((auxcdTrasdaño <= 0))
+        if (SceneManager.GetActiveScene().name == "Lobby")
+        {
+            daño = 0;
+        }
+        //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de arriba
+        if ((auxcdTrasdaño <= 0))
         {
             //if ((this.GetComponent<Movimiento>().cayendoS == false) && (this.GetComponent<CharacterController2D>().dashing == false) && (this.GetComponent<CharacterController2D>().justdashed == false) && (recienAtacado == false))
 
@@ -81,19 +85,21 @@ public class VidaPlayer : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Static; //  <-------------------------NUEVO
 
             auxcdTrasdaño += cdTrasDaño;
-            if(cc.auxtiempoTrasSalirCombateInvuln <= 0)
+            if (cc.auxtiempoTrasSalirCombateInvuln <= 0)
             {
                 vidaActual -= daño;
                 if (vidaActual < 0 && reiniciando == false)
                 {
+                    print("DAÑO" + daño+"vida"+vidaActual);
                     vidaActual = 0;
                 }
 
-              
+
 
 
                 if (vidaActual == 0)
                 {
+                    print("DAÑeerwerO" + daño);
                     //this.GetComponentInChildren<Animator>().SetTrigger("Die");
                     //source.PlayOneShot(muertePlayer);
                     FindObjectOfType<NewAudioManager>().Play("PlayerDeath");
@@ -108,7 +114,7 @@ public class VidaPlayer : MonoBehaviour
                     cc.dashBloqueado = true;
 
                     reiniciando = true;
-              
+
                     if (FindObjectOfType<CinemachineTargetGroup>() != null)
                     {
                         for (int i = 0; i < targetGroup.m_Targets.Length; i++)
@@ -133,12 +139,14 @@ public class VidaPlayer : MonoBehaviour
 
                         FindObjectOfType<CameraZoom>().soloplayer = true;
                     }
-                    if (SceneManager.GetActiveScene().name == "ND-3")
+                    if (SceneManager.GetActiveScene().name == "Nivel_4_Boss1")
                     {
+                        print("DAÑITOO" + daño);
                         GameManager.Instance.MuertePJ();
                     }
                     else
                     {
+                        print("DAwwweweweweqwfwergewg222222222ÑO" + daño);
                         Invoke("IraCheckpoint", tiempoMuerte); //---------------------------------> llamar esto cuando acabe la animación?
                     }
 
@@ -154,7 +162,7 @@ public class VidaPlayer : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
     void IraCheckpoint()//CREO QUE ESTO NO SE ESTÁ USANDO + si, mira la linea 125
@@ -165,7 +173,7 @@ public class VidaPlayer : MonoBehaviour
             cc.rb.velocity = Vector3.zero;
             Checkpoint check = GameManager.Instance.UltimoCheck;
             this.transform.position = check.transform.position;
-            
+
             puedoReiniciar = true;
 
             GetComponent<CameraZoom>().ceboCamara.transform.position = this.transform.position;
@@ -206,7 +214,7 @@ public class VidaPlayer : MonoBehaviour
     }
     public void AplicarFuerza(Vector3 puntoimpacto, Vector3 puntocontacto)
     {
-        //print("fuerzaAplicadaq");
+
         Vector3 direccion = (puntoimpacto - (puntocontacto + new Vector3(0, 0.6f, 0))).normalized;
         if (this.GetComponent<ControllerPersonaje>().grounded == false)
         {
@@ -248,7 +256,7 @@ public class VidaPlayer : MonoBehaviour
         {
             this.GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
         }
-        else if ((auxcdTrasdaño > 0.0f)&&(reiniciando ==false))
+        else if ((auxcdTrasdaño > 0.0f) && (reiniciando == false))
         {
             this.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
         }
@@ -339,7 +347,8 @@ public class VidaPlayer : MonoBehaviour
         }
         if (collision.gameObject.tag == "Boss")
         {
-            GetComponent<VidaPlayer>().RecibirDaño(GetComponent<VidaPlayer>().vidaActual, collision.gameObject.transform.position, this.transform.position);
+
+            GetComponent<VidaPlayer>().RecibirDaño(4, collision.gameObject.transform.position, this.transform.position);
             //this.transform.position = new Vector3(this.transform.position.x - 0.1f, this.transform.position.y + 0.2f, 0);
         }
         if (collision.gameObject.tag == "BossFinal")
@@ -498,7 +507,7 @@ public class VidaPlayer : MonoBehaviour
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoColliderMuerte, collision.gameObject.transform.position, collision.contacts[0].point);
 
         }
-        if(collision.gameObject.tag == "BossFinal")
+        if (collision.gameObject.tag == "BossFinal")
         {
             SceneManager.LoadScene("Nivel_12_BossFinal");
         }

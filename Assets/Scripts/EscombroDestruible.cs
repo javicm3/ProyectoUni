@@ -20,6 +20,7 @@ public class EscombroDestruible : MonoBehaviour
     {
         if (collision.gameObject.tag != "Boss")
         {
+            NewAudioManager.Instance.Play("CaidaEscombroRoto");
             Destroy(this.gameObject);
         }        
     }

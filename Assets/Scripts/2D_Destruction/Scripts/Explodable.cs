@@ -31,7 +31,7 @@ public class Explodable : MonoBehaviour
     /// </summary>
     public void explode(float tiempoFrag)
     {
-      
+        NewAudioManager.Instance.Play("CristalRoto");
         //if fragments were not created before runtime then create them now
         if (fragments.Count == 0 && allowRuntimeFragmentation)
         {

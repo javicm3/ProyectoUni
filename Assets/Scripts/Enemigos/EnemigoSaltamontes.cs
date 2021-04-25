@@ -321,6 +321,7 @@ public class EnemigoSaltamontes : EnemigoPadre
     }
     void SpawnEnemigos()
     {
+        NewAudioManager.Instance.Play("EnemigoDivisión");
         GameObject enemigoSpawneado = Instantiate(prefabEnemigoSpawneado, this.transform.Find("PuntoSpawn1").transform.position, Quaternion.identity);
         enemigoSpawneado.GetComponent<Rigidbody2D>().velocity = (transform.Find("PuntoSpawn1").transform.position - this.transform.position).normalized * fSalidaPequeños;
         enemigoSpawneado.GetComponent<EnemigoSaltamontes>().pDer = pDer;
@@ -343,6 +344,7 @@ public class EnemigoSaltamontes : EnemigoPadre
     }
     public void Saltar(float fX, float fY)
     {
+        NewAudioManager.Instance.Play("EnemigoDivisionSalto");
         if (mirandoDerecha == true)
         {
             //print((((((new Vector2(fX, fY).magnitude* new Vector2(fX, fY).magnitude* Mathf.Sin(2*Vector2.Angle(new Vector2(fX, 0), new Vector2(fX, fY)))) / Physics.gravity.magnitude  + "formulon"+ Vector2.Angle(new Vector2(fX, 0), new Vector2(fX, fY)) +"angulo"+ Mathf.Sin(2*Vector2.Angle(new Vector2(fX, 0), new Vector2(fX, fY))))))));
@@ -401,6 +403,10 @@ public class EnemigoSaltamontes : EnemigoPadre
         RaycastHit2D hit = Physics2D.Raycast(this.transform.position, -this.transform.up, distanciaAlSuelo + 0.3f, capasSuelo);
         if (hit.collider != null)
         {
+            if (grounded == false)
+            {
+                NewAudioManager.Instance.Play("EnemigoDivisiónCaída");
+            }
             grounded = true;
         }
         else

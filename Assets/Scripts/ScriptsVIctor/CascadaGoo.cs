@@ -31,10 +31,12 @@ public class CascadaGoo : MonoBehaviour
             if (Vector2.Distance(player.transform.position, this.transform.position) < distancia)
             {
                 activado = true;
+                NewAudioManager.Instance.Play("Cascada");
             }
             else
             {
                 activado = false;
+                NewAudioManager.Instance.Stop("Cascada");
             }
 
 

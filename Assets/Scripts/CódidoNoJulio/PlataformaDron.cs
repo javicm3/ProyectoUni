@@ -46,9 +46,12 @@ public class PlataformaDron : MonoBehaviour
 
     void Caer()
     {
+        NewAudioManager.Instance.Play("PlataformaDronBaja");
+
         transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, nextPos) < 0.05f)
         {
+          
             Desactivar();
         }
     }
@@ -60,6 +63,7 @@ public class PlataformaDron : MonoBehaviour
         {
             go.SetBool("Activado", false); //En caso de que se desactive desde el controlador y no por tiempo
         }
+        NewAudioManager.Instance.Stop("PlataformaDronBaja");
         transform.gameObject.SetActive(false);
         auxtiempoParada = tiempoParada;
     }
@@ -71,6 +75,9 @@ public class PlataformaDron : MonoBehaviour
         foreach (Animator go in GetComponentsInChildren<Animator>())
         {
             go.SetBool("Activado", true);
+           
+                NewAudioManager.Instance.Play("PlataformaDron");
+           
         }
     }
 

@@ -54,11 +54,14 @@ public class EnemigoAbsorb : EnemigoPadre
             case States.Absorber:
                 if (playerEnergy.actualEnergy > 0)
                 {
+                    NewAudioManager.Instance.Play("EnemigoChupadita");
                     lineRend.enabled = true;
                     lineRend.SetPosition(1, playerEnergy.transform.position);
                     AbsorberEnergia();                    
                 }
-                else { lineRend.enabled = false; }
+                else {
+                    NewAudioManager.Instance.Stop("EnemigoChupadita");
+                    lineRend.enabled = false; }
                  
                 break;
 

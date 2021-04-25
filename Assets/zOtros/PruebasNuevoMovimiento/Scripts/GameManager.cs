@@ -305,7 +305,7 @@ public class GameManager : MonoBehaviour
     {
         if (personajevivo == true)
         {
-            //print("muerto");
+            print("muerto");
             personajevivo = false;
             if (GameObject.Find("Player") != null) GameObject.Find("Player").GetComponent<ControllerPersonaje>().movimientoBloqueado = true;
             if (GameObject.Find("Player") != null) GameObject.Find("Player").GetComponent<ControllerPersonaje>().rb.velocity = Vector2.zero;

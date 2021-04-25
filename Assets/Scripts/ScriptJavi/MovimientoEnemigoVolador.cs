@@ -27,8 +27,13 @@ public class MovimientoEnemigoVolador : EnemigoPadre
         if (Vector2.Distance(this.transform.position, player.transform.position) < distanciaActivacion)
         {
             activado = true;
-           
+            NewAudioManager.Instance.Play("EnemigoVoladorIdle");
+
             //reseter posicion
+        }
+        else
+        {
+
         }
     }
     public override void Stun()
@@ -65,7 +70,7 @@ public class MovimientoEnemigoVolador : EnemigoPadre
         if (activado == true)
         {
 
-            if(stun==false)
+            if (stun == false)
             {
                 if (puntosPersonaje[indexArray] != null)
                 {
@@ -106,10 +111,10 @@ public class MovimientoEnemigoVolador : EnemigoPadre
                 }
             }
         }
-
         else
         {
             animCC.SetBool("Moviendose", false);
+            NewAudioManager.Instance.Stop("EnemigoVoladorIdle");
         }
     }
 

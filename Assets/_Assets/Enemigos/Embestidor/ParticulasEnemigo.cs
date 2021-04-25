@@ -38,7 +38,8 @@ public class ParticulasEnemigo : MonoBehaviour
     }
     public void PisadaEnemigo()
     {
-        source.PlayOneShot(pisadaEnemigo);
+        //source.PlayOneShot(pisadaEnemigo);
+        NewAudioManager.Instance.Play("EnemigoEmbestidaPisada");
     }
     public void AtaqueEnemigo()
     {

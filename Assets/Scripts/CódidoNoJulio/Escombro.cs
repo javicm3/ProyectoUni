@@ -15,7 +15,7 @@ public class Escombro : MonoBehaviour
     public float tiempoVibracion = 0.25f;
     Animator anim;
     public float tiempoDestruir = 3f;
-   public  float auxTiempoDestruir = 0;
+    public float auxTiempoDestruir = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,10 +28,19 @@ public class Escombro : MonoBehaviour
         if (col.gameObject.tag == tagCollider)
         {
             rb.isKinematic = false;
-           //CinemachineShake.Instance.ShakeCamera(intensidadVibracionBoss, velocidadVibracion, tiempoVibracion);
+            //CinemachineShake.Instance.ShakeCamera(intensidadVibracionBoss, velocidadVibracion, tiempoVibracion);
             particulas.SetActive(false);
             auxTiempoDestruir = tiempoDestruir;
             anim.SetTrigger("Off");
+
+            if (GetComponent<Rigidbody2D>().velocity.y < 1f)
+            {
+                GetComponent<Rigidbody2D>().isKinematic = true;
+
+                NewAudioManager.Instance.Play("CaidaEscombros");
+            }
+
+
         }
     }
 
@@ -47,6 +56,7 @@ public class Escombro : MonoBehaviour
             auxTiempoDestruir -= Time.deltaTime;
             if (auxTiempoDestruir <= 0)
             {
+                //NewAudioManager.Instance.Play("CaidaEscombroRoto");
                 Destroy(this.transform.parent.gameObject);
             }
         }
