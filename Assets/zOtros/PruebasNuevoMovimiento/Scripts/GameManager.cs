@@ -249,7 +249,8 @@ public class GameManager : MonoBehaviour
         {
             GameObject.Find("Maquina_Coleccionable Prefab").GetComponent<Animator>().SetTrigger("Coleccionable");
         }
-        
+
+        FindObjectOfType<Pantalla>().ChangeScreen(habilidad);
         Invoke("DevolverInput", 7.45f);
     }
     void DevolverInput()
@@ -262,9 +263,7 @@ public class GameManager : MonoBehaviour
         per.dashBloqueado = false;
         per.saltoBloqueado = false;
         per.dashCaidaBloqueado = false;
-        per.movimientoBloqueado = false;
-
-        FindObjectOfType<Pantalla>().ChangeScreen(habilidad);
+        per.movimientoBloqueado = false;        
     }
 
     void Awake()

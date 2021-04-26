@@ -57,20 +57,67 @@ public class GhostData : MonoBehaviour
     public List<Posiciones> posN2Temp = new List<Posiciones>();
     public float actualTiempoNivel2;
     public float mejorTiempoNivel2 = 999999999999999999;
+
     public bool nivelCompletado3 = false;
     public List<Posiciones> posN3 = new List<Posiciones>();
     public List<Posiciones> posN3Temp = new List<Posiciones>();
     public float actualTiempoNivel3;
     public float mejorTiempoNivel3 = 999999999999999999;
+    public bool nivelCompletado4 = false;
+    public List<Posiciones> posN4 = new List<Posiciones>();
+    public List<Posiciones> posN4Temp = new List<Posiciones>();
+    public float actualTiempoNivel4;
+    public float mejorTiempoNivel4 = 999999999999999999;
 
-    public List<Posiciones> posN4;
-    public List<Posiciones> posN5;
-    public List<Posiciones> posN6;
-    public List<Posiciones> posN7;
-    public List<Posiciones> posN8;
-    public List<Posiciones> posN9;
-    public List<Posiciones> posN10;
-    public List<Posiciones> posN11;
+    public bool nivelCompletado5 = false;
+    public List<Posiciones> posN5 = new List<Posiciones>();
+    public List<Posiciones> posN5Temp = new List<Posiciones>();
+    public float actualTiempoNivel5;
+    public float mejorTiempoNivel5 = 999999999999999999;
+
+    public bool nivelCompletado6 = false;
+    public List<Posiciones> posN6 = new List<Posiciones>();
+    public List<Posiciones> posN6Temp = new List<Posiciones>();
+    public float actualTiempoNivel6;
+    public float mejorTiempoNivel6 = 999999999999999999;
+
+    public bool nivelCompletado7 = false;
+    public List<Posiciones> posN7 = new List<Posiciones>();
+    public List<Posiciones> posN7Temp = new List<Posiciones>();
+    public float actualTiempoNivel7;
+    public float mejorTiempoNivel7 = 999999999999999999;
+
+    public bool nivelCompletado8 = false;
+    public List<Posiciones> posN8 = new List<Posiciones>();
+    public List<Posiciones> posN8Temp = new List<Posiciones>();
+    public float actualTiempoNivel8;
+    public float mejorTiempoNivel8 = 999999999999999999;
+
+    public bool nivelCompletado9 = false;
+    public List<Posiciones> posN9 = new List<Posiciones>();
+    public List<Posiciones> posN9Temp = new List<Posiciones>();
+    public float actualTiempoNivel9;
+    public float mejorTiempoNivel9 = 999999999999999999;
+
+    public bool nivelCompletado10 = false;
+    public List<Posiciones> posN10 = new List<Posiciones>();
+    public List<Posiciones> posN10Temp = new List<Posiciones>();
+    public float actualTiempoNivel10;
+    public float mejorTiempoNivel10 = 999999999999999999;
+
+    public bool nivelCompletado11 = false;
+    public List<Posiciones> posN11 = new List<Posiciones>();
+    public List<Posiciones> posN11Temp = new List<Posiciones>();
+    public float actualTiempoNivel11;
+    public float mejorTiempoNivel11 = 999999999999999999;
+
+    public bool nivelCompletado12 = false;
+    public List<Posiciones> posN12 = new List<Posiciones>();
+    public List<Posiciones> posN12Temp = new List<Posiciones>();
+    public float actualTiempoNivel12;
+    public float mejorTiempoNivel12 = 999999999999999999;
+
+
     float tiempoEntreGrabaciones = 0.02f;
     float tiempoFuturaGrabacion = 0;
     public GameObject player;
@@ -126,7 +173,7 @@ public class GhostData : MonoBehaviour
             actualLevel = 2;
             if (nivelCompletado2 == false)
             {
-                posN1Temp.Clear();
+                posN2Temp.Clear();
             }
             else
             {
@@ -139,7 +186,124 @@ public class GhostData : MonoBehaviour
             actualLevel = 3;
             if (nivelCompletado3 == false)
             {
-                posN1Temp.Clear();
+                posN3Temp.Clear();
+            }
+            else
+            {
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+            }
+
+        }
+        if (scene.name == "Nivel_4_Boss1")
+        {
+            actualLevel = 4;
+            if (nivelCompletado4 == false)
+            {
+                posN4Temp.Clear();
+            }
+            else
+            {
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+            }
+
+        }
+        if (scene.name == "Nivel_5")
+        {
+            actualLevel = 5;
+            if (nivelCompletado5 == false)
+            {
+                posN5Temp.Clear();
+            }
+            else
+            {
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+            }
+
+        }
+        if (scene.name == "Nivel_6")
+        {
+            actualLevel = 6;
+            if (nivelCompletado6 == false)
+            {
+                posN6Temp.Clear();
+            }
+            else
+            {
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+            }
+
+        }
+        if (scene.name == "Nivel_7")
+        {
+            actualLevel = 7;
+            if (nivelCompletado7 == false)
+            {
+                posN7Temp.Clear();
+            }
+            else
+            {
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+            }
+
+        }
+        if (scene.name == "Nivel_8")
+        {
+            actualLevel = 8;
+            if (nivelCompletado8 == false)
+            {
+                posN8Temp.Clear();
+            }
+            else
+            {
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+            }
+
+        }
+        if (scene.name == "Nivel_9")
+        {
+            actualLevel = 9;
+            if (nivelCompletado9 == false)
+            {
+                posN9Temp.Clear();
+            }
+            else
+            {
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+            }
+
+        }
+        if (scene.name == "Nivel_10")
+        {
+            actualLevel =10;
+            if (nivelCompletado10 == false)
+            {
+                posN10Temp.Clear();
+            }
+            else
+            {
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+            }
+
+        }
+        if (scene.name == "Nivel_11")
+        {
+            actualLevel =11;
+            if (nivelCompletado11 == false)
+            {
+                posN11Temp.Clear();
+            }
+            else
+            {
+                fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
+            }
+
+        }
+        if (scene.name == "Nivel_12BossFinal")
+        {
+            actualLevel = 12;
+            if (nivelCompletado12 == false)
+            {
+                posN12Temp.Clear();
             }
             else
             {
@@ -217,6 +381,204 @@ public class GhostData : MonoBehaviour
                 posN3Temp.Clear();
             }
         }
+        if (nivel == "Nivel_4_Boss1")
+        {
+            actualTiempoNivel4 = tiempoNivel;
+            nivelCompletado4 = true;
+            if (actualTiempoNivel4 < mejorTiempoNivel4)
+            {
+                posN4.Clear();
+                for (int i = 0; i < posN4Temp.Count; i++)
+                {
+                    posN4.Add(posN4Temp[i]);
+
+
+                }
+                posN4Temp.Clear();
+                mejorTiempoNivel4 = actualTiempoNivel4;
+                print(mejorTiempoNivel4 + "besttime");
+            }
+            else
+            {
+                posN4Temp.Clear();
+            }
+        }
+        if (nivel == "Nivel_5")
+        {
+            actualTiempoNivel5 = tiempoNivel;
+            nivelCompletado5 = true;
+            if (actualTiempoNivel5 < mejorTiempoNivel5)
+            {
+                posN5.Clear();
+                for (int i = 0; i < posN5Temp.Count; i++)
+                {
+                    posN5.Add(posN5Temp[i]);
+
+
+                }
+                posN5Temp.Clear();
+                mejorTiempoNivel5 = actualTiempoNivel5;
+                print(mejorTiempoNivel5 + "besttime");
+            }
+            else
+            {
+                posN5Temp.Clear();
+            }
+        }
+        if (nivel == "Nivel_6")
+        {
+            actualTiempoNivel6 = tiempoNivel;
+            nivelCompletado6 = true;
+            if (actualTiempoNivel6 < mejorTiempoNivel6)
+            {
+                posN6.Clear();
+                for (int i = 0; i < posN6Temp.Count; i++)
+                {
+                    posN6.Add(posN6Temp[i]);
+
+
+                }
+                posN6Temp.Clear();
+                mejorTiempoNivel6 = actualTiempoNivel6;
+                print(mejorTiempoNivel6 + "besttime");
+            }
+            else
+            {
+                posN6Temp.Clear();
+            }
+        }
+        if (nivel == "Nivel_7")
+        {
+            actualTiempoNivel7 = tiempoNivel;
+            nivelCompletado7 = true;
+            if (actualTiempoNivel7 < mejorTiempoNivel7)
+            {
+                posN7.Clear();
+                for (int i = 0; i < posN7Temp.Count; i++)
+                {
+                    posN7.Add(posN7Temp[i]);
+
+
+                }
+                posN7Temp.Clear();
+                mejorTiempoNivel7 = actualTiempoNivel7;
+                print(mejorTiempoNivel7 + "besttime");
+            }
+            else
+            {
+                posN7Temp.Clear();
+            }
+        }
+        if (nivel == "Nivel_8")
+        {
+            actualTiempoNivel8 = tiempoNivel;
+            nivelCompletado8 = true;
+            if (actualTiempoNivel8 < mejorTiempoNivel8)
+            {
+                posN8.Clear();
+                for (int i = 0; i < posN8Temp.Count; i++)
+                {
+                    posN8.Add(posN8Temp[i]);
+
+
+                }
+                posN8Temp.Clear();
+                mejorTiempoNivel8 = actualTiempoNivel8;
+                print(mejorTiempoNivel8 + "besttime");
+            }
+            else
+            {
+                posN8Temp.Clear();
+            }
+        }
+        if (nivel == "Nivel_9")
+        {
+            actualTiempoNivel9 = tiempoNivel;
+            nivelCompletado9 = true;
+            if (actualTiempoNivel9 < mejorTiempoNivel9)
+            {
+                posN9.Clear();
+                for (int i = 0; i < posN9Temp.Count; i++)
+                {
+                    posN9.Add(posN9Temp[i]);
+
+
+                }
+                posN9Temp.Clear();
+                mejorTiempoNivel9 = actualTiempoNivel9;
+                print(mejorTiempoNivel9 + "besttime");
+            }
+            else
+            {
+                posN9Temp.Clear();
+            }
+        }
+        if (nivel == "Nivel_10")
+        {
+            actualTiempoNivel10 = tiempoNivel;
+            nivelCompletado10 = true;
+            if (actualTiempoNivel10 < mejorTiempoNivel10)
+            {
+                posN10.Clear();
+                for (int i = 0; i < posN1Temp.Count; i++)
+                {
+                    posN10.Add(posN10Temp[i]);
+
+
+                }
+                posN10Temp.Clear();
+                mejorTiempoNivel10 = actualTiempoNivel10;
+                print(mejorTiempoNivel10 + "besttime");
+            }
+            else
+            {
+                posN10Temp.Clear();
+            }
+        }
+        if (nivel == "Nivel_11")
+        {
+            actualTiempoNivel11 = tiempoNivel;
+            nivelCompletado11 = true;
+            if (actualTiempoNivel11 < mejorTiempoNivel11)
+            {
+                posN11.Clear();
+                for (int i = 0; i < posN1Temp.Count; i++)
+                {
+                    posN11.Add(posN11Temp[i]);
+
+
+                }
+                posN11Temp.Clear();
+                mejorTiempoNivel11 = actualTiempoNivel11;
+                print(mejorTiempoNivel11 + "besttime");
+            }
+            else
+            {
+                posN11Temp.Clear();
+            }
+        }
+        if (nivel == "Nivel_12_BossFinal")
+        {
+            actualTiempoNivel12 = tiempoNivel;
+            nivelCompletado12 = true;
+            if (actualTiempoNivel12 < mejorTiempoNivel12)
+            {
+                posN12.Clear();
+                for (int i = 0; i < posN1Temp.Count; i++)
+                {
+                    posN12.Add(posN1Temp[i]);
+
+
+                }
+                posN12Temp.Clear();
+                mejorTiempoNivel12 = actualTiempoNivel12;
+                print(mejorTiempoNivel12 + "besttime");
+            }
+            else
+            {
+                posN12Temp.Clear();
+            }
+        }
     }
     public void HacerGrabacion(int actualLevel)
     {
@@ -245,6 +607,79 @@ public class GhostData : MonoBehaviour
             actualpos++;
 
         }
+        if (actualLevel == 4)
+        {
+            posN4Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
+            posN4Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
+            actualpos++;
+
+        }
+        if (actualLevel == 5)
+        {
+            posN5Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
+            posN5Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
+            actualpos++;
+
+        }
+        if (actualLevel == 6)
+        {
+            posN6Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
+            posN6Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
+            actualpos++;
+
+        }
+        if (actualLevel == 7)
+        {
+            posN7Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
+            posN7Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
+            actualpos++;
+
+        }
+        if (actualLevel == 8)
+        {
+            posN8Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
+            posN8Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
+            actualpos++;
+
+        }
+        if (actualLevel == 9)
+        {
+            posN9Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
+            posN9Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
+            actualpos++;
+
+        }
+        if (actualLevel == 10)
+        {
+            posN10Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
+            posN10Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
+            actualpos++;
+
+        }
+        if (actualLevel == 11)
+        {
+            posN11Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
+            posN11Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
+            actualpos++;
+
+        }
+        if (actualLevel == 12)
+        {
+            posN12Temp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
+            posN12Temp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
+
+            actualpos++;
+
+        }
+       
 
     }
     // Update is called once per frame
@@ -403,6 +838,467 @@ public class GhostData : MonoBehaviour
 
 
         }
+        if (actualLevel == 4)
+        {
+            tiempoNivel += Time.deltaTime;
+            if (nivelCompletado4)
+            {
+                estado = States.Reproducir;
+            }
+            else
+            {
+                estado = States.Grabar;
+            }
+            if (estado == States.Grabar)
+            {
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+
+            }
+            else
+            {
+                if (fantasma != null) MoverFantasma();
+
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+            }
+
+
+        }
+        if (actualLevel == 5)
+        {
+            tiempoNivel += Time.deltaTime;
+            if (nivelCompletado5)
+            {
+                estado = States.Reproducir;
+            }
+            else
+            {
+                estado = States.Grabar;
+            }
+            if (estado == States.Grabar)
+            {
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+
+            }
+            else
+            {
+                if (fantasma != null) MoverFantasma();
+
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+            }
+
+
+        }
+        if (actualLevel == 6)
+        {
+            tiempoNivel += Time.deltaTime;
+            if (nivelCompletado6)
+            {
+                estado = States.Reproducir;
+            }
+            else
+            {
+                estado = States.Grabar;
+            }
+            if (estado == States.Grabar)
+            {
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+
+            }
+            else
+            {
+                if (fantasma != null) MoverFantasma();
+
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+            }
+
+
+        }
+        if (actualLevel == 7)
+        {
+            tiempoNivel += Time.deltaTime;
+            if (nivelCompletado7)
+            {
+                estado = States.Reproducir;
+            }
+            else
+            {
+                estado = States.Grabar;
+            }
+            if (estado == States.Grabar)
+            {
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+
+            }
+            else
+            {
+                if (fantasma != null) MoverFantasma();
+
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+            }
+
+
+        }
+        if (actualLevel == 8)
+        {
+            tiempoNivel += Time.deltaTime;
+            if (nivelCompletado8)
+            {
+                estado = States.Reproducir;
+            }
+            else
+            {
+                estado = States.Grabar;
+            }
+            if (estado == States.Grabar)
+            {
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+
+            }
+            else
+            {
+                if (fantasma != null) MoverFantasma();
+
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+            }
+
+
+        }
+        if (actualLevel == 9)
+        {
+            tiempoNivel += Time.deltaTime;
+            if (nivelCompletado9)
+            {
+                estado = States.Reproducir;
+            }
+            else
+            {
+                estado = States.Grabar;
+            }
+            if (estado == States.Grabar)
+            {
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+
+            }
+            else
+            {
+                if (fantasma != null) MoverFantasma();
+
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+            }
+
+
+        }
+        if (actualLevel == 10)
+        {
+            tiempoNivel += Time.deltaTime;
+            if (nivelCompletado10)
+            {
+                estado = States.Reproducir;
+            }
+            else
+            {
+                estado = States.Grabar;
+            }
+            if (estado == States.Grabar)
+            {
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+
+            }
+            else
+            {
+                if (fantasma != null) MoverFantasma();
+
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+            }
+
+
+        }
+        if (actualLevel == 11)
+        {
+            tiempoNivel += Time.deltaTime;
+            if (nivelCompletado11)
+            {
+                estado = States.Reproducir;
+            }
+            else
+            {
+                estado = States.Grabar;
+            }
+            if (estado == States.Grabar)
+            {
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+
+            }
+            else
+            {
+                if (fantasma != null) MoverFantasma();
+
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+            }
+
+
+        }
+        if (actualLevel == 12)
+        {
+            tiempoNivel += Time.deltaTime;
+            if (nivelCompletado12)
+            {
+                estado = States.Reproducir;
+            }
+            else
+            {
+                estado = States.Grabar;
+            }
+            if (estado == States.Grabar)
+            {
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+
+            }
+            else
+            {
+                if (fantasma != null) MoverFantasma();
+
+                if (tiempoFuturaGrabacion == 0)
+                {
+                    tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                    HacerGrabacion(actualLevel);
+
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion(actualLevel);
+                    }
+                }
+            }
+
+
+        }
+
+
     }
     public void MoverFantasma()
     {
@@ -428,6 +1324,78 @@ public class GhostData : MonoBehaviour
             {
 
                 fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN3[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
+        }
+        if (actualLevel == 4)
+        {
+            if (actualpos < posN4.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN4[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
+        }
+        if (actualLevel == 5)
+        {
+            if (actualpos < posN5.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN5[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
+        }
+        if (actualLevel == 6)
+        {
+            if (actualpos < posN6.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN6[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
+        }
+        if (actualLevel == 7)
+        {
+            if (actualpos < posN7.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN7[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
+        }
+        if (actualLevel == 8)
+        {
+            if (actualpos < posN8.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN8[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
+        }
+        if (actualLevel == 9)
+        {
+            if (actualpos < posN9.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN9[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
+        }
+        if (actualLevel == 10)
+        {
+            if (actualpos < posN10.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN10[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
+        }
+        if (actualLevel == 11)
+        {
+            if (actualpos < posN11.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN11[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
+            }
+        }
+        if (actualLevel == 12)
+        {
+            if (actualpos < posN12.Count)
+            {
+
+                fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, posN12[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
             }
         }
 
