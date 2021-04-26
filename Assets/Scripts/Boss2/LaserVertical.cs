@@ -33,7 +33,7 @@ public class LaserVertical : MonoBehaviour
             }
             else
             {
-                GetComponentInParent<BoxCollider2D>().enabled = true;
+                transform.parent.GetComponent<BoxCollider2D>().enabled = true;
             }
         }        
     }

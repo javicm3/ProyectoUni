@@ -19,7 +19,7 @@ public class DronBoss : EnemigoPadre
     public float tiempoAviso = 1;
     public LayerMask layer;
     float tmp = 0;
-    bool go;
+    public bool go;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,11 +35,8 @@ public class DronBoss : EnemigoPadre
     // Update is called once per frame
     protected override void Update()
     {
-        if(go == true)
-        {
-            transform.RotateAround(cabeza.position, transform.forward, velocidadMov * Time.deltaTime);
-        }
-        transform.LookAt(pareja.transform);
+        
+        //transform.LookAt(pareja.transform);
         tmp += Time.deltaTime;
         if(tmp >= 1)
         {
@@ -56,6 +53,13 @@ public class DronBoss : EnemigoPadre
         lr.SetPosition(1, pareja.transform.position);
 
     }
+    private void FixedUpdate()
+    {
+        if (go == true)
+        {
+            transform.RotateAround(cabeza.position, transform.forward, velocidadMov * Time.deltaTime);
+        }
+    }
     IEnumerator LaserDron()
     {
         lr.enabled = true;
@@ -70,7 +74,7 @@ public class DronBoss : EnemigoPadre
         if (hit)
         {
             GetComponent<LineRenderer>().SetPosition(1, hit.point);
-            SceneManager.LoadScene("ND-FINAL");
+            SceneManager.LoadScene("Nivel_12_BossFinal");
         }
         yield return new WaitForSeconds(tiempoLaser);
         
@@ -80,9 +84,9 @@ public class DronBoss : EnemigoPadre
     IEnumerator Esperar()
     {
         go = true;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         go = false;
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(1);
         StartCoroutine(Esperar());
     }
 }
