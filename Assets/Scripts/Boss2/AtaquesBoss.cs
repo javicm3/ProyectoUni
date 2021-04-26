@@ -292,7 +292,7 @@ public class AtaquesBoss : MonoBehaviour
                 }
                 else
                 {
-                    SceneManager.LoadScene("ND-FINAL");
+                    SceneManager.LoadScene("Nivel_12_BossFinal");
                 }
             }
 

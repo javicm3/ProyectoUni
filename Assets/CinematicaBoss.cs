@@ -123,7 +123,7 @@ public class CinematicaBoss : MonoBehaviour
                 Color c = partesBoss[i].GetComponent<SpriteRenderer>().color;
                 c.a = f;
                 partesBoss[i].GetComponent<SpriteRenderer>().color = c;
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.02f);
             }
 
         }

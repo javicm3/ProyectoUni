@@ -28,7 +28,7 @@ public class AscensorBoss2 : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, startPos.position, speed * Time.deltaTime);
 
         }
-        else if (this.transform.position != pos2.position && tocandoPlayer == true)
+        else if (this.transform.position != pos2.position )
         {
             transform.position = Vector3.MoveTowards(transform.position, pos2.position, speed * Time.deltaTime);
         }

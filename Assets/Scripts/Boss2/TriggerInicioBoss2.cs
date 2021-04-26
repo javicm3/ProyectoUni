@@ -26,6 +26,7 @@ public class TriggerInicioBoss2 : MonoBehaviour
         if(collision.tag == "Player")
         {
             StartCoroutine(InicioBoss());
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
     IEnumerator InicioBoss()
@@ -39,6 +40,6 @@ public class TriggerInicioBoss2 : MonoBehaviour
         //triggerInicioCamara.SetActive(false);
         yield return new WaitForSeconds(tiempoInicio/2);
         boss.GetComponent<EstadosBoss2>().bossActivo = true;
-        GetComponent<BoxCollider2D>().enabled = false;
+        
     }
 }

@@ -30,13 +30,16 @@ public class CablesBoss2 : MonoBehaviour
     {
         if(GetComponentInParent<EstadosBoss2>().bossStuneado == true && activo == false)
         {
+
             GetComponent<Collider2D>().enabled = true;
-            GetComponent<SpriteRenderer>().enabled = true;
+            GetComponentInChildren<Animator>().SetBool("Abrir", true);
+            //GetComponent<SpriteRenderer>().enabled = true;
         }
         else
         {
             GetComponent<Collider2D>().enabled = false;
-            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponentInChildren<Animator>().SetBool("Abrir", false);
+            //GetComponent<SpriteRenderer>().enabled = false;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,8 +56,8 @@ public class CablesBoss2 : MonoBehaviour
                     tentaculoNormal.SetActive(false);
                     tentaculoRoto1.SetActive(true);
                     tentaculoRoto2.SetActive(true);
-                    Instantiate(particulasExplosion, transform);
-                    //particulasExplosion.transform.parent = null;
+                    Instantiate(particulasExplosion, this.transform.position, Quaternion.identity);
+                    particulasExplosion.transform.parent = null;
                    
                     GetComponentInParent<EstadosBoss2>().bossStuneado = false;
                     if (fuerzaDerecha == true)
@@ -69,7 +72,7 @@ public class CablesBoss2 : MonoBehaviour
                     }
                     activo = true;
                     GetComponent<Collider2D>().enabled = false;
-                    GetComponent<SpriteRenderer>().enabled = false;
+                    GetComponentInChildren<SpriteRenderer>().enabled = false;
                     //Destroy(this.gameObject);
                 }  
             }
