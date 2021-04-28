@@ -17,7 +17,7 @@ public class TransporteZona : MonoBehaviour
             {
                 if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
                 {
-                   
+                    FindObjectOfType<NewAudioManager>().Play("Puerta");
                     FadeInOut fade = FindObjectOfType<FadeInOut>();
                     if (fade != null)
                     {
@@ -33,7 +33,7 @@ public class TransporteZona : MonoBehaviour
             {
                 if (Input.GetButtonDown("Interact"))
                 {
-                  
+                    FindObjectOfType<NewAudioManager>().Play("Puerta");
                     FadeInOut fade = FindObjectOfType<FadeInOut>();
                     if (fade != null)
                     {
