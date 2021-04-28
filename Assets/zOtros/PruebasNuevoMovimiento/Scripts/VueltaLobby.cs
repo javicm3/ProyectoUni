@@ -54,7 +54,19 @@ public class VueltaLobby : MonoBehaviour
                 if (fade != null)
                 {
                     StartCoroutine(fade.FadeOut());
-                    Invoke("IrLobby", 1.2f);
+
+                        GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+                        PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
+                        plInput.inputHorizBlock = true;
+                        plInput.inputVerticBlock = true;
+
+                        ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
+                        per.dashBloqueado = true;
+                        per.saltoBloqueado = true;
+                        per.dashCaidaBloqueado = true;
+                        per.movimientoBloqueado = true;
+                        per.rb.velocity = Vector2.zero;
+                        Invoke("IrLobby", 1.2f);
 
                 }
                 else { IrLobby();  }

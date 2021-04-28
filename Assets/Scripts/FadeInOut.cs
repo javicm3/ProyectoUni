@@ -7,6 +7,7 @@ public class FadeInOut : MonoBehaviour
 {
     Image image;
     float opacity = 1;
+
     public GameObject particulasTransicion;
 
 
@@ -23,13 +24,32 @@ public class FadeInOut : MonoBehaviour
         {
             opacity -= Time.deltaTime;
             image.color = new Color(0, 0, 0, opacity);
+            if (opacity <= 0.0f)
+            {
+                if (GameManager.Instance.haciendoAnim == false)
+                {
+                    GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+                    PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
+                    plInput.inputHorizBlock = false;
+                    plInput.inputVerticBlock = false;
+
+                    ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
+                    per.dashBloqueado = false;
+                    per.saltoBloqueado = false;
+                    per.dashCaidaBloqueado = false;
+                    per.movimientoBloqueado = false;
+                }
+            }
+
             yield return new WaitForSeconds(Time.deltaTime);
+
+
         }
     }
 
     public IEnumerator FadeOut()
     {
-   Instantiate(particulasTransicion, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+        Instantiate(particulasTransicion, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0, 2, 0), Quaternion.identity);
 
         if (opacity < 0) { opacity = 0; }
         while (opacity < 1)
@@ -37,8 +57,17 @@ public class FadeInOut : MonoBehaviour
             opacity += Time.deltaTime;
             if (opacity >= 1)
             {
-              
-             
+
+                GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+                PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
+                plInput.inputHorizBlock = true;
+                plInput.inputVerticBlock = true;
+
+                ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
+                per.dashBloqueado = true;
+                per.saltoBloqueado = true;
+                per.dashCaidaBloqueado = true;
+                per.movimientoBloqueado = true;
             }
             image.color = new Color(0, 0, 0, opacity);
             yield return new WaitForSeconds(Time.deltaTime);

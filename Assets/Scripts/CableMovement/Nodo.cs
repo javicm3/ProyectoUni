@@ -31,10 +31,13 @@ public class Nodo : MonoBehaviour
     public float tiempoSinabsorber = 0.4f;
     float auxtiempoSin;
     public GameObject cartel;
+    public float distanciaAbsorcion = 10f;
+    public float speedAbsorcion = 50f;
 
     // Start is called before the first frame update
     void Start()
     {
+        cartel.gameObject.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
         cab = FindObjectOfType<cableadoviaje>();
     }
@@ -79,7 +82,7 @@ public class Nodo : MonoBehaviour
 
         if (entrada == true)
         {
-            if (GameObject.FindGameObjectWithTag("Player") != null) if ((Vector2.Distance(player.transform.position, this.transform.position) < 10) && (cab.viajando == false))
+            if (GameObject.FindGameObjectWithTag("Player") != null&& GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().movCablesUnlook) if ((Vector2.Distance(player.transform.position, this.transform.position) < distanciaAbsorcion) && (cab.viajando == false))
                 {
                     //if (cartel != null) cartel.gameObject.SetActive(true);
                     auxtime =time;
@@ -90,7 +93,7 @@ public class Nodo : MonoBehaviour
                     if (cab.viajando == false)
                     {
                       
-                        if(auxtiempoSin<=0) player.transform.position = Vector2.MoveTowards(player.transform.position, this.transform.position, 50f * Time.deltaTime);
+                        if(auxtiempoSin<=0) player.transform.position = Vector2.MoveTowards(player.transform.position, this.transform.position, speedAbsorcion * Time.deltaTime);
                         if(Vector2.Distance(player.transform.position, this.transform.position) < 2){
                             player.transform.position = this.transform.position;
                             auxtime =time;

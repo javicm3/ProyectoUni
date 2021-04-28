@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     GameObject playerGO;
     //  V O L U M E N   S O N I D O 
     public AudioMixer audioMixer;
-
+    public bool haciendoAnim;
     [Range(0, 1)]
     float musicVolume = 0.5f;
 
@@ -224,6 +224,7 @@ public class GameManager : MonoBehaviour
 
             if (animDesbloquear)
             {
+                haciendoAnim = true;
                 Invoke("HacerAnim", 1);
                 animDesbloquear = false;
 
@@ -253,11 +254,13 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<Pantalla>().ChangeScreen(habilidad);
         Invoke("DevolverInput", 7.45f);
     }
-    void DevolverInput()
+   public void DevolverInput()
     {
+       
+        if (playerGO.gameObject == null) playerGO = GameObject.FindObjectOfType<CharacterController>().gameObject;
         PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
         ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
-
+        haciendoAnim = false;
         plInput.inputHorizBlock = false;
         plInput.inputVerticBlock = false;
         per.dashBloqueado = false;

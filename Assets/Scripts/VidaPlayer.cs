@@ -22,7 +22,7 @@ public class VidaPlayer : MonoBehaviour
     GameObject barraVida;
     Color colorinicial;
     public float cdTrasDaño = 1f;
-    float auxcdTrasdaño;
+    public float auxcdTrasdaño;
     public bool recienAtacado = false;
     public float cdInvulnAtaq = 1f;
     bool unavez = false;
@@ -90,7 +90,7 @@ public class VidaPlayer : MonoBehaviour
                 vidaActual -= daño;
                 if (vidaActual < 0 && reiniciando == false)
                 {
-                    print("DAÑO" + daño+"vida"+vidaActual);
+                  
                     vidaActual = 0;
                 }
 
@@ -99,7 +99,7 @@ public class VidaPlayer : MonoBehaviour
 
                 if (vidaActual == 0)
                 {
-                    print("DAÑeerwerO" + daño);
+                  
                     //this.GetComponentInChildren<Animator>().SetTrigger("Die");
                     //source.PlayOneShot(muertePlayer);
                     FindObjectOfType<NewAudioManager>().Play("PlayerDeath");
@@ -141,12 +141,12 @@ public class VidaPlayer : MonoBehaviour
                     }
                     if (SceneManager.GetActiveScene().name == "Nivel_4_Boss1")
                     {
-                        print("DAÑITOO" + daño);
+                       
                         GameManager.Instance.MuertePJ();
                     }
                     else
                     {
-                        print("DAwwweweweweqwfwergewg222222222ÑO" + daño);
+                      
                         Invoke("IraCheckpoint", tiempoMuerte); //---------------------------------> llamar esto cuando acabe la animación?
                     }
 
@@ -320,6 +320,10 @@ public class VidaPlayer : MonoBehaviour
             //    spritesvida[2].GetComponent<Image>().color = colorinicial;
             //    spritesvida[3].GetComponent<Image>().color = colorinicial;
             //}
+        }
+        else
+        {
+            if (auxcdTrasdaño > 0) auxcdTrasdaño -= Time.deltaTime;
         }
         if ((reiniciando) && (puedoReiniciar))
         {

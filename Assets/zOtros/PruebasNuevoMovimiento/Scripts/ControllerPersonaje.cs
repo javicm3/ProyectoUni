@@ -90,7 +90,7 @@ public class ControllerPersonaje : MonoBehaviour
     public float tiempoPreSalto = 0.5f;
     public float tiempoPulsadoEspacio;
     public float auxpresalto;
-
+    public bool saltoDobleHechoParaDashCaida = false;
 
     [Header("Dash")]
     public float fuerzaDash = 6000;
@@ -363,6 +363,7 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 unavezSaltoDobleTrasPared = true;
                 saltoDobleHecho = false;
+                saltoDobleHechoParaDashCaida = false;
             }
         }
         else
@@ -712,7 +713,11 @@ public class ControllerPersonaje : MonoBehaviour
             movimientoBloqueado = true;
             saltoBloqueado = true;
             dashBloqueado = true;
-            if (saltoDobleHecho == true) saltoDobleHecho = false;
+            if (saltoDobleHecho == true)
+            {
+                saltoDobleHecho = false;
+                saltoDobleHechoParaDashCaida = false;
+            }
             if (puedoDash == false) puedoDash = true;
             rb.gravityScale = 0;
 
@@ -1508,6 +1513,7 @@ public class ControllerPersonaje : MonoBehaviour
                 heEntradoParedUnaVez = true;
             }
             saltoDobleHecho = false;
+            saltoDobleHechoParaDashCaida = false;
         }
         else
         {
@@ -1738,6 +1744,8 @@ public class ControllerPersonaje : MonoBehaviour
                 maxTiempoPared = auxpared;
                 tieneGravedad = true;
                 saltoDobleHecho = false;
+
+                saltoDobleHechoParaDashCaida = false;
             }
             if (deteccionParedes2 == false)
             {
@@ -1778,13 +1786,13 @@ public class ControllerPersonaje : MonoBehaviour
                 if (Math.Sign(pInput.ultimoInputHorizontal) != Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 1)
                 {
 
-                    if (auxCdDashReal < auxCdDashReal * 0.7f)
+                    if (auxCdDashReal < auxCdDashReal * 0.8f)
                     {
                         if (tengoMaxspeed)
                         {
 
 
-                            //print("cambiosentido2" + ultimaNormal.y + grounded);
+                            print("cambiosentido2" + ultimaNormal.y + grounded);
                             Vector2 direccion = Vector2.Perpendicular(ultimaNormal).normalized * coefDeceleracion * -pInput.inputHorizontal;
                             this.rb.AddForce(direccion * fuerzaCambioSentido * 0.8f * Time.deltaTime);
 
@@ -1793,7 +1801,7 @@ public class ControllerPersonaje : MonoBehaviour
                         else
                         {
                             //rb.velocity =new Vector2 (0, rb.velocity.y);
-                            //print("cambiosentido" + ultimaNormal.y + grounded);
+                            print("cambiosentido" + ultimaNormal.y + grounded);
 
                             Vector2 direccion = Vector2.Perpendicular(ultimaNormal).normalized * coefDeceleracion * -pInput.inputHorizontal;
 
@@ -1818,7 +1826,7 @@ public class ControllerPersonaje : MonoBehaviour
                 if (Math.Sign(pInput.ultimoInputHorizontal) != Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 1)
                 {
 
-                    if (auxCdDashReal < auxCdDashReal * 0.7f)
+                    if (auxCdDashReal < auxCdDashReal * 0.5f)
                     {
                         if (tengoMaxspeed)
                         {
@@ -1878,7 +1886,7 @@ public class ControllerPersonaje : MonoBehaviour
                     }
                     if (Math.Sign(pInput.ultimoInputHorizontal) != Math.Sign(rb.velocity.x) && Mathf.Abs(rb.velocity.x) > 1)
                     {
-                        if (auxCdDashReal < auxCdDashReal * 0.7f)
+                        if (auxCdDashReal < auxCdDashReal * 0.5f)
                         {
                             if (tengoMaxspeed)
                             {
@@ -2348,7 +2356,7 @@ public class ControllerPersonaje : MonoBehaviour
                                 //Vector2 direccion = Vector2.Perpendicular(normal) * speed * -pInput.inputHorizontal;
                                 //print("no acelerando");
                                 //this.rb.AddForce(-direccion * Time.fixedDeltaTime);
-                                if (auxCdDashReal > cooldownDashReal * 0.7f)
+                                if (auxCdDashReal > cooldownDashReal * 0.5f)
                                 {
                                     this.rb.AddForce(-this.rb.velocity * coefDeceleracion * Time.deltaTime);
                                 }
@@ -2425,14 +2433,14 @@ public class ControllerPersonaje : MonoBehaviour
                             {
                                 this.rb.AddForce(-this.rb.velocity * coefDeceleracion * 0.5f * Time.deltaTime);
                             }
-                            if (Mathf.Abs(rb.velocity.x) <= 0.5f)
+                            if (Mathf.Abs(rb.velocity.x) <= 0.7f)
                             {
                                 rb.velocity = new Vector2(0, rb.velocity.y);
                             }
                         }
                         else
                         {
-                            if (auxCdDashReal > cooldownDashReal * 0.5f)
+                            if (auxCdDashReal > cooldownDashReal * 0.7f)
                             {
                                 this.rb.AddForce(-this.rb.velocity * coefDeceleracion * Time.deltaTime);
                             }
@@ -2726,7 +2734,7 @@ public class ControllerPersonaje : MonoBehaviour
                         {
                             if ((auxTiempoTrasSaltoLoop <= 0) && (Mathf.Sign(ultimaNormal.y) > 0))
                             {
-                                if (auxCdDashReal < 0.5f * auxCdDashReal)
+                                if (auxCdDashReal < 0.7f * auxCdDashReal)
                                 {
                                     if (tengoMaxspeed)
                                     {
@@ -3510,6 +3518,7 @@ public class ControllerPersonaje : MonoBehaviour
                         constantegravedad = 1;
                         //print("    constantegravedad = 1;");
                         estoyDasheando = true;
+                        speed = capSpeed;
                         auxdash = tiempoDasheo;
                         dashEnCaida = false;
                         animCC.SetBool("cayendo", dashEnCaida);
@@ -3665,7 +3674,7 @@ public class ControllerPersonaje : MonoBehaviour
     {
         if (dashEnCaida)
         {
-            if (saltoDobleHecho || rb.velocity.y > 0) dashEnCaida = false;
+            if (saltoDobleHechoParaDashCaida || rb.velocity.y > 2) dashEnCaida = false;
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
         if (rb.velocity.y == 0)
@@ -3689,6 +3698,7 @@ public class ControllerPersonaje : MonoBehaviour
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             dashEnCaida = true;
+                            saltoDobleHechoParaDashCaida = false;
                             GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDashCaida, posGround.position, posGround);
                             GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
                             rb.velocity = new Vector2(rb.velocity.x, -1);
@@ -3711,6 +3721,7 @@ public class ControllerPersonaje : MonoBehaviour
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             dashEnCaida = true;
+                            saltoDobleHechoParaDashCaida = false;
                             GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDashCaida, posGround.position, posGround);
                             GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(true);
                             rb.velocity = new Vector2(rb.velocity.x, -1);
@@ -3908,6 +3919,7 @@ public class ControllerPersonaje : MonoBehaviour
                 {
                     if (saltoDobleHecho)
                     {
+                     
                         pulsadoEspacio = true;
                         saltoIniciado = true;
                         if ((tiempoCOYOTE > 0) && (rb.velocity.y < 0) && ultimaNormal.y > 0.1f)
@@ -3951,6 +3963,7 @@ public class ControllerPersonaje : MonoBehaviour
                                 animCC.SetTrigger("DobleSalto");
                                 //GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
                                 saltoDobleHecho = true;
+                                saltoDobleHechoParaDashCaida = true;
                                 ultimaNormal = Vector2.zero;
                                 dashEnCaida = false;
                                 estoyDasheando = false;
@@ -4128,6 +4141,7 @@ public class ControllerPersonaje : MonoBehaviour
                                 animCC.SetTrigger("DobleSalto");
                                 //GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
                                 saltoDobleHecho = true;
+                                saltoDobleHechoParaDashCaida = true;
                                 ultimaNormal = Vector2.zero;
 
                                 dashEnCaida = false;
@@ -4206,6 +4220,7 @@ public class ControllerPersonaje : MonoBehaviour
             dashEnCaida = false;
             dashCaidaBloqueado = false;
             saltoDobleHecho = false;
+            saltoDobleHechoParaDashCaida = false;
             tiempoPulsadoEspacio = 0;
             saltoIniciado = false;
 

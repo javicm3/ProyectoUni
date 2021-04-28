@@ -15,6 +15,7 @@ public class PlataformaND1 : MonoBehaviour
     public Vector3 nextPos;
     GameObject player;
     public bool tocando;
+    float aux = 0.3f;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,11 +29,49 @@ public class PlataformaND1 : MonoBehaviour
     {
         if (tocando)
         {
-         
-         
+
+
             //player.GetComponent<Rigidbody2D>().velocity = new Vector3(player.GetComponent<Rigidbody2D>().velocity.x + speed*x*Time.fixedDeltaTime, player.GetComponent<Rigidbody2D>().velocity.y + speed*y* Time.fixedDeltaTime, 0);
-            player.transform.position = Vector2.MoveTowards(player.transform.position, nextPos, speed * Time.deltaTime);
-     
+            if (player.GetComponent<ControllerPersonaje>().auxCdDashReal <=0.2f&& (player.GetComponent<PlayerInput>().inputHorizontal==0))
+            {
+                aux = 0.3f;
+                if (nextPos == pos1.position&&Vector2.Distance(player.transform.position,nextPos)>15)
+                {
+                    player.transform.position = Vector2.MoveTowards(player.transform.position, nextPos, ((0.1f * player.GetComponent<Rigidbody2D>().velocity.x) + speed) * Time.deltaTime);
+
+                }
+                //player.GetComponent<Rigidbody2D>().velocity = player.GetComponent<Rigidbody2D>().velocity + speed * Time.fixedDeltaTime * new Vector2((nextPos.x - player.transform.position.x), 0).normalized;
+            }
+            else if ((Mathf.Abs(player.GetComponent<Rigidbody2D>().velocity.x )<5.5f))
+            {
+                print(Mathf.Abs(player.GetComponent<Rigidbody2D>().velocity.x) + "speedx");
+                //aux -= Time.deltaTime;
+                //if (aux > 0)
+                //{
+                if (nextPos == pos1.position && Vector2.Distance(player.transform.position, nextPos) > 15)
+                {
+                    player.transform.position = Vector2.MoveTowards(player.transform.position, nextPos, ((0.1f * player.GetComponent<Rigidbody2D>().velocity.x)+ speed) * Time.deltaTime);
+
+                }
+                //}
+
+            }
+            //else if ((Mathf.Abs(player.GetComponent<Rigidbody2D>().velocity.x) < 11.5f))
+            //{
+            //    print(Mathf.Abs(player.GetComponent<Rigidbody2D>().velocity.x) + "speedx");
+            //    //aux -= Time.deltaTime;
+            //    //if (aux > 0)
+            //    //{
+            //    if (nextPos == pos1.position && Vector2.Distance(player.transform.position, nextPos) > 10)
+            //    {
+            //        player.transform.position = Vector2.MoveTowards(player.transform.position, nextPos, ((0.2f * player.GetComponent<Rigidbody2D>().velocity.x) + speed) * Time.deltaTime);
+
+            //    }
+            //    //}
+
+            //}
+
+
 
         }
         if (verticales)
@@ -58,7 +97,7 @@ public class PlataformaND1 : MonoBehaviour
             //}
             this.transform.gameObject.SetActive(false);
         }
-        if (Vector2.Distance(this.transform.position,startPos.position)<=0.05)
+        if (Vector2.Distance(this.transform.position, startPos.position) <= 0.05)
         {
             if (!verticales)
             {
@@ -129,7 +168,7 @@ public class PlataformaND1 : MonoBehaviour
             }
 
         }
-
+     
         transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
     }
 
@@ -170,11 +209,12 @@ public class PlataformaND1 : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
-        {  tocando = false;
+        {
+            tocando = false;
             //if (collision.gameObject.transform.parent == this.transform)
             //{
             //    collision.gameObject.transform.parent = null;
-              
+
             //}
         }
     }

@@ -36,7 +36,20 @@ public class IrANivel : MonoBehaviour
             FadeInOut fade = FindObjectOfType<FadeInOut>();
             if (fade != null)
             {
-                StartCoroutine(fade.FadeOut());
+              
+            
+                    GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+                    PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
+                    plInput.inputHorizBlock = true;
+                    plInput.inputVerticBlock = true;
+
+                    ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
+                    per.dashBloqueado = true;
+                    per.saltoBloqueado = true;
+                    per.dashCaidaBloqueado = true;
+                    per.movimientoBloqueado = true;
+                    per.rb.velocity = Vector2.zero;
+                    StartCoroutine(fade.FadeOut());
                 StartCoroutine(CargarNivel(nivel));
             }
             else { SceneManager.LoadScene(nivel, LoadSceneMode.Single); }

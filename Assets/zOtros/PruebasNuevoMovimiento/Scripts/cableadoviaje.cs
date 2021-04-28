@@ -44,6 +44,7 @@ public class cableadoviaje : MonoBehaviour
 
         if (viajando)
         {
+            controllerPersonaje.enemigosPasados.Clear();
             controllerPersonaje.saltoBloqueado = true;
             controllerPersonaje.movimientoBloqueado = true;
             controllerPersonaje.dashBloqueado = true;
