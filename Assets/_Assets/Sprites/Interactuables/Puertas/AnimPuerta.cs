@@ -15,7 +15,6 @@ public class AnimPuerta : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            FindObjectOfType<NewAudioManager>().Play("Puerta");
             animCC.SetBool("Abierto", true);
         }
     }
@@ -24,7 +23,6 @@ public class AnimPuerta : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            FindObjectOfType<NewAudioManager>().Play("Puerta");
             animCC.SetBool("Abierto", false);
 
         }
