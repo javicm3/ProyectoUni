@@ -17,13 +17,14 @@ public class CinematicaBoss : MonoBehaviour
     public GameObject[] laseres3;
     public GameObject particulasNiebla;
     public SpriteRenderer[] partesBoss;
-    public Texture2D mensaje1;
-    public Texture2D mensaje2;
+    public Texture2D[] mensajes;
     public bool primeravez;
     public Transform puntoNiebla;
     public GameObject lucesFondo;
     bool luces =  false;
     float t;
+    int img = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,12 +51,28 @@ public class CinematicaBoss : MonoBehaviour
             partesBoss[i].enabled = false;
         }
         holograma.SetActive(false);
-        
+        t = 5;
     }
 
     // Update is called once per frame
     void Update()
     {
+        t -= Time.deltaTime;
+        if(t <= 0)
+        {
+            if(img >= 3)
+            {
+                img = 0;
+                textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensajes[0]);
+                t = 5;
+            }
+            else
+            {
+                img++;
+                textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensajes[0]);
+                t = 5;
+            }
+        }
         
     }
 
@@ -78,10 +95,10 @@ public class CinematicaBoss : MonoBehaviour
 
         StartCoroutine(Laseres());
         lucesFondo.GetComponent<Animator>().SetTrigger("On");
-        textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensaje1);
+        textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensajes[0]);
+        img = 0;
         yield return new WaitForSeconds(tiempoMensajes);
-
-        textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensaje2);
+        
         yield return new WaitForSeconds(tiempoMensajes);
 
         camara1.SetActive(false);
