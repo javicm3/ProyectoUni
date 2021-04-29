@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using InControl;
+using UnityEngine.SceneManagement;
 
 public class FuncionalidadPausa : MonoBehaviour
 {
@@ -108,7 +109,11 @@ public class FuncionalidadPausa : MonoBehaviour
 
     public void VolverLobby(string scene)
     {
-        GameManager.Instance.NextScene(scene);
+        if (scene=="PantallaInicio")
+        {
+            Destroy(GameManager.Instance);
+        }
+        SceneManager.LoadScene(scene);
         Time.timeScale = 1;
     }
 
