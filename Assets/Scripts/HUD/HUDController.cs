@@ -98,7 +98,7 @@ public class HUDController : MonoBehaviour
     void CheckController()
     {
         joystick = InputManager.ActiveDevice; 
-        if (joystick.Name != "NullInputDevice")
+        if (joystick != null && joystick.Name != "NullInputDevice")
         {
             isController = true;
             selected = item[index];

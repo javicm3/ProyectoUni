@@ -31,6 +31,18 @@ public class GameManager : MonoBehaviour
     public DesbloquearHabilidades.habilidad habilidad;
 
     GameObject playerGO;
+
+    //Cinemática
+    public int cinematicaIndex = 1;
+    public string cinematicaScene;
+
+    public void PlayCinematica(int index, string scene)
+    {
+        cinematicaIndex = index;
+        cinematicaScene = scene;
+        SceneManager.LoadScene("Cinematica");
+    }
+
     //  V O L U M E N   S O N I D O 
     public AudioMixer audioMixer;
     public bool haciendoAnim;
@@ -419,7 +431,6 @@ public class GameManager : MonoBehaviour
         {
             LevelInfo nuevoNivel = new LevelInfo();
             nuevoNivel.nombreNivel = nombreEscena;
-            //- - - - - - - - - - - - - - - - - - - Decidir si busco todos los coleccionables del nivel o no :3
             listaNiveles.Add(nuevoNivel);
             nivelActual = nuevoNivel;
         }
