@@ -32,20 +32,30 @@ public class DesbloquearHabilidades : MonoBehaviour
         switch (desbloquear)
         {
             case habilidad.dash:
-                GameManager.Instance.Habilidades.dash = true;
+                if (GameManager.Instance.Habilidades.dash == false)
+                { GameManager.Instance.Habilidades.dash = true; ActivarAnim(); }
+                
                 break;
             case habilidad.chispazo:
-                GameManager.Instance.Habilidades.chispazo = true;
+                if (GameManager.Instance.Habilidades.chispazo == false)
+                { GameManager.Instance.Habilidades.chispazo = true; ActivarAnim(); }
                 break;
             case habilidad.movimientoPared:
-                GameManager.Instance.Habilidades.movParedes = true;
+                if (GameManager.Instance.Habilidades.movParedes == false)
+                { GameManager.Instance.Habilidades.movParedes = true; ActivarAnim(); }
                 break;
             case habilidad.movimientoCable:
-                GameManager.Instance.Habilidades.movCables = true;
+                if (GameManager.Instance.Habilidades.movCables == false)
+                { GameManager.Instance.Habilidades.movCables = true; ActivarAnim(); }
                 break;
         }
+
+        usado = true;
+    }
+
+    void ActivarAnim()
+    {
         GameManager.Instance.animDesbloquear = true;
         GameManager.Instance.habilidad = desbloquear;
-        usado = true;
     }
 }
