@@ -79,14 +79,16 @@ public class VidaPlayer : MonoBehaviour
         //EEEEEEEEEEEEEEEEEEEEEEEEEEEEEELIMINARRRRRRRRRRRRRRRRRRR linea de arriba
         if ((auxcdTrasdaño <= 0))
         {
+           
             //if ((this.GetComponent<Movimiento>().cayendoS == false) && (this.GetComponent<CharacterController2D>().dashing == false) && (this.GetComponent<CharacterController2D>().justdashed == false) && (recienAtacado == false))
 
             //AplicarFuerza(puntoimpacto, puntocontacto);
             rb.bodyType = RigidbodyType2D.Static; //  <-------------------------NUEVO
 
             auxcdTrasdaño += cdTrasDaño;
-            if (cc.auxtiempoTrasSalirCombateInvuln <= 0)
+            if ((cc.chispazoUnlook&& cc.auxtiempoTrasSalirCombateInvuln <= 0)||(!cc.chispazoUnlook))
             {
+                print("daño");
                 vidaActual -= daño;
                 if (vidaActual < 0 && reiniciando == false)
                 {

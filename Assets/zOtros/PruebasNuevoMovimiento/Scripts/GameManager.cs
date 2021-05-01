@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour
             nivelActual.maxColeccionables = GameObject.FindGameObjectsWithTag("Coleccionable").Length;
             nivelActual.tiempoEmpezar = Time.time;
 
-            textoColecc = GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>();
+            //textoColecc = GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>();
             textoColecc.text = nivelActual.coleccionablesCogidos.Count + "  /  " + nivelActual.maxColeccionables; 
 
             personajevivo = true;
