@@ -23,7 +23,15 @@ public class NewAudioManager : MonoBehaviour
 
     void Awake()
     {
-        foreach(Sound s in sounds)
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+            foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;

@@ -36,6 +36,7 @@ public class PlataformaDash : MonoBehaviour
     public Animator animatorEngranajes;
     public float WaitFor = 5;
     public BoxCollider2D collidereliminado;
+    Vector3 originalpose;
 
     void Start()
     {
@@ -43,6 +44,7 @@ public class PlataformaDash : MonoBehaviour
         this.transform.position = puntoAbajo.transform.position;
         auxTiempoSinCollider = tiempoSinCollider;
         abajo = true;
+        originalpose = this.transform.position;
 
     }
     private void Update()
@@ -163,8 +165,16 @@ public class PlataformaDash : MonoBehaviour
         if (bajando)
         {
            
-            if (this.transform.position.y > puntoAbajo.transform.position.y)
+            if (this.transform.position.y > puntoAbajo.transform.position.y+1.5f)
             {
+                if (animatorFlechas != null) animatorFlechas.SetBool("Subiendo", false);
+                if (animatorFlechas != null) animatorFlechas.SetBool("Bajando", true);
+                if (animatorEngranajes != null) animatorEngranajes.SetBool("moviendose", true);
+                this.transform.position = this.transform.position - ((Vector3.up * velocidadBajada) * Time.deltaTime);
+            }
+            else if (this.transform.position.y > puntoAbajo.transform.position.y )
+            {
+                collideractivado = false;
                 if (animatorFlechas != null) animatorFlechas.SetBool("Subiendo", false);
                 if (animatorFlechas != null) animatorFlechas.SetBool("Bajando", true);
                 if (animatorEngranajes != null) animatorEngranajes.SetBool("moviendose", true);
@@ -172,6 +182,8 @@ public class PlataformaDash : MonoBehaviour
             }
             else
             {
+                this.transform.position = originalpose;
+                collideractivado = true;
                 if (animatorFlechas != null) animatorFlechas.SetBool("Subiendo", false);
                 if (animatorFlechas != null) animatorFlechas.SetBool("Bajando", false);
                 if (animatorEngranajes != null) animatorEngranajes.SetBool("moviendose", false);

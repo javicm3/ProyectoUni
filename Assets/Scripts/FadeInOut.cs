@@ -28,12 +28,12 @@ public class FadeInOut : MonoBehaviour
             {
                 if (GameManager.Instance.haciendoAnim == false)
                 {
-                    GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
-                    PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
+                    GameObject playerGO = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
+                    PlayerInput plInput = playerGO.GetComponent<PlayerInput>();
                     plInput.inputHorizBlock = false;
                     plInput.inputVerticBlock = false;
 
-                    ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
+                    ControllerPersonaje per = playerGO.GetComponent<ControllerPersonaje>();
                     per.dashBloqueado = false;
                     per.saltoBloqueado = false;
                     per.dashCaidaBloqueado = false;
@@ -49,7 +49,7 @@ public class FadeInOut : MonoBehaviour
 
     public IEnumerator FadeOut()
     {
-        Instantiate(particulasTransicion, GameObject.FindGameObjectWithTag("Player").transform.position + new Vector3(0, 2, 0), Quaternion.identity);
+        Instantiate(particulasTransicion, GameObject.FindObjectOfType<ControllerPersonaje>().gameObject.transform.position + new Vector3(0, 2, 0), Quaternion.identity);
 
         if (opacity < 0) { opacity = 0; }
         while (opacity < 1)
@@ -58,12 +58,12 @@ public class FadeInOut : MonoBehaviour
             if (opacity >= 1)
             {
 
-                GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
-                PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
+                GameObject playerGO = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
+                PlayerInput plInput = playerGO.GetComponent<PlayerInput>();
                 plInput.inputHorizBlock = true;
                 plInput.inputVerticBlock = true;
 
-                ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
+                ControllerPersonaje per = playerGO.GetComponent<ControllerPersonaje>();
                 per.dashBloqueado = true;
                 per.saltoBloqueado = true;
                 per.dashCaidaBloqueado = true;

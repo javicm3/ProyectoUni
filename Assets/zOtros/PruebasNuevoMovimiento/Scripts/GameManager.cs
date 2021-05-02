@@ -199,6 +199,14 @@ public class GameManager : MonoBehaviour
         }
         if (tieneColeccionables)
         {
+            GameObject[] coleccionablesMonedas = GameObject.FindGameObjectsWithTag("Coleccionable");
+            for (int i = 0; i < coleccionablesMonedas.Length; i++)
+            {
+                if (coleccionablesMonedas[i].GetComponentInChildren<ParticleSystem>() != null)
+                {
+                    coleccionablesMonedas[i].gameObject.name = (string)("Moneda" + i);
+                }
+            }
             Cursor.visible = false;
             CheckLevelList(scene.name);//Dentro de este método se seteea el nivel actual
             UltimoCheck = null;
@@ -217,12 +225,12 @@ public class GameManager : MonoBehaviour
             nivelActual.maxColeccionables = GameObject.FindGameObjectsWithTag("Coleccionable").Length;
             nivelActual.tiempoEmpezar = Time.time;
 
-            //textoColecc = GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>();
+            textoColecc = GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>();
             textoColecc.text = nivelActual.coleccionablesCogidos.Count + "  /  " + nivelActual.maxColeccionables; 
 
             personajevivo = true;
 
-            if (GameObject.FindGameObjectWithTag("Player") != null) //Julio hacia este if antes de buscar el audio manager asique lo haré igual
+            if (GameObject.FindObjectOfType<ControllerPersonaje>().gameObject != null) //Julio hacia este if antes de buscar el audio manager asique lo haré igual
             {
                 NAM = FindObjectOfType<NewAudioManager>();
                 return;
@@ -241,12 +249,12 @@ public class GameManager : MonoBehaviour
                 Invoke("HacerAnim", 1);
                 animDesbloquear = false;
 
-                playerGO = GameObject.FindGameObjectWithTag("Player");
-                PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
+                playerGO = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
+                PlayerInput plInput = playerGO.GetComponent<PlayerInput>();
                 plInput.inputHorizBlock = true;
                 plInput.inputVerticBlock = true;
 
-                ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
+                ControllerPersonaje per = playerGO.GetComponent<ControllerPersonaje>();
                 per.dashBloqueado = true;
                 per.saltoBloqueado = true;
                 per.dashCaidaBloqueado = true;
@@ -271,8 +279,8 @@ public class GameManager : MonoBehaviour
     {
        
         if (playerGO.gameObject == null) playerGO = GameObject.FindObjectOfType<CharacterController>().gameObject;
-        PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
-        ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
+        PlayerInput plInput = playerGO.GetComponent<PlayerInput>();
+        ControllerPersonaje per = playerGO.GetComponent<ControllerPersonaje>();
         haciendoAnim = false;
         plInput.inputHorizBlock = false;
         plInput.inputVerticBlock = false;

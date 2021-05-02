@@ -38,11 +38,11 @@ public class VueltaLobby : MonoBehaviour
     bool done = false;
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (GameObject.FindObjectOfType<ControllerPersonaje>().gameObject!=null)
         {                       
             cartel.enabled = true;
 
-            if (!done && (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick!=null&& GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed))
+            if ((!done && (Input.GetButtonDown("Interact")) || (!done&& GameObject.FindObjectOfType<ControllerPersonaje>().gameObject!=null&& GameObject.FindObjectOfType<ControllerPersonaje>().joystick!=null&& GameObject.FindObjectOfType<ControllerPersonaje>().joystick.Action2.WasPressed)))
             {
                 done = true;
                 GuardarDatos();
@@ -55,12 +55,12 @@ public class VueltaLobby : MonoBehaviour
                 {
                     StartCoroutine(fade.FadeOut());
 
-                        GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
-                        PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
+                    GameObject playerGO = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
+                        PlayerInput plInput = playerGO.GetComponent<PlayerInput>();
                         plInput.inputHorizBlock = true;
                         plInput.inputVerticBlock = true;
 
-                        ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
+                        ControllerPersonaje per = playerGO.GetComponent<ControllerPersonaje>();
                         per.dashBloqueado = true;
                         per.saltoBloqueado = true;
                         per.dashCaidaBloqueado = true;

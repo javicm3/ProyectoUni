@@ -38,7 +38,7 @@ public class Nodo : MonoBehaviour
     void Start()
     {
         cartel.gameObject.SetActive(false);
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
         cab = FindObjectOfType<cableadoviaje>();
     }
 
@@ -82,7 +82,7 @@ public class Nodo : MonoBehaviour
 
         if (entrada == true)
         {
-            if (GameObject.FindGameObjectWithTag("Player") != null&& GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().movCablesUnlook) if ((Vector2.Distance(player.transform.position, this.transform.position) < distanciaAbsorcion) && (cab.viajando == false))
+            if (GameObject.FindObjectOfType< ControllerPersonaje >()!= null&& GameObject.FindObjectOfType<ControllerPersonaje>().movCablesUnlook) if ((Vector2.Distance(player.transform.position, this.transform.position) < distanciaAbsorcion) && (cab.viajando == false))
                 {
                     //if (cartel != null) cartel.gameObject.SetActive(true);
                     auxtime =time;
@@ -99,7 +99,7 @@ public class Nodo : MonoBehaviour
                             auxtime =time;
 
 
-                            player.GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().entradaCables);
+                            player.GetComponent<AudioManager>().Play(player.GetComponent<AudioManager>().sonidosUnaVez, player.GetComponent<AudioManager>().entradaCables);
                             cab.viajando = true;
                             player.GetComponent<CameraZoom>().tamañoCamaraViaje = tamañoCamaraViaje;
                         }
