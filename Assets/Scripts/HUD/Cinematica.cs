@@ -51,8 +51,14 @@ public class Cinematica : MonoBehaviour
     IEnumerator GoToScene()
     {
         yield return new WaitForSeconds(timeDelay);
+        string scene = GameManager.Instance.cinematicaScene;
         //SceneManager.LoadSceneAsync(GameManager.Instance.cinematicaScene);
-        SceneManager.LoadScene(GameManager.Instance.cinematicaScene);
+        if (scene=="PantallaInicio")
+        {
+            SistemaGuardado.Guardar();
+            Destroy(GameManager.Instance);
+        }
+        SceneManager.LoadScene(scene);
 
     }
 }

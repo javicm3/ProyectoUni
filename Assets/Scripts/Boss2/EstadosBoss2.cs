@@ -166,8 +166,15 @@ public class EstadosBoss2 : MonoBehaviour
                 GetComponent<Animator>().enabled = false;
                 cabeza.GetComponent<Collider2D>().enabled = true;
                 cabeza.GetComponent<Rigidbody2D>().isKinematic = false;
+
+                Invoke("LlamarCinematica", 2);
             }
 
         }
+    }
+
+    void LlamarCinematica()
+    {
+        GameManager.Instance.PlayCinematica(5, "PantallaInicio");
     }
 }

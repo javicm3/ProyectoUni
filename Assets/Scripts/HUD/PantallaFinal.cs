@@ -11,6 +11,9 @@ public class PantallaFinal : MonoBehaviour
     [SerializeField] TextMeshProUGUI t_coleccionables;
     [SerializeField] GameObject newRecord;
 
+    public enum cinematica { none, boss1, boss2 };
+    [SerializeField] cinematica cinem;
+
     public void ActivarPantalla()
     {
         float tiempo = Time.time - GameManager.Instance.NivelActual.tiempoEmpezar;
@@ -28,6 +31,18 @@ public class PantallaFinal : MonoBehaviour
 
     public void IrLobby()
     {
-        SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+        switch (cinem)
+        {
+            case cinematica.none:
+                SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+                break;
+            case cinematica.boss1:
+                GameManager.Instance.PlayCinematica(3, "Lobby");
+                break;
+            case cinematica.boss2:
+                GameManager.Instance.PlayCinematica(5, "Lobby");
+                break;
+        }
+        
     }
 }
