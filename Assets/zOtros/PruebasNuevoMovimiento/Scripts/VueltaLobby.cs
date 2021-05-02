@@ -80,8 +80,8 @@ public class VueltaLobby : MonoBehaviour
         {
             GhostData.Instance.TerminarNivel(SceneManager.GetActiveScene().name);
         }
-        
-        SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+
+        FindObjectOfType<PantallaFinal>().ActivarPantalla();
 
     }
 

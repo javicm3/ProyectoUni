@@ -20,7 +20,7 @@ public class ControllerPersonaje : MonoBehaviour
     // VARIABLES HABILIDADES BLOQUEADAS (puedes renamearlas si quieres)
     //En el start se llama a un método que las setea según lo que pone en el GM
     bool dashUnlock;
-    bool chispazoUnlook;
+    public bool chispazoUnlook;
     bool movParedesUnlook;
     public bool movCablesUnlook;
     float auxTiempoSonidoSinEnergia;
@@ -3674,7 +3674,7 @@ public class ControllerPersonaje : MonoBehaviour
     {
         if (dashEnCaida)
         {
-            if (saltoDobleHechoParaDashCaida || rb.velocity.y > 2) dashEnCaida = false;
+            if (saltoDobleHechoParaDashCaida || rb.velocity.y > 2) { dashEnCaida = false; saltoDobleHechoParaDashCaida = false; }
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
         if (rb.velocity.y == 0)
@@ -3919,7 +3919,7 @@ public class ControllerPersonaje : MonoBehaviour
                 {
                     if (saltoDobleHecho)
                     {
-                     
+
                         pulsadoEspacio = true;
                         saltoIniciado = true;
                         if ((tiempoCOYOTE > 0) && (rb.velocity.y < 0) && ultimaNormal.y > 0.1f)

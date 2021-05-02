@@ -139,9 +139,9 @@ public class MainMenu : MonoBehaviour
                 slotsMenu.SetActive(false);
             }
             else
-            {
+            {                
                 SistemaGuardado.timeToIgnore = Time.time;
-                SceneManager.LoadScene("Lobby");
+                GameManager.Instance.PlayCinematica(1, "Lobby");
             }
         }
         else
@@ -163,7 +163,8 @@ public class MainMenu : MonoBehaviour
 
     public void Confirmar()
     {
-        SceneManager.LoadScene("Lobby");
+        SistemaGuardado.timeToIgnore = Time.time;
+        GameManager.Instance.PlayCinematica(1,"Lobby");
     }
 
     public void CerrarPanel(GameObject panel)

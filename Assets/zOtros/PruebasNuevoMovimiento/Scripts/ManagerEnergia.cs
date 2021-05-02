@@ -31,7 +31,7 @@ public class ManagerEnergia : MonoBehaviour
             actualEnergy -= valor;
             if (actualEnergy <= 0) { actualEnergy = 0; NewAudioManager.Instance.Play("PlayerNoEnergy"); }
 
-            }
+        }
 
 
 
@@ -70,9 +70,12 @@ public class ManagerEnergia : MonoBehaviour
                 {
                     if ((cc.pegadoPared == false))
                     {
-
-                        actualEnergy += Mathf.Abs(cc.rb.velocity.x) * indiceMultiplicador * Time.deltaTime;
+                        if (cc.auxCdDashReal < 0.6 * cc.auxCdDashReal)
+                        {
+                            actualEnergy += Mathf.Abs(cc.rb.velocity.x) * indiceMultiplicador * Time.deltaTime;
+                        }
                     }
+
 
                 }
             }
