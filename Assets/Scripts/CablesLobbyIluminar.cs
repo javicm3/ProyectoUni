@@ -12,20 +12,24 @@ public class CablesLobbyIluminar : MonoBehaviour
     public bool needChispazo = false;
     public bool needParedes = false;
     public bool needviajeEntreCables = false;
+
     public int coleccionablesParaIluminar = 0;
+
     Material shader;
+
     Color original;
     Color actual;
+
     public bool puedo = true;
+
     // Start is called before the first frame update
     void Start()
-    {     shader = GetComponent<SpriteShapeRenderer>().materials[1];
+    {     
+        shader = GetComponent<SpriteShapeRenderer>().materials[1];
        
-      original= shader.GetColor("Color_C112F92E");
+        original= shader.GetColor("Color_C112F92E");
         actual = Color.black ;
         
-
-   
         shader.SetColor("Color_C112F92E", actual);
         print(shader.GetColor("Color_C112F92E"));
     }
@@ -131,6 +135,10 @@ public class CablesLobbyIluminar : MonoBehaviour
                 if (coleccionablesParaIluminar >= GameManager.Instance.totalColeccionables.Count)
                 {  
                     puedo = false;
+                }
+                else
+                {
+                    puedo = true;
                 }
 
                 if (puedo)
