@@ -6,7 +6,7 @@ using TMPro;
 public class Pantalla : MonoBehaviour
 {
 
-
+    [SerializeField] GameObject otherScreen;
     [SerializeField] GameObject habScreen;
 
     [SerializeField] GameObject animDash;
@@ -35,6 +35,7 @@ public class Pantalla : MonoBehaviour
         }
 
         habScreen.SetActive(true);
+        otherScreen.SetActive(false);
         switch (hab)
         {
             case DesbloquearHabilidades.habilidad.dash:

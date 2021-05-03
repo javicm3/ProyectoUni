@@ -2795,6 +2795,7 @@ MonoBehaviour:
   t_tiempo: {fileID: 3155552059685640911}
   t_coleccionables: {fileID: 3227870821956571108}
   newRecord: {fileID: 8304209971214680821}
+  cinem: 0
 --- !u!114 &1413425810749193794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5095,6 +5096,11 @@ PrefabInstance:
       propertyPath: m_textInfo.spaceCount
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2613838892101896881, guid: b7ae1afa4fcf9464e8b8827679f6e6fa,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 55956f540382cb942ba26d9318579864, type: 2}
     - target: {fileID: 2613838892844567756, guid: b7ae1afa4fcf9464e8b8827679f6e6fa,
         type: 3}
       propertyPath: m_Name
@@ -5103,7 +5109,7 @@ PrefabInstance:
     - target: {fileID: 2613838892844567794, guid: b7ae1afa4fcf9464e8b8827679f6e6fa,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2613838892844567794, guid: b7ae1afa4fcf9464e8b8827679f6e6fa,
         type: 3}
@@ -5235,7 +5241,13 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2613838892844567798, guid: b7ae1afa4fcf9464e8b8827679f6e6fa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2613838892844567797, guid: b7ae1afa4fcf9464e8b8827679f6e6fa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b7ae1afa4fcf9464e8b8827679f6e6fa, type: 3}
 --- !u!224 &9011959045099137287 stripped
 RectTransform:

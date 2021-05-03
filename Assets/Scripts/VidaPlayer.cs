@@ -169,7 +169,6 @@ public class VidaPlayer : MonoBehaviour
 
     void IraCheckpoint()//CREO QUE ESTO NO SE ESTÁ USANDO + si, mira la linea 125
     {
-
         if (GameManager.Instance.UltimoCheck != null)
         {
             cc.rb.velocity = Vector3.zero;
@@ -187,6 +186,10 @@ public class VidaPlayer : MonoBehaviour
             cc.rb.velocity = Vector3.zero;
             this.transform.position = GameObject.FindGameObjectWithTag("InicioNivel").gameObject.transform.position;
 
+            foreach (string go in GameManager.Instance.NivelActual.actualColeccionablesCogidos)
+            {
+                GameObject.Find(go).GetComponent<Moneda>().Activar();
+            }
             GameManager.Instance.NivelActual.actualColeccionablesCogidos.Clear();
             GameManager.Instance.textoColecc.text = GameManager.Instance.NivelActual.coleccionablesCogidos.Count.ToString() + "  /  " + GameManager.Instance.NivelActual.maxColeccionables;
 

@@ -22,9 +22,6 @@ public class VueltaLobby : MonoBehaviour
             if (!GameManager.Instance.NivelActual.coleccionablesCogidos.Contains(go))
             {
                 GameManager.Instance.NivelActual.coleccionablesCogidos.Add(go);
-            }
-            if (!GameManager.Instance.totalColeccionables.Contains(go))
-            {
                 GameManager.Instance.totalColeccionables.Add(go);
             }
         }
