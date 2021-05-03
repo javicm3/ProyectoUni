@@ -88,6 +88,7 @@ public class EstadosBoss2 : MonoBehaviour
             }
             else if (brazosCortados == 2 || brazosCortados == 3)
             {
+                GetComponent<CinematicaBoss>().Mensajes(1);
                 print("fase2");
                 tiempoParadaActual = tiempoStunFase2;
                 if (ataqueTerminado == true)
@@ -114,6 +115,7 @@ public class EstadosBoss2 : MonoBehaviour
             }
             else if(brazosCortados == 4 || brazosCortados == 5)
             {
+                GetComponent<CinematicaBoss>().Mensajes(1);
                 ab.drones.SetActive(true);
                 print("fase3");
                 tiempoParadaActual = tiempoStunFase3;

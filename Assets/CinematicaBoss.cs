@@ -23,6 +23,7 @@ public class CinematicaBoss : MonoBehaviour
     public GameObject lucesFondo;
     bool luces =  false;
     float t;
+    bool mns;
     int img = 0;
 
     // Start is called before the first frame update
@@ -52,27 +53,28 @@ public class CinematicaBoss : MonoBehaviour
         }
         holograma.SetActive(false);
         t = 5;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        t -= Time.deltaTime;
-        if(t <= 0)
-        {
-            if(img >= 3)
-            {
-                img = 0;
-                textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensajes[0]);
-                t = 5;
-            }
-            else
-            {
-                img++;
-                textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensajes[0]);
-                t = 5;
-            }
-        }
+        //t -= Time.deltaTime;
+        //if(t <= 0)
+        //{
+        //    if(img >= 3)
+        //    {
+        //        img = 0;
+        //        textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensajes[0]);
+        //        t = 5;
+        //    }
+        //    else
+        //    {
+        //        img++;
+        //        textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensajes[0]);
+        //        t = 5;
+        //    }
+        //}
         
     }
 
@@ -95,11 +97,10 @@ public class CinematicaBoss : MonoBehaviour
 
         StartCoroutine(Laseres());
         lucesFondo.GetComponent<Animator>().SetTrigger("On");
-        textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensajes[0]);
+        Mensajes(0);
         img = 0;
-        yield return new WaitForSeconds(tiempoMensajes);
+        yield return new WaitForSeconds(2.6f);
         
-        yield return new WaitForSeconds(tiempoMensajes);
 
         camara1.SetActive(false);
         
@@ -144,5 +145,10 @@ public class CinematicaBoss : MonoBehaviour
             }
 
         }
+    }
+    public void Mensajes(int i)
+    {
+        textoHolograma.GetComponent<SpriteRenderer>().material.SetTexture("_Letras", mensajes[i]);
+
     }
 }

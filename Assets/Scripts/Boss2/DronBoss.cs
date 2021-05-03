@@ -19,23 +19,41 @@ public class DronBoss : EnemigoPadre
     public float tiempoAviso = 1;
     public LayerMask layer;
     float tmp = 0;
-    public bool go;
+    float tmpParar;
+    public float tiempoStop;
+    [SerializeField]
+    bool go;
     // Start is called before the first frame update
     void Start()
     {
+        //StartCoroutine(Esperar());
         if (colliderBoss != null)
         {
             colliderBoss.SetActive(false);
         }
         lr = GetComponent<LineRenderer>();
         lr.enabled = false;
-        StartCoroutine(Esperar());
+        tmpParar = tiempoStop;
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        
+        tmpParar -= Time.deltaTime;
+        if(tmpParar <= 0)
+        {
+            if(go == true)
+            {
+                tmpParar = tiempoStop;
+                go = false;
+            }
+            else
+            {
+                go = true;
+                tmpParar = tiempoStop * 2;
+            }
+            
+        }
         //transform.LookAt(pareja.transform);
         tmp += Time.deltaTime;
         if(tmp >= 1)
@@ -81,12 +99,12 @@ public class DronBoss : EnemigoPadre
         lr.enabled = false;
     }
     
-    IEnumerator Esperar()
-    {
-        go = true;
-        yield return new WaitForSeconds(1);
-        go = false;
-        yield return new WaitForSeconds(1);
-        StartCoroutine(Esperar());
-    }
+    //IEnumerator Esperar()
+    //{
+    //    go = true;
+    //    yield return new WaitForSeconds(1);
+    //    go = false;
+    //    yield return new WaitForSeconds(1);
+    //    StartCoroutine(Esperar());
+    //}
 }
