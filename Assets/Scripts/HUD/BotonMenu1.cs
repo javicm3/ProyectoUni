@@ -17,6 +17,14 @@ public class BotonMenu1 : HUDObject
         outline = GetComponent<Outline>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) && outline.enabled)
+        {
+            button.onClick.Invoke();
+        }
+    }
+
     public override void Select()
     {
         textMesh.fontSharedMaterial = selectMat;
