@@ -79,12 +79,10 @@ public class GhostData : MonoBehaviour
         }   
     }
 
-
     public void TerminarNivel(string nivel)
     {
         if (tiempoNivel<nivelActual.mejorTiempo || nivelActual.mejorTiempo==0) 
         {
-            print("BEST SCORE BRO");
             nivelActual.pos.Clear();
             nivelActual.pos.AddRange(posTemp);            
         }
@@ -128,8 +126,7 @@ public class GhostData : MonoBehaviour
     }
 
     public void MoverFantasma()
-    {//ActualPosRepro?
-        print("??????????????");
+    {
         if (actualpos < nivelActual.pos.Count)
         {
             fantasma.transform.position = Vector3.MoveTowards(fantasma.transform.position, nivelActual.pos[actualpos].posicion, /*(Vector2.Distance(posN1[actualposRepro].posicion, posN1[actualposRepro + 1].posicion) / (posN1[actualposRepro + 1].tiempo - posN1[actualposRepro].tiempo)*/5000 * Time.deltaTime);
