@@ -113,7 +113,7 @@ public class FuncionalidadPausa : MonoBehaviour
         {
             Destroy(GameManager.Instance);
         }
-        GhostData.Instance.activado = false;
+        if(GhostData.Instance!=null) GhostData.Instance.activado = false;
         SceneManager.LoadScene(scene);
         Time.timeScale = 1;
     }
