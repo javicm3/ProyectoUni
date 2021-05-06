@@ -25,7 +25,8 @@ public class PantallaFinal : MonoBehaviour
         }
 
         pantalla.SetActive(true);
-        t_tiempo.text = (tiempo / 60).ToString("00") + " : " + (tiempo % 60).ToString("00");
+        if (tiempo<60) { t_tiempo.text = "00 : " + (tiempo % 60).ToString("00"); }
+        else t_tiempo.text = (tiempo / 60).ToString("00") + " : " + (tiempo % 60).ToString("00");
         t_coleccionables.text = GameManager.Instance.NivelActual.actualColeccionablesCogidos.Count + " / " + GameManager.Instance.NivelActual.maxColeccionables;
     }
 
