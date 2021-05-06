@@ -275,10 +275,13 @@ public class GameManager : MonoBehaviour
 
         FindObjectOfType<Pantalla>().ChangeScreen(habilidad);
         Invoke("DevolverInput", 7.45f);
+        
+        
     }
-   public void DevolverInput()
+    public void DevolverInput()
     {
-       
+        FindObjectOfType<VideosTutorial>().AbrirTutorial(habilidad);
+
         if (playerGO.gameObject == null) playerGO = GameObject.FindObjectOfType<CharacterController>().gameObject;
         PlayerInput plInput = playerGO.GetComponent<PlayerInput>();
         ControllerPersonaje per = playerGO.GetComponent<ControllerPersonaje>();

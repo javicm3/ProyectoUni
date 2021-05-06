@@ -38,4 +38,9 @@ public class Idiomas
     public static string[] time = { "Tiempo de juego", "Time played" };
     public static string[] collectibles = { "Coleccionables", "Collectibles" };
     public static string[] empty = { "Archivo vacio", "Empty file" };
+
+    public static string[] skill = { "Nueva habilidad :  ", "New skill :  " };
+    public static string[] climbWalls = { "Escalar paredes", "Clim walls" };
+    public static string[] wireTravel = { "Viaje entre cables", "Wire Travel" };
+    public static string[] spark = { "Chispazo", "Spark" };
 }
