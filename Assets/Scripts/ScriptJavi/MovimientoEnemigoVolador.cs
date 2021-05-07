@@ -27,7 +27,7 @@ public class MovimientoEnemigoVolador : EnemigoPadre
         if (Vector2.Distance(this.transform.position, player.transform.position) < distanciaActivacion)
         {
             activado = true;
-            NewAudioManager.Instance.Play("EnemigoVoladorIdle");
+            FindObjectOfType<NewAudioManager>().Play("EnemigoVoladorIdle");
 
             //reseter posicion
         }

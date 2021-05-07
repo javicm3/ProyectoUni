@@ -12,6 +12,7 @@ public class ParticulasBoss : MonoBehaviour
     public float intensidadVibracionBoss = 0.30f;
     public float velocidadVibracion = 1.3f;
     public float tiempoVibracion = 0.45f;
+    bool sonido = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +43,11 @@ public class ParticulasBoss : MonoBehaviour
         
         if(other.gameObject.tag == "Boss")
         {
-            FindObjectOfType<NewAudioManager>().Play("BossSalir");
+            if (sonido == false)
+            {
+                FindObjectOfType<NewAudioManager>().Play("BossSalir");
+            }
+            
             activarParticulas = true;
         }
     }
