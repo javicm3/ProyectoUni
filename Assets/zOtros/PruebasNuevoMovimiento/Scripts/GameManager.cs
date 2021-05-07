@@ -209,6 +209,7 @@ public class GameManager : MonoBehaviour
             }
             Cursor.visible = false;
             CheckLevelList(scene.name);//Dentro de este método se seteea el nivel actual
+            if(GhostData.Instance!=null)GhostData.Instance.IniciarFantasma(ref nivelActual);
             UltimoCheck = null;
 
             if (personajevivo == false)//Esto no se por que lo hacia Julio
@@ -274,10 +275,13 @@ public class GameManager : MonoBehaviour
 
         FindObjectOfType<Pantalla>().ChangeScreen(habilidad);
         Invoke("DevolverInput", 7.45f);
+        
+        
     }
-   public void DevolverInput()
+    public void DevolverInput()
     {
-       
+        FindObjectOfType<VideosTutorial>().AbrirTutorial(habilidad);
+
         if (playerGO.gameObject == null) playerGO = GameObject.FindObjectOfType<CharacterController>().gameObject;
         PlayerInput plInput = playerGO.GetComponent<PlayerInput>();
         ControllerPersonaje per = playerGO.GetComponent<ControllerPersonaje>();
@@ -460,6 +464,9 @@ public class LevelInfo
 
     public float tiempoEmpezar;
     public float mejorTiempo = 0;
+
+    //GHOST DATA
+    public List<Posiciones> pos = new List<Posiciones>();
 }
 
 [System.Serializable]
