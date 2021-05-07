@@ -42,6 +42,7 @@ public class ParticulasBoss : MonoBehaviour
         
         if(other.gameObject.tag == "Boss")
         {
+            FindObjectOfType<NewAudioManager>().Play("BossSalir");
             activarParticulas = true;
         }
     }

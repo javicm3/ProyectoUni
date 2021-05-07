@@ -57,12 +57,14 @@ public class Polea : MonoBehaviour
                         escombroSegundo.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                         escombroSegundo.GetComponent<Rigidbody2D>().velocity = (Vector2.up * velocidadPrimeroArriba);
                         escombroSegundo.GetComponent<Rigidbody2D>().gravityScale = 0f;
+                        this.GetComponent<BoxCollider2D>().enabled = false;
                     }
                     else
                     {
                         escombroSegundo.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                         escombroSegundo.GetComponent<Rigidbody2D>().mass = massCae;
                         escombroSegundo.GetComponent<Rigidbody2D>().gravityScale = grav;
+                        this.GetComponent<BoxCollider2D>().enabled = false;
                     }
 
 
@@ -83,6 +85,7 @@ public class Polea : MonoBehaviour
                         //escombroPrimero.GetComponent<BoxCollider2D>().enabled = false;
                         escombroPrimero.GetComponent<Rigidbody2D>().gravityScale = 0f;
                         escombroPrimero.GetComponent<Rigidbody2D>().velocity = (Vector2.up * velocidadSegundoArriba);
+                        this.GetComponent<BoxCollider2D>().enabled = false;
                     }
                     else
                     {
@@ -90,6 +93,7 @@ public class Polea : MonoBehaviour
                         escombroPrimero.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                         escombroPrimero.GetComponent<Rigidbody2D>().mass = massCae;
                         escombroPrimero.GetComponent<Rigidbody2D>().gravityScale = grav;
+                        this.GetComponent<BoxCollider2D>().enabled = false;
                     }
 
                 }
@@ -123,12 +127,14 @@ public class Polea : MonoBehaviour
                         escombroSegundo.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                         escombroSegundo.GetComponent<Rigidbody2D>().velocity = (Vector2.up * velocidadPrimeroArriba);
                         escombroSegundo.GetComponent<Rigidbody2D>().gravityScale = 0f;
+                        this.GetComponent<BoxCollider2D>().enabled = false;
                     }
                     else
                     {
                         escombroSegundo.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                         escombroSegundo.GetComponent<Rigidbody2D>().mass = massCae;
                         escombroSegundo.GetComponent<Rigidbody2D>().gravityScale = grav;
+                        this.GetComponent<BoxCollider2D>().enabled = false;
                     }
 
 
@@ -150,6 +156,7 @@ public class Polea : MonoBehaviour
                         //escombroPrimero.GetComponent<BoxCollider2D>().enabled = false;
                         escombroPrimero.GetComponent<Rigidbody2D>().gravityScale = 0f;
                         escombroPrimero.GetComponent<Rigidbody2D>().velocity = (Vector2.up * velocidadSegundoArriba);
+                        this.GetComponent<BoxCollider2D>().enabled = false;
                     }
                     else
                     {
@@ -157,6 +164,7 @@ public class Polea : MonoBehaviour
                         escombroPrimero.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                         escombroPrimero.GetComponent<Rigidbody2D>().mass = massCae;
                         escombroPrimero.GetComponent<Rigidbody2D>().gravityScale = grav;
+                        this.GetComponent<BoxCollider2D>().enabled = false;
                     }
 
                 }

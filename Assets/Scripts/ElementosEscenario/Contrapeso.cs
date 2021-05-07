@@ -32,9 +32,9 @@ public class Contrapeso : MonoBehaviour
         {
             if(collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                NewAudioManager.Instance.Play("CaidaEscombroRoto");
                 animacionRompiendo.Play("ContrapesoRompiendo");
                 posicionParticulas = collision.contacts[0].point;
+                FindObjectOfType<NewAudioManager>().Play("CaídaEscombroRoto");
 
             }
         }
@@ -59,8 +59,7 @@ public class Contrapeso : MonoBehaviour
                 if (GetComponent<Rigidbody2D>().velocity.y < 1f)
                 {
                     GetComponent<Rigidbody2D>().isKinematic = true;
-                   
-                    NewAudioManager.Instance.Play("CaidaEscombros");
+                    FindObjectOfType<NewAudioManager>().Play("CaídaEscombros");
                 }
                
             }

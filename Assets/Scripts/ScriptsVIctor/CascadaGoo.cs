@@ -14,6 +14,7 @@ public class CascadaGoo : MonoBehaviour
     public float tiempoTrasDash = 0.55f;
 
     bool activado = true;
+    bool sonido = false;
 
     void Start()
     {
@@ -23,6 +24,22 @@ public class CascadaGoo : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (Vector2.Distance(player.transform.position, this.transform.position) < distancia)
+        {
+            if(sonido == false)
+            {
+                FindObjectOfType<NewAudioManager>().Play("Cascada");
+                sonido = true;
+                print("BUENOS DIAS");
+            }            
+        }
+        else if (Vector2.Distance(player.transform.position, this.transform.position) > distancia)
+        {
+            FindObjectOfType<NewAudioManager>().Stop("Cascada");
+            sonido = false;
+            print("BUENOS NO TAN BUENOS");
+        }
+
         auxTiempoEntreComprobaciones -= Time.deltaTime;
         if (auxTiempoEntreComprobaciones < 0)
         {
@@ -31,12 +48,12 @@ public class CascadaGoo : MonoBehaviour
             if (Vector2.Distance(player.transform.position, this.transform.position) < distancia)
             {
                 activado = true;
-                NewAudioManager.Instance.Play("Cascada");
+                //FindObjectOfType<NewAudioManager>().Play("Cascada");
             }
             else
             {
                 activado = false;
-                NewAudioManager.Instance.Stop("Cascada");
+                //FindObjectOfType<NewAudioManager>().Stop("Cascada");
             }
 
 

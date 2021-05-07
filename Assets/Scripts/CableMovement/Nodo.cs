@@ -86,7 +86,7 @@ public class Nodo : MonoBehaviour
                 {
                     //if (cartel != null) cartel.gameObject.SetActive(true);
                     auxtime =time;
-
+                    //FindObjectOfType<NewAudioManager>().Play("PlayerCable");
                     //if (Input.GetButtonDown("Interact")|| GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action3.WasPressed)
                     //if (Input.GetButtonDown("Interact") && player.GetComponent<ControllerPersonaje>().joystick == null&& player.GetComponent<ControllerPersonaje>().movCablesUnlook)
                     //{
@@ -97,7 +97,6 @@ public class Nodo : MonoBehaviour
                         if(Vector2.Distance(player.transform.position, this.transform.position) < 2){
                             player.transform.position = this.transform.position;
                             auxtime =time;
-
 
                             player.GetComponent<AudioManager>().Play(player.GetComponent<AudioManager>().sonidosUnaVez, player.GetComponent<AudioManager>().entradaCables);
                             cab.viajando = true;
@@ -162,6 +161,5 @@ public class Nodo : MonoBehaviour
                     //}
                 }
         }
-
     }
 }
