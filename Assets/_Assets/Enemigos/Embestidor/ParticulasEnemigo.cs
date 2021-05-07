@@ -39,10 +39,11 @@ public class ParticulasEnemigo : MonoBehaviour
     public void PisadaEnemigo()
     {
         //source.PlayOneShot(pisadaEnemigo);
-        NewAudioManager.Instance.Play("EnemigoEmbestidaPisada");
+        FindObjectOfType<NewAudioManager>().Play("EnemigoEmbestidaPisada");
+
     }
     public void AtaqueEnemigo()
     {
-        source.PlayOneShot(ataqueEnemigo);
+        //source.PlayOneShot(ataqueEnemigo);
     }
 }

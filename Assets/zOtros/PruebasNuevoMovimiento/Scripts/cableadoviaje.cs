@@ -303,6 +303,7 @@ public class cableadoviaje : MonoBehaviour
             inputEnabled = true;
             //speedMov = 0;
 
+            FindObjectOfType<NewAudioManager>().Play("PlayerCable");
             Nodo node = collision.gameObject.GetComponent<Nodo>();
             if (node.entrada)
             {
