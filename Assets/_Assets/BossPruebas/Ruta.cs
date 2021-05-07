@@ -16,10 +16,10 @@ public class Ruta : MonoBehaviour
     public string animacion;
     public float rotacion;
     public bool pausaConTrigger;
-
+    public GameObject player;
     public bool disparo;
-
-
+    public bool seReinicia = false;
+    public bool seReiniciaConTrigger = false;
     private void OnDrawGizmos()
     {
         for(float t = 0; t <= 1; t += 0.05f)
@@ -40,6 +40,7 @@ public class Ruta : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = FindObjectOfType<ControllerPersonaje>().gameObject;
         if (pausa)
         {
             pausaTerminada = false;
@@ -49,7 +50,14 @@ public class Ruta : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
+
+        if (player.GetComponent<VidaPlayer>().reiniciando && seReinicia)
+        {
+            pausaTerminada = false;
+            if (seReiniciaConTrigger)
+            {
+                pausaConTrigger = true;
+            }
+        }
     }
 }

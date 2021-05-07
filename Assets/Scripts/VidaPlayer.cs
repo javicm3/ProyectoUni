@@ -142,9 +142,16 @@ public class VidaPlayer : MonoBehaviour
                         FindObjectOfType<CameraZoom>().soloplayer = true;
                     }
                     if (SceneManager.GetActiveScene().name == "Nivel_4_Boss1")
-                    {
-                       
-                        GameManager.Instance.MuertePJ();
+                    {                        
+                        if(GameManager.Instance.UltimoCheck == null)
+                        {
+                            GameManager.Instance.MuertePJ();
+                        }
+                        else
+                        {
+
+                            Invoke("IraCheckpoint", tiempoMuerte);
+                        }
                     }
                     else
                     {

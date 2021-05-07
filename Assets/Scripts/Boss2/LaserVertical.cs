@@ -45,6 +45,7 @@ public class LaserVertical : MonoBehaviour
             {
                 eb.acumulacion++;
                 eb.ataqueTerminado = true;
+                NewAudioManager.Instance.Stop("LaserBossFinal");
                 Destroy(transform.parent.gameObject);
             }
         }

@@ -12,7 +12,7 @@ public class Camara : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<ControllerPersonaje>().gameObject!=null)
+        if (collision.GetComponent<ControllerPersonaje>() != null)
         {
             if(m_cambio == true)
             {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Escombro : MonoBehaviour
 {
@@ -33,11 +34,28 @@ public class Escombro : MonoBehaviour
             auxTiempoDestruir = tiempoDestruir;
             anim.SetTrigger("Off");
 
-            if (GetComponent<Rigidbody2D>().velocity.y < 1f)
+            if (GetComponent<Rigidbody2D>() != null) 
             {
-                GetComponent<Rigidbody2D>().isKinematic = true;
+                if(GetComponent<Rigidbody2D>().velocity.y < 1f)
+                {
 
-                NewAudioManager.Instance.Play("CaidaEscombros");
+                    //GetComponent<Rigidbody2D>().isKinematic = true;
+
+                    NewAudioManager.Instance.Play("CaidaEscombros");
+                }
+            }
+            else
+            {
+                if (GetComponentInParent<Rigidbody2D>() != null)
+                {
+                    if (GetComponentInParent<Rigidbody2D>().velocity.y < 1f)
+                    {
+
+                        //GetComponentInParent<Rigidbody2D>().isKinematic = true;
+
+                        NewAudioManager.Instance.Play("CaidaEscombros");
+                    }
+                }
             }
 
 
@@ -51,7 +69,7 @@ public class Escombro : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (auxTiempoDestruir > 0)
+        if (auxTiempoDestruir > 0 && SceneManager.GetActiveScene().name != "Nivel_4_Boss1")
         {
             auxTiempoDestruir -= Time.deltaTime;
             if (auxTiempoDestruir <= 0)

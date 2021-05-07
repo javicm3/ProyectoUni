@@ -150,7 +150,7 @@ public class AtaquesBoss : MonoBehaviour
 
         vert1 = Instantiate(rayoVert, posRayoVert1.position, Quaternion.identity);
         vert2 = Instantiate(rayoVert, posRayoVert2.position, Quaternion.identity);
-       
+        NewAudioManager.Instance.Play("LaserBossFinal");
         //Destroy(vert1, 8);
         //Destroy(vert2, 8);
     }
@@ -179,9 +179,11 @@ public class AtaquesBoss : MonoBehaviour
         horizontal1 = Instantiate(rayoHoriz, posicionesHorizontales[i]);
         horizontal1.GetComponent<LineRenderer>().material = materialHorzOff;
         horizontal1.GetComponent<BoxCollider2D>().enabled = false;
+        NewAudioManager.Instance.Play("AvisoLaserHorizontal");
         yield return new WaitForSeconds(tiempoSpawnRayoHorizontal);
         horizontal1.GetComponent<BoxCollider2D>().enabled = true;
         horizontal1.GetComponent<LineRenderer>().material = materialHorzOn;
+        NewAudioManager.Instance.Play("LaserHorizontalBoss");
         yield return new WaitForSeconds(duracionRayoHorizontal);
         Destroy(horizontal1);
 
@@ -202,6 +204,7 @@ public class AtaquesBoss : MonoBehaviour
 
             //primer rayo dirigido
             disparo1 = Instantiate(disparoLaser, puntoDisparo.position, Quaternion.identity);
+            NewAudioManager.Instance.Play("BossRanaDisparo");
             disparo1.transform.parent = null;
             Vector3 direccionLaser = (player.transform.position - puntoDisparo.position).normalized;
             float angle = Mathf.Atan2(direccionLaser.y, direccionLaser.x) * Mathf.Rad2Deg;
@@ -210,6 +213,7 @@ public class AtaquesBoss : MonoBehaviour
 
             //segundo rayo random
             disparo2 = Instantiate(disparoLaser, puntoDisparo);
+            NewAudioManager.Instance.Play("BossRanaDisparo");
             disparo2.transform.parent = null;
             direccionLaser = (player.transform.position - puntoDisparo.position).normalized;
             
@@ -230,6 +234,7 @@ public class AtaquesBoss : MonoBehaviour
     }
     public IEnumerator LaserDiagonal(bool terminado)
     {
+        NewAudioManager.Instance.Play("LaserBossFinal");
         animator.SetBool("atacando", true);
         animator.SetBool("stun", false);
 
@@ -255,6 +260,7 @@ public class AtaquesBoss : MonoBehaviour
         terminado = true;
         eb.acumulacion++;
         eb.ataqueTerminado = true;
+        NewAudioManager.Instance.Stop("LaserBossFinal");
         rayoDiagonal1.SetActive(false);
         rayoDiagonal2.SetActive(false);
         pillarDireccionDiagonal = true;

@@ -50,6 +50,7 @@ public class CablesBoss2 : MonoBehaviour
             {
                 if (activo == false)
                 {
+                    NewAudioManager.Instance.Play("BossBrazoRoto");
                     //GetComponent<SpriteRenderer>().enabled = false;
                     GetComponentInParent<EstadosBoss2>().brazosCortados++;
                     

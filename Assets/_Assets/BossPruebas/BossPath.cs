@@ -6,7 +6,7 @@ public class BossPath : MonoBehaviour
 {
     [SerializeField] private Transform[] routes;
 
-    private int routeToGo;
+    public int routeToGo;
 
     private float tParam;
 
@@ -21,14 +21,19 @@ public class BossPath : MonoBehaviour
     //public float[] speedModifier;
 
     public Ruta cmpRuta;
-
+    public int rutaPrueba;
     bool tienePausa = false;
-
+    bool haReiniciado = false;
     private bool coroutineAllowed;
+    public GameObject plataformasube;
+    public GameObject m_camara;
+    public GameObject m_nuevaCamara;
+
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = FindObjectOfType<ControllerPersonaje>().gameObject;
+        
         routeToGo = 0;
         tParam = 0f;
         
@@ -48,6 +53,24 @@ public class BossPath : MonoBehaviour
         if(coroutineAllowed)
         {
             StartCoroutine(GoByTheRoute(routeToGo));
+        }
+        if (player.GetComponent<VidaPlayer>().reiniciando && GameManager.Instance.UltimoCheck != null && haReiniciado == false)
+        {
+            Pruebacosa();
+            haReiniciado = true;
+        }
+        else if(player.GetComponent<VidaPlayer>().reiniciando == false && haReiniciado == true)
+        {
+            haReiniciado = false;
+            plataformasube.transform.position = plataformasube.GetComponent<PlataformaSubeBoss>().startPos.position;
+            plataformasube.GetComponent<PlataformaSubeBoss>().auxtiempoParada = plataformasube.GetComponent<PlataformaSubeBoss>().tiempoParada;
+            //StopAllCoroutines();
+            FindObjectOfType<MuroMortal>().GetComponentInParent<Animator>().SetTrigger("Reinicio");
+            FindObjectOfType<MuroMortal>().GetComponentInParent<Animator>().SetBool("Paron3", false);
+            FindObjectOfType<MuroMortal>().GetComponentInParent<Animator>().SetBool("Paron2", false);
+            FindObjectOfType<MuroMortal>().GetComponentInParent<Animator>().SetBool("Paron4", false);
+            routeToGo = rutaPrueba;
+            StartCoroutine(GoByTheRoute(rutaPrueba));
         }
     }
     private IEnumerator GoByTheRoute(int routeNumber)
@@ -121,11 +144,25 @@ public class BossPath : MonoBehaviour
     }
     private IEnumerator EsperarPausa()
     {
-        //print("dejame trankilo");
+      
         yield return new WaitForSeconds(cmpRuta.segundosPausa);
         //cmpRuta.pausa = false;
         cmpRuta.pausaTerminada = true;
         //coroutineAllowed = false;
+    }
+
+    public void Pruebacosa()
+    {
+        
+        EscombroDestruible[] go = FindObjectsOfType<EscombroDestruible>();
+        foreach (EscombroDestruible g in go){
+
+            
+            Destroy(g.gameObject);
+        }
+        
+        m_camara.SetActive(false);
+        m_nuevaCamara.SetActive(true);
     }
     //void EsperarPausaConTrigger()
     //{
