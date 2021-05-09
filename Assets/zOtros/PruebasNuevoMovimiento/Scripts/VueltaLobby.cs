@@ -42,6 +42,10 @@ public class VueltaLobby : MonoBehaviour
             if ((!done && (Input.GetButtonDown("Interact")) || (!done&& GameObject.FindObjectOfType<ControllerPersonaje>().gameObject!=null&& GameObject.FindObjectOfType<ControllerPersonaje>().joystick!=null&& GameObject.FindObjectOfType<ControllerPersonaje>().joystick.Action2.WasPressed)))
             {
                 done = true;
+                if (GhostData.Instance != null)
+                {
+                    GhostData.Instance.TerminarNivel(SceneManager.GetActiveScene().name);
+                }
                 GuardarDatos();
                 if (GetComponent<DesbloquearHabilidades>()!=null)
                 { GetComponent<DesbloquearHabilidades>().DesbloquearHabilidad(); }
@@ -73,10 +77,7 @@ public class VueltaLobby : MonoBehaviour
 
     void IrLobby()
     {
-        if (GhostData.Instance!=null )
-        {
-            GhostData.Instance.TerminarNivel(SceneManager.GetActiveScene().name);
-        }
+      
 
         FindObjectOfType<PantallaFinal>().ActivarPantalla();
 

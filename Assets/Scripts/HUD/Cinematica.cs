@@ -11,17 +11,17 @@ public class Cinematica : MonoBehaviour
     [SerializeField] VideoClip c3;
     [SerializeField] VideoClip c5;
 
-    VideoPlayer videoPlayer;
+    [SerializeField] VideoPlayer videoPlayer;
     float timeDelay;
 
     private void Awake()
     {
-        videoPlayer = GetComponent<VideoPlayer>();        
+        
     }
 
     private void Start()
     {
-        PlayCinematica(GameManager.Instance.cinematicaIndex);
+        PlayCinematica((int)GameObject.FindObjectOfType<GameManager>().cinematicaIndex);
     }
 
     public void PlayCinematica(int i)
