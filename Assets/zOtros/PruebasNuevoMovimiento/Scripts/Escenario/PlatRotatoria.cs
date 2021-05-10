@@ -86,19 +86,64 @@ public class PlatRotatoria : MonoBehaviour
     //    yield return new WaitForSeconds(tiempo);
 
     //}
-    private void OnCollisionStay2D(Collision2D collision)
+    //private void OnCollisionStay2D(Collision2D collision)
+    //{
+
+    //    if (collision.gameObject.name == player.gameObject.name)
+    //    {
+    //        collision.transform.SetParent(this.transform.parent, true);
+    //    }
+    //}
+    //private void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.name == player.gameObject.name)
+    //    {
+    //        collision.transform.parent = null;
+    //    }
+    //}
+    private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (collision.gameObject.name == player.gameObject.name)
+        if (collision.gameObject.GetComponent<ControllerPersonaje>() != null)
         {
-            collision.transform.SetParent(this.transform.parent, true);
+         
+            if (collision.gameObject.transform.parent == null)
+            {
+             
+
+                collision.gameObject.transform.parent = this.transform;
+            }
         }
+
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        print(collision.gameObject.name);
+        if (collision.gameObject.GetComponent<ControllerPersonaje>() != null)
+        {
+          
+            if (collision.gameObject.transform.parent == null)
+            {
+             
+
+                collision.gameObject.transform.parent = this.transform;
+            }
+        }
+
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.name == player.gameObject.name)
+
+        if (collision.gameObject.GetComponent<ControllerPersonaje>() != null)
         {
-            collision.transform.parent = null;
+            if (collision.gameObject.transform.parent != null)
+            {
+                collision.gameObject.transform.parent = null;
+                if(collision.gameObject.transform.localScale!= new Vector3(1, 1, 1))
+                {
+                    collision.gameObject.transform.localScale= new Vector3(1, 1, 1);
+                }
+            }
         }
     }
 }

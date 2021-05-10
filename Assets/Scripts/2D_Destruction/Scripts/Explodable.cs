@@ -16,6 +16,7 @@ public class Explodable : MonoBehaviour
     public string fragmentLayer = "Default";
     public string sortingLayerName = "Default";
     public int orderInLayer = 0;
+    public bool haExplotado = false;
 
     public enum ShatterType
     {
@@ -31,6 +32,7 @@ public class Explodable : MonoBehaviour
     /// </summary>
     public void explode(float tiempoFrag)
     {
+        haExplotado = true;
         NewAudioManager.Instance.Play("CristalRoto");
         //if fragments were not created before runtime then create them now
         if (fragments.Count == 0 && allowRuntimeFragmentation)
@@ -91,7 +93,7 @@ public class Explodable : MonoBehaviour
     /// <summary>
     /// Turns Gameobject into multiple fragments
     /// </summary>
-    private void generateFragments()
+    public void generateFragments()
     {
         fragments = new List<GameObject>();
         switch (shatterType)

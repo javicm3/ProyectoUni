@@ -30,14 +30,13 @@ public class CascadaGoo : MonoBehaviour
             {
                 FindObjectOfType<NewAudioManager>().Play("Cascada");
                 sonido = true;
-                print("BUENOS DIAS");
             }            
         }
         else if (Vector2.Distance(player.transform.position, this.transform.position) > distancia)
         {
             FindObjectOfType<NewAudioManager>().Stop("Cascada");
             sonido = false;
-            print("BUENOS NO TAN BUENOS");
+
         }
 
         auxTiempoEntreComprobaciones -= Time.deltaTime;

@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 1cdc5730b26947a47bd3df50ce1412e1,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -53055,6 +53055,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1593105301}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1597008690
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1597008691}
+  m_Layer: 8
+  m_Name: AlturaParaBajar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1597008691
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597008690}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 23.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 455124003}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1599627564
 GameObject:
   m_ObjectHideFlags: 0
@@ -72508,6 +72538,11 @@ PrefabInstance:
       propertyPath: tiempoSinCollider
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 442606897424161476, guid: 8fe35584db72859419d0ba8aee2f707d,
+        type: 3}
+      propertyPath: alturaParaBajar
+      value: 
+      objectReference: {fileID: 1597008691}
     - target: {fileID: 730096170800492929, guid: 8fe35584db72859419d0ba8aee2f707d,
         type: 3}
       propertyPath: m_LocalRotation.z

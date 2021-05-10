@@ -23,7 +23,17 @@ public class SimplePlatf : MonoBehaviour
         auxStartWait = startwaitingTime;
 
     }
-
+    void Mover()
+    {
+          if (movHoriz)
+                    {
+                        transform.position = Vector2.MoveTowards(transform.position, new Vector2(puntos[actualPoint].position.x, this.transform.position.y), speedplat * Time.deltaTime);
+                    }
+                    else if (movVertic)
+                    {
+                        transform.position = Vector2.MoveTowards(transform.position, new Vector2(this.transform.position.x, puntos[actualPoint].position.y), speedplat * Time.deltaTime);
+                    }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -67,16 +77,9 @@ public class SimplePlatf : MonoBehaviour
 
                 if (auxStartWait < 0)
                 {
-                    if (movHoriz)
-                    {
-                        transform.position = Vector2.MoveTowards(transform.position, new Vector2(puntos[actualPoint].position.x, this.transform.position.y), speedplat * Time.deltaTime);
-                    }
-                    else if (movVertic)
-                    {
-                        transform.position = Vector2.MoveTowards(transform.position, new Vector2(this.transform.position.x, puntos[actualPoint].position.y), speedplat * Time.deltaTime);
-                    }
 
 
+                    Mover();
 
                 }
             }
@@ -118,14 +121,7 @@ public class SimplePlatf : MonoBehaviour
 
                 if (auxStartWait < 0)
                 {
-                    if (movHoriz)
-                    {
-                        transform.position = Vector2.MoveTowards(transform.position, new Vector2(puntos[actualPoint].position.x, this.transform.position.y), speedplat * Time.deltaTime);
-                    }
-                    else if (movVertic)
-                    {
-                        transform.position = Vector2.MoveTowards(transform.position, new Vector2(this.transform.position.x, puntos[actualPoint].position.y), speedplat * Time.deltaTime);
-                    }
+                    Mover();
 
 
 

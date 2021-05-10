@@ -42,7 +42,7 @@ public class Trampolin : MonoBehaviour
             FindObjectOfType<NewAudioManager>().Play("Trampolín");
             if (player.GetComponent<ControllerPersonaje>().yaimpulsado == false)
             {
-                collision.gameObject.transform.position = posicionSalto.transform.position;
+                //collision.gameObject.transform.position = posicionSalto.transform.position;
 
                 if (sePuedeDashHorizontal && !sePuedeDashVertical)
                 {
@@ -117,7 +117,7 @@ public class Trampolin : MonoBehaviour
         {
             if (player.GetComponent<ControllerPersonaje>().yaimpulsado == false)
             {
-                collision.gameObject.transform.position = posicionSalto.transform.position;
+                //collision.gameObject.transform.position = posicionSalto.transform.position;
 
                 if (sePuedeDashHorizontal && !sePuedeDashVertical)
                 {
