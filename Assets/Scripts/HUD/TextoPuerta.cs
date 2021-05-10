@@ -6,37 +6,52 @@ using UnityEngine.UI;
 public class TextoPuerta : MonoBehaviour
 {
     enum tipoPuerta
-    {nivel, zona, lobby }
+    {nivel, zona, lobby, none }
     [SerializeField] string numero;
 
     Text texto;
 
     [SerializeField] tipoPuerta tipo;
+    ControllerPersonaje personaje;
 
-    void Start()
+    void Awake()
+    {   
+        texto = GetComponent<Text>();        
+    }
+
+    private void Start()
     {
-        texto = GetComponent<Text>();
-        int i = SistemaGuardado.indiceIdioma;
-
-        string comando = "E ";
-
-        if (FindObjectOfType<ControllerPersonaje>().joystick!=null && FindObjectOfType<ControllerPersonaje>().joystick.Name != "NullInputDevice")
+        if (FindObjectOfType<ControlPuertasTexto>()==null)
         {
-            comando = "B ";
+            if (numero == "")
+            {
+                tipo = tipoPuerta.none;
+            }
+
+            this.gameObject.AddComponent<ControlPuertasTexto>();
         }
+    }
+
+    public void ChangeTexts(string comando)
+    {
+        int i = SistemaGuardado.indiceIdioma;
 
         switch (tipo)
         {
             case tipoPuerta.nivel:
-                texto.text = comando + Idiomas.para[i] + " " + Idiomas.nivel[i] + " " + numero;
+                texto.text = "["+comando + "] - " + Idiomas.nivel[i] + " " + numero;
                 break;
 
             case tipoPuerta.zona:
-                texto.text = comando + Idiomas.para[i] + " " + Idiomas.zona[i] + " " + numero;
+                texto.text = "[" + comando + "] - " + Idiomas.zona[i] + " " + numero;
                 break;
 
             case tipoPuerta.lobby:
-                texto.text = comando + Idiomas.para[i] + " " + Idiomas.lobby[i];
+                texto.text = "[" + comando + "] - " + Idiomas.lobby[i];
+                break;
+
+            case tipoPuerta.none:
+                texto.text = "[" + comando + "] - " + "LOBBY";
                 break;
         }
     }

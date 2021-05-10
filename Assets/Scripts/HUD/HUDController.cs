@@ -68,10 +68,9 @@ public class HUDController : MonoBehaviour
                 selected.Slide(Input.GetAxis("Horizontal"));
             }
         }
-        else
-        {
-            CheckController();
-        }
+
+        CheckController();
+
     }
 
     void SelectItem()
@@ -97,13 +96,27 @@ public class HUDController : MonoBehaviour
 
     void CheckController()
     {
-        joystick = InputManager.ActiveDevice; 
-        if (joystick != null && joystick.Name != "NullInputDevice")
+        if (!isController)
         {
-            isController = true;
-            selected = item[index];
-            selected.Select();
-            Cursor.visible = false;
+            joystick = InputManager.ActiveDevice;
+            if (joystick != null && joystick.Name != "NullInputDevice" && joystick.Name != "Unknown Device")
+            {
+                isController = true;
+                selected = item[index];
+                selected.Select();
+                Cursor.visible = false;
+            }            
         }
+        else
+        {
+            joystick = InputManager.ActiveDevice;
+            if (joystick == null || joystick.Name == "NullInputDevice" || joystick.Name == "Unknown Device")
+            {
+                isController = false;
+                selected.Diselect();
+                Cursor.visible = true;
+            }            
+        }
+
     }
 }

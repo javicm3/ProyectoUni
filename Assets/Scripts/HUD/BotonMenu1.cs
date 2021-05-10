@@ -8,11 +8,12 @@ public class BotonMenu1 : HUDObject
 {
     Button button;
     Outline outline;
-    TextMeshProUGUI textMesh;
+    TextMeshProUGUI[] textMesh;
+
 
     private void Awake()
     {
-        textMesh = GetComponentInChildren<TextMeshProUGUI>();
+        textMesh = GetComponentsInChildren<TextMeshProUGUI>();
         button = GetComponent<Button>();
         outline = GetComponent<Outline>();
     }
@@ -27,15 +28,22 @@ public class BotonMenu1 : HUDObject
 
     public override void Select()
     {
-        textMesh.fontSharedMaterial = selectMat;
+        foreach (TextMeshProUGUI item in textMesh)
+        {
+            item.fontSharedMaterial = selectMat;
+        }
+        
         outline.enabled = true;
     }
 
     public override void Diselect()
     {
-        textMesh.fontSharedMaterial = startMat;
-        outline.enabled = false;
+        foreach (TextMeshProUGUI item in textMesh)
+        {
+            item.fontSharedMaterial = startMat;
+        }
 
+        outline.enabled = false;
     }
 
     public override void Use()
