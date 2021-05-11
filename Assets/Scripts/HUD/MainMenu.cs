@@ -141,6 +141,7 @@ public class MainMenu : MonoBehaviour
             else
             {                
                 SistemaGuardado.timeToIgnore = Time.time;
+                Cursor.visible = false;
                 GameManager.Instance.PlayCinematica(1, "Lobby");
             }
         }
@@ -164,6 +165,7 @@ public class MainMenu : MonoBehaviour
     public void Confirmar()
     {
         SistemaGuardado.timeToIgnore = Time.time;
+        Cursor.visible = false;
         GameManager.Instance.PlayCinematica(1,"Lobby");
     }
 

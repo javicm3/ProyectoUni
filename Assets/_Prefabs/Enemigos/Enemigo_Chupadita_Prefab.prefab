@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 929833614}
   - component: {fileID: 929833615}
   - component: {fileID: 929833616}
-  - component: {fileID: 929833617}
+  - component: {fileID: 3990223199296642032}
   m_Layer: 0
   m_Name: TriggerAtacar
   m_TagString: Untagged
@@ -176,7 +176,7 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &929833617
+--- !u!114 &3990223199296642032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,23 +185,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 929833613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 907ab526e96b69a42989b5dfed7c0a78, type: 3}
+  m_Script: {fileID: 11500000, guid: d8732747d9828b64b84fd9693a40b715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seActivaPorCercania: 1
-  stun: 0
-  activado: 0
-  distanciaActivacion: 40
-  player: {fileID: 0}
-  cmpAnimInt: {fileID: 1561003476}
-  tiempoAbsorcion: 1
-  tiempoReactivar: 15
-  energiaRobar: 20
-  radioReactivarEnem: 15
-  proyectil: {fileID: 6243108591191946789, guid: 815e121c30376d646a63954dc3eb33c6,
-    type: 3}
-  velProyectil: 25
-  cooldownAbsorber: 2.5
 --- !u!1 &1250399994
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,7 +812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6584537340571803812}
   - component: {fileID: 1903631102}
-  - component: {fileID: 1553273605533402555}
+  - component: {fileID: 7239147930089934060}
   m_Layer: 13
   m_Name: Enemigo_Chupadita_Prefab
   m_TagString: EnemigoDetectar
@@ -875,32 +861,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!61 &1553273605533402555
-BoxCollider2D:
+--- !u!114 &7239147930089934060
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6584537340571803815}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907ab526e96b69a42989b5dfed7c0a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seActivaPorCercania: 1
+  stun: 0
+  activado: 0
+  distanciaActivacion: 40
+  player: {fileID: 0}
+  cmpAnimInt: {fileID: 1561003476}
+  tiempoAbsorcion: 1
+  tiempoReactivar: 15
+  energiaRobar: 20
+  radioReactivarEnem: 15
+  proyectil: {fileID: 6243108591191946789, guid: 815e121c30376d646a63954dc3eb33c6,
+    type: 3}
+  velProyectil: 25
+  cooldownAbsorber: 2.5
 --- !u!1 &6584537340800171985
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,8 +37,8 @@ public class EnemigoAbsorb : EnemigoPadre
     void Awake()
     {
         cmpAnim = GetComponentInChildren<Animator>();
-        coll = GetComponent<CircleCollider2D>();        
-        lineRend = GetComponent<LineRenderer>();
+        coll = GetComponentInChildren<CircleCollider2D>();        
+        lineRend = GetComponentInChildren<LineRenderer>();
         lineRend.positionCount = 2;
         lineRend.SetPosition(0, transform.position);
         lineRend.enabled = false;
@@ -54,13 +54,13 @@ public class EnemigoAbsorb : EnemigoPadre
             case States.Absorber:
                 if (playerEnergy.actualEnergy > 0)
                 {
-                    NewAudioManager.Instance.Play("EnemigoChupadita");
+                    //NewAudioManager.Instance.Play("EnemigoChupadita");
                     lineRend.enabled = true;
                     lineRend.SetPosition(1, playerEnergy.transform.position);
                     AbsorberEnergia();                    
                 }
                 else {
-                    NewAudioManager.Instance.Stop("EnemigoChupadita");
+                    //NewAudioManager.Instance.Stop("EnemigoChupadita");
                     lineRend.enabled = false; }
                  
                 break;
@@ -134,6 +134,7 @@ public class EnemigoAbsorb : EnemigoPadre
         {
             actTiempoAbsorcion = 0;
             playerEnergy.RestarEnergia(energiaRobar);
+            lineRend.enabled = false;
             cooldownRestante = cooldownAbsorber;
             estado = States.Cooldown;
             ActiveAnim("Ataque");
@@ -142,8 +143,6 @@ public class EnemigoAbsorb : EnemigoPadre
 
     public void EjecutarAtaque()
     {
-        print("ey");
-        lineRend.enabled = false;
         cmpAnimInt.SetBool("True", false);
         // Buscar a los enemigos que hay en el area y reactivar el más cercano
         bool enemigoActivado = false;
@@ -169,7 +168,7 @@ public class EnemigoAbsorb : EnemigoPadre
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void TriggerEnter2D(Collider2D collision)
     {
         if (estado==States.Idle && collision.tag=="Player")
         {
@@ -185,7 +184,7 @@ public class EnemigoAbsorb : EnemigoPadre
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    public void TriggerStay2D(Collider2D collision)
     {
         if (estado == States.Idle && collision.tag == "Player" && playerEnergy.actualEnergy > energiaRobar)
         {
@@ -195,7 +194,7 @@ public class EnemigoAbsorb : EnemigoPadre
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void TriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
@@ -205,8 +204,8 @@ public class EnemigoAbsorb : EnemigoPadre
                 lineRend.enabled = false;
                 actTiempoAbsorcion = 0;
             }
-            else if(estado==States.Cooldown)
-            { estado = States.Idle; ActiveAnim("None"); }
+            /*else if(estado==States.Cooldown)
+            { estado = States.Idle; ActiveAnim("None"); }*/
         }
 
     }
