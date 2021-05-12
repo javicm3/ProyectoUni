@@ -77,8 +77,11 @@ public class VueltaLobby : MonoBehaviour
 
     void IrLobby()
     {
-      
 
+        if (SceneManager.GetActiveScene().name == "Nivel_1")
+        {
+            ManagerLogros.Instance.DesbloquearLogro(0);
+        }
         FindObjectOfType<PantallaFinal>().ActivarPantalla();
 
     }

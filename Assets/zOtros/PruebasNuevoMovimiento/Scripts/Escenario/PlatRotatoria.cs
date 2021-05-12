@@ -118,7 +118,7 @@ public class PlatRotatoria : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        print(collision.gameObject.name);
+
         if (collision.gameObject.GetComponent<ControllerPersonaje>() != null)
         {
           
