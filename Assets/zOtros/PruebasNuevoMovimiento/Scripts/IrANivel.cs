@@ -52,7 +52,10 @@ public class IrANivel : MonoBehaviour
                     StartCoroutine(fade.FadeOut());
                 StartCoroutine(CargarNivel(nivel));
             }
-            else { SceneManager.LoadScene(nivel, LoadSceneMode.Single); }
+            else {
+                GameManager.Instance.cinematicaScene = nivel;
+                SceneManager.LoadScene("PantallaCarga");
+            }
         }
     }
    
@@ -60,10 +63,13 @@ public class IrANivel : MonoBehaviour
     IEnumerator CargarNivel(string nivel)
     {
         yield return new WaitForSeconds(1.2f);
-        if (nivel== "Nivel_4_Boss1")
+        if (nivel == "Nivel_4_Boss1")
         { GameManager.Instance.PlayCinematica(2, "Nivel_4_Boss1"); }
         else
-        SceneManager.LoadScene(nivel, LoadSceneMode.Single);
+        {
+            GameManager.Instance.cinematicaScene = nivel;
+            SceneManager.LoadScene("PantallaCarga");
+        }
     }
 
 
