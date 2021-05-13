@@ -68,10 +68,10 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Time: 1
+  m_SortingLayerID: 992012221
+  m_SortingLayer: 5
+  m_SortingOrder: -34
+  m_Time: 0.3
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -209,7 +209,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5871431302807462374}
-  - component: {fileID: 5642691344586879021}
   - component: {fileID: 4527539612160740794}
   m_Layer: 0
   m_Name: FantasmaBola
@@ -236,22 +235,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &5642691344586879021
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6121151722716382000}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 1.0014648
 --- !u!212 &4527539612160740794
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -290,7 +273,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 992012221
   m_SortingLayer: 5
-  m_SortingOrder: 68
+  m_SortingOrder: -14
   m_Sprite: {fileID: 21300000, guid: 0e02e2b9f70b3ae4b95cf2d33f31c93c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -367,12 +350,17 @@ PrefabInstance:
     - target: {fileID: 5411666468107693057, guid: 4408dbd4dd278f648be8fdc323d0575d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2
+      value: 1.027032
       objectReference: {fileID: 0}
     - target: {fileID: 5411666468107693057, guid: 4408dbd4dd278f648be8fdc323d0575d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2
+      value: 1.027032
+      objectReference: {fileID: 0}
+    - target: {fileID: 5411666468107693057, guid: 4408dbd4dd278f648be8fdc323d0575d,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.85586
       objectReference: {fileID: 0}
     - target: {fileID: 5411666468107693058, guid: 4408dbd4dd278f648be8fdc323d0575d,
         type: 3}
@@ -388,6 +376,11 @@ PrefabInstance:
         type: 3}
       propertyPath: VelocityModule.x.scalar
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5411666468107693058, guid: 4408dbd4dd278f648be8fdc323d0575d,
+        type: 3}
+      propertyPath: TrailModule.widthOverTrail.scalar
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5411666468107693059, guid: 4408dbd4dd278f648be8fdc323d0575d,
         type: 3}
