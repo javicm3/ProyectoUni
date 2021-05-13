@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1369,72 +1369,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56444170927986342a8b78d32650f9e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  estado: 0
+  activado: 0
   fantasmaPrefab: {fileID: 8331565392297257455, guid: 9c75ed91f8dbe07499f35e9172480a70,
     type: 3}
   actualLevel: 0
   actualpos: 0
-  actualposRepro: 0
-  nivelCompletado1: 0
-  posN1: []
-  posN1Temp: []
-  actualTiempoNivel1: 0
-  mejorTiempoNivel1: 1e+18
-  nivelCompletado2: 0
-  posN2: []
-  posN2Temp: []
-  actualTiempoNivel2: 0
-  mejorTiempoNivel2: 1e+18
-  nivelCompletado3: 0
-  posN3: []
-  posN3Temp: []
-  actualTiempoNivel3: 0
-  mejorTiempoNivel3: 1e+18
-  nivelCompletado4: 0
-  posN4: []
-  posN4Temp: []
-  actualTiempoNivel4: 0
-  mejorTiempoNivel4: 1e+18
-  nivelCompletado5: 0
-  posN5: []
-  posN5Temp: []
-  actualTiempoNivel5: 0
-  mejorTiempoNivel5: 1e+18
-  nivelCompletado6: 0
-  posN6: []
-  posN6Temp: []
-  actualTiempoNivel6: 0
-  mejorTiempoNivel6: 1e+18
-  nivelCompletado7: 0
-  posN7: []
-  posN7Temp: []
-  actualTiempoNivel7: 0
-  mejorTiempoNivel7: 1e+18
-  nivelCompletado8: 0
-  posN8: []
-  posN8Temp: []
-  actualTiempoNivel8: 0
-  mejorTiempoNivel8: 1e+18
-  nivelCompletado9: 0
-  posN9: []
-  posN9Temp: []
-  actualTiempoNivel9: 0
-  mejorTiempoNivel9: 1e+18
-  nivelCompletado10: 0
-  posN10: []
-  posN10Temp: []
-  actualTiempoNivel10: 0
-  mejorTiempoNivel10: 1e+18
-  nivelCompletado11: 0
-  posN11: []
-  posN11Temp: []
-  actualTiempoNivel11: 0
-  mejorTiempoNivel11: 1e+18
-  nivelCompletado12: 0
-  posN12: []
-  posN12Temp: []
-  actualTiempoNivel12: 0
-  mejorTiempoNivel12: 1e+18
+  posTemp: []
   player: {fileID: 0}
   rb: {fileID: 0}
   tiempoNivel: 0
@@ -4044,6 +3984,7 @@ MonoBehaviour:
   - {fileID: 1990158884}
   normal: {fileID: 1629299914417392246, guid: 74a84c17f1e4a22429a653974c9645e3, type: 2}
   select: {fileID: 2100000, guid: 55956f540382cb942ba26d9318579864, type: 2}
+  horizontal: 0
 --- !u!1 &850710682
 GameObject:
   m_ObjectHideFlags: 0
@@ -5229,6 +5170,7 @@ MonoBehaviour:
   - {fileID: 649573459}
   normal: {fileID: 1629299914417392246, guid: 74a84c17f1e4a22429a653974c9645e3, type: 2}
   select: {fileID: 2100000, guid: 55956f540382cb942ba26d9318579864, type: 2}
+  horizontal: 1
 --- !u!114 &1069587682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6401,6 +6343,7 @@ MonoBehaviour:
   - {fileID: 1784223510}
   normal: {fileID: 1629299914417392246, guid: 74a84c17f1e4a22429a653974c9645e3, type: 2}
   select: {fileID: 2100000, guid: 55956f540382cb942ba26d9318579864, type: 2}
+  horizontal: 0
 --- !u!1 &1207424224
 GameObject:
   m_ObjectHideFlags: 0
@@ -6996,6 +6939,7 @@ MonoBehaviour:
   - {fileID: 1990916475}
   normal: {fileID: 1629299914417392246, guid: 74a84c17f1e4a22429a653974c9645e3, type: 2}
   select: {fileID: 2100000, guid: 55956f540382cb942ba26d9318579864, type: 2}
+  horizontal: 0
 --- !u!1 &1345424790
 GameObject:
   m_ObjectHideFlags: 0
@@ -11596,6 +11540,7 @@ MonoBehaviour:
   - {fileID: 170180708}
   normal: {fileID: 1629299914417392246, guid: 74a84c17f1e4a22429a653974c9645e3, type: 2}
   select: {fileID: 2100000, guid: 55956f540382cb942ba26d9318579864, type: 2}
+  horizontal: 0
 --- !u!1 &2114660412
 GameObject:
   m_ObjectHideFlags: 0

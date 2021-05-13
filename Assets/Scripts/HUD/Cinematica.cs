@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
+using InControl;
 
 public class Cinematica : MonoBehaviour
 {
@@ -13,15 +14,21 @@ public class Cinematica : MonoBehaviour
 
     [SerializeField] VideoPlayer videoPlayer;
     float timeDelay;
-
-    private void Awake()
-    {
-        
-    }
+    InputDevice joystick;
 
     private void Start()
     {
         PlayCinematica((int)GameObject.FindObjectOfType<GameManager>().cinematicaIndex);
+        joystick = InputManager.ActiveDevice;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) || joystick.Action1.WasPressed)
+        {
+            timeDelay = 0;
+            StartCoroutine(GoToScene());
+        }
     }
 
     public void PlayCinematica(int i)
@@ -52,7 +59,7 @@ public class Cinematica : MonoBehaviour
     {
         yield return new WaitForSeconds(timeDelay);
         string scene = GameManager.Instance.cinematicaScene;
-        //SceneManager.LoadSceneAsync(GameManager.Instance.cinematicaScene);
+        //SceneManager.LoadSceneAsync(GameManager.Instance.cinematicaScene, LoadSceneMode.Single);
         if (scene=="PantallaInicio")
         {
             SistemaGuardado.Guardar();

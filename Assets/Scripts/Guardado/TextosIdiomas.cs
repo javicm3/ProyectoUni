@@ -19,7 +19,7 @@ public class Idiomas
     public static string[] sonido = { "SONIDO", "SOUND" };
 
     public static string[] idioma = { "IDIOMA", "LANGUAJE" };
-    public static string[] español = { "ESPAÑOL", "SPANISH" };
+    public static string[] español = { "CASTELLANO", "SPANISH" };
     public static string[] ingles = { "INGLES", "ENGLISH" };
 
     public static string[] para = {"Para","For" };
@@ -33,7 +33,7 @@ public class Idiomas
     public static string[] acept = { "Aceptar", "Acept" };
     public static string[] yes = { "Si", "Yes" };
     public static string[] slot = { "Archivo ", "Slot " };
-    public static string[] overwrite = { "¿Quieres sobreescribir este archivo?", "Do you want yo overwrite this file?" };
+    public static string[] overwrite = { "Se perderan los datos de este archivo.", "Do you want yo overwrite this file?" };
     public static string[] emptyFile = { "No se puede cargar porque no hay datos en el archivo.", "Can't load the file because it's empty." };
     public static string[] time = { "Tiempo de juego", "Time played" };
     public static string[] collectibles = { "Coleccionables", "Collectibles" };

@@ -14,6 +14,8 @@ public class HUDController : MonoBehaviour
     public Material normal;
     public Material select;
 
+    [SerializeField] bool horizontal;
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,25 +50,69 @@ public class HUDController : MonoBehaviour
                 SelectItem();
             }*/
 
-            if (joystick.LeftStickY.WasPressed)
+            if (!horizontal)
             {
-                if (Input.GetAxis("Vertical") > 0.05f && index - 1 >= 0)
-                { index--; }
-                else if(Input.GetAxis("Vertical") < -0.05f && index + 1 < item.Length) { index++; }
-                
-                SelectItem();
+                if (joystick.LeftStickY.WasPressed)
+                {
+                    if (Input.GetAxis("Vertical") > 0.05f && index - 1 >= 0)
+                    { index--; }
+                    else if (Input.GetAxis("Vertical") < -0.05f && index + 1 < item.Length) { index++; }
+
+                    SelectItem();
+                }
+                else if (joystick.DPadUp.WasPressed && index - 1 >= 0)
+                {
+                    index--;
+                    SelectItem();
+                }
+                else if (joystick.DPadDown.WasPressed && index + 1 < item.Length)
+                {
+                    index++;
+                    SelectItem();
+                }
+
+
+                if (joystick.LeftStickX.IsPressed && Mathf.Abs(Input.GetAxis("Horizontal")) > 0.1f)
+                {
+                    selected.Slide(Input.GetAxis("Horizontal"));
+                }
+                else if (joystick.DPadLeft.IsPressed)
+                {
+                    selected.Slide(-1);
+                }
+                else if (joystick.DPadRight.IsPressed)
+                {
+                    selected.Slide(1);
+                }
+            }
+            else
+            {
+                if (joystick.LeftStickX.WasPressed)
+                {
+                    if (Input.GetAxis("Horizontal") < 0.05f && index - 1 >= 0)
+                    { index--; }
+                    else if (Input.GetAxis("Horizontal") > -0.05f && index + 1 < item.Length) { index++; }
+
+                    SelectItem();
+                }
+                else if (joystick.DPadLeft.WasPressed && index - 1 >= 0)
+                {
+                    index--;
+                    SelectItem();
+                }
+                else if (joystick.DPadRight.WasPressed && index + 1 < item.Length)
+                {
+                    index++;
+                    SelectItem();
+                }
             }
 
-
-            if (joystick.Action2.WasPressed)
+            if (joystick.Action1.WasPressed)
             {
                 selected.Use();
             }
 
-            if (joystick.LeftStickX.IsPressed && Mathf.Abs(Input.GetAxis("Horizontal"))>0.1f )
-            {
-                selected.Slide(Input.GetAxis("Horizontal"));
-            }
+
         }
 
         CheckController();

@@ -109,9 +109,14 @@ public class FuncionalidadPausa : MonoBehaviour
 
     public void VolverLobby(string scene)
     {
-        if (scene=="PantallaInicio")
+        if (scene == "PantallaInicio")
         {
             Destroy(GameManager.Instance);
+        }
+        else
+        {
+            GameManager.Instance.NivelActual.actualColeccionablesCogidos.Clear();
+            GameManager.Instance.NivelActual.actualColeccionablesCogidos.AddRange(GameManager.Instance.NivelActual.coleccionablesCogidos);
         }
         if(GhostData.Instance!=null) GhostData.Instance.activado = false;
         SceneManager.LoadScene(scene);
