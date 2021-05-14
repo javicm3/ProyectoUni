@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class VueltaLobby : MonoBehaviour
 {
     public Canvas cartel;
-   
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +22,21 @@ public class VueltaLobby : MonoBehaviour
             if (!GameManager.Instance.NivelActual.coleccionablesCogidos.Contains(go))
             {
                 GameManager.Instance.NivelActual.coleccionablesCogidos.Add(go);
+               
+
                 GameManager.Instance.totalColeccionables.Add(go);
             }
         }
+        if (GameManager.Instance.NivelActual.coleccionablesCogidos.Count == GameManager.Instance.NivelActual.maxColeccionables)
+        {
+            ManagerLogros.Instance.DesbloquearLogro(13);
+            if (!GameManager.Instance.NivelActual.todosColeccionablesCogidos)
+            {
+                GameManager.Instance.NivelActual.todosColeccionablesCogidos = true;
+                ManagerLogros.Instance.AddStat("NivelesTodosColeccionables");
+            }
 
+        }
         GameManager.Instance.NivelActual.completado = true;
 
 
@@ -35,19 +46,71 @@ public class VueltaLobby : MonoBehaviour
     bool done = false;
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (GameObject.FindObjectOfType<ControllerPersonaje>().gameObject!=null)
-        {                       
+        if (GameObject.FindObjectOfType<ControllerPersonaje>().gameObject != null)
+        {
             cartel.enabled = true;
 
-            if ((!done && (Input.GetButtonDown("Interact")) || (!done&& GameObject.FindObjectOfType<ControllerPersonaje>().gameObject!=null&& GameObject.FindObjectOfType<ControllerPersonaje>().joystick!=null&& GameObject.FindObjectOfType<ControllerPersonaje>().joystick.Action2.WasPressed)))
+            if ((!done && (Input.GetButtonDown("Interact")) || (!done && GameObject.FindObjectOfType<ControllerPersonaje>().gameObject != null && GameObject.FindObjectOfType<ControllerPersonaje>().joystick != null && GameObject.FindObjectOfType<ControllerPersonaje>().joystick.Action2.WasPressed)))
             {
+                if (SceneManager.GetActiveScene().name == "Nivel_1")
+                {
+                    if (!GameManager.Instance.NivelActual.completado)
+                    {
+                        ManagerLogros.Instance.AddStat("NivelesZona1");
+                    }
+                }
+                else if (SceneManager.GetActiveScene().name == "Nivel_2")
+                {
+                    if (!GameManager.Instance.NivelActual.completado)
+                    {
+                        ManagerLogros.Instance.AddStat("NivelesZona1");
+                    }
+                }
+                else if (SceneManager.GetActiveScene().name == "Nivel_3")
+                {
+                    if (!GameManager.Instance.NivelActual.completado)
+                    {
+                        ManagerLogros.Instance.AddStat("NivelesZona1");
+                    }
+                }
+                else if (SceneManager.GetActiveScene().name == "Nivel_5")
+                {
+                    if (!GameManager.Instance.NivelActual.completado)
+                    {
+                        ManagerLogros.Instance.AddStat("NivelesZona2");
+                    }
+                }
+                else if (SceneManager.GetActiveScene().name == "Nivel_6")
+                {
+                    if (!GameManager.Instance.NivelActual.completado)
+                    {
+                        ManagerLogros.Instance.AddStat("NivelesZona2");
+                    }
+                }
+                else if (SceneManager.GetActiveScene().name == "Nivel_7")
+                {
+                    if (!GameManager.Instance.NivelActual.completado)
+                    {
+                        ManagerLogros.Instance.AddStat("NivelesZona2");
+                    }
+                }
+                else if (SceneManager.GetActiveScene().name == "Nivel_8")
+                {
+                    if (!GameManager.Instance.NivelActual.completado)
+                    {
+                        ManagerLogros.Instance.AddStat("NivelesZona2");
+                    }
+                }
                 done = true;
+                GuardarDatos();
                 if (GhostData.Instance != null)
                 {
                     GhostData.Instance.TerminarNivel(SceneManager.GetActiveScene().name);
                 }
-                GuardarDatos();
-                if (GetComponent<DesbloquearHabilidades>()!=null)
+               
+
+               
+                if (GetComponent<DesbloquearHabilidades>() != null)
                 { GetComponent<DesbloquearHabilidades>().DesbloquearHabilidad(); }
 
                 SistemaGuardado.Guardar();
@@ -57,30 +120,49 @@ public class VueltaLobby : MonoBehaviour
                     StartCoroutine(fade.FadeOut());
 
                     GameObject playerGO = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
-                        PlayerInput plInput = playerGO.GetComponent<PlayerInput>();
-                        plInput.inputHorizBlock = true;
-                        plInput.inputVerticBlock = true;
+                    PlayerInput plInput = playerGO.GetComponent<PlayerInput>();
+                    plInput.inputHorizBlock = true;
+                    plInput.inputVerticBlock = true;
 
-                        ControllerPersonaje per = playerGO.GetComponent<ControllerPersonaje>();
-                        per.dashBloqueado = true;
-                        per.saltoBloqueado = true;
-                        per.dashCaidaBloqueado = true;
-                        per.movimientoBloqueado = true;
-                        per.rb.velocity = Vector2.zero;
-                        Invoke("IrLobby", 1.2f);
+                    ControllerPersonaje per = playerGO.GetComponent<ControllerPersonaje>();
+                    per.dashBloqueado = true;
+                    per.saltoBloqueado = true;
+                    per.dashCaidaBloqueado = true;
+                    per.movimientoBloqueado = true;
+                    per.rb.velocity = Vector2.zero;
+                    Invoke("IrLobby", 1.2f);
 
                 }
-                else { IrLobby();  }
+                else { IrLobby(); }
             }
         }
     }
 
     void IrLobby()
     {
+        if (FindObjectOfType<VidaPlayer>().heMuertoEnEsteNivel == false)
+        {
+            ManagerLogros.Instance.DesbloquearLogro(15);
+            if (!GameManager.Instance.NivelActual.pasadoSinMorir)
+            {
+                GameManager.Instance.NivelActual.pasadoSinMorir = true;
+                ManagerLogros.Instance.AddStat("NivelesSinMuerte");
+            }
 
+
+        }
         if (SceneManager.GetActiveScene().name == "Nivel_1")
         {
             ManagerLogros.Instance.DesbloquearLogro(0);
+
+        }
+        else if (SceneManager.GetActiveScene().name == "Nivel_4_Boss1")
+        {
+            ManagerLogros.Instance.DesbloquearLogro(2);
+        }
+        else if (SceneManager.GetActiveScene().name == "Nivel_12_BossFinal")
+        {
+            ManagerLogros.Instance.DesbloquearLogro(8);
         }
         FindObjectOfType<PantallaFinal>().ActivarPantalla();
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[SelectionBase] 
+[SelectionBase]
 public class EnemigoAbsorb : EnemigoPadre
 {
     enum States
@@ -37,10 +37,10 @@ public class EnemigoAbsorb : EnemigoPadre
     void Awake()
     {
         cmpAnim = GetComponentInChildren<Animator>();
-        coll = GetComponentInChildren<CircleCollider2D>();        
+        coll = GetComponentInChildren<CircleCollider2D>();
         lineRend = GetComponentInChildren<LineRenderer>();
         lineRend.positionCount = 2;
-        lineRend.SetPosition(0, transform.position);
+        lineRend.SetPosition(0, this.transform.position);
         lineRend.enabled = false;
 
         estado = States.Idle;
@@ -57,17 +57,20 @@ public class EnemigoAbsorb : EnemigoPadre
                     //NewAudioManager.Instance.Play("EnemigoChupadita");
                     lineRend.enabled = true;
                     lineRend.SetPosition(1, playerEnergy.transform.position);
-                    AbsorberEnergia();                    
+                    lineRend.SetPosition(0, this.transform.position);
+                    AbsorberEnergia();
                 }
-                else {
+                else
+                {
                     //NewAudioManager.Instance.Stop("EnemigoChupadita");
-                    lineRend.enabled = false; }
-                 
+                    lineRend.enabled = false;
+                }
+
                 break;
 
             case States.Desactivado:
                 tiempoRestante -= Time.deltaTime;
-                if (tiempoRestante<=0)
+                if (tiempoRestante <= 0)
                 {
                     Reactivar();
                 }
@@ -75,7 +78,7 @@ public class EnemigoAbsorb : EnemigoPadre
 
             case States.Cooldown:
                 cooldownRestante -= Time.deltaTime;
-                if (cooldownRestante <=0)
+                if (cooldownRestante <= 0)
                 { Reactivar(); }
                 break;
 
@@ -96,7 +99,7 @@ public class EnemigoAbsorb : EnemigoPadre
         {
             cmpAnimInt.SetBool("True", true);
         }
-        else if(boolName!="Ataque")
+        else if (boolName != "Ataque")
         {
             cmpAnimInt.SetBool("True", false);
         }
@@ -107,7 +110,7 @@ public class EnemigoAbsorb : EnemigoPadre
     {
         stun = false;
 
-        if (Vector3.Distance(transform.position, playerEnergy.transform.position) < coll.radius && playerEnergy.actualEnergy>energiaRobar)
+        if (Vector3.Distance(transform.position, playerEnergy.transform.position) < coll.radius && playerEnergy.actualEnergy > energiaRobar)
         {
             estado = States.Absorber; ActiveAnim("Cargando");
             lineRend.enabled = true;
@@ -118,7 +121,7 @@ public class EnemigoAbsorb : EnemigoPadre
 
     public override void Stun() //Hay que ver por donde se llama al metodo desactivar :3
     {
-        stun = true;
+        if (stun == false) { stun = true; ManagerLogros.Instance.AddStat("EnemigosStun"); }
         estado = States.Desactivado; ActiveAnim("Estuneado");
         tiempoRestante = tiempoReactivar;
         lineRend.enabled = false;
@@ -129,11 +132,15 @@ public class EnemigoAbsorb : EnemigoPadre
     {
         //playerEnergy.RestarEnergia(energiaPorSegundo * Time.deltaTime);
         actTiempoAbsorcion += Time.deltaTime;
-        
-        if (actTiempoAbsorcion>tiempoAbsorcion)
+
+        if (actTiempoAbsorcion > tiempoAbsorcion)
         {
             actTiempoAbsorcion = 0;
             playerEnergy.RestarEnergia(energiaRobar);
+            if (playerEnergy.actualEnergy < 2)
+            {
+                ManagerLogros.Instance.DesbloquearLogro(12);
+            }
             lineRend.enabled = false;
             cooldownRestante = cooldownAbsorber;
             estado = States.Cooldown;
@@ -170,16 +177,20 @@ public class EnemigoAbsorb : EnemigoPadre
 
     public void TriggerEnter2D(Collider2D collision)
     {
-        if (estado==States.Idle && collision.tag=="Player")
+        if (estado == States.Idle && collision.tag == "Player")
         {
-            if (playerEnergy==null)
+            if (playerEnergy == null)
             { playerEnergy = collision.transform.GetComponent<ManagerEnergia>(); }
 
-            if (playerEnergy.actualEnergy>energiaRobar)
+            if (playerEnergy.actualEnergy > 0)
             {
                 estado = States.Absorber; ActiveAnim("Cargando");
                 lineRend.enabled = true;
                 lineRend.SetPosition(1, playerEnergy.transform.position);
+            }
+            if (playerEnergy.actualEnergy < 0)
+            {
+                playerEnergy.actualEnergy = 0;
             }
         }
     }

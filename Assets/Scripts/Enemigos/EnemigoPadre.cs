@@ -15,6 +15,7 @@ public class EnemigoPadre : MonoBehaviour
     }
     public virtual void Stun()
     {
+   
 
     }
     public virtual void Reactivar()

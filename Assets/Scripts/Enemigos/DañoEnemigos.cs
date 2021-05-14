@@ -76,10 +76,26 @@ public class DañoEnemigos : MonoBehaviour
         {
             if (player.GetComponent<ControllerPersonaje>().haciendoCombate == false)
             {
+                if (player.GetComponentInChildren<VidaPlayer>().auxcdTrasdaño <= 0 && player.GetComponent<ControllerPersonaje>().auxtiempoTrasSalirCombateInvuln <= 0) ManagerLogros.Instance.DesbloquearLogro(10);
+
                 player.GetComponentInChildren<VidaPlayer>().RecibirDaño(dañoQueHace, this.transform.position, collision.GetContact(0).point + new Vector2(0, -1));
-                print("52353");
             }
          
+        }
+
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.GetComponent<ControllerPersonaje>() != null)
+        {
+            if (player.GetComponent<ControllerPersonaje>().haciendoCombate == false)
+            {
+                if (player.GetComponentInChildren<VidaPlayer>().auxcdTrasdaño <= 0 && player.GetComponent<ControllerPersonaje>().auxtiempoTrasSalirCombateInvuln <= 0) ManagerLogros.Instance.DesbloquearLogro(10);
+
+                player.GetComponentInChildren<VidaPlayer>().RecibirDaño(dañoQueHace, this.transform.position, collision.GetContact(0).point + new Vector2(0, -1));
+            }
+
         }
 
     }

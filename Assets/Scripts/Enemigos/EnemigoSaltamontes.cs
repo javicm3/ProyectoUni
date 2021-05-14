@@ -82,8 +82,12 @@ public class EnemigoSaltamontes : EnemigoPadre
 
     }
     public override void Stun()
-    {
-        stun = true;
+    {if (stun == false)
+        {
+            stun = true;
+            ManagerLogros.Instance.AddStat("EnemigosStun");
+        }
+     
         animCC.SetBool("Estuneado", true);
         animCC.SetBool("Moviendose", false);
 

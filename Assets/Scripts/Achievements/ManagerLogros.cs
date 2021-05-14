@@ -27,7 +27,7 @@ public class ManagerLogros : MonoBehaviour
         public string steamID;
 
     }
-    [SerializeField] List<logroID> logrosIDs=new List<logroID>();
+    [SerializeField] public List<logroID> logrosIDs = new List<logroID>();
     public bool[] desbloqueadosInfo;
     bool estaDesbloqueadoLogro;
     void OnEnable()
@@ -63,13 +63,87 @@ public class ManagerLogros : MonoBehaviour
     {
         estaDesbloqueadoLogro = false;
         ComprobarLogro(logrosIDs[id].steamID);
-        Debug.Log("Logro desb: " + logrosIDs[id].steamID);
+      
         if (!estaDesbloqueadoLogro)
-        {
+        {  Debug.Log("Logro desb: " + logrosIDs[id].steamID);
             SteamUserStats.SetAchievement(logrosIDs[id].steamID);
             SteamUserStats.StoreStats();
             desbloqueadosInfo[logrosIDs.IndexOf(logrosIDs[id])] = true;
         }
+    }
+    public void AddStat(string id)
+    {
+        int value;
+        SteamUserStats.GetStat(id, out value);
+        value++;
+        SteamUserStats.SetStat(id, value);
+        Debug.Log("stat added : " + id+ value);
+
+        if (id == "NivelesZona1")
+        {
+            if (value >= 3)
+            {
+                DesbloquearLogro(1);
+            }
+        }
+        else if (id == "NivelesZona2")
+        {
+            if (value >= 4)
+            {
+                DesbloquearLogro(3);
+            }
+        }
+        else if (id == "NivelesGhost")
+        {
+            if (value >= 12)
+            {
+                DesbloquearLogro(6);
+            }
+        }
+        else if (id == "NivelesSinMuerte")
+        {
+            if (value >= 12)
+            {
+                DesbloquearLogro(16);
+            }
+        }
+        else if (id == "FantasmasGanados")
+        {
+            if (value >= 5)
+            {
+                DesbloquearLogro(5);
+            }
+        }
+        else if (id == "FantasmasPerdidos")
+        {
+            if (value >= 5)
+            {
+                DesbloquearLogro(7);
+            }
+        }
+        else if (id == "EnemigosStun")
+        {
+            if (value >= 20)
+            {
+                DesbloquearLogro(9);
+            }
+        }
+        else if (id == "NivelesTodosColeccionables")
+        {
+            if (value >= 12)
+            {
+                DesbloquearLogro(14);
+            }
+        }
+        else if (id == "TotalMuertes")
+        {
+            if (value >= 30)
+            {
+                DesbloquearLogro(18);
+            }
+        }
+        SteamUserStats.StoreStats();
+
     }
     void ComprobarLogro(string idLogro)
     {
@@ -77,9 +151,11 @@ public class ManagerLogros : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKey(KeyCode.J)&& Input.GetKey(KeyCode.P)&& Input.GetKey(KeyCode.M))
+      
+        if (Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.M))
         {
             SteamUserStats.ResetAllStats(true);
+            SteamUserStats.StoreStats();
         }
     }
 }

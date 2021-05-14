@@ -279,6 +279,22 @@ public class ControllerPersonaje : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.N))
+        {
+            this.transform.position = FindObjectOfType<VueltaLobby>().transform.position;
+        }
+        if (Input.GetKey(KeyCode.M) && Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.B))
+        {
+            GameObject[] coleccionablesMonedas = GameObject.FindGameObjectsWithTag("Coleccionable");
+            for (int i = 0; i < coleccionablesMonedas.Length; i++)
+            {
+                if (coleccionablesMonedas[i].GetComponentInChildren<ParticleSystem>() != null)
+                {
+                    GameManager.Instance.CogerColeccionableNivel(coleccionablesMonedas[i]);
+                 
+                }
+            }
+        }
         if (auxTiempoSonidoSinEnergia > 0)
         {
             auxTiempoSonidoSinEnergia -= Time.deltaTime;
@@ -795,6 +811,8 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                             ultimoEnemigoDetectado.GetComponent<EnemigoPadre>().Stun();
+                        
+                            Debug.Log("ADD ENEMIGOS STUN");
                             NewAudioManager.Instance.Play("PlayerChispazo");
                             NewAudioManager.Instance.Play("EnemigosStun");
                             mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
@@ -868,6 +886,8 @@ public class ControllerPersonaje : MonoBehaviour
                         }
                     }
                     ultimoEnemigoPasado.GetComponent<EnemigoPadre>().Stun();
+                 
+                    Debug.Log("ADD ENEMIGOS STUN");
                     mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
                     mEnergy.tiempoAux = 0.15f;
                     if (ultimoEnemigoPasado.GetComponent<EnemigoEmbestida2>() != null)
@@ -922,6 +942,8 @@ public class ControllerPersonaje : MonoBehaviour
                     if (ultimoEnemigoPasado != null)
                     {
                         ultimoEnemigoPasado.GetComponent<EnemigoPadre>().Stun();
+                  
+                        Debug.Log("ADD ENEMIGOS STUN");
                         mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
                         mEnergy.tiempoAux = 0.15f;
                         Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);
@@ -932,6 +954,8 @@ public class ControllerPersonaje : MonoBehaviour
                     {
 
                         ultimoEnemigoDetectado.GetComponent<EnemigoPadre>().Stun();
+                     
+                        Debug.Log("ADD ENEMIGOS STUN");
                         mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
                         mEnergy.tiempoAux = 0.15f;
                         Vector2 resultante = new Vector2(velocidadCombateUltima.x, velocidadCombateUltima.y + 3);

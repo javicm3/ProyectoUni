@@ -8,7 +8,7 @@ using Cinemachine;
 public class VidaPlayer : MonoBehaviour
 {
     Rigidbody2D rb;
-
+    public bool heMuertoEnEsteNivel = false;
     public float dañoenemigoEmbestida = 1;
     public float dañopinchos = 1;
     public float dañoAgua = 4;
@@ -46,6 +46,7 @@ public class VidaPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        heMuertoEnEsteNivel = false;
 
         if (SceneManager.GetActiveScene().name != "Lobby")
         {
@@ -101,7 +102,7 @@ public class VidaPlayer : MonoBehaviour
 
                 if (vidaActual == 0)
                 {
-                  
+                    ManagerLogros.Instance.AddStat("TotalMuertes");
                     //this.GetComponentInChildren<Animator>().SetTrigger("Die");
                     //source.PlayOneShot(muertePlayer);
                     FindObjectOfType<NewAudioManager>().Play("PlayerDeath");
@@ -176,6 +177,7 @@ public class VidaPlayer : MonoBehaviour
 
     void IraCheckpoint()//CREO QUE ESTO NO SE ESTÁ USANDO + si, mira la linea 125
     {
+        heMuertoEnEsteNivel = true;
         if (GameManager.Instance.UltimoCheck != null)
         {
             cc.rb.velocity = Vector3.zero;
@@ -358,12 +360,31 @@ public class VidaPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "ColliderMuerte")
         {
+            if (collision.gameObject.transform.parent != null && collision.transform.parent.GetComponentInChildren<Escombro>() != null)
+            {
+                print("escombrocollision2");
+                ManagerLogros.Instance.DesbloquearLogro(19);
+            }
+            if (collision.gameObject.GetComponent<EscombroDestruible>() != null)
+            {
+                print("escombrocollision");
+                ManagerLogros.Instance.DesbloquearLogro(19);
+            }
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoColliderMuerte, collision.gameObject.transform.position, this.transform.position);
 
         }
         if (collision.gameObject.tag == "Boss")
         {
-
+            if (collision.gameObject.transform.parent!=null&&collision.transform.parent.GetComponentInChildren<Escombro>() != null)
+            {
+                print("escombrocollision2");
+                ManagerLogros.Instance.DesbloquearLogro(19);
+            }
+            if (collision.gameObject.GetComponent<EscombroDestruible>() != null)
+            {
+                print("escombrocollision");
+                ManagerLogros.Instance.DesbloquearLogro(19);
+            }
             GetComponent<VidaPlayer>().RecibirDaño(4, collision.gameObject.transform.position, this.transform.position);
             //this.transform.position = new Vector3(this.transform.position.x - 0.1f, this.transform.position.y + 0.2f, 0);
         }
@@ -380,8 +401,33 @@ public class VidaPlayer : MonoBehaviour
     {
         if (collision.gameObject.tag == "ColliderMuerte")
         {
+            if (collision.gameObject.transform.parent != null && collision.transform.parent.GetComponentInChildren<Escombro>() != null)
+            {
+                print("escombrocollision2");
+                ManagerLogros.Instance.DesbloquearLogro(19);
+            }
+            if (collision.gameObject.GetComponent<EscombroDestruible>() != null)
+            {
+                print("escombrocollision");
+                ManagerLogros.Instance.DesbloquearLogro(19);
+            }
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoColliderMuerte, collision.gameObject.transform.position, this.transform.position);
 
+        }
+        if (collision.gameObject.tag == "Boss")
+        {
+            if (collision.gameObject.transform.parent != null && collision.transform.parent.GetComponentInChildren<Escombro>() != null)
+            {
+                print("escombrocollision2");
+                ManagerLogros.Instance.DesbloquearLogro(19);
+            }
+            if (collision.gameObject.GetComponent<EscombroDestruible>() != null)
+            {
+                print("escombrocollision");
+                ManagerLogros.Instance.DesbloquearLogro(19);
+            }
+            GetComponent<VidaPlayer>().RecibirDaño(4, collision.gameObject.transform.position, this.transform.position);
+            //this.transform.position = new Vector3(this.transform.position.x - 0.1f, this.transform.position.y + 0.2f, 0);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -414,6 +460,11 @@ public class VidaPlayer : MonoBehaviour
         }
         if (collision.gameObject.tag == "ColliderMuerte")
         {
+            if (collision.gameObject.transform.parent != null && collision.gameObject.transform.parent.GetComponentInChildren<Escombro>() != null)
+            {
+                print("escombrocollision3");
+                ManagerLogros.Instance.DesbloquearLogro(19);
+            }
             //if (this.GetComponent<Movimiento>().cayendoS == true)
             //{
             //    this.GetComponent<Movimiento>().cayendoS = false;
@@ -427,11 +478,19 @@ public class VidaPlayer : MonoBehaviour
             //{
             //    this.GetComponent<Movimiento>().cayendoS = false;
             //}
+           
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoAgua, collision.gameObject.transform.position, collision.contacts[0].point);
             this.transform.position = new Vector3(this.transform.position.x - 0.1f, this.transform.position.y + 0.2f, 0);
+            ManagerLogros.Instance.DesbloquearLogro(11);
         }
+
         if (collision.gameObject.tag == "Boss")
         {
+            if (collision.gameObject.GetComponentInChildren<EscombroDestruible>() != null)
+            {
+                print("escombrocollision4");
+                ManagerLogros.Instance.DesbloquearLogro(19);
+            }
             this.gameObject.transform.parent = null;
             GetComponent<VidaPlayer>().RecibirDaño(GetComponent<VidaPlayer>().vidaActual, collision.gameObject.transform.position, this.transform.position);
         }

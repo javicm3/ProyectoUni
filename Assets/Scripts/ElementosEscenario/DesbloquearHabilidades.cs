@@ -32,20 +32,20 @@ public class DesbloquearHabilidades : MonoBehaviour
         {
             case habilidad.dash:
                 if (GameManager.Instance.Habilidades.dash == true)
-                { if(GameObject.FindObjectOfType<Estrella>().gameObject!=null)Destroy(GameObject.FindObjectOfType<Estrella>().gameObject); }
+                { if(GameObject.FindObjectOfType < Estrella > ()!=null&&GameObject.FindObjectOfType<Estrella>().gameObject!=null)Destroy(GameObject.FindObjectOfType<Estrella>().gameObject); }
 
                 break;
             case habilidad.chispazo:
                 if (GameManager.Instance.Habilidades.chispazo == true)
-                { if (GameObject.FindObjectOfType<Estrella>().gameObject != null) Destroy(GameObject.FindObjectOfType<Estrella>().gameObject); }
+                { if (GameObject.FindObjectOfType<Estrella>() != null && GameObject.FindObjectOfType<Estrella>().gameObject != null) Destroy(GameObject.FindObjectOfType<Estrella>().gameObject); }
                 break;
             case habilidad.movimientoPared:
                 if (GameManager.Instance.Habilidades.movParedes == true)
-                { if (GameObject.FindObjectOfType<Estrella>().gameObject != null) Destroy(GameObject.FindObjectOfType<Estrella>().gameObject); }
+                { if (GameObject.FindObjectOfType<Estrella>() != null && GameObject.FindObjectOfType<Estrella>().gameObject != null) Destroy(GameObject.FindObjectOfType<Estrella>().gameObject); }
                 break;
             case habilidad.movimientoCable:
                 if (GameManager.Instance.Habilidades.movCables == true)
-                { if (GameObject.FindObjectOfType<Estrella>().gameObject != null) Destroy(GameObject.FindObjectOfType<Estrella>().gameObject); }
+                { if (GameObject.FindObjectOfType<Estrella>() != null && GameObject.FindObjectOfType<Estrella>().gameObject != null) Destroy(GameObject.FindObjectOfType<Estrella>().gameObject); }
                 break;
         }
     }
