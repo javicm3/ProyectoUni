@@ -26,7 +26,7 @@ public class cableadoviaje : MonoBehaviour
     PlayerInput Pinput;
     ParticleSystem ps;
     public float fuerzaSalida = 200;
-  public   float tiempoAntesMoverse = 00.3f;
+    public float tiempoAntesMoverse = 00.3f;
     float auxTiempo;
     // Start is called before the first frame update
     void Start()
@@ -67,7 +67,7 @@ public class cableadoviaje : MonoBehaviour
                 controllerPersonaje.dashBloqueado = true;
                 controllerPersonaje.dashCaidaBloqueado = true;
             }
-            if (this.GetComponent<Rigidbody2D>().velocity.magnitude>= 0.8f)
+            if (this.GetComponent<Rigidbody2D>().velocity.magnitude >= 0.8f)
             {
                 conVelocidad = true;
                 auxTiempo = tiempoAntesMoverse;
@@ -78,8 +78,11 @@ public class cableadoviaje : MonoBehaviour
             }
             if (nodoActual != null && !nodoActual.GetComponent<Nodo>().entrada)
             {
-
-                if (Pinput.inputHorizontal == 0 && Pinput.inputVertical == 0) auxTiempo = tiempoAntesMoverse;
+                if (auxTiempo > 0)
+                {
+                    auxTiempo -= Time.deltaTime;
+                }
+                //if (Pinput.inputHorizontal == 0 && Pinput.inputVertical == 0) auxTiempo = tiempoAntesMoverse;
                 if (Pinput.inputVertical > 0 && conVelocidad == false)
                 {
                     /*foreach (GameObject nodo in nodos)
@@ -91,65 +94,62 @@ public class cableadoviaje : MonoBehaviour
                         }
                     }*/
 
-                    if (auxTiempo > 0)
+
+                    if (auxTiempo < 0)
                     {
-                        auxTiempo -= Time.deltaTime;
-                        if (auxTiempo < 0)
+                        auxTiempo = tiempoAntesMoverse;
+                        rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.left);
+                        var em = ps.velocityOverLifetime;
+                        em.enabled = true;
+                        em.x = -8;
+                        em.y = 0;
+                        for (int i = 0; i < nodos.Length; i++)
                         {
-                            auxTiempo = tiempoAntesMoverse;
-                            rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.left);
-                            var em = ps.velocityOverLifetime;
-                            em.enabled = true;
-                            em.x = -8;
-                            em.y = 0;
-                            for (int i = 0; i < nodos.Length; i++)
+                            if (nodos[i].transform.position.x == nodoActual.transform.position.x && nodos[i].transform.position.y > nodoActual.transform.position.y)
                             {
-                                if (nodos[i].transform.position.x == nodoActual.transform.position.x && nodos[i].transform.position.y > nodoActual.transform.position.y)
+                                speedMov = originalspeed;
+                                if (nodoElegido == nodoActual)
                                 {
-                                    speedMov = originalspeed;
-                                    if (nodoElegido == nodoActual)
-                                    {
-                                        nodoElegido = null;
-                                    }
-                                    if ((nodoElegido == null || nodos[i].transform.position.y < nodoElegido.transform.position.y) && nodos[i].transform.position.y != nodoActual.transform.position.y)
-                                    {
-                                        nodoElegido = nodos[i];
-                                    }
+                                    nodoElegido = null;
+                                }
+                                if ((nodoElegido == null || nodos[i].transform.position.y < nodoElegido.transform.position.y) && nodos[i].transform.position.y != nodoActual.transform.position.y)
+                                {
+                                    nodoElegido = nodos[i];
                                 }
                             }
                         }
                     }
 
+
                 }
                 if (Pinput.inputVertical < 0 && conVelocidad == false)
                 {
-                    if (auxTiempo > 0)
+
+                    auxTiempo -= Time.deltaTime;
+                    if (auxTiempo < 0)
                     {
-                        auxTiempo -= Time.deltaTime;
-                        if (auxTiempo < 0)
+                        auxTiempo = tiempoAntesMoverse;
+                        rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.right);
+                        var em = ps.velocityOverLifetime;
+                        em.enabled = true;
+                        em.x = -8;
+                        em.y = 0;
+                        for (int i = 0; i < nodos.Length; i++)
                         {
-                            auxTiempo = tiempoAntesMoverse;
-                            rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.right);
-                            var em = ps.velocityOverLifetime;
-                            em.enabled = true;
-                            em.x = -8;
-                            em.y = 0;
-                            for (int i = 0; i < nodos.Length; i++)
+                            if (nodos[i].transform.position.x == nodoActual.transform.position.x && nodos[i].transform.position.y < nodoActual.transform.position.y)
                             {
-                                if (nodos[i].transform.position.x == nodoActual.transform.position.x && nodos[i].transform.position.y < nodoActual.transform.position.y)
+                                speedMov = originalspeed;
+                                if (nodoElegido == nodoActual)
                                 {
-                                    speedMov = originalspeed;
-                                    if (nodoElegido == nodoActual)
-                                    {
-                                        nodoElegido = null;
-                                    }
-                                    if ((nodoElegido == null || nodos[i].transform.position.y > nodoElegido.transform.position.y) && nodos[i].transform.position.y != nodoActual.transform.position.y)
-                                    {
-                                        nodoElegido = nodos[i];
-                                    }
+                                    nodoElegido = null;
+                                }
+                                if ((nodoElegido == null || nodos[i].transform.position.y > nodoElegido.transform.position.y) && nodos[i].transform.position.y != nodoActual.transform.position.y)
+                                {
+                                    nodoElegido = nodos[i];
                                 }
                             }
                         }
+
                     }
                     //foreach (GameObject nodo in nodos)
                     //{
@@ -165,34 +165,32 @@ public class cableadoviaje : MonoBehaviour
                 }
                 if (Pinput.inputHorizontal > 0 && conVelocidad == false)
                 {
-                    if (auxTiempo > 0)
+
+                    auxTiempo -= Time.deltaTime;
+                    if (auxTiempo < 0)
                     {
-                        auxTiempo -= Time.deltaTime;
-                        if (auxTiempo < 0)
+                        auxTiempo = tiempoAntesMoverse;
+                        rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+
+                        var em = ps.velocityOverLifetime;
+                        em.enabled = true;
+                        em.y = 0;
+                        em.x = -8;
+
+                        for (int i = 0; i < nodos.Length; i++)
                         {
-                            auxTiempo = tiempoAntesMoverse;
-                            rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
-
-                            var em = ps.velocityOverLifetime;
-                            em.enabled = true;
-                            em.y = 0;
-                            em.x = -8;
-
-                            for (int i = 0; i < nodos.Length; i++)
+                            if (nodos[i].transform.position.x > nodoActual.transform.position.x && nodos[i].transform.position.y == nodoActual.transform.position.y)
                             {
-                                if (nodos[i].transform.position.x > nodoActual.transform.position.x && nodos[i].transform.position.y == nodoActual.transform.position.y)
+                                speedMov = originalspeed;
+                                if (nodoElegido == nodoActual)
                                 {
-                                    speedMov = originalspeed;
-                                    if (nodoElegido == nodoActual)
-                                    {
-                                        nodoElegido = null;
-                                    }
-                                    if ((nodoElegido == null || nodos[i].transform.position.x < nodoElegido.transform.position.x) && nodos[i].transform.position.x != nodoActual.transform.position.x)
-                                    {
-                                        nodoElegido = nodos[i];
-                                    }
-
+                                    nodoElegido = null;
                                 }
+                                if ((nodoElegido == null || nodos[i].transform.position.x < nodoElegido.transform.position.x) && nodos[i].transform.position.x != nodoActual.transform.position.x)
+                                {
+                                    nodoElegido = nodos[i];
+                                }
+
                             }
                         }
                     }
@@ -211,35 +209,34 @@ public class cableadoviaje : MonoBehaviour
                 }
                 if (Pinput.inputHorizontal < 0 && conVelocidad == false)
                 {
-                    if (auxTiempo > 0)
-                    {
-                        auxTiempo -= Time.deltaTime;
-                        if (auxTiempo < 0)
-                        {
-                            auxTiempo = tiempoAntesMoverse;
-                            rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.down);
-                            var em = ps.velocityOverLifetime;
-                            em.enabled = true;
-                            em.x = -8;
-                            em.y = 0;
-                            for (int i = 0; i < nodos.Length; i++)
-                            {
-                                if (nodos[i].transform.position.x < nodoActual.transform.position.x && nodos[i].transform.position.y == nodoActual.transform.position.y)
-                                {
-                                    speedMov = originalspeed;
-                                    if (nodoElegido == nodoActual)
-                                    {
-                                        nodoElegido = null;
-                                    }
-                                    if ((nodoElegido == null || nodos[i].transform.position.x > nodoElegido.transform.position.y) && nodos[i].transform.position.x != nodoActual.transform.position.x)
-                                    {
-                                        nodoElegido = nodos[i];
-                                    }
 
+                    auxTiempo -= Time.deltaTime;
+                    if (auxTiempo < 0)
+                    {
+                        auxTiempo = tiempoAntesMoverse;
+                        rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.down);
+                        var em = ps.velocityOverLifetime;
+                        em.enabled = true;
+                        em.x = -8;
+                        em.y = 0;
+                        for (int i = 0; i < nodos.Length; i++)
+                        {
+                            if (nodos[i].transform.position.x < nodoActual.transform.position.x && nodos[i].transform.position.y == nodoActual.transform.position.y)
+                            {
+                                speedMov = originalspeed;
+                                if (nodoElegido == nodoActual)
+                                {
+                                    nodoElegido = null;
                                 }
+                                if ((nodoElegido == null || nodos[i].transform.position.x > nodoElegido.transform.position.y) && nodos[i].transform.position.x != nodoActual.transform.position.x)
+                                {
+                                    nodoElegido = nodos[i];
+                                }
+
                             }
                         }
                     }
+
                     //foreach (GameObject nodo in nodos)
                     //{
                     //    if (nodo.transform.position.y == nodoActual.transform.position.y && nodo.transform.position.x < nodoActual.transform.position.x)
@@ -448,7 +445,7 @@ public class cableadoviaje : MonoBehaviour
 
             }
 
-            if (!node.entrada && !node.salida) controllerPersonaje.rb.velocity = Vector2.zero;
+            if (!node.entrada && !node.salida) { controllerPersonaje.rb.velocity = Vector2.zero;this.gameObject.transform.position = node.transform.position; }
             if (node.salida)
             {
                 if (GetComponent<ControllerPersonaje>().saltoDobleHecho == true) GetComponent<ControllerPersonaje>().saltoDobleHecho = false;
@@ -618,8 +615,8 @@ public class cableadoviaje : MonoBehaviour
         {
 
             this.transform.position = nodoElegido.transform.position;
-                GetComponent<Particulas>().particulasViajeCables.SetActive(false);
-        
+            GetComponent<Particulas>().particulasViajeCables.SetActive(false);
+
             GetComponent<Particulas>().particulasBolaViajeCables.gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1);
             var em = ps.velocityOverLifetime;
             em.x = 0;
@@ -644,12 +641,13 @@ public class cableadoviaje : MonoBehaviour
 
         if (collision.gameObject.tag == "Nodo")
         {
-            
-             
-        
+
+
+
 
             Nodo node = collision.gameObject.GetComponent<Nodo>();
-            if (!node.entrada && !node.salida) controllerPersonaje.rb.velocity = Vector2.zero;
+            if (!node.entrada && !node.salida) { controllerPersonaje.rb.velocity = Vector2.zero; this.gameObject.transform.position = node.transform.position; }
+
 
             nodoActual = collision.gameObject;
             if (node.salida == true)

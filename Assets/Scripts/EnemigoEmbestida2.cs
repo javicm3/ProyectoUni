@@ -75,7 +75,12 @@ public class EnemigoEmbestida2 : EnemigoPadre
     {
         FindObjectOfType<NewAudioManager>().Play("EnemigoStun");
         escudo.SetActive(false);
-        stun = true;
+        if (stun == false)
+        {
+            ManagerLogros.Instance.AddStat("EnemigosStun");
+            stun = true;
+        
+        }
 
         foreach (Light2D go in luces)
         {

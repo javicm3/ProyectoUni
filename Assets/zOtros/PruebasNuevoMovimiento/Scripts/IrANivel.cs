@@ -21,7 +21,7 @@ public class IrANivel : MonoBehaviour
     {
         textoColeccionables.text = "" + requisitos;
         if (requisitos > GameManager.Instance.totalColeccionables.Count)
-        {print(GameManager.Instance.totalColeccionables.Count);
+        {
             textoColeccionables.material = matRojo;
         }
         cartel.enabled = false;

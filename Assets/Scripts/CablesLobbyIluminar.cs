@@ -31,7 +31,7 @@ public class CablesLobbyIluminar : MonoBehaviour
         actual = Color.black ;
         
         shader.SetColor("Color_C112F92E", actual);
-        print(shader.GetColor("Color_C112F92E"));
+      
     }
 
     // Update is called once per frame

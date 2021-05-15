@@ -39,7 +39,7 @@ public class MovimientoEnemigoVolador : EnemigoPadre
     public override void Stun()
     {
         FindObjectOfType<NewAudioManager>().Play("EnemigoStun");
-        stun = true;
+        if (stun == false) { stun = true; if(ManagerLogros.Instance!=null)ManagerLogros.Instance.AddStat("EnemigosStun"); }
         animCC.SetBool("Dañado", true);
 
         auxTiempoStun = tiempoStun;

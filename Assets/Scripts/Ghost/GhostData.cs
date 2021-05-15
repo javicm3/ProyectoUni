@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Steamworks;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -55,6 +56,7 @@ public class GhostData : MonoBehaviour
 
     public void IniciarFantasma(ref LevelInfo nivel)
     {
+       
         activado = true;
         nivelActual = nivel;
         tiempoNivel = 0;
@@ -76,15 +78,38 @@ public class GhostData : MonoBehaviour
         {
             fantasma = GameObject.Instantiate(fantasmaPrefab, player.transform.position, Quaternion.identity);
             reproducir = true;
+            bool desbloq;
+            SteamUserStats.GetAchievement(ManagerLogros.Instance.logrosIDs[4].steamID, out desbloq);
+            if (!desbloq)
+            {
+                ManagerLogros.Instance.DesbloquearLogro(4);
+            }
         }   
     }
 
     public void TerminarNivel(string nivel)
     {
-        if (tiempoNivel<nivelActual.mejorTiempo || nivelActual.mejorTiempo==0) 
+        if (tiempoNivel<nivelActual.mejorTiempo || nivelActual.mejorTiempo==0)
         {
+            if (fantasma != null)
+            {
+                ManagerLogros.Instance.AddStat("FantasmasGanados");
+            
+            if (!GameManager.Instance.NivelActual.fantasmaGanado)
+            {
+                GameManager.Instance.NivelActual.fantasmaGanado = true;
+                ManagerLogros.Instance.AddStat("NivelesGhost");
+            }}
             nivelActual.pos.Clear();
-            nivelActual.pos.AddRange(posTemp);            
+            nivelActual.pos.AddRange(posTemp);
+        }
+        else
+        {
+            if (fantasma != null)
+            {
+                ManagerLogros.Instance.AddStat("FantasmasPerdidos");
+            }
+           
         }
         posTemp.Clear();
         activado = false;
