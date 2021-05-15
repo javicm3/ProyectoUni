@@ -23,7 +23,6 @@ public class VideosTutorial : MonoBehaviour
     VideoClip[] clipsActual;
     int index = 0;
 
-    //-------------------------------------------------->Mirar para cambiar lo de devolver el input con el gm
 
     public void AbrirTutorial(DesbloquearHabilidades.habilidad habilidad)
     {
@@ -190,7 +189,7 @@ public class VideosTutorial : MonoBehaviour
         }
 
 
-        if ( joystick.Action2.WasPressed)
+        if ( joystick.Action1.WasPressed)
         {
             switch (Select1)
             {

@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
     public GameObject noArchivo;
     public Button[] slots;
     bool newGame = false;
+
     
     [Header("Textos Menu Principal")]
     [SerializeField] TextMeshProUGUI jugarT;
@@ -53,8 +54,10 @@ public class MainMenu : MonoBehaviour
 
     [Header("Controles")]
     [SerializeField] Image imagenControles;
-    [SerializeField] Sprite controlesEsp;
-    [SerializeField] Sprite controlesIng;
+    [SerializeField] Sprite mandoEsp;
+    [SerializeField] Sprite mandoIng;
+    [SerializeField] Sprite tecladoEsp;
+    [SerializeField] Sprite tecladoIng;
 
     [Header("Tic Idiomas")]
     [SerializeField] Image ticEspañol;
@@ -83,11 +86,36 @@ public class MainMenu : MonoBehaviour
     }
 
     //Cambiar que cosas abre o cierra
-    public void Controles(bool cont)
+    public void Controles(bool mando)
     {
-        controles.SetActive(cont);
-        opciones.SetActive(!cont);
+        if (mando)
+        {
+            if (SistemaGuardado.indiceIdioma == 1)
+            {
+                imagenControles.sprite = mandoIng;
+            }
+            else { imagenControles.sprite = mandoEsp; }
+        }
+        else
+        {
+            if (SistemaGuardado.indiceIdioma == 1)
+            {
+                imagenControles.sprite = tecladoIng;
+            }
+            else { imagenControles.sprite = tecladoEsp; }
+        }
+
+
+        controles.SetActive(true);
+        opciones.SetActive(false);
     }
+
+    public void CerrarControles()
+    {
+        controles.SetActive(false);
+        opciones.SetActive(true);
+    }
+
 
     public void NewGame(bool newGame)
     {
