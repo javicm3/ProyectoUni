@@ -101,7 +101,12 @@ public class VidaPlayer : MonoBehaviour
 
 
                 if (vidaActual == 0)
-                {
+                {  print(cc.maxYAntesMorir + "maxY" + this.transform.position.y + "transfY" + (cc.maxYAntesMorir - this.transform.position.y) + "resta");
+                    if (cc.maxYAntesMorir - this.transform.position.y > 90)
+                    {
+                      
+                        ManagerLogros.Instance.DesbloquearLogro(30);
+                    }
                     ManagerLogros.Instance.AddStat("TotalMuertes");
                     //this.GetComponentInChildren<Animator>().SetTrigger("Die");
                     //source.PlayOneShot(muertePlayer);
@@ -481,7 +486,7 @@ public class VidaPlayer : MonoBehaviour
            
             this.GetComponent<VidaPlayer>().RecibirDaño(this.GetComponent<VidaPlayer>().dañoAgua, collision.gameObject.transform.position, collision.contacts[0].point);
             this.transform.position = new Vector3(this.transform.position.x - 0.1f, this.transform.position.y + 0.2f, 0);
-            ManagerLogros.Instance.DesbloquearLogro(11);
+          if(collision.gameObject.GetComponent<LineRenderer>()==null)  ManagerLogros.Instance.DesbloquearLogro(11);
         }
 
         if (collision.gameObject.tag == "Boss")

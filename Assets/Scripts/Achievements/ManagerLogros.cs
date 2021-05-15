@@ -69,6 +69,10 @@ public class ManagerLogros : MonoBehaviour
             SteamUserStats.SetAchievement(logrosIDs[id].steamID);
             SteamUserStats.StoreStats();
             desbloqueadosInfo[logrosIDs.IndexOf(logrosIDs[id])] = true;
+            if (id == 26 || id == 27 || id == 28)
+            {
+                AddStat("LogrosSpeed");
+            }
         }
     }
     public void AddStat(string id)
@@ -140,6 +144,27 @@ public class ManagerLogros : MonoBehaviour
             if (value >= 30)
             {
                 DesbloquearLogro(18);
+            }
+        }
+        else if (id == "CristalesRotos")
+        {
+            if (value >= 10)
+            {
+                DesbloquearLogro(23);
+            }
+        }
+        else if (id == "TotalLoops")
+        {
+            if (value >= 30)
+            {
+                DesbloquearLogro(22);
+            }
+        }
+        else if (id == "LogrosSpeed")
+        {
+            if (value >= 3)
+            {
+                DesbloquearLogro(29);
             }
         }
         SteamUserStats.StoreStats();

@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class ControllerPersonaje : MonoBehaviour
 {
+    bool hechoConseguidoPuntoHabChispazo = false;
+    bool hechoConseguidoPuntoHabDashAbajo = false;
     string escenaActual;
     public InputDevice joystick;
     [HideInInspector] public Rigidbody2D rb;
@@ -21,12 +23,13 @@ public class ControllerPersonaje : MonoBehaviour
     //En el start se llama a un método que las setea según lo que pone en el GM
     bool dashUnlock;
     public bool chispazoUnlook;
-   public bool movParedesUnlook;
+    public bool movParedesUnlook;
     public bool movCablesUnlook;
     float auxTiempoSonidoSinEnergia;
     float tiempoSonidoSinEnergia = 0.5f;
     Vector2 ultimaParedPosicion;
-
+    int habilidadesSinTocarSuelo = 0;
+    float tiempoSinTocarSuelo = 0;
     [Header("EscaladaYSaltoPared")]
     public float distanciaPared;
     public bool lastJumpPared = false;
@@ -224,7 +227,9 @@ public class ControllerPersonaje : MonoBehaviour
     private int Xbox_One_Controller = 0;
     private int PS4_Controller = 0;
     float auxCheckJoystick;
-
+    public float tiempoMaxSpeedLogro = 0;
+    float tiempoLoopAntesConsiderarLoop = 0f;
+    public float maxYAntesMorir = -999999f;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -279,6 +284,76 @@ public class ControllerPersonaje : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (looping)
+        {
+            tiempoLoopAntesConsiderarLoop += Time.deltaTime;
+
+        }
+        else
+        {
+            tiempoLoopAntesConsiderarLoop = 0;
+        }
+        if (tengoMaxspeed)
+        {
+
+            GameManager.Instance.NivelActual.tiempoCorriendoTotal += Time.deltaTime;
+            if (Mathf.Floor(GameManager.Instance.NivelActual.tiempoCorriendoTotal% 20) == 0)
+            {
+                float totalMax = 0;
+                foreach (LevelInfo inf in GameManager.Instance.ListaNiveles)
+                {
+                    if (inf.nombreNivel != GameManager.Instance.NivelActual.nombreNivel)
+                    {
+                        totalMax += inf.tiempoCorriendoTotal;
+                        print(totalMax + "totalmax" + inf.nombreNivel);
+                    }
+
+                }
+                if (totalMax+ GameManager.Instance.NivelActual.tiempoCorriendoTotal > 120)
+                {
+                    ManagerLogros.Instance.DesbloquearLogro(31);
+
+                }
+                print(totalMax + "totalmax");
+            }
+            tiempoMaxSpeedLogro += Time.deltaTime;
+
+            if (tiempoMaxSpeedLogro > 6.9f)
+            {
+
+                ManagerLogros.Instance.DesbloquearLogro(21);
+            }
+        }
+        else
+        {
+            tiempoMaxSpeedLogro = 0;
+        }
+
+        if (grounded)
+        {
+            maxYAntesMorir = this.transform.position.y;
+            habilidadesSinTocarSuelo = 0;
+            tiempoSinTocarSuelo = 0;
+        }
+        else
+        {
+            if (maxYAntesMorir < this.transform.position.y)
+            {
+                maxYAntesMorir = this.transform.position.y;
+            }
+
+
+            tiempoSinTocarSuelo += Time.deltaTime;
+            if (tiempoSinTocarSuelo > 5f)
+            {
+                ManagerLogros.Instance.DesbloquearLogro(24);
+            }
+            if (habilidadesSinTocarSuelo >= 3)
+            {
+                ManagerLogros.Instance.DesbloquearLogro(20);
+            }
+        }
+
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.N))
         {
             this.transform.position = FindObjectOfType<VueltaLobby>().transform.position;
@@ -291,7 +366,7 @@ public class ControllerPersonaje : MonoBehaviour
                 if (coleccionablesMonedas[i].GetComponentInChildren<ParticleSystem>() != null)
                 {
                     GameManager.Instance.CogerColeccionableNivel(coleccionablesMonedas[i]);
-                 
+
                 }
             }
         }
@@ -489,7 +564,14 @@ public class ControllerPersonaje : MonoBehaviour
         {
             AplicarGravedad();
         }
-
+        if (tiempoLoopAntesConsiderarLoop > 0.5f)
+        {
+            if (looping == false)
+            {
+                ManagerLogros.Instance.AddStat("TotalLoops");
+                tiempoLoopAntesConsiderarLoop = 0;
+            }
+        }
     }
     public void AplicarImpulso(GameObject hijoDireccion, GameObject origen, float fuerza)
     {
@@ -630,7 +712,11 @@ public class ControllerPersonaje : MonoBehaviour
 
             if ((joystick != null && joystick.RightTrigger.IsPressed) || Input.GetKey(KeyCode.LeftControl))
             {
-                pulsadoChispazo = true;
+                if (pulsadoChispazo == false)
+                {
+                    pulsadoChispazo = true;
+
+                }
 
 
                 Collider2D[] hitCirculo = Physics2D.OverlapCircleAll(this.transform.position, distanciaCombate);
@@ -728,6 +814,7 @@ public class ControllerPersonaje : MonoBehaviour
 
         if (haciendoCombate)
         {
+            hechoConseguidoPuntoHabChispazo = false;
             ultimaNormal = Vector2.zero;
             bocabajocambiotecla = false;
             auxtiempoTrasSalirCombateInvuln = tiempoTrasSalirCombateInvuln;
@@ -811,7 +898,7 @@ public class ControllerPersonaje : MonoBehaviour
 
 
                             ultimoEnemigoDetectado.GetComponent<EnemigoPadre>().Stun();
-                        
+
                             Debug.Log("ADD ENEMIGOS STUN");
                             NewAudioManager.Instance.Play("PlayerChispazo");
                             NewAudioManager.Instance.Play("EnemigosStun");
@@ -886,7 +973,7 @@ public class ControllerPersonaje : MonoBehaviour
                         }
                     }
                     ultimoEnemigoPasado.GetComponent<EnemigoPadre>().Stun();
-                 
+
                     Debug.Log("ADD ENEMIGOS STUN");
                     mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
                     mEnergy.tiempoAux = 0.15f;
@@ -942,7 +1029,7 @@ public class ControllerPersonaje : MonoBehaviour
                     if (ultimoEnemigoPasado != null)
                     {
                         ultimoEnemigoPasado.GetComponent<EnemigoPadre>().Stun();
-                  
+
                         Debug.Log("ADD ENEMIGOS STUN");
                         mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
                         mEnergy.tiempoAux = 0.15f;
@@ -954,7 +1041,7 @@ public class ControllerPersonaje : MonoBehaviour
                     {
 
                         ultimoEnemigoDetectado.GetComponent<EnemigoPadre>().Stun();
-                     
+
                         Debug.Log("ADD ENEMIGOS STUN");
                         mEnergy.RestarEnergia(mEnergy.energiaxEnemigoCombate);
                         mEnergy.tiempoAux = 0.15f;
@@ -977,6 +1064,11 @@ public class ControllerPersonaje : MonoBehaviour
         {
 
             enemigosPasados.Clear();
+        }
+        else if (enemigosPasados.Count >= 0 && pulsadoChispazo == false && haciendoCombate == false && grounded == false)
+        {
+
+            if (hechoConseguidoPuntoHabChispazo == false) { hechoConseguidoPuntoHabChispazo = true; print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1; }
         }
     }
 
@@ -1567,7 +1659,8 @@ public class ControllerPersonaje : MonoBehaviour
 
         if (pegadoPared == true)
         {
-
+            habilidadesSinTocarSuelo = 0;
+            tiempoSinTocarSuelo = 0;
             if (grounded == false)
             {
                 animCC.SetBool("PegadoPared", true);
@@ -1637,7 +1730,9 @@ public class ControllerPersonaje : MonoBehaviour
                             //transform.Find("Cuerpo").localScale = new Vector2(1, 1);
                             rb.velocity = Vector2.zero;
                             rb.AddForce(fuerzaSaltoPared * new Vector2(0.6f, 0.6f));
-                            maxTiempoPared = auxpared;
+                            print(habilidadesSinTocarSuelo + "hab1");
+                            habilidadesSinTocarSuelo += 1;
+                            maxTiempoPared = auxpared; maxYAntesMorir = -999999;
 
                         }
                         else
@@ -1647,8 +1742,8 @@ public class ControllerPersonaje : MonoBehaviour
                             pInput.personajeInvertido = true;
                             //transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
                             rb.velocity = Vector2.zero;
-                            rb.AddForce(fuerzaSaltoPared * new Vector2(-0.6f, 0.6f));
-                            maxTiempoPared = auxpared;
+                            rb.AddForce(fuerzaSaltoPared * new Vector2(-0.6f, 0.6f)); print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1;
+                            maxTiempoPared = auxpared; maxYAntesMorir = -999999;
 
                         }
                         animCC.SetTrigger("WallJump");
@@ -1668,6 +1763,7 @@ public class ControllerPersonaje : MonoBehaviour
                 }
                 else
                 {
+
                     if (Input.GetButtonDown("Jump"))
                     {
                         //if (saltoPulsado == true)
@@ -1683,8 +1779,8 @@ public class ControllerPersonaje : MonoBehaviour
                             pInput.personajeInvertido = false;
                             //transform.Find("Cuerpo").localScale = new Vector2(1, 1);
                             rb.velocity = Vector2.zero;
-                            rb.AddForce(fuerzaSaltoPared * new Vector2(0.6f, 0.6f));
-                            maxTiempoPared = auxpared;
+                            rb.AddForce(fuerzaSaltoPared * new Vector2(0.6f, 0.6f)); print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1;
+                            maxTiempoPared = auxpared; maxYAntesMorir = -999999;
 
                         }
                         else
@@ -1693,8 +1789,8 @@ public class ControllerPersonaje : MonoBehaviour
                             pInput.ultimoInputHorizontal = -1;
                             //transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
                             rb.velocity = Vector2.zero;
-                            rb.AddForce(fuerzaSaltoPared * new Vector2(-0.6f, 0.6f));
-                            maxTiempoPared = auxpared;
+                            rb.AddForce(fuerzaSaltoPared * new Vector2(-0.6f, 0.6f)); print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1;
+                            maxTiempoPared = auxpared; maxYAntesMorir = -999999;
 
                         }
                         animCC.SetTrigger("WallJump");
@@ -2939,7 +3035,7 @@ public class ControllerPersonaje : MonoBehaviour
             }
 
         }
-        if (Mathf.Abs(rb.velocity.x) < velMaxima - 2f)
+        if (Mathf.Abs(rb.velocity.x) < velMaxima - 3f)
         {
             //if (!pegadoPared) this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
             tengoMaxspeed = false;
@@ -3269,6 +3365,7 @@ public class ControllerPersonaje : MonoBehaviour
                         }
                         else
                         {
+                            print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1;
                             if (lastJumpPared == false)
                             {
                                 if (pInput.ultimoInputHorizontal < 0)
@@ -3414,6 +3511,7 @@ public class ControllerPersonaje : MonoBehaviour
                         }
                         else
                         {
+                            print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1;
                             if (lastJumpPared == false)
                             {
                                 if (pInput.ultimoInputHorizontal < 0)
@@ -3605,13 +3703,10 @@ public class ControllerPersonaje : MonoBehaviour
     {
         if (dashEnCaida)
         {
-            if (saltoDobleHechoParaDashCaida || rb.velocity.y > 2) { dashEnCaida = false; saltoDobleHechoParaDashCaida = false; }
+            if (saltoDobleHechoParaDashCaida || rb.velocity.y > 2) { print("false"); hechoConseguidoPuntoHabDashAbajo = false; dashEnCaida = false; saltoDobleHechoParaDashCaida = false; }
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
-        if (rb.velocity.y == 0)
-        {
-            dashEnCaida = false;
-        }
+
         //if (!grounded && pInput.inputVertical ==-1 && pegadoPared == false && Input.GetButtonDown("Dash"))
         if (joystick != null)
         {
@@ -3625,6 +3720,7 @@ public class ControllerPersonaje : MonoBehaviour
                         if (tiempoCOYOTE < -0.2f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
                         {
                             mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
+                            if (hechoConseguidoPuntoHabDashAbajo == false) { print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
@@ -3648,6 +3744,7 @@ public class ControllerPersonaje : MonoBehaviour
                         if (tiempoCOYOTE < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
                         {
                             mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
+                            if (hechoConseguidoPuntoHabDashAbajo == false) { print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
@@ -3684,10 +3781,10 @@ public class ControllerPersonaje : MonoBehaviour
 
                     if (rb.velocity.y > 0)
                     {
-                        if (tiempoCOYOTE < -0.2f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
+                        if (tiempoCOYOTE < -0.2f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo && dashEnCaida == false)
                         {
                             mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
-
+                            if (hechoConseguidoPuntoHabDashAbajo == false) { print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
@@ -3708,9 +3805,9 @@ public class ControllerPersonaje : MonoBehaviour
                     }
                     else
                     {
-                        if (tiempoCOYOTE < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
+                        if (tiempoCOYOTE < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo && dashEnCaida == false)
                         {
-                            mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
+                            if (hechoConseguidoPuntoHabDashAbajo == false) { print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
@@ -3734,12 +3831,17 @@ public class ControllerPersonaje : MonoBehaviour
             }
             if (grounded)
             {
+                hechoConseguidoPuntoHabDashAbajo = false;
                 dashEnCaida = false;
                 //GetComponent<Particulas>().particulasDashCaida.gameObject.SetActive(false);
 
             }
         }
+        if (rb.velocity.y == 0 || grounded)
+        {
+            dashEnCaida = false;
 
+        }
         animCC.SetBool("cayendo", dashEnCaida);
 
     }
@@ -3756,6 +3858,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                 if (grounded)
                 {
+                    maxYAntesMorir = -999999;
                     if (pulsadoEspacio == false)
                     {
                         if (pInput.inputHorizontal != 0)
@@ -3889,7 +3992,7 @@ public class ControllerPersonaje : MonoBehaviour
                                 animCC.SetTrigger("DobleSalto");
                                 //GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
                                 saltoDobleHecho = true;
-                                saltoDobleHechoParaDashCaida = true;
+                                if (auxCdDashAtravesar <= 0) saltoDobleHechoParaDashCaida = true;
                                 ultimaNormal = Vector2.zero;
                                 dashEnCaida = false;
                                 estoyDasheando = false;
@@ -3932,6 +4035,7 @@ public class ControllerPersonaje : MonoBehaviour
 
                 if (grounded)
                 {
+                    maxYAntesMorir = -999999;
                     if (pulsadoEspacio == false)
                     {
                         if (pInput.inputHorizontal != 0)
@@ -4064,7 +4168,7 @@ public class ControllerPersonaje : MonoBehaviour
                                 animCC.SetTrigger("DobleSalto");
                                 //GetComponent<Particulas>().SpawnParticulas(GetComponent<Particulas>().particulasDobleSalto, posGround.position, posGround);
                                 saltoDobleHecho = true;
-                                saltoDobleHechoParaDashCaida = true;
+                                if (auxCdDashAtravesar <= 0) saltoDobleHechoParaDashCaida = true;
                                 ultimaNormal = Vector2.zero;
 
                                 dashEnCaida = false;
@@ -4216,7 +4320,7 @@ public class ControllerPersonaje : MonoBehaviour
                     }
                     FindObjectOfType<NewAudioManager>().Play("PlayerJump");
                     //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().salto);
-
+                    maxYAntesMorir = -999999;
                     rb.AddForce(this.transform.up * fuerzaSaltoMin, ForceMode2D.Impulse);
                     lastJumpPared = false;
 

@@ -458,6 +458,7 @@ public class GameManager : MonoBehaviour
 [System.Serializable]
 public class LevelInfo
 {
+    public float tiempoCorriendoTotal = 0;
     public string nombreNivel;
     public bool completado = false;
     public bool fantasmaGanado = false;

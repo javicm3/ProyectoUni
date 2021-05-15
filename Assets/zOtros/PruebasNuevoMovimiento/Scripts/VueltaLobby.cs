@@ -17,12 +17,20 @@ public class VueltaLobby : MonoBehaviour
 
     public void GuardarDatos()
     {
+        if (GameManager.Instance.NivelActual.actualColeccionablesCogidos.Count == 0)
+        {
+            if (SceneManager.GetActiveScene().name != "Nivel_4_Boss1" && SceneManager.GetActiveScene().name != "Nivel_12_BossFinal")
+            {
+                ManagerLogros.Instance.DesbloquearLogro(25);
+            }
+
+        }
         foreach (string go in GameManager.Instance.NivelActual.actualColeccionablesCogidos)
         {
             if (!GameManager.Instance.NivelActual.coleccionablesCogidos.Contains(go))
             {
                 GameManager.Instance.NivelActual.coleccionablesCogidos.Add(go);
-               
+
 
                 GameManager.Instance.totalColeccionables.Add(go);
             }
@@ -68,6 +76,10 @@ public class VueltaLobby : MonoBehaviour
                 }
                 else if (SceneManager.GetActiveScene().name == "Nivel_3")
                 {
+                    if (GhostData.Instance.tiempoNivel < 120f)
+                    {
+                        ManagerLogros.Instance.DesbloquearLogro(26);
+                    }
                     if (!GameManager.Instance.NivelActual.completado)
                     {
                         ManagerLogros.Instance.AddStat("NivelesZona1");
@@ -96,10 +108,22 @@ public class VueltaLobby : MonoBehaviour
                 }
                 else if (SceneManager.GetActiveScene().name == "Nivel_8")
                 {
+                    if (GhostData.Instance.tiempoNivel < 180f)
+                    {
+                        ManagerLogros.Instance.DesbloquearLogro(27);
+                    }
                     if (!GameManager.Instance.NivelActual.completado)
                     {
                         ManagerLogros.Instance.AddStat("NivelesZona2");
                     }
+                }
+                else if (SceneManager.GetActiveScene().name == "Nivel_11")
+                {
+                    if (GhostData.Instance.tiempoNivel < 240f)
+                    {
+                        ManagerLogros.Instance.DesbloquearLogro(28);
+                    }
+                   
                 }
                 done = true;
                 GuardarDatos();
@@ -107,9 +131,9 @@ public class VueltaLobby : MonoBehaviour
                 {
                     GhostData.Instance.TerminarNivel(SceneManager.GetActiveScene().name);
                 }
-               
 
-               
+
+
                 if (GetComponent<DesbloquearHabilidades>() != null)
                 { GetComponent<DesbloquearHabilidades>().DesbloquearHabilidad(); }
 
