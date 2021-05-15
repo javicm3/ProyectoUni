@@ -58,15 +58,15 @@ public class EscudoScript : MonoBehaviour
                 collision.gameObject.GetComponent<ControllerPersonaje>().pulsadoChispazo = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().auxTiempoUsar = collision.gameObject.GetComponent<ControllerPersonaje>().tiempoUsarCombateTrasEscudo;
-                print("dañoeww2323232oo" + collision.gameObject.GetComponent<ControllerPersonaje>().name + collision.gameObject.GetComponent<ControllerPersonaje>().haciendoCombate);
                 collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(0, this.transform.position, collision.GetContact(0).point + new Vector2(1 * Mathf.Sign(Vector2.Distance(collision.GetContact(0).point, this.transform.position)), -0.5f));
                 //collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(0, collision.transform.position + new Vector3(0, -1f), collision.GetContact(0).point /*+ new Vector2(0, -1f)*/);
 
             }
             else
             {
-                print("eeeeeeeeeeeeeeeeeee");
-                collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(1, this.transform.position, collision.GetContact(0).point + new Vector2(1 * Mathf.Sign(Vector2.Distance(collision.GetContact(0).point, this.transform.position)), -0.5f));
+                if (collision.gameObject.GetComponent<VidaPlayer>().auxcdTrasdaño <= 0 &&((collision.gameObject.GetComponent<ControllerPersonaje>().chispazoUnlook&& collision.gameObject.GetComponent<ControllerPersonaje>().auxtiempoTrasSalirCombateInvuln <= 0)|| !collision.gameObject.GetComponent<ControllerPersonaje>().chispazoUnlook)) ManagerLogros.Instance.DesbloquearLogro(10);
+
+                collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(4, this.transform.position, collision.GetContact(0).point + new Vector2(1 * Mathf.Sign(Vector2.Distance(collision.GetContact(0).point, this.transform.position)), -0.5f));
                 //collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(1, collision.transform.position + new Vector3(0, -1f), collision.GetContact(0).point /*+ new Vector2(0, -1f)*/);
             }
 
@@ -96,15 +96,15 @@ public class EscudoScript : MonoBehaviour
                 collision.gameObject.GetComponent<ControllerPersonaje>().pulsadoChispazo = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().movimientoBloqueado = false;
                 collision.gameObject.GetComponent<ControllerPersonaje>().auxTiempoUsar = collision.gameObject.GetComponent<ControllerPersonaje>().tiempoUsarCombateTrasEscudo;
-                print("dañooo");
+               
                 collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(0, this.transform.position, collision.GetContact(0).point + new Vector2(1*Mathf.Sign(Vector2.Distance(collision.GetContact(0).point,this.transform.position)), -0.5f));
                 //collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(0, collision.transform.position + new Vector3(0, -1f), collision.GetContact(0).point /*+ new Vector2(0, -1f)*/);
 
             }
             else
             {
-                print("4444444444444");
-                collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(1, this.transform.position, collision.GetContact(0).point + new Vector2(1 * Mathf.Sign(Vector2.Distance(collision.GetContact(0).point, this.transform.position)), -0.5f));
+                if (collision.gameObject.GetComponent<VidaPlayer>().auxcdTrasdaño <= 0 && ((collision.gameObject.GetComponent<ControllerPersonaje>().chispazoUnlook && collision.gameObject.GetComponent<ControllerPersonaje>().auxtiempoTrasSalirCombateInvuln <= 0) || !collision.gameObject.GetComponent<ControllerPersonaje>().chispazoUnlook)) ManagerLogros.Instance.DesbloquearLogro(10);
+                collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(4, this.transform.position, collision.GetContact(0).point + new Vector2(1 * Mathf.Sign(Vector2.Distance(collision.GetContact(0).point, this.transform.position)), -0.5f));
                 //collision.gameObject.GetComponent<VidaPlayer>().RecibirDaño(1, collision.transform.position + new Vector3(0, -1f), collision.GetContact(0).point /*+ new Vector2(0, -1f)*/);
             }
 

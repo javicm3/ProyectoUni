@@ -226,12 +226,12 @@ public class GameManager : MonoBehaviour
             nivelActual.maxColeccionables = GameObject.FindGameObjectsWithTag("Coleccionable").Length;
             nivelActual.tiempoEmpezar = Time.time;
             
-            textoColecc = GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>();
-            textoColecc.text = nivelActual.coleccionablesCogidos.Count + "  /  " + nivelActual.maxColeccionables; 
+      if (GameObject.Find("TextoColecc")!=null && GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>()!=null)      textoColecc = GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>();
+            if (GameObject.Find("TextoColecc") != null && GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>() != null) textoColecc.text = nivelActual.coleccionablesCogidos.Count + "  /  " + nivelActual.maxColeccionables; 
 
             personajevivo = true;
 
-            if (GameObject.FindObjectOfType<ControllerPersonaje>().gameObject != null) //Julio hacia este if antes de buscar el audio manager asique lo haré igual
+            if (FindObjectOfType<ControllerPersonaje>()!=null&& FindObjectOfType<ControllerPersonaje>().gameObject != null) //Julio hacia este if antes de buscar el audio manager asique lo haré igual
             {
                 NAM = FindObjectOfType<NewAudioManager>();
                 return;
@@ -241,7 +241,7 @@ public class GameManager : MonoBehaviour
         {
             Cursor.visible = false;
             personajevivo = true;
-            print(totalColeccionables.Count);
+            print(totalColeccionables.Count+"totalcolecc");
             GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>().text = totalColeccionables.Count.ToString() + "  /  " + maxColeccionablesTotal;
 
             if (animDesbloquear)
@@ -274,6 +274,10 @@ public class GameManager : MonoBehaviour
         }
 
         FindObjectOfType<Pantalla>().ChangeScreen(habilidad);
+        if (habilidad == DesbloquearHabilidades.habilidad.movimientoCable)
+        {
+            ManagerLogros.Instance.DesbloquearLogro(17);
+        }
         Invoke("DevolverInput", 7.45f);
         
         
@@ -379,11 +383,11 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetKey(KeyCode.R )&& Input.GetKey(KeyCode.LeftControl))
         {
             ReiniciarEscena();
         }
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L) && Input.GetKey(KeyCode.LeftControl))
         {
             habilidades.dash = true;
             habilidades.chispazo = true;
@@ -394,7 +398,7 @@ public class GameManager : MonoBehaviour
             if (p!=null)
             { p.CargarHabilidadesGM(); }
         }
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.O) && Input.GetKey(KeyCode.LeftControl))
         {
             int count = totalColeccionables.Count;
             for (int i = count; i < 1000; i++)
@@ -456,9 +460,11 @@ public class LevelInfo
 {
     public string nombreNivel;
     public bool completado = false;
-
+    public bool fantasmaGanado = false;
     public List<string> coleccionablesCogidos = new List<string>();
-    public List<string> actualColeccionablesCogidos = new List<string>(); 
+    public List<string> actualColeccionablesCogidos = new List<string>();
+    public bool todosColeccionablesCogidos = false;
+    public bool pasadoSinMorir = false;
 
     public int maxColeccionables;
 
