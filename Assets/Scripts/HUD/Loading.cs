@@ -8,11 +8,12 @@ public class Loading : MonoBehaviour
     AsyncOperation async;
 
     // Start is called before the first frame update
-    private void OnEnable()
+    private void Start()
     {
         async=SceneManager.LoadSceneAsync(GameManager.Instance.cinematicaScene);
         async.allowSceneActivation = false;
-        print("PantallaDeCarga");
+
+        StartCoroutine(Enable());
         //SceneManager.sceneLoaded += FinishLoading;
     }
 
@@ -22,12 +23,13 @@ public class Loading : MonoBehaviour
         //Destroy(this.gameObject);
     }*/
 
-    private void Update()
+    IEnumerator Enable()
     {
-        if (async.progress>=0.9f)
+        do
         {
-            async.allowSceneActivation = true;
-        }
-        
+            yield return new WaitForSeconds(0.5f);
+        } while (async.progress < 0.9f);
+
+        async.allowSceneActivation = true;
     }
 }
