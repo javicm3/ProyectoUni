@@ -101,7 +101,7 @@ public class VidaPlayer : MonoBehaviour
 
 
                 if (vidaActual == 0)
-                {  print(cc.maxYAntesMorir + "maxY" + this.transform.position.y + "transfY" + (cc.maxYAntesMorir - this.transform.position.y) + "resta");
+                {  
                     if (cc.maxYAntesMorir - this.transform.position.y > 90)
                     {
                       

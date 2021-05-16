@@ -18,6 +18,13 @@ public class FuncionalidadPausa : MonoBehaviour
 
     InputDevice joystick;
 
+    [Header("Controles")]
+    [SerializeField] Image imagenControles;
+    [SerializeField] Sprite mandoEsp;
+    [SerializeField] Sprite mandoIng;
+    [SerializeField] Sprite tecladoEsp;
+    [SerializeField] Sprite tecladoIng;
+
     [Header("Textos")]
     [SerializeField] TextMeshProUGUI pauseT;
     [SerializeField] TextMeshProUGUI resumeT;
@@ -123,9 +130,34 @@ public class FuncionalidadPausa : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void MostrarControles()
+    public void Controles(bool mando)
     {
-        
+        if (mando)
+        {
+            if (SistemaGuardado.indiceIdioma == 1)
+            {
+                imagenControles.sprite = mandoIng;
+            }
+            else { imagenControles.sprite = mandoEsp; }
+        }
+        else
+        {
+            if (SistemaGuardado.indiceIdioma == 1)
+            {
+                imagenControles.sprite = tecladoIng;
+            }
+            else { imagenControles.sprite = tecladoEsp; }
+        }
+
+
+        imagenControles.gameObject.SetActive(true);
+        menuOpciones.SetActive(false);
+    }
+
+    public void CerrarControles()
+    {
+        imagenControles.gameObject.SetActive(false);
+        menuOpciones.SetActive(true);
     }
 
     public void OnExit()

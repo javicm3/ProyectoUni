@@ -35,7 +35,8 @@ public class PantallaFinal : MonoBehaviour
         switch (cinem)
         {
             case cinematica.none:
-                SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+                GameManager.Instance.cinematicaScene = "Lobby";
+                SceneManager.LoadScene("PantallaCarga");
                 break;
             case cinematica.boss1:
                 GameManager.Instance.PlayCinematica(3, "Lobby");
