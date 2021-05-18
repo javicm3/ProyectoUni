@@ -16,7 +16,6 @@ public class FuncionalidadPausa : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
 
-    InputDevice joystick;
 
     [Header("Controles")]
     [SerializeField] Image imagenControles;
@@ -68,26 +67,34 @@ public class FuncionalidadPausa : MonoBehaviour
         StartCoroutine(FindJoystick());
     }
 
+    PlayerInput pInput;
+    ControllerPersonaje cp;
     IEnumerator FindJoystick()
     {
         yield return new WaitForEndOfFrame();
-        joystick = FindObjectOfType<ControllerPersonaje>().joystick;
+        cp = FindObjectOfType<ControllerPersonaje>();
+        pInput = FindObjectOfType<PlayerInput>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || (joystick!=null && joystick.Name != "NullInputDevice" && joystick.MenuWasPressed))
+
+        if (Input.GetKeyDown(KeyCode.Escape) || (cp.joystick!=null && cp.joystick.Name != "NullInputDevice" && cp.joystick.MenuWasPressed ))
         {
             if (Time.timeScale == 1)
             {
                 FindObjectOfType<NewAudioManager>().Play("Pausa");
-                OnPause(true);                
+                OnPause(true);
+                pInput.enabled = false;
+                cp.saltoBloqueado = true;
             }
             else
             {
                 FindObjectOfType<NewAudioManager>().Play("SalirPausa");
                 OnPause(false);
                 menuOpciones.SetActive(false);
+                pInput.enabled = true;
+                cp.saltoBloqueado = false;
             }
         }
     }
@@ -97,6 +104,8 @@ public class FuncionalidadPausa : MonoBehaviour
         if (menu) { Time.timeScale = 0; }
         else
         {
+            pInput.enabled = true;
+            cp.saltoBloqueado = false;
             Time.timeScale = 1;
             Cursor.visible = false;
             foreach (HUDController hud in GetComponentsInChildren<HUDController>())
