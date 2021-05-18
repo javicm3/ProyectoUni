@@ -23,6 +23,8 @@ public class VideosTutorial : MonoBehaviour
     VideoClip[] clipsActual;
     int index = 0;
 
+    string[] dashCont = new string[] { " [Shift]", " [X]" };
+    string[] chispCont = new string[] { " [Ctrl]", " [RT]" };    
 
     public void AbrirTutorial(DesbloquearHabilidades.habilidad habilidad)
     {
@@ -30,16 +32,18 @@ public class VideosTutorial : MonoBehaviour
         FindObjectOfType<PlayerInput>().enabled = false;
 
         int l = SistemaGuardado.indiceIdioma;
+        int j = 0;
+        if (isController) j = 1;
 
         switch (habilidad)
         {
             case DesbloquearHabilidades.habilidad.dash:
                 clipsActual = clipsDash;
-                textoHab.text = Idiomas.skill[l] + "dash";
+                textoHab.text = Idiomas.skill[l] + "dash" + dashCont[j];
                 break;
             case DesbloquearHabilidades.habilidad.chispazo:
                 clipsActual = clipsChispazo;
-                textoHab.text = Idiomas.skill[l] + Idiomas.spark[l];
+                textoHab.text = Idiomas.skill[l] + Idiomas.spark[l]+chispCont[j];
                 break;
             case DesbloquearHabilidades.habilidad.movimientoCable:
                 clipsActual = clipsMovCables;
@@ -167,15 +171,23 @@ public class VideosTutorial : MonoBehaviour
                     Select1 = Select.izquierda;
                 }
             }
+            else if (joystick.DPadRight.IsPressed && derecha.gameObject.activeSelf)
+            {
+                Select1 = Select.derecha;
+            }
+            else if (joystick.DPadLeft.IsPressed && izquierda.gameObject.activeSelf)
+            {
+                Select1 = Select.izquierda;
+            }
 
-            if (joystick.LeftStickY.IsPressed && Input.GetAxis("Vertical") < -0.1f)
+            if ((joystick.LeftStickY.IsPressed && Input.GetAxis("Vertical") < -0.1f) || joystick.DPadDown.WasPressed)
             {
                 Select1 = Select.cerrar;
             }
         }
         else
         {
-            if (joystick.LeftStickY.IsPressed && Input.GetAxis("Vertical") > 0.1f)
+            if ((joystick.LeftStickY.IsPressed && Input.GetAxis("Vertical") > 0.1f) || joystick.DPadUp.WasPressed)
             {
                 if (derecha.gameObject.activeSelf)
                 {
