@@ -293,42 +293,45 @@ public class ControllerPersonaje : MonoBehaviour
         {
             tiempoLoopAntesConsiderarLoop = 0;
         }
-        if (tengoMaxspeed)
+        if (SceneManager.GetActiveScene().name != "Lobby")
         {
-
             GameManager.Instance.NivelActual.tiempoCorriendoTotal += Time.deltaTime;
-            if (Mathf.Floor(GameManager.Instance.NivelActual.tiempoCorriendoTotal% 20) == 0)
+            if (tengoMaxspeed)
             {
-                float totalMax = 0;
-                foreach (LevelInfo inf in GameManager.Instance.ListaNiveles)
+
+
+                if (Mathf.Floor(GameManager.Instance.NivelActual.tiempoCorriendoTotal % 20) == 0)
                 {
-                    if (inf.nombreNivel != GameManager.Instance.NivelActual.nombreNivel)
+                    float totalMax = 0;
+                    foreach (LevelInfo inf in GameManager.Instance.ListaNiveles)
                     {
-                        totalMax += inf.tiempoCorriendoTotal;
-                        print(totalMax + "totalmax" + inf.nombreNivel);
+                        if (inf.nombreNivel != GameManager.Instance.NivelActual.nombreNivel)
+                        {
+                            totalMax += inf.tiempoCorriendoTotal;
+                            print(totalMax + "totalmax" + inf.nombreNivel);
+                        }
+
                     }
+                    if (totalMax + GameManager.Instance.NivelActual.tiempoCorriendoTotal > 360)
+                    {
+                        ManagerLogros.Instance.DesbloquearLogro(31);
 
+                    }
+                    print(totalMax + "totalmax");
                 }
-                if (totalMax+ GameManager.Instance.NivelActual.tiempoCorriendoTotal > 120)
+                tiempoMaxSpeedLogro += Time.deltaTime;
+
+                if (tiempoMaxSpeedLogro > 5f)
                 {
-                    ManagerLogros.Instance.DesbloquearLogro(31);
 
+                    ManagerLogros.Instance.DesbloquearLogro(21);
                 }
-                print(totalMax + "totalmax");
             }
-            tiempoMaxSpeedLogro += Time.deltaTime;
-
-            if (tiempoMaxSpeedLogro > 6.9f)
+            else
             {
-
-                ManagerLogros.Instance.DesbloquearLogro(21);
+                tiempoMaxSpeedLogro = 0;
             }
         }
-        else
-        {
-            tiempoMaxSpeedLogro = 0;
-        }
-
         if (grounded)
         {
             maxYAntesMorir = this.transform.position.y;
@@ -344,11 +347,11 @@ public class ControllerPersonaje : MonoBehaviour
 
 
             tiempoSinTocarSuelo += Time.deltaTime;
-            if (tiempoSinTocarSuelo > 5f)
+            if (tiempoSinTocarSuelo > 7f)
             {
                 ManagerLogros.Instance.DesbloquearLogro(24);
             }
-            if (habilidadesSinTocarSuelo >= 3)
+            if (habilidadesSinTocarSuelo >= 5)
             {
                 ManagerLogros.Instance.DesbloquearLogro(20);
             }
@@ -575,6 +578,7 @@ public class ControllerPersonaje : MonoBehaviour
     }
     public void AplicarImpulso(GameObject hijoDireccion, GameObject origen, float fuerza)
     {
+        grounded = true;
         Vector2 dir = hijoDireccion.transform.position - origen.transform.position;
         dashEnCaida = false;
         dashCaidaBloqueado = true;

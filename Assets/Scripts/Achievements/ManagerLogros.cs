@@ -92,7 +92,7 @@ public class ManagerLogros : MonoBehaviour
         }
         else if (id == "NivelesZona2")
         {
-            if (value >= 4)
+            if (value >= 7)
             {
                 DesbloquearLogro(3);
             }
@@ -127,7 +127,7 @@ public class ManagerLogros : MonoBehaviour
         }
         else if (id == "EnemigosStun")
         {
-            if (value >= 20)
+            if (value >= 25)
             {
                 DesbloquearLogro(9);
             }
@@ -148,14 +148,14 @@ public class ManagerLogros : MonoBehaviour
         }
         else if (id == "CristalesRotos")
         {
-            if (value >= 10)
+            if (value >= 25)
             {
                 DesbloquearLogro(23);
             }
         }
         else if (id == "TotalLoops")
         {
-            if (value >= 30)
+            if (value >= 50)
             {
                 DesbloquearLogro(22);
             }

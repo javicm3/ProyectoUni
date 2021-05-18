@@ -37,7 +37,7 @@ public class VueltaLobby : MonoBehaviour
         }
         if (GameManager.Instance.NivelActual.coleccionablesCogidos.Count == GameManager.Instance.NivelActual.maxColeccionables)
         {
-            ManagerLogros.Instance.DesbloquearLogro(13);
+           if(GameManager.Instance.NivelActual.nombreNivel!="Nivel_4_Boss1"&& GameManager.Instance.NivelActual.nombreNivel != "Nivel_12_BossFinal") ManagerLogros.Instance.DesbloquearLogro(13);
             if (!GameManager.Instance.NivelActual.todosColeccionablesCogidos)
             {
                 GameManager.Instance.NivelActual.todosColeccionablesCogidos = true;
@@ -117,13 +117,33 @@ public class VueltaLobby : MonoBehaviour
                         ManagerLogros.Instance.AddStat("NivelesZona2");
                     }
                 }
+                else if (SceneManager.GetActiveScene().name == "Nivel_9")
+                {
+                 
+                    if (!GameManager.Instance.NivelActual.completado)
+                    {
+                        ManagerLogros.Instance.AddStat("NivelesZona2");
+                    }
+                }
+                else if (SceneManager.GetActiveScene().name == "Nivel_10")
+                {
+                   
+                    if (!GameManager.Instance.NivelActual.completado)
+                    {
+                        ManagerLogros.Instance.AddStat("NivelesZona2");
+                    }
+                }
                 else if (SceneManager.GetActiveScene().name == "Nivel_11")
                 {
                     if (GhostData.Instance.tiempoNivel < 240f)
                     {
                         ManagerLogros.Instance.DesbloquearLogro(28);
                     }
-                   
+                    if (!GameManager.Instance.NivelActual.completado)
+                    {
+                        ManagerLogros.Instance.AddStat("NivelesZona2");
+                    }
+
                 }
                 done = true;
                 GuardarDatos();

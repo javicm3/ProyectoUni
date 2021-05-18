@@ -72,7 +72,7 @@ public class MovimientoEnemigoVolador : EnemigoPadre
 
             if (stun == false)
             {
-                if (puntosPersonaje[indexArray] != null)
+                if (puntosPersonaje.Length!=0&&puntosPersonaje.Length<=indexArray&&puntosPersonaje[indexArray] != null)
                 {
 
 
