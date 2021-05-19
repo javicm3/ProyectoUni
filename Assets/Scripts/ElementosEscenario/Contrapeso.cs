@@ -11,6 +11,7 @@ public class Contrapeso : MonoBehaviour
     public float velocidadSubida;
     public GameObject particulasPolvo;
     Vector3 posicionParticulas;
+    public bool seDesliza = false;
     private void Start()
     {
         Physics2D.IgnoreLayerCollision(8, 4);
@@ -24,7 +25,7 @@ public class Contrapeso : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = (Vector2.up *velocidadSubida );
          
         }
-        this.transform.position = new Vector2(startx, this.transform.position.y);
+     if(!seDesliza)   this.transform.position = new Vector2(startx, this.transform.position.y);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -58,13 +59,53 @@ public class Contrapeso : MonoBehaviour
             {
                 if (GetComponent<Rigidbody2D>().velocity.y < 1f)
                 {
-                    GetComponent<Rigidbody2D>().isKinematic = true;
-                    FindObjectOfType<NewAudioManager>().Play("CaídaEscombros");
+                    if (!seDesliza) { GetComponent<Rigidbody2D>().isKinematic = true; } else { GetComponent<Rigidbody2D>().isKinematic = false; }
+                    if (!seDesliza) FindObjectOfType<NewAudioManager>().Play("CaídaEscombros");
                 }
                
             }
         }
         
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (contraPesoRompible)
+        {
+            if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                animacionRompiendo.Play("ContrapesoRompiendo");
+                posicionParticulas = collision.contacts[0].point;
+                FindObjectOfType<NewAudioManager>().Play("CaídaEscombroRoto");
+
+            }
+        }
+        if (subiendo)
+        {
+            if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                if (GetComponent<Rigidbody2D>().velocity.y < 1)
+                {
+                    GetComponent<Rigidbody2D>().isKinematic = true;
+                    velocidadSubida = 0;
+                }
+
+
+            }
+
+        }
+        else
+        {
+            if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                if (GetComponent<Rigidbody2D>().velocity.y < 1f)
+                {
+                    if (!seDesliza) { GetComponent<Rigidbody2D>().isKinematic = true; } else { GetComponent<Rigidbody2D>().isKinematic = false; }
+                    if (!seDesliza) FindObjectOfType<NewAudioManager>().Play("CaídaEscombros");
+                }
+
+            }
+        }
+
     }
     public void InstanciarParticulasEscombro()
     {

@@ -13,10 +13,12 @@ public class ParticulasEnemigo : MonoBehaviour
     public AudioClip pisadaEnemigo;
 
     public AudioSource source;
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         script = GetComponentInParent<EnemigoEmbestida2>();
+        player = FindObjectOfType<ControllerPersonaje>().gameObject;
     }
 
     // Update is called once per frame
@@ -39,7 +41,7 @@ public class ParticulasEnemigo : MonoBehaviour
     public void PisadaEnemigo()
     {
         //source.PlayOneShot(pisadaEnemigo);
-        FindObjectOfType<NewAudioManager>().Play("EnemigoEmbestidaPisada");
+      if(Vector2.Distance(this.transform.position,player.transform.position)<25)  FindObjectOfType<NewAudioManager>().Play("EnemigoEmbestidaPisada");
 
     }
     public void AtaqueEnemigo()

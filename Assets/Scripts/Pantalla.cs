@@ -45,12 +45,12 @@ public class Pantalla : MonoBehaviour
 
             case DesbloquearHabilidades.habilidad.chispazo:
                 animChispazo.SetActive(true);
-                if (controller) { comando.text = "RT"; }
+                if (controller) { comando.text = "RT"; } else { comando.text = "CTRL"; }
                 break;
 
             case DesbloquearHabilidades.habilidad.movimientoPared:
                 animParedes.SetActive(true);
-                if (controller) { comando.text = "X"; } else {comando.text="ctrl"; }
+                comando.enabled = false;
                 break;
 
             case DesbloquearHabilidades.habilidad.movimientoCable:

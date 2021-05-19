@@ -30,17 +30,17 @@ public class Idiomas
     public static string[] pause = { "Pausa", "Pause" };
     public static string[] resume = { "Continuar", "Resume" };
 
-    public static string[] acept = { "Aceptar", "Acept" };
+    public static string[] acept = { "Aceptar", "Accept" };
     public static string[] yes = { "Si", "Yes" };
     public static string[] slot = { "Archivo ", "Slot " };
-    public static string[] overwrite = { "Se perderan los datos de este archivo.", "Do you want yo overwrite this file?" };
+    public static string[] overwrite = { "Se perderan los datos de este archivo.", "Do you want to overwrite this file?" };
     public static string[] emptyFile = { "No se puede cargar porque no hay datos en el archivo.", "Can't load the file because it's empty." };
     public static string[] time = { "Tiempo de juego", "Time played" };
     public static string[] collectibles = { "Coleccionables", "Collectibles" };
     public static string[] empty = { "Archivo vacio", "Empty file" };
 
     public static string[] skill = { "Nueva habilidad :  ", "New skill :  " };
-    public static string[] climbWalls = { "Escalar paredes", "Clim walls" };
+    public static string[] climbWalls = { "Escalar paredes", "Climb walls" };
     public static string[] wireTravel = { "Viaje entre cables", "Wire Travel" };
     public static string[] spark = { "Chispazo", "Spark" };
 }

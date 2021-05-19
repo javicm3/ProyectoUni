@@ -398,7 +398,7 @@ public class GameManager : MonoBehaviour
             if (p!=null)
             { p.CargarHabilidadesGM(); }
         }
-        if (Input.GetKeyDown(KeyCode.O) && Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.LeftControl))
         {
             int count = totalColeccionables.Count;
             for (int i = count; i < 1000; i++)

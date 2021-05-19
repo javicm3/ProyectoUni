@@ -37,7 +37,7 @@ public class Nodo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cartel.gameObject.SetActive(false);
+      if(cartel!=null)  cartel.gameObject.SetActive(false);
         player = GameObject.FindObjectOfType<ControllerPersonaje>().gameObject;
         cab = FindObjectOfType<cableadoviaje>();
     }

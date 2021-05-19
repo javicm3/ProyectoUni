@@ -16,7 +16,6 @@ public class FuncionalidadPausa : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
 
-    InputDevice joystick;
 
     [Header("Controles")]
     [SerializeField] Image imagenControles;
@@ -61,33 +60,43 @@ public class FuncionalidadPausa : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fondo=GetComponent<Image>();
+        fondo = GetComponent<Image>();
         ActualizarIdiomas();
         musicSlider.value = GameManager.Instance.MusicVolume;
         sfxSlider.value = GameManager.Instance.SfxVolume;
         StartCoroutine(FindJoystick());
     }
 
+    PlayerInput pInput;
+    ControllerPersonaje cp;
     IEnumerator FindJoystick()
     {
         yield return new WaitForEndOfFrame();
-        joystick = FindObjectOfType<ControllerPersonaje>().joystick;
+        cp = FindObjectOfType<ControllerPersonaje>();
+        pInput = FindObjectOfType<PlayerInput>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || (joystick!=null && joystick.Name != "NullInputDevice" && joystick.MenuWasPressed))
+        if (SceneManager.GetActiveScene().name != "Cinematica")
         {
-            if (Time.timeScale == 1)
+            if (Input.GetKeyDown(KeyCode.Escape) || (cp!=null &&cp.joystick != null && cp.joystick.Name != "NullInputDevice" && cp.joystick.MenuWasPressed))
             {
-                FindObjectOfType<NewAudioManager>().Play("Pausa");
-                OnPause(true);                
-            }
-            else
-            {
-                FindObjectOfType<NewAudioManager>().Play("SalirPausa");
-                OnPause(false);
-                menuOpciones.SetActive(false);
+                if (Time.timeScale == 1)
+                {
+                    FindObjectOfType<NewAudioManager>().Play("Pausa");
+                    OnPause(true);
+                    pInput.enabled = false;
+                    cp.saltoBloqueado = true;
+                }
+                else
+                {
+                    FindObjectOfType<NewAudioManager>().Play("SalirPausa");
+                    OnPause(false);
+                    menuOpciones.SetActive(false);
+                    pInput.enabled = true;
+                    cp.saltoBloqueado = false;
+                }
             }
         }
     }
@@ -97,6 +106,8 @@ public class FuncionalidadPausa : MonoBehaviour
         if (menu) { Time.timeScale = 0; }
         else
         {
+            pInput.enabled = true;
+            cp.saltoBloqueado = false;
             Time.timeScale = 1;
             Cursor.visible = false;
             foreach (HUDController hud in GetComponentsInChildren<HUDController>())
@@ -125,7 +136,7 @@ public class FuncionalidadPausa : MonoBehaviour
             GameManager.Instance.NivelActual.actualColeccionablesCogidos.Clear();
             GameManager.Instance.NivelActual.actualColeccionablesCogidos.AddRange(GameManager.Instance.NivelActual.coleccionablesCogidos);
         }
-        if(GhostData.Instance!=null) GhostData.Instance.activado = false;
+        if (GhostData.Instance != null) GhostData.Instance.activado = false;
         SceneManager.LoadScene(scene);
         Time.timeScale = 1;
     }

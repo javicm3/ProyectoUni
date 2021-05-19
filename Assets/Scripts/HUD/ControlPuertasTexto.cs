@@ -17,7 +17,7 @@ public class ControlPuertasTexto : MonoBehaviour
 
         string comando = "E ";
 
-        if (personaje.joystick != null && personaje.joystick.Name != "NullInputDevice")
+        if (personaje.joystick != null && personaje.joystick.Name != "NullInputDevice" && personaje.joystick.Name != "Unknown Device")
         {
             comando = "B ";
         }
