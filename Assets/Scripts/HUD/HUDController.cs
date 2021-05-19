@@ -6,7 +6,7 @@ using InControl;
 public class HUDController : MonoBehaviour
 {
     InputDevice joystick;
-    bool isController=false;
+    public bool isController=false;
     HUDObject selected;
     int index=0;
 
@@ -33,6 +33,7 @@ public class HUDController : MonoBehaviour
         }
         else { Cursor.visible = true; } 
     }
+
 
     void Update()
     {

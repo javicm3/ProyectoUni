@@ -14,7 +14,6 @@ public class AuxAbsorb : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         script.TriggerStay2D(collision);
-        print(collision.tag);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -26,7 +25,6 @@ public class AuxAbsorb : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         script.TriggerEnter2D(collision);
-        print(collision.name);
     }
 
 }
