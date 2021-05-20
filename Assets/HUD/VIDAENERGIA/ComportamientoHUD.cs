@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class ComportamientoHUD : MonoBehaviour
 {
-   
+
     public RenderPipelineAsset pipeline;
     public RenderPipelineAsset pipeline2;
 
@@ -26,7 +26,7 @@ public class ComportamientoHUD : MonoBehaviour
     public float velocidadMax = 50;
     bool vCambioSentido;
     GameObject objectHijo;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,14 +54,17 @@ public class ComportamientoHUD : MonoBehaviour
         }
         if (!bloqueado)
         {
-            if(transform.GetChild(2).gameObject.activeSelf == false)
+            if (transform.GetChild(2).gameObject.activeSelf == false)
             {
                 foreach (Transform go in this.gameObject.GetComponentInChildren<Transform>())
                 {
-                    if (go.GetComponent<ComportamientoHUD>() == null) go.gameObject.SetActive(true);
+                    if (go.name != "separacionenergia" && go.name != "separacion vida")
+                    {
+                        if (go.GetComponent<ComportamientoHUD>() == null) go.gameObject.SetActive(true);
+                    }
                 }
             }
-            
+
             //print(points);
             //line.SetPosition(1, new Vector3(line.gameObject.transform.position.x, line.gameObject.transform.position.y, player.transform.position.z));
             line.SetPosition(0, punto1.position);
@@ -150,13 +153,16 @@ public class ComportamientoHUD : MonoBehaviour
         }
         else
         {
-            foreach(Transform go in this.gameObject.GetComponentsInChildren<Transform>())
+            foreach (Transform go in this.gameObject.GetComponentsInChildren<Transform>())
             {
-                if(go.GetComponent<ComportamientoHUD>() == null) go.gameObject.SetActive(false);
+                if (go.name != "separacionenergia" && go.name != "separacion vida")
+                {
+                    if (go.GetComponent<ComportamientoHUD>() == null) go.gameObject.SetActive(false);
+                }
             }
         }
     }
-       
-       
-    
+
+
+
 }

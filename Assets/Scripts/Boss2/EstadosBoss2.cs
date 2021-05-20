@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EstadosBoss2 : MonoBehaviour
 {
@@ -174,9 +175,64 @@ public class EstadosBoss2 : MonoBehaviour
 
         }
     }
+    public void GuardarDatos()
+    {
+        if (GameManager.Instance.NivelActual.actualColeccionablesCogidos.Count == 0)
+        {
+            if (SceneManager.GetActiveScene().name != "Nivel_4_Boss1" && SceneManager.GetActiveScene().name != "Nivel_12_BossFinal")
+            {
+                ManagerLogros.Instance.DesbloquearLogro(25);
+            }
 
+        }
+        foreach (string go in GameManager.Instance.NivelActual.actualColeccionablesCogidos)
+        {
+            if (!GameManager.Instance.NivelActual.coleccionablesCogidos.Contains(go))
+            {
+                GameManager.Instance.NivelActual.coleccionablesCogidos.Add(go);
+
+
+                GameManager.Instance.totalColeccionables.Add(go);
+            }
+        }
+        if (GameManager.Instance.NivelActual.coleccionablesCogidos.Count == GameManager.Instance.NivelActual.maxColeccionables)
+        {
+            if (GameManager.Instance.NivelActual.nombreNivel != "Nivel_4_Boss1" && GameManager.Instance.NivelActual.nombreNivel != "Nivel_12_BossFinal") ManagerLogros.Instance.DesbloquearLogro(13);
+            if (!GameManager.Instance.NivelActual.todosColeccionablesCogidos)
+            {
+                GameManager.Instance.NivelActual.todosColeccionablesCogidos = true;
+                ManagerLogros.Instance.AddStat("NivelesTodosColeccionables");
+            }
+
+        }
+        GameManager.Instance.NivelActual.completado = true;
+
+
+        GameManager.Instance.UltimoCheck = null;
+    }
     void LlamarCinematica()
     {
+        if (GhostData.Instance != null)
+        {
+            GhostData.Instance.TerminarNivel(SceneManager.GetActiveScene().name);
+        }
+        if (SceneManager.GetActiveScene().name == "Nivel_12_BossFinal")
+        {
+            ManagerLogros.Instance.DesbloquearLogro(8);
+        }
+        GuardarDatos();
+        if (FindObjectOfType<VidaPlayer>().heMuertoEnEsteNivel == false)
+        {
+            ManagerLogros.Instance.DesbloquearLogro(15);
+            if (!GameManager.Instance.NivelActual.pasadoSinMorir)
+            {
+                GameManager.Instance.NivelActual.pasadoSinMorir = true;
+                ManagerLogros.Instance.AddStat("NivelesSinMuerte");
+            }
+
+
+        }
+        SistemaGuardado.Guardar();
         GameManager.Instance.PlayCinematica(5, "PantallaInicio");
     }
 }

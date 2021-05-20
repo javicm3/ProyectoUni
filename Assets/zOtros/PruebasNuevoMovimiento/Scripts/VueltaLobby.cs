@@ -204,10 +204,7 @@ public class VueltaLobby : MonoBehaviour
         {
             ManagerLogros.Instance.DesbloquearLogro(2);
         }
-        else if (SceneManager.GetActiveScene().name == "Nivel_12_BossFinal")
-        {
-            ManagerLogros.Instance.DesbloquearLogro(8);
-        }
+      
         FindObjectOfType<PantallaFinal>().ActivarPantalla();
 
     }

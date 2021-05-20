@@ -6,6 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class DestructiblePorDash : MonoBehaviour
 {
+    public bool soloDashNormal = false;
+    public bool soloDashAbajo = false;
+    public bool ambosDashes = true;
     Explodable expl;
     [SerializeField] float duracionFrag = 5;
     GameObject player;
@@ -20,18 +23,74 @@ public class DestructiblePorDash : MonoBehaviour
     }
     private void FixedUpdate()
     {
-         if((Vector2.Distance(player.transform.position,this.transform.position)<5)&& (player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0 || player.GetComponent<ControllerPersonaje>().dashEnCaida))
+        if (ambosDashes)
+        {
+            if ((Vector2.Distance(player.transform.position, this.transform.position) < 5) && (player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0 || player.GetComponent<ControllerPersonaje>().dashEnCaida))
             {
-            GetComponent<Collider2D>().isTrigger = true;
+                GetComponent<Collider2D>().isTrigger = true;
 
 
-            expl.explode(duracionFrag);
+                expl.explode(duracionFrag);
+            }
         }
+        else if (soloDashAbajo)
+        {
+            if ((Vector2.Distance(player.transform.position, this.transform.position) < 5) && ( player.GetComponent<ControllerPersonaje>().dashEnCaida))
+            {
+                GetComponent<Collider2D>().isTrigger = true;
+
+
+                expl.explode(duracionFrag);
+            }
+
+        }
+        else if (soloDashNormal)
+        {
+            if ((Vector2.Distance(player.transform.position, this.transform.position) < 5) && (player.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0 ))
+            {
+                GetComponent<Collider2D>().isTrigger = true;
+
+
+                expl.explode(duracionFrag);
+            }
+        }
+       
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
+        {
+            if (ambosDashes)
+            {
+                if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0f || collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
+                {
+                    GetComponent<Collider2D>().isTrigger = true;
+                    expl.explode(duracionFrag);
+                }
+            }
+            else if (soloDashAbajo)
+            {
+                if (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
+                {
+                    GetComponent<Collider2D>().isTrigger = true;
+                    expl.explode(duracionFrag);
+                }
+
+            }
+            else if (soloDashNormal)
+            {
+                if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0f)
+                {
+                    GetComponent<Collider2D>().isTrigger = true;
+                    expl.explode(duracionFrag);
+                }
+            }
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (ambosDashes)
         {
             if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0f || collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
             {
@@ -39,12 +98,18 @@ public class DestructiblePorDash : MonoBehaviour
                 expl.explode(duracionFrag);
             }
         }
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
+        else if (soloDashAbajo)
         {
-            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0f || collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
+            if (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
+            {
+                GetComponent<Collider2D>().isTrigger = true;
+                expl.explode(duracionFrag);
+            }
+
+        }
+        else if (soloDashNormal)
+        {
+            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0f)
             {
                 GetComponent<Collider2D>().isTrigger = true;
                 expl.explode(duracionFrag);
