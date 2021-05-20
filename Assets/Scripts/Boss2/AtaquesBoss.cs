@@ -126,8 +126,9 @@ public class AtaquesBoss : MonoBehaviour
         
         if (vert1 != null || vert2 != null)
         {
-            vert1.transform.position = Vector3.MoveTowards(vert1.transform.position, posRayoVert2.position, speedRayosVert);
-            vert2.transform.position = Vector3.MoveTowards(vert2.transform.position, posRayoVert1.position, speedRayosVert);
+            print(Time.deltaTime);
+            vert1.transform.position = Vector3.MoveTowards(vert1.transform.position, posRayoVert2.position, speedRayosVert * Time.deltaTime);
+            vert2.transform.position = Vector3.MoveTowards(vert2.transform.position, posRayoVert1.position, speedRayosVert * Time.deltaTime);
             //if (vert1.transform.position == posRayoVert2.position)
             //{               
             //    eb.ataqueTerminado = true;
