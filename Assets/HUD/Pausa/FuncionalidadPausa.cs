@@ -111,7 +111,7 @@ public class FuncionalidadPausa : MonoBehaviour
             //if (cp.joystick != null && cp.joystick.Name != "NullInputDevice" && cp.joystick.Name != "Unknown Device") mandonow = true;
             
             joystick = InputManager.ActiveDevice;
-            print(mandoprev + " " + (joystick != null && joystick.Name != "NullInputDevice" && joystick.Name != "Unknown Device") + " " + joystick.Name);
+            //print(mandoprev + " " + (joystick != null && joystick.Name != "NullInputDevice" && joystick.Name != "Unknown Device") + " " + joystick.Name);
             if (gatito)
             {
                 if (mandoprev != (joystick != null && joystick.Name != "NullInputDevice" && joystick.Name != "Unknown Device")) //(mandoprev!=mandonow)
@@ -127,7 +127,6 @@ public class FuncionalidadPausa : MonoBehaviour
                             foreach (HUDController hud in GetComponentsInChildren<HUDController>())
                             {
                                 hud.isController = mandoprev;
-                                hud.DiselectAllItems();
                             }
 
                             Cursor.visible = true;
