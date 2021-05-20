@@ -14,9 +14,14 @@ public class VueltaLobby : MonoBehaviour
         cartel.enabled = false;
     }
 
-
+    bool fantasma = false;
     public void GuardarDatos()
     {
+
+        if (SceneManager.GetActiveScene().name == "Nivel_1" && !GameManager.Instance.NivelActual.completado)
+        { fantasma = true; }
+
+
         if (GameManager.Instance.NivelActual.actualColeccionablesCogidos.Count == 0)
         {
             if (SceneManager.GetActiveScene().name != "Nivel_4_Boss1" && SceneManager.GetActiveScene().name != "Nivel_12_BossFinal")
@@ -192,9 +197,8 @@ public class VueltaLobby : MonoBehaviour
                 GameManager.Instance.NivelActual.pasadoSinMorir = true;
                 ManagerLogros.Instance.AddStat("NivelesSinMuerte");
             }
-
-
         }
+
         if (SceneManager.GetActiveScene().name == "Nivel_1")
         {
             ManagerLogros.Instance.DesbloquearLogro(0);
@@ -204,8 +208,10 @@ public class VueltaLobby : MonoBehaviour
         {
             ManagerLogros.Instance.DesbloquearLogro(2);
         }
-      
-        FindObjectOfType<PantallaFinal>().ActivarPantalla();
+
+        if (!fantasma)
+        { FindObjectOfType<PantallaFinal>().ActivarPantalla(); }
+        else FindObjectOfType<PantallaFinal>().ActivarFeedbackFantasma();
 
     }
 

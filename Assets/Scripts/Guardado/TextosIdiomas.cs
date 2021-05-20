@@ -9,6 +9,8 @@ public class Idiomas
     public static string[] opciones = { "OPCIONES", "SETTINGS"};
     public static string[] salir = { "SALIR", "EXIT" };
     public static string[] volver = { "VOLVER", "BACK" };
+    public static string[] creditos = { "CREDITOS", "CREDITS" };
+
 
     public static string[] controles = { "VER CONTROLES", "VI EW CONTROLS" };
     public static string[] mando = { "MANDO", "CONTROLLER" };

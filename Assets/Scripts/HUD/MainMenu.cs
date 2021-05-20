@@ -21,7 +21,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] TextMeshProUGUI jugarT;
     [SerializeField] TextMeshProUGUI cargarT;
     [SerializeField] TextMeshProUGUI opcionesT1;
-    
+    [SerializeField] TextMeshProUGUI creditosT;
+
     [SerializeField] TextMeshProUGUI salirT;
     [SerializeField] TextMeshProUGUI volverT1;
     
@@ -83,6 +84,11 @@ public class MainMenu : MonoBehaviour
     {
         opciones.SetActive(op);
         botonesPrincipales.SetActive(!op);
+    }
+
+    public void OnCredits()
+    {
+        SceneManager.LoadScene("Creditos");
     }
 
     //Cambiar que cosas abre o cierra
@@ -243,6 +249,7 @@ public class MainMenu : MonoBehaviour
         opcionesT1.text = Idiomas.opciones[i];
         opcionesT2.text = Idiomas.opciones[i];
         salirT.text = Idiomas.salir[i];
+        creditosT.text = Idiomas.creditos[i];
         //volverT1.text = Idiomas.volver[i];
         volverT2.text = Idiomas.volver[i];
         volverT3.text = Idiomas.volver[i];
