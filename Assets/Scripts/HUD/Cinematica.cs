@@ -50,7 +50,6 @@ public class Cinematica : MonoBehaviour
         }
 
         timeDelay = (float)videoPlayer.clip.length;
-        print(timeDelay + "  " + videoPlayer.clip.length);
         videoPlayer.enabled = true;
         StartCoroutine(GoToScene());        
     }
@@ -62,6 +61,7 @@ public class Cinematica : MonoBehaviour
         //SceneManager.LoadSceneAsync(GameManager.Instance.cinematicaScene, LoadSceneMode.Single);
         if (scene=="PantallaInicio")
         {
+            scene = "Creditos";
             SistemaGuardado.Guardar();
             Destroy(GameManager.Instance);
         }

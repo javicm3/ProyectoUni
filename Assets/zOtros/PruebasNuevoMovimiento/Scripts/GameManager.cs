@@ -242,7 +242,7 @@ public class GameManager : MonoBehaviour
             Cursor.visible = false;
             personajevivo = true;
             print(totalColeccionables.Count+"totalcolecc");
-            GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>().text = totalColeccionables.Count.ToString() + "  /  " + maxColeccionablesTotal;
+            GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>().text = totalColeccionables.Count.ToString();
 
             if (animDesbloquear)
             {

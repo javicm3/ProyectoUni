@@ -7,6 +7,7 @@ using UnityEditor;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Explodable : MonoBehaviour
 {
+   
     public System.Action<List<GameObject>> OnFragmentsGenerated;
     
     public bool allowRuntimeFragmentation = false;

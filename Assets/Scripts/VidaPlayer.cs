@@ -32,7 +32,7 @@ public class VidaPlayer : MonoBehaviour
     Movimiento mov;
     public bool reiniciando;
     public CinemachineTargetGroup targetGroup;
-    bool puedoReiniciar = false;
+    public bool puedoReiniciar = false;
     //public AudioClip dañoPlayer;
     //public AudioClip muertePlayer;
     //public AudioSource source;
@@ -202,7 +202,7 @@ public class VidaPlayer : MonoBehaviour
 
             foreach (string go in GameManager.Instance.NivelActual.actualColeccionablesCogidos)
             {
-                GameObject.Find(go).GetComponent<Moneda>().Activar();
+              if (GameObject.Find(go).GetComponent<Moneda>()!=null)  GameObject.Find(go).GetComponent<Moneda>().Activar();
             }
             GameManager.Instance.NivelActual.actualColeccionablesCogidos.Clear();
             GameManager.Instance.textoColecc.text = GameManager.Instance.NivelActual.coleccionablesCogidos.Count.ToString() + "  /  " + GameManager.Instance.NivelActual.maxColeccionables;
@@ -344,6 +344,8 @@ public class VidaPlayer : MonoBehaviour
         {
             if (auxcdTrasdaño > 0) auxcdTrasdaño -= Time.deltaTime;
         }
+      
+     
         if ((reiniciando) && (puedoReiniciar))
         {
 
