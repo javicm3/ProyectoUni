@@ -33,6 +33,7 @@ public class EnemigoAbsorb : EnemigoPadre
     [SerializeField] float cooldownAbsorber = 5;
     float cooldownRestante;
 
+    public LayerMask layerMask;
 
     void Awake()
     {
@@ -46,6 +47,10 @@ public class EnemigoAbsorb : EnemigoPadre
         estado = States.Idle;
     }
 
+    private void Start()
+    {
+        playerEnergy = FindObjectOfType<ManagerEnergia>();
+    }
 
     protected override void Update()
     {
@@ -87,6 +92,8 @@ public class EnemigoAbsorb : EnemigoPadre
 
         }
     }
+
+
 
     void ActiveAnim(string boolName)
     {
@@ -175,9 +182,20 @@ public class EnemigoAbsorb : EnemigoPadre
         }
     }
 
+    bool ComprobarParedes()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, playerEnergy.transform.position - transform.position, 1000, layerMask);
+        if (hit && hit.transform.tag=="Player")
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public void TriggerEnter2D(Collider2D collision)
     {
-        if (estado == States.Idle && collision.tag == "Player")
+        if (estado == States.Idle && collision.tag == "Player" && ComprobarParedes())
         {
             if (playerEnergy == null)
             { playerEnergy = collision.transform.GetComponent<ManagerEnergia>(); }
@@ -197,12 +215,19 @@ public class EnemigoAbsorb : EnemigoPadre
 
     public void TriggerStay2D(Collider2D collision)
     {
-        if (estado == States.Idle && collision.tag == "Player" && playerEnergy.actualEnergy > energiaRobar)
+        if (estado == States.Idle && collision.tag == "Player" && playerEnergy.actualEnergy > energiaRobar && ComprobarParedes())
         {
             estado = States.Absorber; ActiveAnim("Cargando");
             lineRend.enabled = true;
             lineRend.SetPosition(1, playerEnergy.transform.position);
         }
+        else if(estado == States.Absorber && !ComprobarParedes())
+        {
+            estado = States.Idle; ActiveAnim("None");
+            lineRend.enabled = false;
+            actTiempoAbsorcion = 0;
+        }
+        
     }
 
     public void TriggerExit2D(Collider2D collision)

@@ -64,6 +64,9 @@ public class FuncionalidadPausa : MonoBehaviour
         ActualizarIdiomas();
         musicSlider.value = GameManager.Instance.MusicVolume;
         sfxSlider.value = GameManager.Instance.SfxVolume;
+
+        joystick = InputManager.ActiveDevice;
+        mandoprev = joystick != null && joystick.Name != "NullInputDevice";
         StartCoroutine(FindJoystick());
     }
 
@@ -74,13 +77,18 @@ public class FuncionalidadPausa : MonoBehaviour
         yield return new WaitForEndOfFrame();
         cp = FindObjectOfType<ControllerPersonaje>();
         pInput = FindObjectOfType<PlayerInput>();
+
+        //if (cp.joystick != null && cp.joystick.Name != "NullInputDevice") mandoprev = true;
     }
 
+    bool gatito = false;
+    bool mandoprev = false;
+    InputDevice joystick;
     void Update()
     {
         if (SceneManager.GetActiveScene().name != "Cinematica")
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || (cp!=null &&cp.joystick != null && cp.joystick.Name != "NullInputDevice" && cp.joystick.MenuWasPressed))
+            if (Input.GetKeyDown(KeyCode.Escape) || (cp!=null &&cp.joystick != null && cp.joystick.Name != "NullInputDevice" && cp.joystick.Name != "Unknown Device" && cp.joystick.MenuWasPressed))
             {
                 if (Time.timeScale == 1)
                 {
@@ -98,6 +106,41 @@ public class FuncionalidadPausa : MonoBehaviour
                     cp.saltoBloqueado = false;
                 }
             }
+
+
+            //if (cp.joystick != null && cp.joystick.Name != "NullInputDevice" && cp.joystick.Name != "Unknown Device") mandonow = true;
+            
+            joystick = InputManager.ActiveDevice;
+            print(mandoprev + " " + (joystick != null && joystick.Name != "NullInputDevice" && joystick.Name != "Unknown Device") + " " + joystick.Name);
+            if (gatito)
+            {
+                if (mandoprev != (joystick != null && joystick.Name != "NullInputDevice" && joystick.Name != "Unknown Device")) //(mandoprev!=mandonow)
+                {
+                    mandoprev = !mandoprev;
+                    if (Time.timeScale == 1)
+                    {
+                        FindObjectOfType<NewAudioManager>().Play("Pausa");
+
+                        OnPause(true);
+                        if (!mandoprev)
+                        {
+                            foreach (HUDController hud in GetComponentsInChildren<HUDController>())
+                            {
+                                hud.isController = mandoprev;
+                                hud.DiselectAllItems();
+                            }
+
+                            Cursor.visible = true;
+                        }
+
+                        pInput.enabled = false;
+                        cp.saltoBloqueado = true;
+                    }
+
+                }
+            }
+            else { gatito = true; mandoprev = (joystick != null && joystick.Name != "NullInputDevice" && joystick.Name != "Unknown Device"); } //siento esta basura pero al inicio no me lo seteaba bien asique aqui
+            
         }
     }
 
@@ -114,6 +157,7 @@ public class FuncionalidadPausa : MonoBehaviour
             {
                 hud.DiselectAllItems();
             }
+            
         }
         menuPausa.SetActive(menu);
         fondo.enabled = menu;

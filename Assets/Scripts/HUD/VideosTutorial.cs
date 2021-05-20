@@ -13,6 +13,7 @@ public class VideosTutorial : MonoBehaviour
     [SerializeField] TextMeshProUGUI izquierda;
     [SerializeField] TextMeshProUGUI cerrar;
     [SerializeField] TextMeshProUGUI textoHab;
+    [SerializeField] TextMeshProUGUI textoCom;
 
     [Header("Clips de Video")]
     [SerializeField] VideoClip[] clipsDash;
@@ -39,11 +40,13 @@ public class VideosTutorial : MonoBehaviour
         {
             case DesbloquearHabilidades.habilidad.dash:
                 clipsActual = clipsDash;
-                textoHab.text = Idiomas.skill[l] + "dash" + dashCont[j];
+                textoHab.text = Idiomas.skill[l] + "dash";
+                textoCom.text= dashCont[j];
                 break;
             case DesbloquearHabilidades.habilidad.chispazo:
                 clipsActual = clipsChispazo;
-                textoHab.text = Idiomas.skill[l] + Idiomas.spark[l]+chispCont[j];
+                textoHab.text = Idiomas.skill[l] + Idiomas.spark[l];
+                textoCom.text = chispCont[j];
                 break;
             case DesbloquearHabilidades.habilidad.movimientoCable:
                 clipsActual = clipsMovCables;
