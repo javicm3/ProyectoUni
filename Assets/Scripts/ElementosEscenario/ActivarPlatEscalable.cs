@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class ActivarPlatEscalable : MonoBehaviour
 {
@@ -8,12 +9,14 @@ public class ActivarPlatEscalable : MonoBehaviour
     public float tiempoEntreActivaciones = 3f;
     public float tiempoDesactivado = 1f;
     public bool activado = true;
-    public GameObject[] objetos;
+    public SpriteShapeController spriteShapeController;
+    public GameObject particulas;
     float auxtiempo;
     // Start is called before the first frame update
     void Start()
     {
         auxtiempo = tiempoEntreActivaciones;
+        spriteShapeController = this.GetComponent<SpriteShapeController>();
     }
 
     // Update is called once per frame
@@ -25,10 +28,9 @@ public class ActivarPlatEscalable : MonoBehaviour
             {
                 this.gameObject.transform.parent.tag = "Pared";
                 this.gameObject.transform.tag = "Pared";
-                foreach (GameObject go in objetos)
-                {
-                    go.SetActive(true);
-                }
+                this.GetComponent<BoxCollider2D>().enabled = true;
+                spriteShapeController.enabled = true;
+                particulas.SetActive(true);
                 auxtiempo -= Time.deltaTime;
                 if (auxtiempo <= 0)
                 {
@@ -43,12 +45,11 @@ public class ActivarPlatEscalable : MonoBehaviour
                 //    FindObjectOfType<ControllerPersonaje>().pegadoPared = false;
                 //    FindObjectOfType<ControllerPersonaje>().gameObject.transform.parent = null;
                 //}
-              this.gameObject.transform.parent.tag = "NoClimb";
+                this.gameObject.transform.parent.tag = "NoClimb";
                 this.gameObject.tag = "NoClimb";
-                foreach (GameObject go in objetos)
-                {
-                    go.SetActive(false);
-                }
+                spriteShapeController.enabled = false;
+                this.GetComponent<BoxCollider2D>().enabled = false;
+                particulas.SetActive(false);
                 auxtiempo -= Time.deltaTime;
                 if (auxtiempo <= 0)
                 {
