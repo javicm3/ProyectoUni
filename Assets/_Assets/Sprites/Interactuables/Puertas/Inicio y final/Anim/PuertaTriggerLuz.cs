@@ -5,14 +5,22 @@ using UnityEngine;
 public class PuertaTriggerLuz : MonoBehaviour
 {
     Animator animCC;
+    [SerializeField] bool inicio;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         animCC = GetComponent<Animator>();
         animCC.SetBool("Player", false);
 
+        if (!inicio)
+        {
+            animCC.SetBool("Intro", false);
+
+        }
+        else
+        {
+            animCC.SetBool("Intro", true);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
