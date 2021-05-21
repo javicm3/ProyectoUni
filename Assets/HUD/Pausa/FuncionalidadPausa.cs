@@ -172,7 +172,7 @@ public class FuncionalidadPausa : MonoBehaviour
     {
         if (scene == "PantallaInicio")
         {
-            Destroy(GameManager.Instance);
+            Destroy(GameManager.Instance.gameObject);
         }
         else
         {
