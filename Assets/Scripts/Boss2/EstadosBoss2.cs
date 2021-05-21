@@ -28,7 +28,7 @@ public class EstadosBoss2 : MonoBehaviour
     public GameObject[] chapasFinales;
     public GameObject cabeza;
     public GameObject[] tentaculosCaer;
-    
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +43,7 @@ public class EstadosBoss2 : MonoBehaviour
         }
         cabeza.GetComponent<Collider2D>().enabled = false;
         cabeza.GetComponent<Rigidbody2D>().isKinematic = true;
+        player = FindObjectOfType<ControllerPersonaje>().gameObject;
     }
 
     // Update is called once per frame
@@ -146,6 +147,8 @@ public class EstadosBoss2 : MonoBehaviour
             }
             else if((brazosCortados == 6 || brazosCortados >= 6) && brazosCortados < 10)
             {
+                player.GetComponent<ManagerEnergia>().actualEnergy = 10000;
+                player.GetComponent<ManagerEnergia>().maxEnergy = 10000;
                 ab.drones.SetActive(false);
                 ab.dronesFinal.SetActive(true);
                 bossStuneado = true;
