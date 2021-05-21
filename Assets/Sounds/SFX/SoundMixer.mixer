@@ -254,6 +254,7 @@ AudioMixerSnapshotController:
     d9388804f78d1e74388700790a3fc7ed: -18.000002
     bfa01ea5751b7ef44bc21d44c8dcb93b: -5.0613766
     cab382b534f5f2340989d728731a29d0: -80
+    d3af3de74e8f6cf47bc269f9752a7275: 211
     6b6e6318e8c87954cbd703da7e200e6a: -5.3894587
     b3c3039a9aa06984ea0b5131e97cea9e: -4.7145014
     dc9ceafa9b85bd546be6e586aff524da: 9.925883
@@ -294,24 +295,6 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
---- !u!244 &3044566068060615288
-AudioMixerEffectController:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_EffectID: 3a4546861d074a9428f9b69ab4026557
-  m_EffectName: Highpass
-  m_MixLevel: c71e5763196fbfc49914adab44c8d766
-  m_Parameters:
-  - m_ParameterName: Cutoff freq
-    m_GUID: 8b7d23e4d276fd34e8e073e2c173892d
-  - m_ParameterName: Resonance
-    m_GUID: 249b334ee8b84ec4ca2f8cf563a95925
-  m_SendTarget: {fileID: 0}
-  m_EnableWetMix: 0
-  m_Bypass: 0
 --- !u!243 &4117722407597256158
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -406,6 +389,22 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &8533887346265047181
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: d228266d911561245ab3393f2544ef6b
+  m_EffectName: Lowpass Simple
+  m_MixLevel: 79fa192068b738a458d8f6e1207ef8b7
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: d3af3de74e8f6cf47bc269f9752a7275
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &8591745058264747639
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -459,7 +458,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 6846165303896300772}
-  - {fileID: 3044566068060615288}
+  - {fileID: 8533887346265047181}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
