@@ -90,30 +90,33 @@ public class DestructiblePorDash : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (ambosDashes)
+        if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0f || collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
+            if (ambosDashes)
             {
-                GetComponent<Collider2D>().isTrigger = true;
-                expl.explode(duracionFrag);
+                if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0f || collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
+                {
+                    GetComponent<Collider2D>().isTrigger = true;
+                    expl.explode(duracionFrag);
+                }
             }
-        }
-        else if (soloDashAbajo)
-        {
-            if (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
+            else if (soloDashAbajo)
             {
-                GetComponent<Collider2D>().isTrigger = true;
-                expl.explode(duracionFrag);
-            }
+                if (collision.gameObject.GetComponent<ControllerPersonaje>().dashEnCaida)
+                {
+                    GetComponent<Collider2D>().isTrigger = true;
+                    expl.explode(duracionFrag);
+                }
 
-        }
-        else if (soloDashNormal)
-        {
-            if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0f)
+            }
+            else if (soloDashNormal)
             {
-                GetComponent<Collider2D>().isTrigger = true;
-                expl.explode(duracionFrag);
+                if (collision.gameObject.GetComponent<ControllerPersonaje>().auxCdDashAtravesar > 0.0f)
+                {
+                    GetComponent<Collider2D>().isTrigger = true;
+                    expl.explode(duracionFrag);
+                }
             }
         }
-    }
+    }       
 }

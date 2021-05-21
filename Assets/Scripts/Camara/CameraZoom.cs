@@ -436,7 +436,7 @@ public class CameraZoom : MonoBehaviour
                 }
             }
         }
-        if (GameManager.Instance.GetComponent<MenuPausa>() != null)
+        if (GameManager.Instance!=null&&GameManager.Instance.GetComponent<MenuPausa>() != null)
         {
             if (GameManager.Instance != null && GameManager.Instance.GetComponent<MenuPausa>().paused)
             {

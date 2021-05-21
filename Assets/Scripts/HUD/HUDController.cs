@@ -57,7 +57,7 @@ public class HUDController : MonoBehaviour
                 {
                     if (Input.GetAxis("Vertical") > 0.05f && index - 1 >= 0)
                     { index--; }
-                    else if (Input.GetAxis("Vertical") < -0.05f && index + 1 < item.Length) { index++; }
+                    else if (Input.GetAxis("Vertical") < -0.05f && index + 1 < item.Length) { index++; print("nav" +index); }
 
                     SelectItem();
                 }
@@ -70,6 +70,7 @@ public class HUDController : MonoBehaviour
                 {
                     index++;
                     SelectItem();
+                    
                 }
 
 
@@ -110,6 +111,8 @@ public class HUDController : MonoBehaviour
 
             if (joystick.Action1.WasPressed)
             {
+                print(index);
+                print(selected.name);
                 selected.Use();
             }
 

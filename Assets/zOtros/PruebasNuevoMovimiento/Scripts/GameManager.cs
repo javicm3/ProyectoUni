@@ -313,8 +313,9 @@ public class GameManager : MonoBehaviour
             if (PlayerPrefs.HasKey("music")) { MusicVolume = PlayerPrefs.GetFloat("music"); }
 
             CargarVolumenGuardado();
+            DontDestroyOnLoad(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+      
 
 
     }
