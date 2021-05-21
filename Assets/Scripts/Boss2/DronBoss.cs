@@ -23,6 +23,7 @@ public class DronBoss : EnemigoPadre
     public float tiempoStop;
     [SerializeField]
     bool go;
+    public bool puedelaser = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,20 +56,24 @@ public class DronBoss : EnemigoPadre
             
         }
         //transform.LookAt(pareja.transform);
-        tmp += Time.deltaTime;
-        if(tmp >= 1)
+        if(puedelaser == true)
         {
-            int activar = Random.Range(0, rangoProbabilidadLaser);
-            print(activar);
-            if(activar == 0)
+            tmp += Time.deltaTime;
+            if (tmp >= 1)
             {
-                print("dale");
-                StartCoroutine(LaserDron());
+                int activar = Random.Range(0, rangoProbabilidadLaser);
+                print(activar);
+                if (activar == 0)
+                {
+                    print("dale");
+                    StartCoroutine(LaserDron());
+                }
+                tmp = 0;
             }
-            tmp = 0;
+            lr.SetPosition(0, this.transform.position);
+            lr.SetPosition(1, pareja.transform.position);
         }
-        lr.SetPosition(0, this.transform.position);
-        lr.SetPosition(1, pareja.transform.position);
+        
 
     }
     private void FixedUpdate()
