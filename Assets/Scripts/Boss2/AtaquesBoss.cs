@@ -172,7 +172,8 @@ public class AtaquesBoss : MonoBehaviour
         StartCoroutine(LaserHorizontal(elegido));
     }
     public IEnumerator LaserHorizontal(int i)
-    {      
+    {
+        NewAudioManager.Instance.Stop("LaserBossFinal");
         animator.SetBool("atacando", false);
         animator.SetBool("stun", false);
 
@@ -187,7 +188,8 @@ public class AtaquesBoss : MonoBehaviour
         NewAudioManager.Instance.Play("LaserHorizontalBoss");
         yield return new WaitForSeconds(duracionRayoHorizontal);
         Destroy(horizontal1);
-
+        NewAudioManager.Instance.Stop("LaserHorizontalBoss");
+        NewAudioManager.Instance.Stop("AvisoLaserHorizontal");
         eb.ataqueTerminado = true;
         print("ffff");
         eb.acumulacion++;
@@ -195,6 +197,7 @@ public class AtaquesBoss : MonoBehaviour
     }
     public IEnumerator DisparosBoss()
     {
+        NewAudioManager.Instance.Stop("LaserBossFinal");
         if (numDisparosAux < numeroDisparos)
         {
             GameObject disparo1;
@@ -332,6 +335,7 @@ public class AtaquesBoss : MonoBehaviour
     }
     IEnumerator ParadaBoss()
     {
+        NewAudioManager.Instance.Stop("LaserBossFinal");
         animator.SetBool("stun", true);
         animator.SetBool("atacando", false);
 

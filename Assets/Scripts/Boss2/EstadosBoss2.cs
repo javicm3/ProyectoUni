@@ -104,11 +104,14 @@ public class EstadosBoss2 : MonoBehaviour
                     }
                     else if (ataque == 1 && acumulacion < ataquesFase2)
                     {
+                        NewAudioManager.Instance.Stop("LaserBossFinal");
+                        
                         ataqueTerminado = false;
                         ab.SeleccionarLaserHorizontal();
                     }
                     if (acumulacion >= ataquesFase2)
                     {
+                        NewAudioManager.Instance.Stop("LaserBossFinal");
                         ataqueTerminado = false;
                         StartCoroutine(ab.DisparosBoss());
                     }
