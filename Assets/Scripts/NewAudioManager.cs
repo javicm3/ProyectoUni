@@ -58,7 +58,7 @@ public class NewAudioManager : MonoBehaviour
             Debug.LogWarning("Sound: " + name + " tiene COVID!");
             return;
         }
-        s.source.Play();
+       if(s.source!=null) s.source.Play();
     }
     public void Stop (string name)
     {
@@ -68,7 +68,7 @@ public class NewAudioManager : MonoBehaviour
             Debug.LogWarning("Sound: " + name + " tiene COVID!");
             return;
         }
-        s.source.Stop();
+        if (s.source != null) s.source.Stop();
     }
     public void Change (string name)
     {

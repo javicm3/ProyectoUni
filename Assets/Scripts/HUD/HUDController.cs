@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using InControl;
-
+using UnityEngine.EventSystems;
 public class HUDController : MonoBehaviour
 {
     InputDevice joystick;
@@ -37,7 +37,7 @@ public class HUDController : MonoBehaviour
 
     void Update()
     {
-        if (isController)
+        if (isController&&joystick != null )
         {
             /*if (Input.GetKeyDown(KeyCode.DownArrow) && index + 1 < item.Length)
             {
@@ -151,6 +151,7 @@ public class HUDController : MonoBehaviour
             joystick = InputManager.ActiveDevice;
             if (joystick != null && joystick.Name != "NullInputDevice" && joystick.Name != "Unknown Device")
             {
+               
                 isController = true;
                 selected = item[index];
                 selected.Select();
