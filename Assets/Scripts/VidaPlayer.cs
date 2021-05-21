@@ -202,7 +202,7 @@ public class VidaPlayer : MonoBehaviour
 
             foreach (string go in GameManager.Instance.NivelActual.actualColeccionablesCogidos)
             {
-              if (GameObject.Find(go).GetComponent<Moneda>()!=null)  GameObject.Find(go).GetComponent<Moneda>().Activar();
+              if (GameObject.Find(go)!=null&&GameObject.Find(go).GetComponent<Moneda>()!=null)  GameObject.Find(go).GetComponent<Moneda>().Activar();
             }
             GameManager.Instance.NivelActual.actualColeccionablesCogidos.Clear();
             GameManager.Instance.textoColecc.text = GameManager.Instance.NivelActual.coleccionablesCogidos.Count.ToString() + "  /  " + GameManager.Instance.NivelActual.maxColeccionables;

@@ -445,7 +445,9 @@ public class cableadoviaje : MonoBehaviour
 
             }
 
-            if (!node.entrada && !node.salida) { controllerPersonaje.rb.velocity = Vector2.zero;this.gameObject.transform.position = node.transform.position; }
+            if (/*!node.entrada &&*/ !node.salida) { controllerPersonaje.rb.velocity = Vector2.zero; this.gameObject.transform.position = node.transform.position; }
+            //if (node.entrada) this.gameObject.transform.position = node.transform.position;
+
             if (node.salida)
             {
                 if (GetComponent<ControllerPersonaje>().saltoDobleHecho == true) GetComponent<ControllerPersonaje>().saltoDobleHecho = false;
@@ -647,7 +649,7 @@ public class cableadoviaje : MonoBehaviour
 
             Nodo node = collision.gameObject.GetComponent<Nodo>();
             if (!node.entrada && !node.salida) { controllerPersonaje.rb.velocity = Vector2.zero; this.gameObject.transform.position = node.transform.position; }
-
+         
 
             nodoActual = collision.gameObject;
             if (node.salida == true)
