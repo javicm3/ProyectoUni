@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using InControl;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class HUDController : MonoBehaviour
 {
@@ -15,12 +16,14 @@ public class HUDController : MonoBehaviour
     public Material select;
 
     [SerializeField] bool horizontal;
-
+    GraphicRaycaster raycaster;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(WaitCheckController());
+        raycaster = GetComponentInParent<GraphicRaycaster>();
     }
 
     private void OnEnable()
@@ -156,6 +159,7 @@ public class HUDController : MonoBehaviour
                 selected = item[index];
                 selected.Select();
                 Cursor.visible = false;
+                raycaster.enabled = false;
             }            
         }
         else
@@ -166,6 +170,7 @@ public class HUDController : MonoBehaviour
                 isController = false;
                 selected.Diselect();
                 Cursor.visible = true;
+                raycaster.enabled = true;
             }            
         }
 
