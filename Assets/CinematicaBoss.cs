@@ -18,7 +18,7 @@ public class CinematicaBoss : MonoBehaviour
     public GameObject particulasNiebla;
     public SpriteRenderer[] partesBoss;
     public Texture2D[] mensajes;
-    public bool primeravez;
+    public static bool primeravez;
     public Transform puntoNiebla;
     public GameObject lucesFondo;
     bool luces =  false;
@@ -29,7 +29,7 @@ public class CinematicaBoss : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(primeravez == true)
+        if(GameManager.Instance.cinematicaVistaBossFinal == false)
         {
             for (int i = 0; i < laseres1.Length; i++)
             {
@@ -37,21 +37,22 @@ public class CinematicaBoss : MonoBehaviour
             }
             for (int i = 0; i < laseres2.Length; i++)
             {
-                laseres1[i].SetActive(false);
+                laseres2[i].SetActive(false);
             }
             for (int i = 0; i < laseres3.Length; i++)
             {
-                laseres1[i].SetActive(false);
+                laseres3[i].SetActive(false);
             }
+            for (int i = 0; i < partesBoss.Length; i++)
+            {
+                //float newAlpha = Mathf.Lerp(0, partesBoss[i].material.color.a, Time.deltaTime * t);
+                //partesBoss[i].material.color = new Color(partesBoss[i].material.color.r, partesBoss[i].material.color.g, partesBoss[i].material.color.b, 0);
+                partesBoss[i].enabled = false;
+            }
+            holograma.SetActive(false);
         }
         camara1.SetActive(false);
-        for (int i = 0; i < partesBoss.Length; i++)
-        {
-            //float newAlpha = Mathf.Lerp(0, partesBoss[i].material.color.a, Time.deltaTime * t);
-            //partesBoss[i].material.color = new Color(partesBoss[i].material.color.r, partesBoss[i].material.color.g, partesBoss[i].material.color.b, 0);
-            partesBoss[i].enabled = false;
-        }
-        holograma.SetActive(false);
+        
         t = 5;
         
     }
