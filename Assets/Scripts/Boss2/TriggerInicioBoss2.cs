@@ -25,21 +25,32 @@ public class TriggerInicioBoss2 : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            StartCoroutine(InicioBoss());
             GetComponent<BoxCollider2D>().enabled = false;
+
+            if (GameManager.Instance.cinematicaVistaBossFinal == false)
+            {
+                StartCoroutine(InicioBoss());
+            }
+            else {
+                StartCoroutine(InicioSinCinematica());
+            }
+           
+           
         }
     }
     IEnumerator InicioBoss()
     {
-        if(cb.primeravez == true)
-        {
-            StartCoroutine(cb.Encendiendo());
-        }
-        yield return new WaitForSeconds(tiempoInicio/2);
+        StartCoroutine(cb.Encendiendo());
+        yield return new WaitForSeconds(tiempoInicio);
+        boss.GetComponent<EstadosBoss2>().bossActivo = true;
+        GameManager.Instance.cinematicaVistaBossFinal = true;
         //triggerNormal.SetActive(true);
         //triggerInicioCamara.SetActive(false);
-        yield return new WaitForSeconds(tiempoInicio/2);
+
+    }
+    IEnumerator InicioSinCinematica() {
+
+        yield return new WaitForSeconds(tiempoInicio / 4);
         boss.GetComponent<EstadosBoss2>().bossActivo = true;
-        
     }
 }

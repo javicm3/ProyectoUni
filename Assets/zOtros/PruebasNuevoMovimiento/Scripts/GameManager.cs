@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         cinematicaScene = scene;
         SceneManager.LoadScene("Cinematica");
     }
-
+    public bool cinematicaVistaBossFinal = false;
     //  V O L U M E N   S O N I D O 
     public AudioMixer audioMixer;
     public bool haciendoAnim;
@@ -239,6 +239,7 @@ public class GameManager : MonoBehaviour
         }
         else if(scene.name=="Lobby") 
         {
+            cinematicaVistaBossFinal = false;
             Cursor.visible = false;
             personajevivo = true;
             print(totalColeccionables.Count+"totalcolecc");
