@@ -17,6 +17,23 @@ public class ActivarPlatEscalable : MonoBehaviour
     {
         auxtiempo = tiempoEntreActivaciones;
         spriteShapeController = this.GetComponent<SpriteShapeController>();
+        if (marcarParaQueFuncione)
+        {
+            if (activado)
+            {
+                this.gameObject.transform.parent.tag = "Pared";
+                this.gameObject.transform.tag = "Pared";
+                this.GetComponent<BoxCollider2D>().enabled = true;
+                spriteShapeController.enabled = true;
+                particulas.SetActive(true);
+              
+            }
+          
+        }
+        else
+        {
+
+        }
     }
 
     // Update is called once per frame
@@ -57,6 +74,10 @@ public class ActivarPlatEscalable : MonoBehaviour
                     activado = true;
                 }
             }
+        }
+        else
+        {
+
         }
 
     }

@@ -488,9 +488,7 @@ public class ControllerPersonaje : MonoBehaviour
             SaltoNormal();
         }
 
-        if (deteccionParedes) if (deteccionParedes2) if (ultimaNormal.y > -0.9f) DetectarPared();
-        /*    if (pegadoPared == false)*/
-        if (!movParedBloq) ComprobarParedes();
+     
 
 
         if (dashUnlock)
@@ -557,6 +555,9 @@ public class ControllerPersonaje : MonoBehaviour
             MoverPersonaje();
         }
         GirarPersonaje();
+        if (deteccionParedes) if (deteccionParedes2) if (ultimaNormal.y > -0.9f) DetectarPared();
+        /*    if (pegadoPared == false)*/
+        if (!movParedBloq) ComprobarParedes();
         if (movParedesUnlook) if (movParedBloq == false) MovimientoPared();
 
 
@@ -760,7 +761,7 @@ public class ControllerPersonaje : MonoBehaviour
                                                 enemigoSeleccionado = col.gameObject;
                                                 ultimoEnemigoDetectado = enemigoSeleccionado;
                                                 //ultimoEnemigoDetectado.GetComponentInChildren<SpriteRenderer>().material.SetFloat("Grosor", Mathf.Lerp(0, 0.99f, 1));
-                                                print("LOG3enemigoselec" + enemigoSeleccionado);
+
                                                 mejorDistancia = Vector2.Distance(col.gameObject.transform.position, this.transform.position);
                                             }
 
@@ -1072,7 +1073,7 @@ public class ControllerPersonaje : MonoBehaviour
         else if (enemigosPasados.Count >= 0 && pulsadoChispazo == false && haciendoCombate == false && grounded == false)
         {
 
-            if (hechoConseguidoPuntoHabChispazo == false) { hechoConseguidoPuntoHabChispazo = true; print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1; }
+            if (hechoConseguidoPuntoHabChispazo == false) { hechoConseguidoPuntoHabChispazo = true;  habilidadesSinTocarSuelo += 1; }
         }
     }
 
@@ -1519,7 +1520,7 @@ public class ControllerPersonaje : MonoBehaviour
 
             if (derecha.collider.tag == "Pared")
             {
-                print("wewewewe");
+              
                 rb.AddForce(new Vector2(1, 0) * 30 * Time.deltaTime);
                 tocandoderecha = true;
                 if ((!grounded) && (!looping)) pegadoPared = true;
@@ -1530,6 +1531,7 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 if (derecha.collider.tag != "Enemigo" && derecha.collider.tag != "Loop" && derecha.collider.tag != "NoClimb")
                 {
+                    print(derecha.collider.gameObject.name);
                     tocandoderecha = true;
                 }
                 else
@@ -1699,7 +1701,7 @@ public class ControllerPersonaje : MonoBehaviour
                 }
                 else
                 {
-                    if (joystick != null) { print("NO PULSO"); }
+                   
 
                     if (tocandoizquierda)
                     {
@@ -1846,7 +1848,7 @@ public class ControllerPersonaje : MonoBehaviour
                 maxTiempoPared = auxpared;
                 tieneGravedad = true;
                 saltoDobleHecho = false;
-
+                movimientoBloqueado = false;
                 saltoDobleHechoParaDashCaida = false;
             }
             if (deteccionParedes2 == false)
