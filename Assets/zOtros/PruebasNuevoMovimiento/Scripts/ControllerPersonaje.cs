@@ -284,6 +284,7 @@ public class ControllerPersonaje : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      
         if (looping)
         {
             tiempoLoopAntesConsiderarLoop += Time.deltaTime;
@@ -308,7 +309,7 @@ public class ControllerPersonaje : MonoBehaviour
                         if (inf.nombreNivel != GameManager.Instance.NivelActual.nombreNivel)
                         {
                             totalMax += inf.tiempoCorriendoTotal;
-                            print(totalMax + "totalmax" + inf.nombreNivel);
+                          
                         }
 
                     }
@@ -317,7 +318,7 @@ public class ControllerPersonaje : MonoBehaviour
                         ManagerLogros.Instance.DesbloquearLogro(31);
 
                     }
-                    print(totalMax + "totalmax");
+                  
                 }
                 tiempoMaxSpeedLogro += Time.deltaTime;
 
@@ -448,6 +449,8 @@ public class ControllerPersonaje : MonoBehaviour
         {
             auxCdDashAtravesar -= Time.deltaTime;
         }
+        if (deteccionParedes) if (deteccionParedes2) if (ultimaNormal.y > -0.9f) DetectarPared();
+        if (!movParedBloq) ComprobarParedes();
         if (auxtiempoTrasSaltoPared > 0)
         {
             movParedBloq = true;
@@ -465,28 +468,18 @@ public class ControllerPersonaje : MonoBehaviour
             movParedBloq = false;
             auxtiempoTrasSaltoPared = 0;
         }
-        if (auxTiempoTrasSalirCombate > 0)
-        {
-            if (auxTiempoTrasSalirCombate < tiempoTrasSalirCombate * 0.5f)
-            {
-                dashBloqueado = false;
-            }
-            auxTiempoTrasSalirCombate -= Time.deltaTime;
-            if (auxTiempoTrasSalirCombate <= 0)
-            {
-                AnularCombate();
-                auxTiempoTrasSalirCombate = 0;
-            }
-        }
+      
+
         if (grounded)
         {
             if (haciendoEnfoque == false) if (GetComponent<VidaPlayer>().reiniciando == false) dashBloqueado = false;
         }
-
-        if (!saltoBloqueado)
+     
+        /*    if (pegadoPared == false)*/ if (!saltoBloqueado)
         {
             SaltoNormal();
-        }
+        } 
+       
 
      
 
@@ -508,7 +501,20 @@ public class ControllerPersonaje : MonoBehaviour
                 DashEnCaida();
             }
         }
-
+        if (auxTiempoTrasSalirCombate > 0)
+        {
+            if (auxTiempoTrasSalirCombate < tiempoTrasSalirCombate * 0.5f)
+            {
+                dashBloqueado = false;
+            }
+            auxTiempoTrasSalirCombate -= Time.deltaTime;
+            if (auxTiempoTrasSalirCombate <= 0)
+            {
+                AnularCombate();
+                auxTiempoTrasSalirCombate = 0;
+            }
+        }
+        if (movParedesUnlook) if (movParedBloq == false) MovimientoPared();
         animCC.SetFloat("SpeedY", rb.velocity.y);
         animCC.SetBool("Grounded", grounded);
         animCC.SetFloat("SpeedX", Mathf.Abs(rb.velocity.x));
@@ -518,9 +524,10 @@ public class ControllerPersonaje : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (chispazoUnlook) if (!combateBloqueado) Combate();
+       
         DetectarSuelo();
-
+    if (chispazoUnlook) if (!combateBloqueado) Combate();
+        DetectarSuelo();
         if (grounded && tengoMaxspeed)
         {
             //if (this.GetComponent<AudioManager>().sonidoLoop.isPlaying == false) this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidoLoop, this.GetComponent<AudioManager>().velMaxima);
@@ -555,10 +562,7 @@ public class ControllerPersonaje : MonoBehaviour
             MoverPersonaje();
         }
         GirarPersonaje();
-        if (deteccionParedes) if (deteccionParedes2) if (ultimaNormal.y > -0.9f) DetectarPared();
-        /*    if (pegadoPared == false)*/
-        if (!movParedBloq) ComprobarParedes();
-        if (movParedesUnlook) if (movParedBloq == false) MovimientoPared();
+   
 
 
 
@@ -740,7 +744,6 @@ public class ControllerPersonaje : MonoBehaviour
 
                         if (col.GetComponent<EnemigoPadre>() != null && !enemigosPasados.Contains(col.gameObject))
                         {
-                            print("enempadre no null" + col.name);
                             if (!col.GetComponent<EnemigoPadre>().stun)
                             {
                                 if (Vector2.Distance(col.gameObject.transform.position, this.transform.position) < mejorDistancia)
@@ -750,7 +753,6 @@ public class ControllerPersonaje : MonoBehaviour
                                     Debug.DrawRay(this.transform.position, col.gameObject.transform.position - this.transform.position, Color.magenta);
                                     if (hit.collider != null)
                                     {
-                                        print(hit.collider.name + "ptrimerray");
                                         if (hit.collider.tag == "EnemigoDetectar" && Vector2.Distance(this.transform.position, col.gameObject.transform.position) < distanciaCombate)
                                         {
 
@@ -1070,11 +1072,19 @@ public class ControllerPersonaje : MonoBehaviour
 
             enemigosPasados.Clear();
         }
-        else if (enemigosPasados.Count >= 0 && pulsadoChispazo == false && haciendoCombate == false && grounded == false)
+        else if (enemigosPasados.Count >= 0 && grounded)
+        {
+            enemigosPasados.Clear();
+
+        }
+
+        if (enemigosPasados.Count >= 0 && pulsadoChispazo == false && haciendoCombate == false && grounded == false)
         {
 
             if (hechoConseguidoPuntoHabChispazo == false) { hechoConseguidoPuntoHabChispazo = true;  habilidadesSinTocarSuelo += 1; }
         }
+       
+
     }
 
     //public void DetectarEnemigos()
@@ -1531,7 +1541,6 @@ public class ControllerPersonaje : MonoBehaviour
             {
                 if (derecha.collider.tag != "Enemigo" && derecha.collider.tag != "Loop" && derecha.collider.tag != "NoClimb")
                 {
-                    print(derecha.collider.gameObject.name);
                     tocandoderecha = true;
                 }
                 else
@@ -1696,7 +1705,7 @@ public class ControllerPersonaje : MonoBehaviour
                     {
                         transform.Find("Cuerpo").localScale = new Vector2(1, 1);
                     }
-                    rb.velocity = new Vector2(0, pInput.inputVertical * speedpared * Time.deltaTime);
+                    rb.velocity = new Vector2(0, pInput.inputVertical * speedpared * Time.fixedDeltaTime);
                     animCC.SetFloat("MovimientoPared", Mathf.Abs(pInput.inputVertical));
                 }
                 else
@@ -1736,7 +1745,7 @@ public class ControllerPersonaje : MonoBehaviour
                             //transform.Find("Cuerpo").localScale = new Vector2(1, 1);
                             rb.velocity = Vector2.zero;
                             rb.AddForce(fuerzaSaltoPared * new Vector2(0.6f, 0.6f));
-                            print(habilidadesSinTocarSuelo + "hab1");
+                          
                             habilidadesSinTocarSuelo += 1;
                             maxTiempoPared = auxpared; maxYAntesMorir = -999999;
 
@@ -1748,7 +1757,7 @@ public class ControllerPersonaje : MonoBehaviour
                             pInput.personajeInvertido = true;
                             //transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
                             rb.velocity = Vector2.zero;
-                            rb.AddForce(fuerzaSaltoPared * new Vector2(-0.6f, 0.6f)); print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1;
+                            rb.AddForce(fuerzaSaltoPared * new Vector2(-0.6f, 0.6f)); habilidadesSinTocarSuelo += 1;
                             maxTiempoPared = auxpared; maxYAntesMorir = -999999;
 
                         }
@@ -1764,7 +1773,16 @@ public class ControllerPersonaje : MonoBehaviour
                     }
                     else
                     {
-                        unavezsalirpared = true;
+                        unavezsalirpared = false;
+
+                        saltoBloqueado = false;
+                        dashBloqueado = false;
+                        dashCaidaBloqueado = false;
+                        maxTiempoPared = auxpared;
+                        tieneGravedad = true;
+                        saltoDobleHecho = false;
+                        movimientoBloqueado = false;
+                        saltoDobleHechoParaDashCaida = false;
                     }
                 }
                 else
@@ -1785,7 +1803,7 @@ public class ControllerPersonaje : MonoBehaviour
                             pInput.personajeInvertido = false;
                             //transform.Find("Cuerpo").localScale = new Vector2(1, 1);
                             rb.velocity = Vector2.zero;
-                            rb.AddForce(fuerzaSaltoPared * new Vector2(0.6f, 0.6f)); print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1;
+                            rb.AddForce(fuerzaSaltoPared * new Vector2(0.6f, 0.6f));  habilidadesSinTocarSuelo += 1;
                             maxTiempoPared = auxpared; maxYAntesMorir = -999999;
 
                         }
@@ -1795,7 +1813,7 @@ public class ControllerPersonaje : MonoBehaviour
                             pInput.ultimoInputHorizontal = -1;
                             //transform.Find("Cuerpo").localScale = new Vector2(-1, 1);
                             rb.velocity = Vector2.zero;
-                            rb.AddForce(fuerzaSaltoPared * new Vector2(-0.6f, 0.6f)); print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1;
+                            rb.AddForce(fuerzaSaltoPared * new Vector2(-0.6f, 0.6f));  habilidadesSinTocarSuelo += 1;
                             maxTiempoPared = auxpared; maxYAntesMorir = -999999;
 
                         }
@@ -1810,7 +1828,16 @@ public class ControllerPersonaje : MonoBehaviour
                     }
                     else
                     {
-                        unavezsalirpared = true;
+                        unavezsalirpared = false;
+
+                        saltoBloqueado = false;
+                        dashBloqueado = false;
+                        dashCaidaBloqueado = false;
+                        maxTiempoPared = auxpared;
+                        tieneGravedad = true;
+                        saltoDobleHecho = false;
+                        movimientoBloqueado = false;
+                        saltoDobleHechoParaDashCaida = false;
                     }
                 }
                 if (maxTiempoPared <= 0)
@@ -1823,6 +1850,8 @@ public class ControllerPersonaje : MonoBehaviour
             else
             {
                 pegadoPared = false;
+
+               
             }
 
         }
@@ -1841,7 +1870,9 @@ public class ControllerPersonaje : MonoBehaviour
             if (unavezsalirpared == true)
             {
                 unavezsalirpared = false;
-
+                enemigosPasados.Clear();
+                haciendoCombate = false;
+                pulsadoChispazo = false;
                 saltoBloqueado = false;
                 dashBloqueado = false;
                 dashCaidaBloqueado = false;
@@ -3186,7 +3217,7 @@ public class ControllerPersonaje : MonoBehaviour
     void Dash()
     {
 
-        if (estoyDasheando == false)
+        if (estoyDasheando == false&&!dashBloqueado)
         {
 
 
@@ -3344,22 +3375,22 @@ public class ControllerPersonaje : MonoBehaviour
                                     if (pInput.inputVertical == 1 && looping && ultimaNormal.x < 0)
                                     {
                                         rb.AddForce(new Vector2(Vector2.Perpendicular(normal).x * fuerzaDash * 1.2f, Vector2.Perpendicular(normal).y * fuerzaDash) * pInput.inputVertical);
-                                        print("5");
+                                      
                                     }
                                     else if (pInput.inputVertical == 1 && looping && ultimaNormal.x > 0)
                                     {
                                         rb.AddForce(new Vector2(Vector2.Perpendicular(normal).x * fuerzaDash * 1.2f, Vector2.Perpendicular(normal).y * fuerzaDash) * pInput.inputVertical);
-                                        print("6");
+                                       
                                     }
                                     else if (pInput.inputVertical == -1 && looping && ultimaNormal.x > 0)
                                     {
                                         rb.AddForce(new Vector2(Vector2.Perpendicular(normal).x * fuerzaDash * 1.2f, Vector2.Perpendicular(normal).y * fuerzaDash) * pInput.inputVertical);
-                                        print("7");
+                                      
                                     }
                                     else if (pInput.inputVertical == -1 && looping && ultimaNormal.x < 0)
                                     {
                                         rb.AddForce(new Vector2(Vector2.Perpendicular(normal).x * fuerzaDash * 1.2f, Vector2.Perpendicular(normal).y * fuerzaDash) * pInput.inputVertical);
-                                        print("8");
+                                       
                                     }
                                     else
                                     {
@@ -3371,7 +3402,7 @@ public class ControllerPersonaje : MonoBehaviour
                         }
                         else
                         {
-                            print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1;
+                        habilidadesSinTocarSuelo += 1;
                             if (lastJumpPared == false)
                             {
                                 if (pInput.ultimoInputHorizontal < 0)
@@ -3517,7 +3548,7 @@ public class ControllerPersonaje : MonoBehaviour
                         }
                         else
                         {
-                            print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1;
+                           habilidadesSinTocarSuelo += 1;
                             if (lastJumpPared == false)
                             {
                                 if (pInput.ultimoInputHorizontal < 0)
@@ -3709,7 +3740,7 @@ public class ControllerPersonaje : MonoBehaviour
     {
         if (dashEnCaida)
         {
-            if (saltoDobleHechoParaDashCaida || rb.velocity.y > 2) { print("false"); hechoConseguidoPuntoHabDashAbajo = false; dashEnCaida = false; saltoDobleHechoParaDashCaida = false; }
+            if (saltoDobleHechoParaDashCaida || rb.velocity.y > 2) { hechoConseguidoPuntoHabDashAbajo = false; dashEnCaida = false; saltoDobleHechoParaDashCaida = false; }
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
@@ -3726,7 +3757,7 @@ public class ControllerPersonaje : MonoBehaviour
                         if (tiempoCOYOTE < -0.2f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
                         {
                             mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
-                            if (hechoConseguidoPuntoHabDashAbajo == false) { print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
+                            if (hechoConseguidoPuntoHabDashAbajo == false) {  habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
@@ -3750,7 +3781,7 @@ public class ControllerPersonaje : MonoBehaviour
                         if (tiempoCOYOTE < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo)
                         {
                             mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
-                            if (hechoConseguidoPuntoHabDashAbajo == false) { print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
+                            if (hechoConseguidoPuntoHabDashAbajo == false) {  habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
@@ -3790,7 +3821,7 @@ public class ControllerPersonaje : MonoBehaviour
                         if (tiempoCOYOTE < -0.2f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo && dashEnCaida == false)
                         {
                             mEnergy.RestarEnergia(mEnergy.energiaDashAbajo);
-                            if (hechoConseguidoPuntoHabDashAbajo == false) { print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
+                            if (hechoConseguidoPuntoHabDashAbajo == false) {  habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);
@@ -3813,7 +3844,7 @@ public class ControllerPersonaje : MonoBehaviour
                     {
                         if (tiempoCOYOTE < -0.05f && mEnergy.actualEnergy > mEnergy.energiaDashAbajo && dashEnCaida == false)
                         {
-                            if (hechoConseguidoPuntoHabDashAbajo == false) { print(habilidadesSinTocarSuelo + "hab1"); habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
+                            if (hechoConseguidoPuntoHabDashAbajo == false) { habilidadesSinTocarSuelo += 1; hechoConseguidoPuntoHabDashAbajo = true; }
                             FindObjectOfType<NewAudioManager>().Play("PlayerDashFall");
                             //this.GetComponent<AudioManager>().Play(this.GetComponent<AudioManager>().sonidosUnaVez, this.GetComponent<AudioManager>().dashAbajo);
                             rb.AddForce(fuerzaDashCaida * Vector2.down/* * Time.deltaTime*/);

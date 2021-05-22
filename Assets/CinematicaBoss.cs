@@ -25,7 +25,7 @@ public class CinematicaBoss : MonoBehaviour
     float t;
     bool mns;
     int img = 0;
-
+    bool started = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +60,16 @@ public class CinematicaBoss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (started)
+        {
+            FindObjectOfType<ControllerPersonaje>().movimientoBloqueado = true;
+            FindObjectOfType<ControllerPersonaje>().gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            FindObjectOfType<PlayerInput>().inputHorizontal = 0;
+            FindObjectOfType<PlayerInput>().ultimoInputHorizontal = 0;
+            FindObjectOfType<PlayerInput>().enabled = false;
+            FindObjectOfType<ControllerPersonaje>().dashBloqueado = true;
+            FindObjectOfType<ControllerPersonaje>().saltoBloqueado = true;
+        }
         //t -= Time.deltaTime;
         //if(t <= 0)
         //{
@@ -82,8 +92,7 @@ public class CinematicaBoss : MonoBehaviour
     public IEnumerator Encendiendo()
     {
         camara1.SetActive(true);
-        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().enabled = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        started = true;
         yield return new WaitForSeconds(tiempoNiebla);
         
         //camara2.SetActive(true);
@@ -104,9 +113,11 @@ public class CinematicaBoss : MonoBehaviour
         
 
         camara1.SetActive(false);
-        
-        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<PlayerInput>().enabled = true;
-        GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        started = false;
+        FindObjectOfType<ControllerPersonaje>().movimientoBloqueado = false;
+        FindObjectOfType<PlayerInput>().enabled = true;
+        FindObjectOfType<ControllerPersonaje>().dashBloqueado = false;
+        FindObjectOfType<ControllerPersonaje>().saltoBloqueado = false;
 
     }
     public IEnumerator Laseres()

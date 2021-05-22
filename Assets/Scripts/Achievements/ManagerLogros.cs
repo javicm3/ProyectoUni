@@ -81,7 +81,7 @@ public class ManagerLogros : MonoBehaviour
         SteamUserStats.GetStat(id, out value);
         value++;
         SteamUserStats.SetStat(id, value);
-        Debug.Log("stat added : " + id+ value);
+
 
         if (id == "NivelesZona1")
         {

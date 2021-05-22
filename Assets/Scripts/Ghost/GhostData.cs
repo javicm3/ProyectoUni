@@ -37,7 +37,7 @@ public class GhostData : MonoBehaviour
 
 
     bool reproducir;
-    public bool activado;
+    public bool activado = false;
     public GameObject fantasmaPrefab;
     GameObject fantasma;
     public int actualLevel;
@@ -56,7 +56,7 @@ public class GhostData : MonoBehaviour
 
     public void IniciarFantasma(ref LevelInfo nivel)
     {
-       
+
         activado = true;
         nivelActual = nivel;
         tiempoNivel = 0;
@@ -70,7 +70,7 @@ public class GhostData : MonoBehaviour
             rb = player.GetComponent<Rigidbody2D>();
         }
 
-        if (!nivelActual.completado) 
+        if (!nivelActual.completado)
         {
             reproducir = false;
         }
@@ -84,22 +84,23 @@ public class GhostData : MonoBehaviour
             {
                 ManagerLogros.Instance.DesbloquearLogro(4);
             }
-        }   
+        }
     }
 
     public void TerminarNivel(string nivel)
     {
-        if (tiempoNivel<nivelActual.mejorTiempo || nivelActual.mejorTiempo==0)
+        if (tiempoNivel < nivelActual.mejorTiempo || nivelActual.mejorTiempo == 0)
         {
             if (fantasma != null)
             {
                 ManagerLogros.Instance.AddStat("FantasmasGanados");
-            
-            if (!GameManager.Instance.NivelActual.fantasmaGanado)
-            {
-                GameManager.Instance.NivelActual.fantasmaGanado = true;
-                ManagerLogros.Instance.AddStat("NivelesGhost");
-            }}
+
+                if (!GameManager.Instance.NivelActual.fantasmaGanado)
+                {
+                    GameManager.Instance.NivelActual.fantasmaGanado = true;
+                    ManagerLogros.Instance.AddStat("NivelesGhost");
+                }
+            }
             nivelActual.pos.Clear();
             nivelActual.pos.AddRange(posTemp);
         }
@@ -109,43 +110,47 @@ public class GhostData : MonoBehaviour
             {
                 ManagerLogros.Instance.AddStat("FantasmasPerdidos");
             }
-           
+
         }
         posTemp.Clear();
         activado = false;
     }
 
-    public void HacerGrabacion() 
+    public void HacerGrabacion()
     {
+        if (player == null) player = FindObjectOfType<ControllerPersonaje>().gameObject;
         posTemp.Add(new Posiciones(Vector3.zero, Vector3.zero, 0));
         posTemp[actualpos] = new Posiciones(player.transform.position, rb.velocity, tiempoNivel);
         actualpos++;
     }
 
-    void Update() 
+    void Update()
     {
         if (activado)
         {
-            tiempoNivel += Time.deltaTime;
-
-            if (tiempoFuturaGrabacion == 0)
+            if (SceneManager.GetActiveScene().name != "PantallaCarga")
             {
-                tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
-                HacerGrabacion();
+                tiempoNivel += Time.deltaTime;
 
-            }
-            else
-            {
-                if (tiempoFuturaGrabacion < tiempoNivel)
+                if (tiempoFuturaGrabacion == 0)
                 {
                     tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
                     HacerGrabacion();
-                }
-            }
 
-            if (reproducir)
-            {
-                if (fantasma != null) MoverFantasma();
+                }
+                else
+                {
+                    if (tiempoFuturaGrabacion < tiempoNivel)
+                    {
+                        tiempoFuturaGrabacion = tiempoNivel + tiempoEntreGrabaciones;
+                        HacerGrabacion();
+                    }
+                }
+
+                if (reproducir)
+                {
+                    if (fantasma != null) MoverFantasma();
+                }
             }
         }
     }
