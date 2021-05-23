@@ -33,6 +33,6 @@ public class SliderMenu : HUDObject
 
     public override void Slide(float value)
     {
-        slider.value += value*0.1f;
+        slider.value += value*0.03f;
     }
 }

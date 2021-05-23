@@ -102,6 +102,7 @@ public class FuncionalidadPausa : MonoBehaviour
                     FindObjectOfType<NewAudioManager>().Play("SalirPausa");
                     OnPause(false);
                     menuOpciones.SetActive(false);
+                    imagenControles.gameObject.SetActive(false);
                     pInput.enabled = true;
                     cp.saltoBloqueado = false;
                 }
