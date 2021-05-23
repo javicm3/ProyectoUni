@@ -358,22 +358,22 @@ public class ControllerPersonaje : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.N))
-        {
-            this.transform.position = FindObjectOfType<VueltaLobby>().transform.position;
-        }
-        if (Input.GetKey(KeyCode.M) && Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.B))
-        {
-            GameObject[] coleccionablesMonedas = GameObject.FindGameObjectsWithTag("Coleccionable");
-            for (int i = 0; i < coleccionablesMonedas.Length; i++)
-            {
-                if (coleccionablesMonedas[i].GetComponentInChildren<ParticleSystem>() != null)
-                {
-                    GameManager.Instance.CogerColeccionableNivel(coleccionablesMonedas[i]);
+        //if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.I) && Input.GetKey(KeyCode.N))
+        //{
+        //    this.transform.position = FindObjectOfType<VueltaLobby>().transform.position;
+        //}
+        //if (Input.GetKey(KeyCode.M) && Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.B))
+        //{
+        //    GameObject[] coleccionablesMonedas = GameObject.FindGameObjectsWithTag("Coleccionable");
+        //    for (int i = 0; i < coleccionablesMonedas.Length; i++)
+        //    {
+        //        if (coleccionablesMonedas[i].GetComponentInChildren<ParticleSystem>() != null)
+        //        {
+        //            GameManager.Instance.CogerColeccionableNivel(coleccionablesMonedas[i]);
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
         if (auxTiempoSonidoSinEnergia > 0)
         {
             auxTiempoSonidoSinEnergia -= Time.deltaTime;

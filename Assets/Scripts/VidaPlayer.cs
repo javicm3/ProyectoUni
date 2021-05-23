@@ -281,11 +281,7 @@ public class VidaPlayer : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name != "Lobby")
         {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                vidaMax = 10000;
-                vidaActual = 10000;
-            }
+          
 
 
 

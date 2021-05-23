@@ -383,33 +383,33 @@ public class GameManager : MonoBehaviour
     //                      Q U I T A R   T E C L A S   D E S A R R O L L A D O R   P A R A   F I N A L
     //-------------------------------------------------------------------------------------------------------------------------------
 
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.R )&& Input.GetKey(KeyCode.LeftControl))
-        {
-            ReiniciarEscena();
-        }
-        if (Input.GetKeyDown(KeyCode.L) && Input.GetKey(KeyCode.LeftControl))
-        {
-            habilidades.dash = true;
-            habilidades.chispazo = true;
-            habilidades.movCables = true;
-            habilidades.movParedes = true;
+   // void Update()
+    //{
+        //if (Input.GetKey(KeyCode.R )&& Input.GetKey(KeyCode.LeftControl))
+        //{
+        //    ReiniciarEscena();
+        //}
+        //if (Input.GetKeyDown(KeyCode.L) && Input.GetKey(KeyCode.LeftControl))
+        //{
+        //    habilidades.dash = true;
+        //    habilidades.chispazo = true;
+        //    habilidades.movCables = true;
+        //    habilidades.movParedes = true;
 
-            ControllerPersonaje p = FindObjectOfType<ControllerPersonaje>();
-            if (p!=null)
-            { p.CargarHabilidadesGM(); }
-        }
-        if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.LeftControl))
-        {
-            int count = totalColeccionables.Count;
-            for (int i = count; i < 1000; i++)
-            {
-                totalColeccionables.Add("fake"+i);
-                GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>().text = totalColeccionables.Count.ToString() + "  /  " + maxColeccionablesTotal;
-            }
-        }
-    }
+        //    ControllerPersonaje p = FindObjectOfType<ControllerPersonaje>();
+        //    if (p!=null)
+        //    { p.CargarHabilidadesGM(); }
+        //}
+        //if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.LeftControl))
+        //{
+        //    int count = totalColeccionables.Count;
+        //    for (int i = count; i < 1000; i++)
+        //    {
+        //        totalColeccionables.Add("fake"+i);
+        //        GameObject.Find("TextoColecc").GetComponent<TextMeshProUGUI>().text = totalColeccionables.Count.ToString() + "  /  " + maxColeccionablesTotal;
+        //    }
+        //}
+  //  }
 
 
     public void CogerColeccionableNivel(GameObject coleccionable)
