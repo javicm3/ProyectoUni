@@ -14,6 +14,14 @@ public class DisparoLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (FindObjectOfType<ControllerPersonaje>().auxCdDashAtravesar > 0)
+        {
+            this.GetComponent<Collider2D>().enabled = false;
+        }
+        else
+        {
+            this.GetComponent<Collider2D>().enabled = true;
+        }
         transform.Translate(Vector3.right * velocidadBalas * Time.deltaTime);
     }
     private void OnTriggerEnter2D(Collider2D other)

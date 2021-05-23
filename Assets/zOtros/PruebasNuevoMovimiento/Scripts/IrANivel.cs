@@ -72,10 +72,9 @@ public class IrANivel : MonoBehaviour
         }
     }
 
-
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")//CAMBIAR SI DECIDO BUSCAR LOS COLECCIONABLES AL INICIO DEL NIVEL
+        if (collision.GetComponent<ControllerPersonaje>() != null)//CAMBIAR SI DECIDO BUSCAR LOS COLECCIONABLES AL INICIO DEL NIVEL
         {
             /*int coleccionablesCogidos=0;
             if (GameManager.Instance.ListaNiveles!=null)
@@ -114,7 +113,62 @@ public class IrANivel : MonoBehaviour
             {
                 if (GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick != null)
                 {
-                    if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
+                    if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.IsPressed)
+                    {
+                        Activar(nivelDestino);
+                    }
+
+
+                }
+                else if (Input.GetButtonDown("Interact"))
+                {
+                    Activar(nivelDestino);
+                }
+            }
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.GetComponent<ControllerPersonaje>()!=null)//CAMBIAR SI DECIDO BUSCAR LOS COLECCIONABLES AL INICIO DEL NIVEL
+        {
+            /*int coleccionablesCogidos=0;
+            if (GameManager.Instance.ListaNiveles!=null)
+            {
+                foreach (LevelInfo level in GameManager.Instance.ListaNiveles)
+                {
+                    if (nivelDestino == level.nombreNivel)
+                    {
+                        coleccionablesCogidos = level.coleccionablesCogidos.Count;
+                    }
+                }
+            }*/
+
+
+            /*/----------------------------------------------------------------------------------
+
+
+
+            if (nivelDestino == "ND-1")
+            {
+                textoColeccionablesCogidos.text = "Coleccionables" + coleccionablesCogidos.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[0];
+            }
+            if (nivelDestino == "ND-2")
+            {
+                textoColeccionablesCogidos.text = "Coleccionables" + coleccionablesCogidos.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[1];
+            }
+            if (nivelDestino == "ND-3")
+            {
+                textoColeccionablesCogidos.text = "Coleccionables" + coleccionablesCogidos.ToString() + "/" + GameManager.Instance.coleccionablesMaxNv[2];
+            }
+            //-------------------------------------------------------------------------------------*/
+
+            cartel.enabled = true;
+
+            if ((GameManager.Instance.totalColeccionables.Count >= requisitos))
+            {
+                if (GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick != null)
+                {
+                    if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.IsPressed)
                     {
                         Activar(nivelDestino);
                     }

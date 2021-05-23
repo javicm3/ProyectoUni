@@ -29,6 +29,12 @@ public class VideosTutorial : MonoBehaviour
 
     public void AbrirTutorial(DesbloquearHabilidades.habilidad habilidad)
     {
+        ControllerPersonaje player = FindObjectOfType<ControllerPersonaje>();
+        player.movimientoBloqueado = true;
+        player.rb.velocity = Vector2.zero;
+        player.saltoBloqueado = true;
+        player.dashBloqueado = true;
+       
         panel.SetActive(true);
         FindObjectOfType<PlayerInput>().enabled = false;
 
@@ -79,6 +85,11 @@ public class VideosTutorial : MonoBehaviour
         videoPlayer.Stop();
         FindObjectOfType<PlayerInput>().enabled = true;
         panel.SetActive(false);
+        ControllerPersonaje player = FindObjectOfType<ControllerPersonaje>();
+        player.movimientoBloqueado = false;
+      
+        player.saltoBloqueado = false;
+        player.dashBloqueado = false;
     }
 
     void ChangeVideo()

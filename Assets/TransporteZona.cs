@@ -10,16 +10,15 @@ public class TransporteZona : MonoBehaviour
     public float tiempoReutilizar = 1f;
     float auxtiempoRe;
     public GameObject Ir;
-
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            if ((tiempoReutilizar<=0)&&(Player.GetComponent<ControllerPersonaje>().movimientoBloqueado==false))
+            if ((auxtiempoRe <= 0) && (FindObjectOfType<ControllerPersonaje>().movimientoBloqueado == false))
             {
-                if (GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick != null)
+                if (FindObjectOfType<ControllerPersonaje>().joystick != null)
                 {
-                    if (Input.GetButtonDown("Interact") || GameObject.FindGameObjectWithTag("Player").GetComponent<ControllerPersonaje>().joystick.Action2.WasPressed)
+                    if (Input.GetButtonDown("Interact") || FindObjectOfType<ControllerPersonaje>().joystick.Action2.WasPressed)
                     {
                         FindObjectOfType<NewAudioManager>().Play("Puerta");
                         FadeInOut fade = FindObjectOfType<FadeInOut>();
@@ -38,10 +37,11 @@ public class TransporteZona : MonoBehaviour
                             per.rb.velocity = Vector2.zero;
                             StartCoroutine(fade.FadeOut());
                             Invoke("IrZona", 1.5f);
+                            auxtiempoRe = tiempoReutilizar;
 
                         }
-                      
-                        auxtiempoRe = tiempoReutilizar;
+
+
 
 
 
@@ -73,10 +73,84 @@ public class TransporteZona : MonoBehaviour
 
                             StartCoroutine(fade.FadeOut());
                             Invoke("IrZona", 1.5f);
+                            auxtiempoRe = tiempoReutilizar;
+                        }
+
+
+
+
+                    }
+                }
+            }
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.GetComponent<ControllerPersonaje>()!=null)
+        {
+            if ((auxtiempoRe <= 0) && (FindObjectOfType<ControllerPersonaje>().movimientoBloqueado == false))
+            {
+                if (FindObjectOfType<ControllerPersonaje>().joystick != null)
+                {
+                    if (Input.GetButtonDown("Interact") || FindObjectOfType<ControllerPersonaje>().joystick.Action2.IsPressed)
+                    {
+                        FindObjectOfType<NewAudioManager>().Play("Puerta");
+                        FadeInOut fade = FindObjectOfType<FadeInOut>();
+                        if (fade != null)
+                        {
+                            GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+                            PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
+                            plInput.inputHorizBlock = true;
+                            plInput.inputVerticBlock = true;
+
+                            ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
+                            per.dashBloqueado = true;
+                            per.saltoBloqueado = true;
+                            per.dashCaidaBloqueado = true;
+                            per.movimientoBloqueado = true;
+                            per.rb.velocity = Vector2.zero;
+                            StartCoroutine(fade.FadeOut());
+                            Invoke("IrZona", 1.5f);
+                            auxtiempoRe = tiempoReutilizar;
 
                         }
-                  
-                        auxtiempoRe = tiempoReutilizar;
+
+
+
+
+
+
+
+                    }
+                }
+                else
+                {
+                    if (Input.GetButtonDown("Interact"))
+                    {
+
+                        FindObjectOfType<NewAudioManager>().Play("Puerta");
+
+                        FadeInOut fade = FindObjectOfType<FadeInOut>();
+                        if (fade != null)
+                        {
+                            GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+                            PlayerInput plInput = playerGO.GetComponentInChildren<PlayerInput>();
+                            plInput.inputHorizBlock = true;
+                            plInput.inputVerticBlock = true;
+
+                            ControllerPersonaje per = playerGO.GetComponentInChildren<ControllerPersonaje>();
+                            per.dashBloqueado = true;
+                            per.saltoBloqueado = true;
+                            per.dashCaidaBloqueado = true;
+                            per.movimientoBloqueado = true;
+                            per.rb.velocity = Vector2.zero;
+
+                            StartCoroutine(fade.FadeOut());
+                            Invoke("IrZona", 1.5f);
+                            auxtiempoRe = tiempoReutilizar;
+                        }
+
+
 
 
                     }
@@ -90,7 +164,7 @@ public class TransporteZona : MonoBehaviour
         Invoke("QuitarFade", 1f);
 
     }
-   
+
     void QuitarFade()
     {
         FadeInOut fade = FindObjectOfType<FadeInOut>();
@@ -104,12 +178,12 @@ public class TransporteZona : MonoBehaviour
     }
     private void Update()
     {
-      
 
-            if (tiempoReutilizar > 0)
-            {
-                tiempoReutilizar -= Time.deltaTime;
-            }
-         
+
+        if (auxtiempoRe > 0)
+        {
+            auxtiempoRe -= Time.deltaTime;
+        }
+
     }
 }
