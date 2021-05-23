@@ -7,9 +7,9 @@ using UnityEngine.EventSystems;
 public class HUDController : MonoBehaviour
 {
     InputDevice joystick;
-    public bool isController=false;
+    public bool isController = false;
     HUDObject selected;
-    int index=0;
+    int index = 0;
 
     [SerializeField] HUDObject[] item;
     public Material normal;
@@ -17,11 +17,13 @@ public class HUDController : MonoBehaviour
 
     [SerializeField] bool horizontal;
     GraphicRaycaster raycaster;
-    
+    public float tiempoEntreCambios = 0.3f;
+    public float auxtime;
 
     // Start is called before the first frame update
     void Start()
     {
+        auxtime = tiempoEntreCambios;
         StartCoroutine(WaitCheckController());
         raycaster = GetComponentInParent<GraphicRaycaster>();
     }
@@ -34,13 +36,13 @@ public class HUDController : MonoBehaviour
             selected = item[index];
             selected.Select();
         }
-        else { Cursor.visible = true; } 
+        else { Cursor.visible = true; }
     }
 
 
     void Update()
-    {
-        if (isController&&joystick != null )
+    {   auxtime -= 0.02f;
+        if (isController && joystick != null)
         {
             /*if (Input.GetKeyDown(KeyCode.DownArrow) && index + 1 < item.Length)
             {
@@ -53,18 +55,20 @@ public class HUDController : MonoBehaviour
                 index--;
                 SelectItem();
             }*/
-
+         
             if (!horizontal)
             {
-                if (joystick.LeftStickY.WasPressed)
+                print("eeeew");
+                if (auxtime < 0 && joystick.LeftStickY > 0.5f && index - 1 >= 0)
                 {
-                    if (Input.GetAxis("Vertical") > 0.05f && index - 1 >= 0)
-                    { index--; }
-                    else if (Input.GetAxis("Vertical") < -0.05f && index + 1 < item.Length) { index++; print("nav" +index); }
-
-                    SelectItem();
+                    print("w");
+                    index--; SelectItem(); auxtime = tiempoEntreCambios;
                 }
-                else if (joystick.DPadUp.WasPressed && index - 1 >= 0)
+                else if (auxtime < 0 && joystick.LeftStickY < -0.5f && index + 1 < item.Length) { index++; print("nav" + index); auxtime = tiempoEntreCambios; SelectItem(); }
+
+
+
+                if (joystick.DPadUp.WasPressed && index - 1 >= 0)
                 {
                     index--;
                     SelectItem();
@@ -73,7 +77,7 @@ public class HUDController : MonoBehaviour
                 {
                     index++;
                     SelectItem();
-                    
+
                 }
 
 
@@ -154,13 +158,13 @@ public class HUDController : MonoBehaviour
             joystick = InputManager.ActiveDevice;
             if (joystick != null && joystick.Name != "NullInputDevice" && joystick.Name != "Unknown Device")
             {
-               
+
                 isController = true;
                 selected = item[index];
                 selected.Select();
                 Cursor.visible = false;
                 raycaster.enabled = false;
-            }            
+            }
         }
         else
         {
@@ -171,7 +175,7 @@ public class HUDController : MonoBehaviour
                 selected.Diselect();
                 Cursor.visible = true;
                 raycaster.enabled = true;
-            }            
+            }
         }
 
     }

@@ -139,7 +139,10 @@ public class FuncionalidadPausa : MonoBehaviour
 
                 }
             }
-            else { gatito = true; mandoprev = (joystick != null && joystick.Name != "NullInputDevice" && joystick.Name != "Unknown Device"); } //siento esta basura pero al inicio no me lo seteaba bien asique aqui
+            else {
+                gatito = true;
+                mandoprev = (joystick != null && joystick.Name != "NullInputDevice" && joystick.Name != "Unknown Device");
+            } //siento esta basura pero al inicio no me lo seteaba bien asique aqui
             
         }
     }

@@ -29,6 +29,7 @@ public class VideosTutorial : MonoBehaviour
 
     public void AbrirTutorial(DesbloquearHabilidades.habilidad habilidad)
     {
+        CheckController();
         ControllerPersonaje player = FindObjectOfType<ControllerPersonaje>();
         player.movimientoBloqueado = true;
         player.rb.velocity = Vector2.zero;
