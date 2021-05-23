@@ -44,5 +44,5 @@ public class Idiomas
     public static string[] skill = { "Nueva habilidad :  ", "New skill :  " };
     public static string[] climbWalls = { "Escalar paredes", "Climb walls" };
     public static string[] wireTravel = { "Viaje entre cables", "Wire Travel" };
-    public static string[] spark = { "Chispazo", "Spark" };
+    public static string[] spark = { "Chispazo", "Discharge" };
 }
