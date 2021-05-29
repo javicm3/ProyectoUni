@@ -4,6 +4,9 @@ using UnityEngine;
 using InControl;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+
+using UnityEngine.SceneManagement;
+
 public class HUDController : MonoBehaviour
 {
     InputDevice joystick;
@@ -41,7 +44,14 @@ public class HUDController : MonoBehaviour
 
 
     void Update()
-    {   auxtime -= 0.02f;
+    {  if (SceneManager.GetActiveScene().name == "PantallaInicio")
+        {
+            auxtime -= 0.001f;
+        }
+        else
+        {
+            auxtime -= 0.004f;
+        }
         if (isController && joystick != null)
         {
             /*if (Input.GetKeyDown(KeyCode.DownArrow) && index + 1 < item.Length)
