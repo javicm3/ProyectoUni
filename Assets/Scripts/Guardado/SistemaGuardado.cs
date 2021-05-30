@@ -6,7 +6,7 @@ using UnityEngine;
 public class SistemaGuardado : MonoBehaviour
 {
     public static readonly string Carpeta_Guardado = Application.persistentDataPath + "/Guardado/";
-    public static int indiceIdioma = 0;
+    public static int indiceIdioma = 1;
     public static readonly string[] slots = new string[3] {"Slot 1","Slot 2","Slot 3" };
     public static int indiceSlot = 0;
     public static DataSlots dataSlots = new DataSlots();

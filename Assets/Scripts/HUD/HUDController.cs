@@ -68,13 +68,13 @@ public class HUDController : MonoBehaviour
          
             if (!horizontal)
             {
-                print("eeeew");
+                //print("eeeew");
                 if (auxtime < 0 && joystick.LeftStickY > 0.5f && index - 1 >= 0)
                 {
-                    print("w");
+                    //print("w");
                     index--; SelectItem(); auxtime = tiempoEntreCambios;
                 }
-                else if (auxtime < 0 && joystick.LeftStickY < -0.5f && index + 1 < item.Length) { index++; print("nav" + index); auxtime = tiempoEntreCambios; SelectItem(); }
+                else if (auxtime < 0 && joystick.LeftStickY < -0.5f && index + 1 < item.Length) { index++; /*print("nav" + index);*/ auxtime = tiempoEntreCambios; SelectItem(); }
 
 
 
@@ -128,8 +128,8 @@ public class HUDController : MonoBehaviour
 
             if (joystick.Action1.WasPressed)
             {
-                print(index);
-                print(selected.name);
+                //print(index);
+                //print(selected.name);
                 selected.Use();
             }
 
