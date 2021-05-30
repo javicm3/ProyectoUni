@@ -174,13 +174,5 @@ public class ManagerLogros : MonoBehaviour
     {
         SteamUserStats.GetAchievement(idLogro, out estaDesbloqueadoLogro);
     }
-    void Update()
-    {
-      
-        if (Input.GetKey(KeyCode.J) && Input.GetKey(KeyCode.P) && Input.GetKey(KeyCode.M))
-        {
-            SteamUserStats.ResetAllStats(true);
-            SteamUserStats.StoreStats();
-        }
-    }
+   
 }

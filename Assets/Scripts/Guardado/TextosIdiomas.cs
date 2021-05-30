@@ -12,7 +12,7 @@ public class Idiomas
     public static string[] creditos = { "CREDITOS", "CREDITS" };
 
 
-    public static string[] controles = { "VER CONTROLES", "VI EW CONTROLS" };
+    public static string[] controles = { "VER CONTROLES", "VIEW CONTROLS" };
     public static string[] mando = { "MANDO", "CONTROLLER" };
     public static string[] teclado = { "TECLADO", "KEYBOARD" };
 
@@ -20,7 +20,7 @@ public class Idiomas
     public static string[] musica = { "MUSICA", "MUSIC" };
     public static string[] sonido = { "SONIDO", "SOUND" };
 
-    public static string[] idioma = { "IDIOMA", "LANGUAJE" };
+    public static string[] idioma = { "IDIOMA", "LANGUAGE" };
     public static string[] español = { "CASTELLANO", "SPANISH" };
     public static string[] ingles = { "INGLES", "ENGLISH" };
 

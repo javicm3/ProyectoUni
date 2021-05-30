@@ -295,293 +295,296 @@ public class cableadoviaje : MonoBehaviour
 
         if (collision.gameObject.tag == "Nodo")
         {
-            nodoElegido = null;
-            nodoActual = collision.gameObject;
-            inputEnabled = true;
-            //speedMov = 0;
-
-            FindObjectOfType<NewAudioManager>().Play("PlayerCable");
-            Nodo node = collision.gameObject.GetComponent<Nodo>();
-            if (node.entrada)
+            if (controllerPersonaje.movCablesUnlook)
             {
+                nodoElegido = null;
+                nodoActual = collision.gameObject;
+                inputEnabled = true;
+                //speedMov = 0;
 
-                if (node.entradaArriba)
+                FindObjectOfType<NewAudioManager>().Play("PlayerCable");
+                Nodo node = collision.gameObject.GetComponent<Nodo>();
+                if (node.entrada)
                 {
-                    /*foreach (GameObject nodo in nodos)
+
+                    if (node.entradaArriba)
                     {
-                        if (nodo.transform.position.x == nodoActual.transform.position.x && nodo.transform.position.y > nodoActual.transform.position.y)
+                        /*foreach (GameObject nodo in nodos)
                         {
-                            speedMov = originalspeed;
-                            nodoElegido = nodo;
-                        }
-                    }*/
+                            if (nodo.transform.position.x == nodoActual.transform.position.x && nodo.transform.position.y > nodoActual.transform.position.y)
+                            {
+                                speedMov = originalspeed;
+                                nodoElegido = nodo;
+                            }
+                        }*/
 
 
-                    rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.left);
-                    var em = ps.velocityOverLifetime;
-                    em.enabled = true;
-                    em.x = -8;
-                    em.y = 0;
-                    for (int i = 0; i < nodos.Length; i++)
-                    {
-                        if (nodos[i].transform.position.x == nodoActual.transform.position.x && nodos[i].transform.position.y > nodoActual.transform.position.y)
+                        rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.left);
+                        var em = ps.velocityOverLifetime;
+                        em.enabled = true;
+                        em.x = -8;
+                        em.y = 0;
+                        for (int i = 0; i < nodos.Length; i++)
                         {
-                            speedMov = originalspeed;
-                            if (nodoElegido == nodoActual)
+                            if (nodos[i].transform.position.x == nodoActual.transform.position.x && nodos[i].transform.position.y > nodoActual.transform.position.y)
                             {
-                                nodoElegido = null;
-                            }
-                            if ((nodoElegido == null || nodos[i].transform.position.y < nodoElegido.transform.position.y) && nodos[i].transform.position.y != nodoActual.transform.position.y)
-                            {
-                                nodoElegido = nodos[i];
-                            }
-                        }
-                    }
-                }
-                if (node.entradaAbajo)
-                {
-                    //foreach (GameObject nodo in nodos)
-                    //{
-                    //    if (nodo.transform.position.x == nodoActual.transform.position.x && nodo.transform.position.y < nodoActual.transform.position.y && nodo != nodoActual)
-                    //    {
-                    //        speedMov = originalspeed;
-                    //        nodoElegido = nodo;
-                    //    }
-                    //}
-
-
-                    rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.right);
-                    var em = ps.velocityOverLifetime;
-                    em.enabled = true;
-                    em.x = -8;
-                    em.y = 0;
-                    for (int i = 0; i < nodos.Length; i++)
-                    {
-                        if (nodos[i].transform.position.x == nodoActual.transform.position.x && nodos[i].transform.position.y < nodoActual.transform.position.y)
-                        {
-                            speedMov = originalspeed;
-                            if (nodoElegido == nodoActual)
-                            {
-                                nodoElegido = null;
-                            }
-                            if ((nodoElegido == null || nodos[i].transform.position.y > nodoElegido.transform.position.y) && nodos[i].transform.position.y != nodoActual.transform.position.y)
-                            {
-                                nodoElegido = nodos[i];
+                                speedMov = originalspeed;
+                                if (nodoElegido == nodoActual)
+                                {
+                                    nodoElegido = null;
+                                }
+                                if ((nodoElegido == null || nodos[i].transform.position.y < nodoElegido.transform.position.y) && nodos[i].transform.position.y != nodoActual.transform.position.y)
+                                {
+                                    nodoElegido = nodos[i];
+                                }
                             }
                         }
                     }
-                }
-                if (node.entradaDerecha)
-                {
-                    //foreach (GameObject nodo in nodos)
-                    //{
-                    //    if (nodo.transform.position.y == nodoActual.transform.position.y && nodo.transform.position.x > nodoActual.transform.position.x)
-                    //    {
-                    //        speedMov = originalspeed;
-                    //        nodoElegido = nodo;
-                    //    }
-                    //}
-
-
-                    rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
-
-                    var em = ps.velocityOverLifetime;
-                    em.enabled = true;
-                    em.y = 0;
-                    em.x = -8;
-
-                    for (int i = 0; i < nodos.Length; i++)
+                    if (node.entradaAbajo)
                     {
-                        if (nodos[i].transform.position.x > nodoActual.transform.position.x && nodos[i].transform.position.y == nodoActual.transform.position.y)
-                        {
-                            speedMov = originalspeed;
-                            if (nodoElegido == nodoActual)
-                            {
-                                nodoElegido = null;
-                            }
-                            if ((nodoElegido == null || nodos[i].transform.position.x < nodoElegido.transform.position.x) && nodos[i].transform.position.x != nodoActual.transform.position.x)
-                            {
-                                nodoElegido = nodos[i];
-                            }
+                        //foreach (GameObject nodo in nodos)
+                        //{
+                        //    if (nodo.transform.position.x == nodoActual.transform.position.x && nodo.transform.position.y < nodoActual.transform.position.y && nodo != nodoActual)
+                        //    {
+                        //        speedMov = originalspeed;
+                        //        nodoElegido = nodo;
+                        //    }
+                        //}
 
+
+                        rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.right);
+                        var em = ps.velocityOverLifetime;
+                        em.enabled = true;
+                        em.x = -8;
+                        em.y = 0;
+                        for (int i = 0; i < nodos.Length; i++)
+                        {
+                            if (nodos[i].transform.position.x == nodoActual.transform.position.x && nodos[i].transform.position.y < nodoActual.transform.position.y)
+                            {
+                                speedMov = originalspeed;
+                                if (nodoElegido == nodoActual)
+                                {
+                                    nodoElegido = null;
+                                }
+                                if ((nodoElegido == null || nodos[i].transform.position.y > nodoElegido.transform.position.y) && nodos[i].transform.position.y != nodoActual.transform.position.y)
+                                {
+                                    nodoElegido = nodos[i];
+                                }
+                            }
                         }
                     }
-                }
-                if (node.entradaIzquierda)
-                {
-                    //foreach (GameObject nodo in nodos)
-                    //{
-                    //    if (nodo.transform.position.y == nodoActual.transform.position.y && nodo.transform.position.x < nodoActual.transform.position.x)
-                    //    {
-
-                    //        speedMov = originalspeed;
-                    //        nodoElegido = nodo;
-                    //    }
-                    //}
-
-
-                    rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.down);
-                    var em = ps.velocityOverLifetime;
-                    em.enabled = true;
-                    em.x = -8;
-                    em.y = 0;
-                    for (int i = 0; i < nodos.Length; i++)
+                    if (node.entradaDerecha)
                     {
-                        if (nodos[i].transform.position.x < nodoActual.transform.position.x && nodos[i].transform.position.y == nodoActual.transform.position.y)
-                        {
-                            speedMov = originalspeed;
-                            if (nodoElegido == nodoActual)
-                            {
-                                nodoElegido = null;
-                            }
-                            if ((nodoElegido == null || nodos[i].transform.position.x > nodoElegido.transform.position.y) && nodos[i].transform.position.x != nodoActual.transform.position.x)
-                            {
-                                nodoElegido = nodos[i];
-                            }
+                        //foreach (GameObject nodo in nodos)
+                        //{
+                        //    if (nodo.transform.position.y == nodoActual.transform.position.y && nodo.transform.position.x > nodoActual.transform.position.x)
+                        //    {
+                        //        speedMov = originalspeed;
+                        //        nodoElegido = nodo;
+                        //    }
+                        //}
 
+
+                        rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+
+                        var em = ps.velocityOverLifetime;
+                        em.enabled = true;
+                        em.y = 0;
+                        em.x = -8;
+
+                        for (int i = 0; i < nodos.Length; i++)
+                        {
+                            if (nodos[i].transform.position.x > nodoActual.transform.position.x && nodos[i].transform.position.y == nodoActual.transform.position.y)
+                            {
+                                speedMov = originalspeed;
+                                if (nodoElegido == nodoActual)
+                                {
+                                    nodoElegido = null;
+                                }
+                                if ((nodoElegido == null || nodos[i].transform.position.x < nodoElegido.transform.position.x) && nodos[i].transform.position.x != nodoActual.transform.position.x)
+                                {
+                                    nodoElegido = nodos[i];
+                                }
+
+                            }
                         }
                     }
-                }
-
-            }
-
-            if (/*!node.entrada &&*/ !node.salida) { controllerPersonaje.rb.velocity = Vector2.zero; this.gameObject.transform.position = node.transform.position; }
-            //if (node.entrada) this.gameObject.transform.position = node.transform.position;
-
-            if (node.salida)
-            {
-                if (GetComponent<ControllerPersonaje>().saltoDobleHecho == true) GetComponent<ControllerPersonaje>().saltoDobleHecho = false;
-                if (node.salida == false && viajando == true)
-                {
-                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().pasarPorNodo);
-                    this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z);
-
-                }
-                if (node.salidaAbajo == true && viajando == true)
-                {
-                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
-                    this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(0, -2);
-                    viajando = false;
-                    this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
-                    this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
-
-                    m_Rigidbody2D.isKinematic = false;
-                    //
-                    if (unavez == true)
+                    if (node.entradaIzquierda)
                     {
-                        //this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
-                        GetComponent<VidaPlayer>().enabled = true;
-                        m_Rigidbody2D.gravityScale = originalGravity;
-                        unavez = false;
-                        //if (rendererCuerpo != null) rendererCuerpo.enabled = true;
-                        if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
-                        //rendererCuerpo.gameObject.SetActive(true);
-                        rendererViaje.enabled = false;
-                        rendererViaje.gameObject.SetActive(false);
-                        colliderViaje.enabled = false;
-                        colliderNormal.enabled = true;
-                        controllerPersonaje.movimientoBloqueado = false;
-                        controllerPersonaje.dashBloqueado = false;
-                        controllerPersonaje.dashCaidaBloqueado = false;
-                        controllerPersonaje.saltoBloqueado = false;
+                        //foreach (GameObject nodo in nodos)
+                        //{
+                        //    if (nodo.transform.position.y == nodoActual.transform.position.y && nodo.transform.position.x < nodoActual.transform.position.x)
+                        //    {
+
+                        //        speedMov = originalspeed;
+                        //        nodoElegido = nodo;
+                        //    }
+                        //}
+
+
+                        rendererViaje.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.down);
+                        var em = ps.velocityOverLifetime;
+                        em.enabled = true;
+                        em.x = -8;
+                        em.y = 0;
+                        for (int i = 0; i < nodos.Length; i++)
+                        {
+                            if (nodos[i].transform.position.x < nodoActual.transform.position.x && nodos[i].transform.position.y == nodoActual.transform.position.y)
+                            {
+                                speedMov = originalspeed;
+                                if (nodoElegido == nodoActual)
+                                {
+                                    nodoElegido = null;
+                                }
+                                if ((nodoElegido == null || nodos[i].transform.position.x > nodoElegido.transform.position.y) && nodos[i].transform.position.x != nodoActual.transform.position.x)
+                                {
+                                    nodoElegido = nodos[i];
+                                }
+
+                            }
+                        }
                     }
-                    this.GetComponent<ControllerPersonaje>().rb.AddForce(new Vector2(0, -1) * fuerzaSalida, ForceMode2D.Impulse); nodoElegido = null;
+
                 }
-                else if (node.salidaArriba == true && viajando == true)
+
+                if (/*!node.entrada &&*/ !node.salida) { controllerPersonaje.rb.velocity = Vector2.zero; this.gameObject.transform.position = node.transform.position; }
+                //if (node.entrada) this.gameObject.transform.position = node.transform.position;
+
+                if (node.salida)
                 {
-                    // GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
-                    this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(0, +2);
-                    viajando = false;
-                    this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
-                    this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
-
-                    m_Rigidbody2D.isKinematic = false;
-                    //
-                    if (unavez == true)
+                    if (GetComponent<ControllerPersonaje>().saltoDobleHecho == true) GetComponent<ControllerPersonaje>().saltoDobleHecho = false;
+                    if (node.salida == false && viajando == true)
                     {
-                        //this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
-                        GetComponent<VidaPlayer>().enabled = true;
-                        m_Rigidbody2D.gravityScale = originalGravity;
-                        unavez = false;
-                        //if (rendererCuerpo != null) rendererCuerpo.enabled = true;
-                        if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
-                        //rendererCuerpo.gameObject.SetActive(true);
-                        rendererViaje.enabled = false;
-                        rendererViaje.gameObject.SetActive(false);
-                        colliderViaje.enabled = false;
-                        colliderNormal.enabled = true;
-                        controllerPersonaje.movimientoBloqueado = false;
-                        controllerPersonaje.dashBloqueado = false;
-                        controllerPersonaje.dashCaidaBloqueado = false;
-                        controllerPersonaje.saltoBloqueado = false;
+                        //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().pasarPorNodo);
+                        this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z);
+
                     }
-                    this.GetComponent<ControllerPersonaje>().rb.AddForce(new Vector2(0, 1) * fuerzaSalida, ForceMode2D.Impulse); nodoElegido = null;
-
-                }
-                else if (node.salidaDerecha == true && viajando == true)
-                {
-                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
-                    this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(2, 0);
-                    viajando = false;
-                    this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
-                    this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
-
-                    m_Rigidbody2D.isKinematic = false;
-                    //
-                    if (unavez == true)
+                    if (node.salidaAbajo == true && viajando == true)
                     {
-                        //this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
-                        GetComponent<VidaPlayer>().enabled = true;
-                        m_Rigidbody2D.gravityScale = originalGravity;
-                        unavez = false;
-                        //if (rendererCuerpo != null) rendererCuerpo.enabled = true;
-                        if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
-                        //rendererCuerpo.gameObject.SetActive(true);
-                        rendererViaje.enabled = false;
-                        rendererViaje.gameObject.SetActive(false);
-                        colliderViaje.enabled = false;
-                        colliderNormal.enabled = true;
-                        controllerPersonaje.movimientoBloqueado = false;
-                        controllerPersonaje.dashBloqueado = false;
-                        controllerPersonaje.dashCaidaBloqueado = false;
-                        controllerPersonaje.saltoBloqueado = false;
+                        //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
+                        this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(0, -2);
+                        viajando = false;
+                        this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
+                        this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
+
+                        m_Rigidbody2D.isKinematic = false;
+                        //
+                        if (unavez == true)
+                        {
+                            //this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
+                            GetComponent<VidaPlayer>().enabled = true;
+                            m_Rigidbody2D.gravityScale = originalGravity;
+                            unavez = false;
+                            //if (rendererCuerpo != null) rendererCuerpo.enabled = true;
+                            if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
+                            //rendererCuerpo.gameObject.SetActive(true);
+                            rendererViaje.enabled = false;
+                            rendererViaje.gameObject.SetActive(false);
+                            colliderViaje.enabled = false;
+                            colliderNormal.enabled = true;
+                            controllerPersonaje.movimientoBloqueado = false;
+                            controllerPersonaje.dashBloqueado = false;
+                            controllerPersonaje.dashCaidaBloqueado = false;
+                            controllerPersonaje.saltoBloqueado = false;
+                        }
+                        this.GetComponent<ControllerPersonaje>().rb.AddForce(new Vector2(0, -1) * fuerzaSalida, ForceMode2D.Impulse); nodoElegido = null;
                     }
-                    this.GetComponent<ControllerPersonaje>().rb.AddForce(new Vector2(1, 0) * fuerzaSalida, ForceMode2D.Impulse); nodoElegido = null;
-
-                }
-                else if (node.salidaIzquierda == true && viajando == true)
-                {
-                    //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
-                    this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(-2, 0);
-                    viajando = false;
-                    this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
-                    this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
-
-                    nodoElegido = null;
-                    m_Rigidbody2D.isKinematic = false;
-                    //
-                    if (unavez == true)
+                    else if (node.salidaArriba == true && viajando == true)
                     {
-                        //this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
-                        GetComponent<VidaPlayer>().enabled = true;
-                        m_Rigidbody2D.gravityScale = originalGravity;
-                        unavez = false;
-                        //if (rendererCuerpo != null) rendererCuerpo.enabled = true;
-                        if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
-                        //rendererCuerpo.gameObject.SetActive(true);
-                        rendererViaje.enabled = false;
-                        rendererViaje.gameObject.SetActive(false);
-                        colliderViaje.enabled = false;
-                        colliderNormal.enabled = true;
-                        controllerPersonaje.movimientoBloqueado = false;
-                        controllerPersonaje.dashBloqueado = false;
-                        controllerPersonaje.dashCaidaBloqueado = false;
-                        controllerPersonaje.saltoBloqueado = false;
-                    }
-                    this.GetComponent<ControllerPersonaje>().rb.AddForce(new Vector2(-1, 0) * fuerzaSalida, ForceMode2D.Impulse);
+                        // GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
+                        this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(0, +2);
+                        viajando = false;
+                        this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
+                        this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
 
+                        m_Rigidbody2D.isKinematic = false;
+                        //
+                        if (unavez == true)
+                        {
+                            //this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
+                            GetComponent<VidaPlayer>().enabled = true;
+                            m_Rigidbody2D.gravityScale = originalGravity;
+                            unavez = false;
+                            //if (rendererCuerpo != null) rendererCuerpo.enabled = true;
+                            if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
+                            //rendererCuerpo.gameObject.SetActive(true);
+                            rendererViaje.enabled = false;
+                            rendererViaje.gameObject.SetActive(false);
+                            colliderViaje.enabled = false;
+                            colliderNormal.enabled = true;
+                            controllerPersonaje.movimientoBloqueado = false;
+                            controllerPersonaje.dashBloqueado = false;
+                            controllerPersonaje.dashCaidaBloqueado = false;
+                            controllerPersonaje.saltoBloqueado = false;
+                        }
+                        this.GetComponent<ControllerPersonaje>().rb.AddForce(new Vector2(0, 1) * fuerzaSalida, ForceMode2D.Impulse); nodoElegido = null;
+
+                    }
+                    else if (node.salidaDerecha == true && viajando == true)
+                    {
+                        //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
+                        this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(2, 0);
+                        viajando = false;
+                        this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
+                        this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
+
+                        m_Rigidbody2D.isKinematic = false;
+                        //
+                        if (unavez == true)
+                        {
+                            //this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
+                            GetComponent<VidaPlayer>().enabled = true;
+                            m_Rigidbody2D.gravityScale = originalGravity;
+                            unavez = false;
+                            //if (rendererCuerpo != null) rendererCuerpo.enabled = true;
+                            if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
+                            //rendererCuerpo.gameObject.SetActive(true);
+                            rendererViaje.enabled = false;
+                            rendererViaje.gameObject.SetActive(false);
+                            colliderViaje.enabled = false;
+                            colliderNormal.enabled = true;
+                            controllerPersonaje.movimientoBloqueado = false;
+                            controllerPersonaje.dashBloqueado = false;
+                            controllerPersonaje.dashCaidaBloqueado = false;
+                            controllerPersonaje.saltoBloqueado = false;
+                        }
+                        this.GetComponent<ControllerPersonaje>().rb.AddForce(new Vector2(1, 0) * fuerzaSalida, ForceMode2D.Impulse); nodoElegido = null;
+
+                    }
+                    else if (node.salidaIzquierda == true && viajando == true)
+                    {
+                        //GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().Play(GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().sonidosUnaVez, GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>().salidaCables);
+                        this.transform.position = new Vector3(node.transform.position.x, node.transform.position.y, this.transform.position.z) + new Vector3(-2, 0);
+                        viajando = false;
+                        this.GetComponent<CameraZoom>().startsize = this.GetComponent<CameraZoom>().auxstartsize;
+                        this.GetComponent<CameraZoom>().tamañoCamaraViaje = this.GetComponent<CameraZoom>().originalTamañoCamaraViaje;
+
+                        nodoElegido = null;
+                        m_Rigidbody2D.isKinematic = false;
+                        //
+                        if (unavez == true)
+                        {
+                            //this.GetComponent<AudioManager>().Stop(this.GetComponent<AudioManager>().sonidoLoop);
+                            GetComponent<VidaPlayer>().enabled = true;
+                            m_Rigidbody2D.gravityScale = originalGravity;
+                            unavez = false;
+                            //if (rendererCuerpo != null) rendererCuerpo.enabled = true;
+                            if (rendererCuerpo != null) rendererCuerpo.gameObject.SetActive(true);
+                            //rendererCuerpo.gameObject.SetActive(true);
+                            rendererViaje.enabled = false;
+                            rendererViaje.gameObject.SetActive(false);
+                            colliderViaje.enabled = false;
+                            colliderNormal.enabled = true;
+                            controllerPersonaje.movimientoBloqueado = false;
+                            controllerPersonaje.dashBloqueado = false;
+                            controllerPersonaje.dashCaidaBloqueado = false;
+                            controllerPersonaje.saltoBloqueado = false;
+                        }
+                        this.GetComponent<ControllerPersonaje>().rb.AddForce(new Vector2(-1, 0) * fuerzaSalida, ForceMode2D.Impulse);
+
+                    }
+                    //FindObjectOfType<NewAudioManager>().Play("PlayerCable");
                 }
-                //FindObjectOfType<NewAudioManager>().Play("PlayerCable");
             }
         }
     }
@@ -641,7 +644,8 @@ public class cableadoviaje : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
 
-        if (collision.gameObject.tag == "Nodo")
+        if (collision.gameObject.tag == "Nodo" &&  controllerPersonaje.movCablesUnlook)
+           
         {
 
 
