@@ -42,7 +42,7 @@ public class SistemaGuardado : MonoBehaviour
             string datos = JsonUtility.ToJson(dataSlots);
             File.WriteAllText(Carpeta_Guardado + "slotsData.txt", datos);
         }
-
+      
         CargarPlayerPrefs();
     }
 

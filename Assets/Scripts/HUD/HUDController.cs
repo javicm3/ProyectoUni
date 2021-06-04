@@ -46,11 +46,11 @@ public class HUDController : MonoBehaviour
     void Update()
     {  if (SceneManager.GetActiveScene().name == "PantallaInicio")
         {
-            auxtime -= 0.001f;
+            auxtime -= Time.unscaledDeltaTime;
         }
         else
         {
-            auxtime -= 0.004f;
+            auxtime -= Time.unscaledDeltaTime;
         }
         if (isController && joystick != null)
         {
